@@ -28,7 +28,19 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="candidatesrv.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="server.js" />
+    <Compile Include="sourcesrv.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="wigsrv.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Content Include="dashboard.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
