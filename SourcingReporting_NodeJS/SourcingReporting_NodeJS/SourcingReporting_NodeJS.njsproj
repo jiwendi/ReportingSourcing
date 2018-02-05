@@ -31,8 +31,29 @@
     <Compile Include="candidatesrv.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="public\js\angular-filter.min.js" />
+    <Compile Include="public\js\angular-route.min.js" />
+    <Compile Include="public\js\angular.min.js" />
+    <Compile Include="public\js\bootstrap-datepicker.min.js" />
+    <Compile Include="public\js\collapse.js" />
+    <Compile Include="public\js\jquery-3.2.1.min.js" />
+    <Compile Include="public\js\jquery-ui.min.js" />
+    <Compile Include="public\js\moment.de.js" />
+    <Compile Include="public\js\moment.js" />
+    <Compile Include="public\js\popper.min.js" />
+    <Compile Include="public\js\select2.full.min.js" />
+    <Compile Include="public\js\sourcing\dashboard.js" />
+    <Compile Include="public\js\sourcing\login.js" />
+    <Compile Include="public\js\sourcing\register.js" />
+    <Compile Include="public\js\transition.js" />
     <Compile Include="server.js" />
     <Compile Include="sourcesrv.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="teamsrv.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="usersrv.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="wigsrv.js">
@@ -42,7 +63,69 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="package.json" />
+    <Content Include="public\css\bootstrap-datepicker.min.css" />
+    <Content Include="public\css\bootstrap.min.css" />
+    <Content Include="public\css\dashboard.css" />
+    <Content Include="public\css\login.css" />
+    <Content Include="public\css\select2.min.css" />
+    <Content Include="public\font\css\open-iconic-bootstrap.css" />
+    <Content Include="public\font\css\open-iconic-bootstrap.less" />
+    <Content Include="public\font\css\open-iconic-bootstrap.min.css" />
+    <Content Include="public\font\css\open-iconic-bootstrap.scss" />
+    <Content Include="public\font\css\open-iconic-bootstrap.styl" />
+    <Content Include="public\font\css\open-iconic-foundation.css" />
+    <Content Include="public\font\css\open-iconic-foundation.less" />
+    <Content Include="public\font\css\open-iconic-foundation.min.css" />
+    <Content Include="public\font\css\open-iconic-foundation.scss" />
+    <Content Include="public\font\css\open-iconic-foundation.styl" />
+    <Content Include="public\font\css\open-iconic.css" />
+    <Content Include="public\font\css\open-iconic.less" />
+    <Content Include="public\font\css\open-iconic.min.css" />
+    <Content Include="public\font\css\open-iconic.scss" />
+    <Content Include="public\font\css\open-iconic.styl" />
+    <Content Include="public\font\fonts\open-iconic.eot" />
+    <Content Include="public\font\fonts\open-iconic.otf" />
+    <Content Include="public\font\fonts\open-iconic.svg" />
+    <Content Include="public\font\fonts\open-iconic.ttf" />
+    <Content Include="public\font\fonts\open-iconic.woff" />
+    <Content Include="public\images\epunkt.ico" />
+    <Content Include="public\images\epunkt.png" />
+    <Content Include="public\images\ep_header.jpg" />
+    <Content Include="public\login.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\register.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\templates\candidatedetail.html" />
+    <Content Include="public\templates\candidatenew.html" />
+    <Content Include="public\templates\candidates.html" />
+    <Content Include="public\templates\dashboard.html" />
+    <Content Include="public\templates\groupnew.html" />
+    <Content Include="public\templates\sourcenew.html" />
+    <Content Include="public\templates\sources.html" />
+    <Content Include="public\templates\statistics\ieb.html" />
+    <Content Include="public\templates\teamdetail.html" />
+    <Content Include="public\templates\teamnew.html" />
+    <Content Include="public\templates\teams.html" />
+    <Content Include="public\templates\userdetail.html" />
+    <Content Include="public\templates\usernew.html" />
+    <Content Include="public\templates\users.html" />
+    <Content Include="public\templates\wignew.html" />
+    <Content Include="public\templates\wigs.html" />
     <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="public\" />
+    <Folder Include="public\css\" />
+    <Folder Include="public\font\" />
+    <Folder Include="public\font\css\" />
+    <Folder Include="public\font\fonts\" />
+    <Folder Include="public\images\" />
+    <Folder Include="public\js\" />
+    <Folder Include="public\js\sourcing\" />
+    <Folder Include="public\templates\" />
+    <Folder Include="public\templates\statistics\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
