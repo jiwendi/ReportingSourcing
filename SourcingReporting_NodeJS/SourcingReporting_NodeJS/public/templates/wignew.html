@@ -1,0 +1,41 @@
+﻿<h1 class="page-header"><span class="oi oi-flag"></span> {{wig.name}}</h1>
+
+
+<div class="useredit w-50">
+    <div class="alert alert-danger" role="alert" ng-show="message && iserrmessage">
+        <span class="gyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        {{message}}
+    </div>
+
+    <div class="alert alert-success" role="alert" ng-show="message && !iserrmessage">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        {{message}}
+    </div>
+
+    <h3>neues Ziel anlegen</h3>
+
+    <div class="card-body mb-1">
+
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info">Name</div>
+            <input type="text" class="form-control" id="name" ng-model="wig.name" placeholder="WIG - Name">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info">Start</div>
+            <input type="date" class="form-control" id="start" ng-model="wig.start">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info">Ende</div>
+            <input type="date" class="form-control" id="end" ng-model="wig.end">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info">Anzahl d. Besetzungen</div>
+            <input type="number" class="form-control" id="goal" ng-model="wig.goal" min="1">
+        </div>
+        <button type="button" class="btn btn-info mb-1" ng-click="save()"><span class="oi oi-check" aria-hidden="true"></span> Speichern</button>
+
+
+    </div>
+
+
+</div>

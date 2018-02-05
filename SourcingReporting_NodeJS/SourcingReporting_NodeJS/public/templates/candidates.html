@@ -1,0 +1,49 @@
+﻿<h1 class="page-header"><span class="glyphicon glyphicon-folder-open"></span>  Kandidatenübersicht</h1>
+
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading pb-2">
+        <a href="#!candidate/new" class="btn btn-success">
+            <span class="oi oi-plus" aria-hidden="true"></span> neuer Kandidat
+        </a>
+        <span class="showusercandidates">
+            <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" ng-change="update()" /> Zeige nur meine Kandidaten
+        </span>
+    </div>
+
+    <div class="panel-body">
+        <table id="candidates" class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Name</th>
+                    <th>Quelle</th>
+                    <th>eRecruiterNr.</th>
+                    <th>beobachten</th>
+                    <th>Response</th>
+                    <th>Telefon-Notiz</th>
+                    <th>Internes Gespräch</th>
+                    <th>Externes Gespräch</th>
+                    <th>Research</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="c in candidates">
+                    <td><b>{{c.sourcerName}}</b></td>
+                    <td><a href="#!candidate/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                    <td ng-if="c.source_text != null"><a href="{{c.source_text}}">{{c.source}}</a></td>
+                    <td ng-if="c.source_text == null"><a>{{c.source}}</a></td>
+                    <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
+                    <td ng-if="c.eR == null"> </td>
+                    <td>{{c.tracking}}</td>
+                    <td>{{c.response + ' | ' + c.response_value}}</td>
+                    <td>{{c.telnotice | date: 'dd.MM.yyyy'}}</td>
+                    <td>{{c.intern | date: 'dd.MM.yyyy'}}</td>
+                    <td>{{c.extern | date: 'dd.MM.yyyy'}}</td>
+                    <td>{{c.research | date: 'dd.MM.yyyy'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

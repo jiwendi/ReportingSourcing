@@ -1,0 +1,31 @@
+﻿<h1 class="page-header"><span class="oi oi-flag"></span>  WIG - Übersicht</h1>
+
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading pb-2">
+        <a href="#!wig/new" class="btn btn-success">
+            <span class="oi oi-plus" aria-hidden="true"></span> neues WIG
+        </a>
+        
+    </div>
+
+    <div class="panel-body">
+        <table id="wigs" class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Zeitraum</th>
+                    <th>Ziel</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="w in wigs">
+                    <td>{{w.name}}</td>
+                    <td>{{w.start | date: 'dd.MM.yyyy'}} - {{w.end | date: 'dd.MM.yyyy'}}</td>
+                    <td>{{w.goal}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

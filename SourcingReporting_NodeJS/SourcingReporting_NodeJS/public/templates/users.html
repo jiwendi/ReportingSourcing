@@ -1,0 +1,38 @@
+﻿<h1 class="page-header"><span class="oi oi-person"></span> Mitarbeiterverwaltung</h1>
+
+<div class="alert alert-danger" role="alert" ng-show="message && iserrmessage">
+    <span class="oi oi-x" aria-hidden="true"></span>
+    {{message}}
+</div>
+
+<div class="alert alert-success" role="alert" ng-show="message && !iserrmessage">
+    <span class="oi oi-check" aria-hidden="true"></span> 
+    {{message}}
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="#!users/new" class="btn btn-info">
+            <span class="oi oi-plus" aria-hidden="true"></span>
+            Neuen Mitarbeiter anlegen
+        </a>
+    </div>
+    <br />
+
+    <div class="panel-body">
+        <table class="table mb-1">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">eMail</th>
+                <th scope="col">Aktiv</th>
+                <th scope="col">Admin</th>
+            </tr>
+            <tr ng-repeat="u in users" ng-class="isuserinactive(u)">
+                <td><a class="text-info" href="#!userdetail/{{u.id}}" title="'{{u.firstname + ' ' + u.lastname}}' bearbeiten">{{u.firstname + ' ' + u.lastname}}</a></td>
+                <td>{{u.email}}</td>
+                <td>{{u.active}}</td>
+                <td>{{u.admin}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

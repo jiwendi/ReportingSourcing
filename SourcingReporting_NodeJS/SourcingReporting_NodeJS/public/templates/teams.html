@@ -1,0 +1,53 @@
+﻿<h1 class="page-header"><span class="oi oi-people"></span> Teamübersicht</h1>
+
+<div class="alert alert-danger" role="alert" ng-show="message && iserrmessage">
+    <span class="oi oi-x" aria-hidden="true"></span>
+    {{message}}
+</div>
+
+<div class="alert alert-success" role="alert" ng-show="message && !iserrmessage">
+    <span class="oi oi-check" aria-hidden="true"></span>
+    {{message}}
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="#!team/new" class="btn btn-info">
+            <span class="oi oi-plus" aria-hidden="true"></span>
+            Neues Team anlegen
+        </a>
+        <a href="#!group/new" class="btn btn-info">
+            <span class="oi oi-plus" aria-hidden="true"></span>
+            Neue Gruppe anlegen
+        </a>
+        <!-- Alle Gruppen anzeigen-->
+        <div class="dropdown groupdropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Vorhandene Standorte/Gruppen
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#" ng-repeat="g in groups"><span class="badge badge-info badge-pill">{{g.anzahl}} Teams</span> {{g.city}}</a>
+                
+            </div>
+        </div>
+
+    </div>
+
+  
+    <br />
+
+    <div class="card text-white bg-info mb-3" style="width: 20rem; float:left; margin-right:10px;" ng-repeat="(key, value) in teams | groupBy: 'city'">
+        <div class="card-header">
+            {{key}}
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item" ng-repeat="t in value"><a class="text-info" href="#!teamdetail/{{t.id}}">{{t.name}}</a></li>
+        </ul>
+    </div>
+
+   
+
+    
+
+</div>
+

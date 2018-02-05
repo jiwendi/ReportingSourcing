@@ -1,0 +1,39 @@
+﻿<h1 class="page-header"><span class="oi oi-compass"></span> Quellenübersicht</h1>
+
+<div class="alert alert-danger" role="alert" ng-show="message && iserrmessage">
+    <span class="oi oi-x" aria-hidden="true"></span>
+    {{message}}
+</div>
+
+<div class="alert alert-success" role="alert" ng-show="message && !iserrmessage">
+    <span class="oi oi-check" aria-hidden="true"></span>
+    {{message}}
+</div>
+
+<div class="panel-heading pb-2">
+    <a href="#!source/new" class="btn btn-info">
+        <span class="oi oi-plus" aria-hidden="true"></span>
+        Neue Quelle anlegen
+    </a>
+</div>
+<div class="card w-50">
+    <div class="panel panel-default">
+        
+        <div class="panel-body">
+            <table class="table mb-1">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Aktiv</th>
+                </tr>
+                <tr ng-repeat="s in sources" ng-class="issourceinactive(s)">
+                    <td><a class="text-info" href="#!sourcedetail/{{s.id}}" title="'{{s.name}}' bearbeiten">{{s.name}}</a></td>
+                    <td>{{s.active}}</td>
+                </tr>
+            </table>
+        </div>
+
+
+
+    </div>
+</div>
+
