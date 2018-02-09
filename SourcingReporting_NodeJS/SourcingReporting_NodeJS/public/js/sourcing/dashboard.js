@@ -714,31 +714,10 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             sourceText: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.selectTracking, request: $scope.selectRequest, response: $scope.selectResponse,
             response_Val: $scope.selectResponseValue, research: $scope.research, telnotice: $scope.telnotice, intern: $scope.intern, extern: $scope.extern,
             hire: $scope.hire, team: $scope.selectTeam, scoreboard: $scope.scoreboard, sourcer: $scope.selectSourcer, infos: $scope.candidate.info
-
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
             });
-
-       
-
-        /*
-        $scope.message = "";
-        $http.post('candidate/update', {
-            candidateid: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname,
-            sourceid: $scope.candidate.sourceid, source_text: $scope.candidate.source_text, eR: $scope.candidate.eR,
-            tracking: $scope.candidate.tracking, request: $scope.candidate.request, response: $scope.candidate.response,
-            response_value: $scope.candidate.response_value, research: $scope.candidate.research,
-            telnotice: $scope.candidate.telnotice, intern: $scope.candidate.intern, extern: $scope.candidate.extern,
-            hire: $scope.candidate.hire, team: $scope.candidate.teamid, scoreboard: $scope.candidate.scoreboard,
-            sourcer: $scope.candidate.sourcer, infos: $scope.canidate.infos
-            
-        }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
-            });
-
-        */
 
     }; //end update Function
     
