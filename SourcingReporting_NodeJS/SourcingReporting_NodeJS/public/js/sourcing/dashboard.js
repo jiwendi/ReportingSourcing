@@ -711,7 +711,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
         $http.post('candidate/update', {
             id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.selectSource,
-            sourceText: $scope.candidate.source_text, eR: candidate.eR, tracking: $scope.selectTracking, request: $scope.selectRequest, response: $scope.selectResponse,
+            sourceText: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.selectTracking, request: $scope.selectRequest, response: $scope.selectResponse,
             response_Val: $scope.selectResponseValue, research: $scope.research, telnotice: $scope.telnotice, intern: $scope.intern, extern: $scope.extern,
             hire: $scope.hire, team: $scope.selectTeam, scoreboard: $scope.scoreboard, sourcer: $scope.selectSourcer, infos: $scope.candidate.info
 
