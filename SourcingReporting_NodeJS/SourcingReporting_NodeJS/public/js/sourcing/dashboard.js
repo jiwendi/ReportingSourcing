@@ -688,12 +688,39 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
        // alert("Test");
         $scope.message = "";
 
+        alert("ID: " + $scope.candidate.id +
+            "\nFirstname: " + $scope.candidate.firstname +
+            "\nLastname: " + $scope.candidate.lastname +
+            "\nSource: " + $scope.selectSource +
+            "\nSourceText: " + $scope.candidate.source_text +
+            "\neR: " + $scope.eR +
+            "\ntracking: " + $scope.selectTracking +
+            "\nrequest: " + $scope.selectRequest +
+            "\nresponse: " + $scope.selectResponse +
+            "\nresponseVal: " + $scope.selectResponseValue +
+            "\nresearch: " + $scope.research +
+            "\ntelnotice: " + $scope.telnotice +
+            "\nIntern: " + $scope.intern +
+            "\nExtern: " + $scope.extern +
+            "\nHire: " + $scope.hire +
+            "\nTeam: " + $scope.selectTeam +
+            "\nScoreboard: " + $scope.scoreboard +
+            "\nSourcer: " + $scope.selectSourcer +
+            "\nInfos: " + $scope.candidate.info
+        );
+
         $http.post('candidate/update', {
-            id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname
+            id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.selectSource,
+            sourceText: $scope.candidate.source_text, eR: candidate.eR, tracking: $scope.selectTracking, request: $scope.selectRequest, response: $scope.selectResponse,
+            response_Val: $scope.selectResponseValue, research: $scope.research, telnotice: $scope.telnotice, intern: $scope.intern, extern: $scope.extern,
+            hire: $scope.hire, team: $scope.selectTeam, scoreboard: $scope.scoreboard, sourcer: $scope.selectSourcer, infos: $scope.candidate.info
+
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
             });
+
+       
 
         /*
         $scope.message = "";
