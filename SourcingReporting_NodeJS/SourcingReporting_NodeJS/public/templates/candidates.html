@@ -37,7 +37,7 @@
                     <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
                     <td ng-if="c.eR == null"> </td>
                     <td>{{c.tracking}}</td>
-                    <td>{{c.response + ' | ' + c.response_value}}</td>
+                    <td>{{c.response}} {{c.response_value}}</td>
                     <td>{{c.telnotice | date: 'dd.MM.yyyy'}}</td>
                     <td>{{c.intern | date: 'dd.MM.yyyy'}}</td>
                     <td>{{c.extern | date: 'dd.MM.yyyy'}}</td>

@@ -15,10 +15,9 @@
                     "CASE WHEN candidate.extern = '0000-00-00' THEN '-' ELSE candidate.extern END AS extern," + 
                     "CASE WHEN candidate.hire = '0000-00-00' THEN '-' ELSE candidate.hire END AS hire, candidate.scoreboard, " + 
                     "CASE WHEN candidate.telnotice = '0000-00-00' THEN '-' ELSE candidate.telnotice END AS telnotice," + 
-                    "CASE WHEN candidate.response_value = null THEN '-' ELSE CASE WHEN candidate.response_value = 1 THEN '+' ELSE '-' END END AS response_value," +
-                    "CASE WHEN candidate.tracking = 1 THEN '+' ELSE '-' END AS tracking," + 
-                    "CASE WHEN candidate.request = 1 THEN '+' ELSE '-' END AS request," +
-                    "CASE WHEN candidate.response = 1 THEN '+' ELSE '-' END AS response," +
+                    "CASE WHEN candidate.response_value = NULL THEN 'none' ELSE CASE WHEN candidate.response_value = 1 THEN 'pos.' ELSE CASE WHEN candidate.response_value = 0 THEN 'neg.' ELSE ' ' END END END AS response_value," +
+                    "CASE WHEN candidate.tracking = 1 THEN 'ja' ELSE 'nein' END AS tracking," + 
+                    "CASE WHEN candidate.response = 1 THEN 'ja |' ELSE 'nein' END AS response," +
                     "candidate.infos, " +
                     "city_group.city, team.name as teamname, candidate.research, candidate.date, users.firstname as sourcerName, candidate.sourcer " +
                     "FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
