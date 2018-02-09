@@ -120,6 +120,97 @@
         });//end candidate/save
 
         /**
+         * Candidate Detail Update 
+         */
+        app.post('/candidate/update', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+                var parameters = [];
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else if (req.body.firstname == null || req.body.firstname == "") {
+                    message = "Bitte Vornamen eingeben!";
+                } else if (req.body.lastname == null || req.body.lastname == "") {
+                    message = "Bitte Lastname eingeben!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET firstname = ?, lastname = ? WHERE id = ?",
+                        [req.body.firstname, req.body.lastname, req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim UPDATE-Candidate!";
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Daten wurden gespeichert!");
+                            }
+                        });
+                    
+                } else {
+                    sendResponse(res, false, message);
+                }
+            } else {
+                sendResponse(res, false, "Kein Benutzer eingeloggt!");
+            }
+
+
+
+            /*
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+                var parameters = [];
+
+                if (req.body.id == null) {
+                    message = "Keine ID übergeben!";
+                } else
+                if (req.body.firstname == null || req.body.firstname == "") {
+                    message = "Bitte Vornamen eingeben! - 'unbekannt' bitte bei 'Vorname' eingeben!";
+                } else if (req.body.source == null || req.body.source == "") {
+                    message = "Bitte Quelle auswählen! - " + req.body.source;
+                } else if (req.body.research == null || req.body.research == "") {
+                    message = "Bitte Research-Datum eingeben! - " + req.body.research;
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    update = "UPDATE candidate SET firstname = ?, lastname = ?, source_id = ?, source_text = ?, " +
+                        "eR = ?, tracking = ?, request = ?, response = ?, response_Value = ?, telnotice = ?, " +
+                        "intern = ?, extern = ?, hire = ?, team_id = ?, scoreboard = ?, sourcer = ?, infos = ?, research = ?" +
+                        "WHERE id = ? ";
+                    parameters = [req.body.firstname, req.body.lastname, req.body.source, req.body.source_text,
+                        req.body.eR, req.body.tracking, req.body.request, req.body.response, req.body.responseVal, req.body.telnotice,
+                        req.body.intern, req.body.extern, req.body.hire, req.body.team, req.body.scoreboard, req.body.sourcer, 
+                        req.body.infos, req.body.research, req.body.id];
+                    
+                        db.query(update, parameters, function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim ausführen des UPDATE-Querys";
+                                sendResponse(res, false, message);
+                            } 
+                                sendResponse(res, true, "Kandidaten-Daten wurden gespeichert!");
+                            
+                        });
+                    
+                }else {
+                        sendResponse(res, false, message);
+                    }
+
+            } else {
+                sendResponse(res, false, "Kein Benutzer eingeloggt!");
+            }
+            */
+
+        });
+
+        /**
         * Candidate Time-Infos
         */
         app.get('/candidate/timeinfo', function (req, res) {

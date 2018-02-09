@@ -63,11 +63,11 @@ app.config(['$routeProvider',
             templateUrl: 'templates/candidatenew.html',
             controller: 'candidatenewController'
         }).
-       /* when('/candidatedetail', {
+        when('/candidatedetail', {
             templateUrl: 'templates/candidatedetail.html',
             controller: 'candidatedetailController'
-        }).*/
-        when('/candidate/:candidateid', {
+        }).
+        when('/candidatedetail/:candidateid', {
             templateUrl: 'templates/candidatedetail.html',
             controller: 'candidatedetailController'
         }).
@@ -514,27 +514,13 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
    
 });
 
+
 /**
  * CandidateDetail Controller - Edit selected Candidate
  */
-
 app.controller('candidatedetailController', function ($scope, $http, $routeParams) {
     $scope.message = "";
     $scope.iserrmessage = false;
-
-    $scope.update = function () {
-        $scope.message = "";
-        $http.post('candidate/update', {
-            candidateid: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname,
-            research: $scope.candidate.research, scoreboard: $scope.candidate.scoreboard
-
-
-        }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
-        });
-
-    }; //end update Function
 
     /**
      * get Candidate-data to fill into Form for updating selected Team
@@ -602,7 +588,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.intern = toLocalDate($scope.candidate.intern);
         $scope.extern = toLocalDate($scope.candidate.extern);
         $scope.hire = toLocalDate($scope.candidate.hire);
-        
+
         var research = $('#research');
         var telnotice = $('#telnotice');
         var intern = $('#intern');
@@ -693,9 +679,41 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             var id = scoreboard.val();
             $scope.scoreboard = id;
         });
-       
-        
+
+
     });//end candidate/info
+
+
+    $scope.update = function () {
+       // alert("Test");
+        $scope.message = "";
+
+        $http.post('candidate/update', {
+            id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+            });
+
+        /*
+        $scope.message = "";
+        $http.post('candidate/update', {
+            candidateid: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname,
+            sourceid: $scope.candidate.sourceid, source_text: $scope.candidate.source_text, eR: $scope.candidate.eR,
+            tracking: $scope.candidate.tracking, request: $scope.candidate.request, response: $scope.candidate.response,
+            response_value: $scope.candidate.response_value, research: $scope.candidate.research,
+            telnotice: $scope.candidate.telnotice, intern: $scope.candidate.intern, extern: $scope.candidate.extern,
+            hire: $scope.candidate.hire, team: $scope.candidate.teamid, scoreboard: $scope.candidate.scoreboard,
+            sourcer: $scope.candidate.sourcer, infos: $scope.canidate.infos
+            
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+            });
+
+        */
+
+    }; //end update Function
     
 }); //end candidatedetailController
 

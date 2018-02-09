@@ -31,7 +31,7 @@
             <tbody>
                 <tr ng-repeat="c in candidates">
                     <td><b>{{c.sourcerName}}</b></td>
-                    <td><a href="#!candidate/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                    <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
                     <td ng-if="c.source_text != null"><a href="{{c.source_text}}">{{c.source}}</a></td>
                     <td ng-if="c.source_text == null"><a>{{c.source}}</a></td>
                     <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
