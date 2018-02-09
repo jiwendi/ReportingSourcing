@@ -62,6 +62,7 @@
     <Content Include="dashboard.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="epunkt_sourcing.sql" />
     <Content Include="package.json" />
     <Content Include="public\css\bootstrap-datepicker.min.css" />
     <Content Include="public\css\bootstrap.min.css" />
