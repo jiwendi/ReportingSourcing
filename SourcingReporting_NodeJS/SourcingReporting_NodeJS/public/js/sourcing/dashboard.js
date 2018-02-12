@@ -683,7 +683,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
     });//end candidate/info
 
-    $scope.updateName = function () {
+    $scope.updateCandidate = function () {
         $scope.message = "";
 
         $http.post('candidate/updateCandidate', {
@@ -704,6 +704,8 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
             });
+
+        location.reload();
     }
     
 

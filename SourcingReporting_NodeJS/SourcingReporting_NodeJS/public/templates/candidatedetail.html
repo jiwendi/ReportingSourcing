@@ -15,11 +15,11 @@
             <!-- Kandidat Name -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Vorname</div>
-                <input type="text" class="form-control" id="candidateFirstname" ng-model="candidate.firstname" placeholder="Vorname" ng-change="updateCandidate()" />
+                <input type="text" class="form-control" id="candidateFirstname" ng-model="candidate.firstname" placeholder="Vorname" ng-blur="updateCandidate()" />
             </div>
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Nachname</div>
-                <input type="text" class="form-control" id="candidateLastname" ng-model="candidate.lastname" placeholder="Nachname" ng-change="updateCandidate()" />
+                <input type="text" class="form-control" id="candidateLastname" ng-model="candidate.lastname" placeholder="Nachname" ng-blur="updateCandidate()" />
             </div>
 
             <!-- Kandidat Quelle -->
@@ -36,13 +36,13 @@
             <!-- Quelle Lang -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Quelle - Zusatz </div>
-                <input type="text" class="form-control" id="source_text" ng-model="candidate.source_text" ng-change="updateCandidate()" placeholder="Quelle Zusatz" />
+                <input type="text" class="form-control" id="source_text" ng-model="candidate.source_text" ng-blur="updateCandidate()" placeholder="Quelle Zusatz" />
             </div>
 
             <!-- eRecruiter Nr -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">eRecruiter Nr</div>
-                <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" ng-change="updateCandidate()" placeholder="#123456" />
+                <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" ng-blur="updateCandidate()" placeholder="#123456" />
             </div>
 
             <!-- Tabelle für Beobachten, Ansprache, Response-->
