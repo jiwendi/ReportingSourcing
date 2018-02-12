@@ -15,30 +15,34 @@
             <!-- Kandidat Name -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Vorname</div>
-                <input type="text" class="form-control" id="candidateFirstname" ng-model="candidate.firstname" placeholder="Vorname" />
+                <input type="text" class="form-control" id="candidateFirstname" ng-model="candidate.firstname" placeholder="Vorname" ng-change="updateCandidate()" />
             </div>
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Nachname</div>
-                <input type="text" class="form-control" id="candidateLastname" ng-model="candidate.lastname" placeholder="Nachname" />
+                <input type="text" class="form-control" id="candidateLastname" ng-model="candidate.lastname" placeholder="Nachname" ng-change="updateCandidate()" />
             </div>
 
             <!-- Kandidat Quelle -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Quelle</div>
-                <select class="custom-select wdselect" id="selectSource">
+                <div class="input-group-addon alert-info sourcing-width-150">Quelle</div> 
+                <input type="text" class="form-control sourcing-width-150" id="source" ng-model="candidate.source" placeholder="Quelle" readonly />
+                <select class="custom-select wdselect" id="selectSource" ng-model="selectSource" ng-change="updateSource(selectSource)">
+                    <option ng-repeat="s in sources" value="{{s.id}}">{{s.name}}</option>
                 </select>
+                
             </div>
+            
 
             <!-- Quelle Lang -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Quelle - Zusatz </div>
-                <input type="text" class="form-control" id="source_text" ng-model="candidate.source_text" placeholder="Quelle Zusatz" />
+                <input type="text" class="form-control" id="source_text" ng-model="candidate.source_text" ng-change="updateCandidate()" placeholder="Quelle Zusatz" />
             </div>
 
             <!-- eRecruiter Nr -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">eRecruiter Nr</div>
-                <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" placeholder="#123456 " />
+                <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" ng-change="updateCandidate()" placeholder="#123456" />
             </div>
 
             <!-- Tabelle für Beobachten, Ansprache, Response-->
@@ -93,13 +97,13 @@
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Research</div>
                 <input type='text' class="form-control" id="research"/>
-              
+
             </div>
 
             <!-- Telefonnotiz -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Telefon-Notiz</div>
-                <input type='text' class="form-control" id="telnotice" placeholder="dd.mm.yyyy" />
+                <input type='text' class="form-control" id="telnotice" ng-model="nm" placeholder="dd.mm.yyyy" />
               
             </div>
 

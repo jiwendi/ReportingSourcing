@@ -105,7 +105,6 @@ var toLocalDate = function (date) {
 };
 
 
-
 /**
  * Dashboard Controller
  */
@@ -534,6 +533,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
         $scope.iserrmessage = !response.data.sucess;
         $scope.message = response.data.message;
+        
 
         /**
          * Dropdowns with Datamaps and select2
@@ -683,42 +683,67 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
     });//end candidate/info
 
+    $scope.updateName = function () {
+        $scope.message = "";
+
+        $http.post('candidate/updateCandidate', {
+            id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source_text: $scope.candidate.source_text,
+            eR: $scope.candidate.eR
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+            });
+    }
+
+    $scope.updateSource = function (selectSource) {
+        $scope.source = selectSource;
+        
+        $http.post('candidate/updateSource', {
+            id: $scope.candidate.id, source: $scope.source
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+            });
+    }
+    
+
 
     $scope.update = function () {
        // alert("Test");
         $scope.message = "";
-
+        
         alert("ID: " + $scope.candidate.id +
             "\nFirstname: " + $scope.candidate.firstname +
             "\nLastname: " + $scope.candidate.lastname +
             "\nSource: " + $scope.selectSource +
             "\nSourceText: " + $scope.candidate.source_text +
-            "\neR: " + $scope.eR +
+            "\neR: " + $scope.candidate.eR +
             "\ntracking: " + $scope.selectTracking +
             "\nrequest: " + $scope.selectRequest +
             "\nresponse: " + $scope.selectResponse +
             "\nresponseVal: " + $scope.selectResponseValue +
-            "\nresearch: " + $scope.research +
-            "\ntelnotice: " + $scope.telnotice +
-            "\nIntern: " + $scope.intern +
-            "\nExtern: " + $scope.extern +
-            "\nHire: " + $scope.hire +
+            "\nresearch: " + moment($scope.research).format('DD.MM.YYYY') +
+            "\nTelNotice nm: " + moment($scope.telnotice).format('DD.MM.YYYY') +
+            "\nIntern: " + toLocalDate($scope.intern) +
+            "\nExtern: " + moment($scope.extern).format('DD.MM.YYYY') +
+            "\nHire: " + moment($scope.hire).format('DD.MM.YYYY') +
             "\nTeam: " + $scope.selectTeam +
             "\nScoreboard: " + $scope.scoreboard +
             "\nSourcer: " + $scope.selectSourcer +
             "\nInfos: " + $scope.candidate.info
         );
-
+       /* 
         $http.post('candidate/update', {
             id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.selectSource,
             sourceText: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.selectTracking, request: $scope.selectRequest, response: $scope.selectResponse,
-            response_Val: $scope.selectResponseValue, research: $scope.research, telnotice: $scope.telnotice, intern: $scope.intern, extern: $scope.extern,
-            hire: $scope.hire, team: $scope.selectTeam, scoreboard: $scope.scoreboard, sourcer: $scope.selectSourcer, infos: $scope.candidate.info
+            response_Val: $scope.selectResponseValue, research: moment($scope.research).format('DD.MM.YYYY'), telnotice: moment($scope.telnotice).format('DD.MM.YYYY'),
+            intern: moment($scope.intern).format('DD.MM.YYYY'), extern: moment($scope.extern).format('DD.MM.YYYY'), hire: moment($scope.hire).format('DD.MM.YYYY'),
+            team: $scope.selectTeam, scoreboard: $scope.scoreboard, sourcer: $scope.selectSourcer, infos: $scope.candidate.info
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
             });
-
+        */
     }; //end update Function
     
 }); //end candidatedetailController

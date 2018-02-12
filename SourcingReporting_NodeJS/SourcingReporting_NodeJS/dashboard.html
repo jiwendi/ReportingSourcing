@@ -108,13 +108,13 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="page-header"><span class="oi oi-monitor"></span> Time-Info's</h5>
-                            <h6>Time-To-Call <span class="badge badge-info">{{timeinfo.timetocall}} Tage</span></h6>
+                            <h6>Time-To-Call <span class="badge badge-info">{{timeinfo.timetocall | number: 2}} Tage</span></h6>
 
-                            <h6>Time-To-Interview <span class="badge badge-info">{{timeinfo.timetointerview}} Tage</span></h6>
+                            <h6>Time-To-Interview <span class="badge badge-info">{{timeinfo.timetointerview | number: 2}} Tage</span></h6>
 
-                            <h6>Time-To-Extern <span class="badge badge-info">{{timeinfo.timetoextern}} Tage</span></h6>
+                            <h6>Time-To-Extern <span class="badge badge-info">{{timeinfo.timetoextern | number: 2}} Tage</span></h6>
 
-                            <h6>Time-To-Hire <span class="badge badge-info">{{timeinfo.timetohire}} Tage</span></h6>
+                            <h6>Time-To-Hire <span class="badge badge-info">{{timeinfo.timetohire | number: 2}} Tage</span></h6>
 
                         </div>
                     </div>

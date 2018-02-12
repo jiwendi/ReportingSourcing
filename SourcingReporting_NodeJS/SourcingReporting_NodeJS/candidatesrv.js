@@ -116,6 +116,76 @@
 
         });//end candidate/save
 
+        app.post('/candidate/updateCandidate', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else if (req.body.firstname == null || req.body.firstname == "") {
+                    message = "Bitte Vornamen eingeben!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET firstname = ?, lastname = ?, source_text = ?, eR = ? WHERE id = ?",
+                        [req.body.firstname, req.body.lastname, req.body.source_text, req.body.eR, req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim UPDATE-Candidate!";
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Daten wurden gespeichert!");
+                            }
+                        });
+
+                } else {
+                    sendResponse(res, false, message);
+                }
+
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
+        app.post('/candidate/updateSource', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else if (req.body.source == null || req.body.source == "") {
+                    message = "Bitte Quelle auswählen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET source_id = ? WHERE id = ?",
+                        [req.body.source, req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim UPDATE-Candidate (Source)!";
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Daten wurden gespeichert!");
+                            }
+                        });
+
+                } else {
+                    sendResponse(res, false, message);
+                }
+
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
         /**
          * Candidate Detail Update 
          */
@@ -137,8 +207,8 @@
                 }
 
                 if (suc) {
-                    db.query("UPDATE candidate SET firstname = ?, lastname = ? WHERE id = ?",
-                        [req.body.firstname, req.body.lastname, req.body.id],
+                    db.query("UPDATE candidate SET firstname = ?, lastname = ?, research = ?, intern = ?, extern = ?, hire = ? WHERE id = ?",
+                        [req.body.firstname, req.body.lastname, req.body.research, req.body.intern, req.body.extern, req.body.hire, req.body.id],
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate!";
