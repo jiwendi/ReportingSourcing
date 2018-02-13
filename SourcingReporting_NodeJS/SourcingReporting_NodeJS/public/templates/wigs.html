@@ -4,7 +4,7 @@
 <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading pb-2">
-        <a href="#!wig/new" class="btn btn-success">
+        <a href="#!wig/new" class="btn btn-info">
             <span class="oi oi-plus" aria-hidden="true"></span> neues WIG
         </a>
         
@@ -17,6 +17,7 @@
                     <th>Name</th>
                     <th>Zeitraum</th>
                     <th>Ziel</th>
+                    <th>deaktivieren</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,7 @@
                     <td>{{w.name}}</td>
                     <td>{{w.start | date: 'dd.MM.yyyy'}} - {{w.end | date: 'dd.MM.yyyy'}}</td>
                     <td>{{w.goal}}</td>
+                    <td><button class="btn btn-info" ng-click="switchWIG({{w.id}})"><span class="oi oi-check"></span></button></td>
                 </tr>
             </tbody>
         </table>

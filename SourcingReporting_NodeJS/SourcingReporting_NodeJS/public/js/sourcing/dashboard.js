@@ -73,7 +73,7 @@ app.config(['$routeProvider',
         }).
         //Statistiken
         when('/statistics', {
-            templateUrl: 'templates/statistics/ieb.html',
+            templateUrl: 'templates/statistics/statistics.html',
             controller: 'statisticsController'
         }).
         //WIG
@@ -968,6 +968,11 @@ app.controller('wigController', function ($scope, $http) {
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
     });
+
+    $scope.switchWIG = function (wigID) {
+
+
+    };
 
 });
 
