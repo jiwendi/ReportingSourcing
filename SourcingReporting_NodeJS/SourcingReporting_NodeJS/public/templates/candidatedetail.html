@@ -51,37 +51,37 @@
                     <tr>
                         <th class="sourcing-width-150" scope="row">Beobachten</th>
                         <td>
-                            <select id="selectTracking" class="sourcing-width-full">
-                                <option value="0">Nein</option>
-                                <option value="1">Ja</option>
+                            <select ng-model="candidate.tracking" class="sourcing-width-full" ng-blur="updateOptions()">
+                                <option ng-value="0">Nein</option>
+                                <option ng-value="1">Ja</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">Ansprache</th>
                         <td>
-                            <select id="selectRequest" class="sourcing-width-full">
-                                <option value="0">Nein</option>
-                                <option value="1">Ja</option>
+                            <select ng-model="candidate.request" class="sourcing-width-full" ng-blur="updateOptions()">
+                                <option ng-value="0">Nein</option>
+                                <option ng-value="1">Ja</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row">Response</th>
                         <td>
-                            <select id="selectResponse" class="sourcing-width-full">
-                                <option value="0">Nein</option>
-                                <option value="1">Ja</option>
+                            <select ng-model="candidate.response" class="sourcing-width-full" ng-blur="updateOptions()">
+                                <option ng-value="0">Nein</option>
+                                <option ng-value="1">Ja</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row"> </th>
                         <td>
-                            <select id="selectResponseValue" class="sourcing-width-full">
-                                <option value="0">Negativ</option>
-                                <option value="1">Positiv</option>
-                                <option value="2">noch keine Response erhalten</option>
+                            <select ng-model="candidate.response_value" class="sourcing-width-full" ng-blur="updateOptions()">
+                                <option ng-value="0">Negativ</option>
+                                <option ng-value="1">Positiv</option>
+                                <!--<option ng-value="null">noch keine Response erhalten</option>-->
                             </select>
                         </td>
                     </tr>

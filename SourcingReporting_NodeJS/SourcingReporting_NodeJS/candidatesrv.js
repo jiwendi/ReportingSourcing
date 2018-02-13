@@ -386,6 +386,40 @@
             }
         });
 
+        app.post('/candidate/updateOptions', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET tracking = ?, request = ?, response = ?, response_value = ? WHERE id = ?",
+                        [req.body.tracking, req.body.request, req.body.response, req.body.response_value, req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim UPDATE-Candidate (Options)!";
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Daten wurden gespeichert!");
+                            }
+                        });
+
+                } else {
+                    sendResponse(res, false, message);
+                }
+
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+
+        });
+
         app.post('/candidate/updateScoreboard', function (req, res) {
             if (req.session.userid) {
                 var suc = false;

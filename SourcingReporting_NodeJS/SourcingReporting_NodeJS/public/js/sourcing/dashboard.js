@@ -806,6 +806,19 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         
         
     }
+
+    $scope.updateOptions = function () {
+        $scope.message = "";
+
+        $http.post('candidate/updateOptions', {
+            id: $scope.candidate.id, tracking: $scope.candidate.tracking, request: $scope.candidate.request,
+            response: $scope.candidate.response, response_value: $scope.candidate.response_value
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+            });
+
+    }
     
 
 
