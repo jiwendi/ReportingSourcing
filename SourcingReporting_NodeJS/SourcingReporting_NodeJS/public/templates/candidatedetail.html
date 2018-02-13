@@ -96,35 +96,35 @@
 -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Research</div>
-                <input type='text' class="form-control" id="research"/>
+                <input type='date' class="form-control" ng-model="candidate.research" value="{{ candidate.research | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateResearch()"/>
 
             </div>
 
             <!-- Telefonnotiz -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Telefon-Notiz</div>
-                <input type='text' class="form-control" id="telnotice" ng-model="nm" placeholder="dd.mm.yyyy" />
+                <input type='date' class="form-control" ng-model="candidate.telnotice" value="{{ candidate.telnotice | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateTelnotice()"/>
               
             </div>
 
             <!-- Intern -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Internes Gespräch</div>
-                <input type='text' class="form-control" id="intern" placeholder="dd.mm.yyyy" />
+                <input type='date' class="form-control" ng-model="candidate.intern" value="{{ candidate.intern | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateIntern()"/>
 
             </div>
 
             <!-- Extern -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Externes Gespräch</div>
-                <input type='text' class="form-control" id="extern" placeholder="dd.mm.yyyy" />
+                <input type='date' class="form-control" ng-model="candidate.extern" value="{{ candidate.extern | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateExtern()"/>
 
             </div>
 
             <!-- Besetzung -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Besetzung</div>
-                <input type='text' class="form-control" id="hire" placeholder="dd.mm.yyyy" />
+                <input type='date' class="form-control" ng-model="candidate.hire" value="{{ candidate.hire | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateHire()"/>
             </div>
             <!-- Besetzung -->
             <div class="input-group mb-1" ><!--ng-if="hire != null"-->

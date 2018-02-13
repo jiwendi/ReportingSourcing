@@ -595,13 +595,15 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         var extern = $('#extern');
         var hire = $('#hire');
 
+      
 
+        
         research.datetimepicker(datetimepickeroptions);
         research.data('DateTimePicker').date($scope.research);
         research.on('dp.change', function (e) {
             $scope.candidate.research = e.date;
         });
-
+        
         telnotice.datetimepicker(datetimepickeroptions);
         telnotice.data('DateTimePicker').date($scope.telnotice);
         telnotice.on('dp.change', function (e) {
@@ -706,6 +708,61 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             });
 
         location.reload();
+    }
+
+    $scope.updateResearch = function () {
+        $scope.message = "";
+        
+        $http.post('candidate/updateResearch', {
+            id: $scope.candidate.id, research: $scope.candidate.research
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+            });
+    }
+
+    $scope.updateTelnotice = function () {
+        $scope.message = "";
+        
+        $http.post('candidate/updateTelnotice', {
+            id: $scope.candidate.id, telnotice: $scope.candidate.telnotice
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+        });
+    }
+
+    $scope.updateIntern = function () {
+        $scope.message = "";
+
+        $http.post('candidate/updateIntern', {
+            id: $scope.candidate.id, intern: $scope.candidate.intern
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+        });
+    }
+
+    $scope.updateExtern = function () {
+        $scope.message = "";
+
+        $http.post('candidate/updateExtern', {
+            id: $scope.candidate.id, extern: $scope.candidate.extern
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+        });
+    }
+
+    $scope.updateHire = function () {
+        $scope.message = "";
+
+        $http.post('candidate/updateHire', {
+            id: $scope.candidate.id, hire: $scope.candidate.hire
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+        });
     }
     
 
