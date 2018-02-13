@@ -131,8 +131,8 @@
                 }
 
                 if (suc) {
-                    db.query("UPDATE candidate SET firstname = ?, lastname = ?, source_text = ?, eR = ? WHERE id = ?",
-                        [req.body.firstname, req.body.lastname, req.body.source_text, req.body.eR, req.body.id],
+                    db.query("UPDATE candidate SET firstname = ?, lastname = ?, source_text = ?, eR = ?, infos = ? WHERE id = ?",
+                        [req.body.firstname, req.body.lastname, req.body.source_text, req.body.eR, req.body.infos, req.body.id],
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate!";
@@ -171,6 +171,41 @@
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate (Source)!";
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Daten wurden gespeichert!");
+                            }
+                        });
+
+                } else {
+                    sendResponse(res, false, message);
+                }
+
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
+        app.post('/candidate/updateTeam', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else if (req.body.team == null || req.body.team == "") {
+                    message = "Bitte Team auswählen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET team_id = ? WHERE id = ?",
+                        [req.body.team, req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim UPDATE-Candidate (Team)!";
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -372,8 +407,8 @@
                 }
 
                 if (suc) {
-                    db.query("UPDATE candidate SET firstname = ?, lastname = ?, research = ?, intern = ?, extern = ?, hire = ? WHERE id = ?",
-                        [req.body.firstname, req.body.lastname, req.body.research, req.body.intern, req.body.extern, req.body.hire, req.body.id],
+                    db.query("UPDATE candidate SET firstname = ?, lastname = ?, source_id = ?, source_text = ?, research = ?, intern = ?, extern = ?, hire = ? WHERE id = ?",
+                        [req.body.firstname, req.body.lastname, req.body.source, req.body.sourceText, req.body.research, req.body.intern, req.body.extern, req.body.hire, req.body.id],
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate!";

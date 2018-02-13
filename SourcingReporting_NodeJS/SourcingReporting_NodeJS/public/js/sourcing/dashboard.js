@@ -690,7 +690,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
         $http.post('candidate/updateCandidate', {
             id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source_text: $scope.candidate.source_text,
-            eR: $scope.candidate.eR
+            eR: $scope.candidate.eR, infos: $scope.candidate.infos
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
@@ -706,6 +706,19 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
             });
+
+        location.reload();
+    }
+
+    $scope.updateTeam = function (selectTeam) {
+        $scope.team = selectTeam;
+
+        $http.post('candidate/updateTeam', {
+            id: $scope.candidate.id, team: $scope.team
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+        });
 
         location.reload();
     }
@@ -774,30 +787,30 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         alert("ID: " + $scope.candidate.id +
             "\nFirstname: " + $scope.candidate.firstname +
             "\nLastname: " + $scope.candidate.lastname +
-            "\nSource: " + $scope.selectSource +
+            "\nSource: " + $scope.candidate.source_id + " " + $scope.candidate.source +
             "\nSourceText: " + $scope.candidate.source_text +
             "\neR: " + $scope.candidate.eR +
-            "\ntracking: " + $scope.selectTracking +
-            "\nrequest: " + $scope.selectRequest +
-            "\nresponse: " + $scope.selectResponse +
-            "\nresponseVal: " + $scope.selectResponseValue +
-            "\nresearch: " + moment($scope.research).format('DD.MM.YYYY') +
-            "\nTelNotice nm: " + moment($scope.telnotice).format('DD.MM.YYYY') +
-            "\nIntern: " + toLocalDate($scope.intern) +
-            "\nExtern: " + moment($scope.extern).format('DD.MM.YYYY') +
-            "\nHire: " + moment($scope.hire).format('DD.MM.YYYY') +
-            "\nTeam: " + $scope.selectTeam +
-            "\nScoreboard: " + $scope.scoreboard +
-            "\nSourcer: " + $scope.selectSourcer +
-            "\nInfos: " + $scope.candidate.info
+            "\ntracking: " + $scope.candidate.tracking +
+            "\nrequest: " + $scope.candidate.request +
+            "\nresponse: " + $scope.candidate.response +
+            "\nresponse_value: " + $scope.candidate.response_value +
+            "\nresearch: " + moment($scope.candidate.research).format('DD.MM.YYYY') +
+            "\nTelNotice nm: " + moment($scope.candidate.telnotice).format('DD.MM.YYYY') +
+            "\nIntern: " + moment($scope.candidate.intern).format('DD.MM.YYYY') +
+            "\nExtern: " + moment($scope.candidate.extern).format('DD.MM.YYYY') +
+            "\nHire: " + moment($scope.candidate.hire).format('DD.MM.YYYY') +
+            "\nTeam: " + $scope.candidate.team_id + " " + $scope.candidate.teamname +
+            "\nScoreboard: " + $scope.candidate.scoreboard +
+            "\nSourcer: " + $scope.candidate.sourcer + " " + $scope.candidate.sourcerName +
+            "\nInfos: " + $scope.candidate.infos
         );
-       /* 
+       /*
         $http.post('candidate/update', {
-            id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.selectSource,
-            sourceText: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.selectTracking, request: $scope.selectRequest, response: $scope.selectResponse,
-            response_Val: $scope.selectResponseValue, research: moment($scope.research).format('DD.MM.YYYY'), telnotice: moment($scope.telnotice).format('DD.MM.YYYY'),
-            intern: moment($scope.intern).format('DD.MM.YYYY'), extern: moment($scope.extern).format('DD.MM.YYYY'), hire: moment($scope.hire).format('DD.MM.YYYY'),
-            team: $scope.selectTeam, scoreboard: $scope.scoreboard, sourcer: $scope.selectSourcer, infos: $scope.candidate.info
+            id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.candidate.source_id,
+            sourceText: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.candidate.tracking, request: $scope.candidate.request, response: $scope.candidate.response,
+            response_Val: $scope.candidate.response_value, research: $scope.candidate.research, telnotice: $scope.candidate.telnotice,
+            intern: $scope.candidate.intern, extern: $scope.candidate.extern, hire: $scope.candidate.hire,
+            team: $scope.candidate.team_id, scoreboard: $scope.candidate.scoreboard, sourcer: $scope.candidate.sourcer, infos: $scope.candidate.infos
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;

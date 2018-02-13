@@ -129,13 +129,19 @@
             <!-- Besetzung -->
             <div class="input-group mb-1" ><!--ng-if="hire != null"-->
                 <div class="input-group-addon alert-info sourcing-width-150">Team</div>
-                <select class="custom-select wdselect" id="selectTeam">
+                <input type="text" class="form-control sourcing-width-150" id="team" ng-model="candidate.teamname" readonly />
+                <select class="custom-select wdselect" id="selectTeam" ng-model="selectTeam" ng-change="updateTeam(selectTeam)">
+                    <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
                 </select>
             </div>
 
+
+
+
+
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Scoreboard</div>
-                <select id="scoreboard" class="custom-select wdselect sourcing-width-full">
+                <select id="scoreboard" class="custom-select wdselect sourcing-width-150">
                     <option value="0">Nein</option>
                     <option value="1">Ja</option>
                 </select>
@@ -151,7 +157,7 @@
             <!-- Infos -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">wichtige Infos</div>
-                <textarea rows="5" class="form-control" id="candidateInfo" ng-model="candidate.info" placeholer="wichtige Infos"></textarea>
+                <textarea rows="5" class="form-control" id="candidateInfo" ng-model="candidate.infos" ng-blur="updateCandidate()"></textarea>
                 
             </div>
 
