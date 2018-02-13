@@ -7,9 +7,14 @@
         <a href="#!candidate/new" class="btn btn-success">
             <span class="oi oi-plus" aria-hidden="true"></span> neuer Kandidat
         </a>
+    </div>
+
+    <div class="panel-heading pb-2 pt-2">
+       
         <span class="showusercandidates">
             <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" ng-change="update()" /> Zeige nur meine Kandidaten
         </span>
+        <input type="checkbox" ng-model="showTracking" id="showTracking" ng-change="update()"/> Beobachten
     </div>
 
     <div class="panel-body">
@@ -25,11 +30,11 @@
                     <th>Telefon-Notiz</th>
                     <th>Internes Gespräch</th>
                     <th>Externes Gespräch</th>
-                    <th>Research</th>
+                    <th aria-sort="descending">Research</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="c in candidates">
+                <tr ng-repeat="c in candidates" ng-if="!showTracking">
                     <td><b>{{c.sourcerName}}</b></td>
                     <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
                     <td ng-if="c.source_text != null"><a href="{{c.source_text}}">{{c.source}}</a></td>
@@ -47,3 +52,17 @@
         </table>
     </div>
 </div>
+
+
+<script src='js/tablesort.min.js'></script>
+
+<!-- Include sort types you need -->
+<script src='js/tablesort.number.js'></script>
+<script src='js/tablesort.date.js'></script>
+
+<script>
+    new Tablesort(document.getElementById('candidates'));
+
+    refresh.refresh();
+</script>
+
