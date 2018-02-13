@@ -413,14 +413,19 @@ app.controller('candidatesController', function ($scope, $http) {
      * get Candidates for the Overview & show User Candidates
      */
     $scope.update = function () {
-        
-       
         $http.post('candidates/get', { showusercandidates: $scope.showusercandidates }).then(function (response) {
             $scope.candidates = response.data.data;
         });
     };
 
     $scope.update();
+
+    $scope.updateTracking = function () {
+        $http.post('candidates/get', { showTracking: $scope.showTracking }).then(function (response) {
+            $scope.candidates = response.data.data;
+        });
+    };
+    
 
     $scope.searchNames = function () {
 

@@ -30,6 +30,12 @@
                     parameters = [req.session.userid];
                 }
 
+                var showTracking = req.body.showTracking; //true = nur Tracking=1
+                if (showTracking) {
+                    candidatequery = candidatequery + " WHERE candidate.tracking=1";
+                }
+
+
                 db.query(candidatequery, parameters, function (canderr, candresult, candfields) {
                     if (canderr) throw canderr;
                     
