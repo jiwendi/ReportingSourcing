@@ -4,17 +4,23 @@
 <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading pb-2">
-        <a href="#!candidate/new" class="btn btn-success">
+        <a href="#!candidate/new" class="btn btn-info">
             <span class="oi oi-plus" aria-hidden="true"></span> neuer Kandidat
         </a>
     </div>
 
     <div class="panel-heading pb-2 pt-2">
        
-        <span class="showusercandidates">
+        <span class="showusercandidates pr-3 alert alert-info mr-1 sourcing-width-250">
             <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" ng-change="update()" /> Zeige nur meine Kandidaten
         </span>
-        <input type="checkbox" ng-model="showTracking" id="showTracking" ng-change="update()"/> Beobachten
+
+            <input type="text" class="alert alert-info sourcing-width-250" id="inputName" ng-keyup="searchNames()" placeholder="Nach Namen suchen" />
+        <input type="text" class="alert alert-info sourcing-width-250" id="inputSource" ng-keyup="searchSource()" placeholder="Nach Quelle suchen" />
+        <input type="text" class="alert alert-info sourcing-width-250" id="inputSourceText" ng-keyup="searchSourceText()" placeholder="Nach Quellen-Text suchen" />
+        <input type="text" class="alert alert-info sourcing-width-250" id="inputeR" ng-keyup="searcheR()" placeholder="Nach eR-Nr. suchen" />
+
+
     </div>
 
     <div class="panel-body">
@@ -33,8 +39,8 @@
                     <th aria-sort="descending">Research</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr ng-repeat="c in candidates" ng-if="!showTracking">
+            <tbody id="tableBody">
+                <tr ng-repeat="c in candidates">
                     <td><b>{{c.sourcerName}}</b></td>
                     <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
                     <td ng-if="c.source_text != null"><a href="{{c.source_text}}">{{c.source}}</a></td>

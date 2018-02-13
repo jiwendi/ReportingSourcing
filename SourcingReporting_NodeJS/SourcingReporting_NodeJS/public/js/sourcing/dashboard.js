@@ -422,15 +422,82 @@ app.controller('candidatesController', function ($scope, $http) {
 
     $scope.update();
 
+    $scope.searchNames = function () {
 
-    /**
-     * get Candidates for the Overview
-     */
-   /* $http.get('candidates/get').then(function (response) {
-        $scope.candidates = response.data.data;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
-    });*/
+        // Declare variables 
+        var input, filter, table, tbody, tr, td, i;
+        input = document.getElementById("inputName");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("candidates");
+        tbody = document.getElementById("tableBody");
+        tr = tbody.getElementsByTagName("tr");
+        
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+        
+
+    }
+
+    $scope.searchSource = function () {
+
+        // Declare variables 
+        var input, filter, table, tbody, tr, td, i;
+        input = document.getElementById("inputSource");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("candidates");
+        tbody = document.getElementById("tableBody");
+        tr = tbody.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+
+    }
+
+    $scope.searcheR = function () {
+
+        // Declare variables 
+        var input, filter, table, tbody, tr, td, i;
+        input = document.getElementById("inputeR");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("candidates");
+        tbody = document.getElementById("tableBody");
+        tr = tbody.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+
+
+    }
+
+
 
 });
 
@@ -685,6 +752,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
     });//end candidate/info
 
+   
     $scope.updateCandidate = function () {
         $scope.message = "";
 

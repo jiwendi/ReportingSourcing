@@ -195,6 +195,10 @@ a:hover{
     width: 150px !important;
 }
 
+.sourcing-width-250 {
+    width: 250px !important;
+}
+
 .sourcing-width-full {
     width: 100% !important;
 }
