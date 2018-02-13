@@ -777,6 +777,35 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.message = response.data.message;
         });
     }
+
+    $scope.updateScoreboard = function (scoreboard) {
+        $scope.message = "";
+        $scope.scoreboard = scoreboard;
+
+        $http.post('candidate/updateScoreboard', {
+            id: $scope.candidate.id, scoreboard: $scope.scoreboard
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+            });
+
+        location.reload();
+    }
+
+    $scope.updateSourcer = function () {
+        $scope.message = "";
+             
+        $http.post('candidate/updateSourcer', {
+            id: $scope.candidate.id, sourcer_id: $scope.selectSourcer
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+        });
+
+        location.reload();
+        
+        
+    }
     
 
 

@@ -141,7 +141,8 @@
 
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Scoreboard</div>
-                <select id="scoreboard" class="custom-select wdselect sourcing-width-150">
+                <input type="text" class="form-control sourcing-width-150" id="scoureboard" ng-model="candidate.scoreboard_text" readonly />
+                <select ng-model="scoreboard" class="custom-select wdselect sourcing-width-full" ng-change="updateScoreboard(scoreboard)">
                     <option value="0">Nein</option>
                     <option value="1">Ja</option>
                 </select>
@@ -150,7 +151,9 @@
             <!-- Sourcer -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Sourcer</div>
-                <select class="custom-select wdselect" id="selectSourcer">
+                <input type="text" class="form-control sourcing-width-150" id="sourcerName" ng-model="candidate.sourcerName" readonly />
+                <select class="custom-select wdselect" ng-model="selectSourcer" ng-change="updateSourcer()">
+                    <option ng-repeat="s in sourcer" value="{{s.id}}">{{s.firstname + ' ' + s.lastname}}</option>
                 </select>
             </div>
 

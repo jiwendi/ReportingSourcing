@@ -386,6 +386,72 @@
             }
         });
 
+        app.post('/candidate/updateScoreboard', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET scoreboard = ? WHERE id = ?",
+                        [req.body.scoreboard, req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim UPDATE-Candidate (Scoreboard)!";
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Daten wurden gespeichert!");
+                            }
+                        });
+
+                } else {
+                    sendResponse(res, false, message);
+                }
+
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
+        app.post('/candidate/updateSourcer', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET sourcer = ? WHERE id = ?",
+                        [req.body.sourcer_id, req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim UPDATE-Candidate (Sourcer)!" + err;
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Daten wurden gespeichert!");
+                            }
+                        });
+
+                } else {
+                    sendResponse(res, false, message);
+                }
+
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
         /**
          * Candidate Detail Update 
          */
@@ -515,6 +581,7 @@
                     "CASE WHEN candidate.telnotice = '0000-00-00' THEN null ELSE candidate.telnotice END AS telnotice," +
                     "CASE WHEN candidate.response_value = null THEN null ELSE candidate.response_value END AS response_value," +
                     "candidate.tracking, candidate.request, candidate.response, candidate.scoreboard," +
+                    "CASE WHEN candidate.scoreboard = 1 THEN 'Ja' ELSE 'Nein' END as scoreboard_text, " +
                     "ABS(DATEDIFF(candidate.research, candidate.telnotice)) AS timeToCall, ABS(DATEDIFF(candidate.research, candidate.intern)) AS timeToInterview, " +
                     "ABS(DATEDIFF(candidate.research, candidate.extern)) AS timeToExtern, ABS(DATEDIFF(candidate.research, candidate.hire)) AS timeToHire," +
                     "city_group.city, team.name as teamname, candidate.team_id as team_id, candidate.research, candidate.date, users.firstname as sourcerName, candidate.sourcer " +
