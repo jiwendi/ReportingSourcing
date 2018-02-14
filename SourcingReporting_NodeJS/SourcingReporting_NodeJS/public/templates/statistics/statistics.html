@@ -2,9 +2,75 @@
 
 <div class="panel panel-default">
    
-<button class="alert alert-info">Research</button>
-<button class="alert alert-info">Research</button>
-<button class="alert alert-info">Research</button>
+
+
+    <div class="card w-25 card-float mr-2">
+        <img class="card-img-top" src="../../images/EP-Link-Profil-10.jpg" alt="Card image cap">
+        <div class="card-block">
+            <table id="requests" class="table">
+                <thead>
+                    <tr>
+                        <th>Ansprachen gesamt</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <h1>{{allRequests.requests}}</h1>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+    <div class="card w-25 card-float mr-2">
+        <img class="card-img-top" src="../../images/EP-Link-Profil-9.jpg" alt="Card image cap">
+        <div class="card-block">
+            <table id="requests" class="table">
+                <thead>
+                    <tr>
+                        <th> </th>
+                        <th>Anzahl</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ansprachen</td>
+                        <td>{{myYear.request}}</td>
+                    </tr>
+                    <tr>
+                        <td>Telefon-Notizen</td>
+                        <td>{{myYear.telnotice}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card w-25 card-float mr-2">
+        <img class="card-img-top" src="../../images/ep_header.jpg" alt="Card image cap">
+        <div class="card-block">
+            <table id="requests" class="table">
+                <thead>
+                    <tr>
+                        <th>Plattform</th>
+                        <th>Ansprachen</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="r in requestsFromSource">
+                        <td>{{r.name}}</td>
+                        <td>{{r.requestFromSource}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 
 </div>

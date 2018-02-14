@@ -610,8 +610,8 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
 
         $http.post('candidate/save', {
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.source,
-            source_text: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.candidate.tracking, request: $scope.candidate.request,
-            response: $scope.candidate.response, responseVal: $scope.candidate.responseVal, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.infos,
+            source_text: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.tracking, request: $scope.request,
+            response: $scope.response, responseVal: $scope.responseVal, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.infos,
             extern: $scope.extern, hire: $scope.hire, team: $scope.candidate.teamSelect, research: $scope.research, scoreboard: $scope.candidate.scoreboard
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
@@ -992,14 +992,25 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
  * StatisticsController
  */
 app.controller('statisticsController', function ($scope, $http) {
-
-    /*
-    $http.post('user/info').then(function (response) {
-        $scope.user = response.data.data;
+    $scope.message = "";
+    $scope.iserrmessage = false;
+    
+    $http.post('stat/rfe').then(function (response) {
+        $scope.requestsFromSource = response.data.data.requestsFromSource;
+        $scope.allRequests = response.data.data.allRequests;
+        $scope.message = response.data.message;
+        $scope.iserrmessage = !response.data.success;
     });
-    */
+
+    $http.post('stat/myYear').then(function (response) {
+        $scope.myYear = response.data.data;
+        $scope.message = response.data.message;
+        $scope.iserrmessage = !response.data.success;
+    });
 
 });
+
+
 /**
  * wigController - WIG Overview
  */

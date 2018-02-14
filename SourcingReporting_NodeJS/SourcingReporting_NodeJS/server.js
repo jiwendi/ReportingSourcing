@@ -18,6 +18,7 @@ var teamsrv = require('./teamsrv');
 var sourcesrv = require('./sourcesrv');
 var candidatesrv = require('./candidatesrv');
 var wigsrv = require('./wigsrv');
+var statisticssrv = require('./statisticssrv');
 
 var app = express();
 
@@ -76,6 +77,8 @@ sourcesrv.setup(app, db, session, toDate, sendResponse);
 candidatesrv.setup(app, db, session, toDate, sendResponse);
 
 wigsrv.setup(app, db, session, toDate, sendResponse);
+
+statisticssrv.setup(app, db, session, toDate, sendResponse);
 
 app.listen(8081, function () {
     console.log('Sourcing App listening on port 8081!');
