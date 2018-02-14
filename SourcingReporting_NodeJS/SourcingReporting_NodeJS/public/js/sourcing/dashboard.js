@@ -54,6 +54,14 @@ app.config(['$routeProvider',
             templateUrl: 'templates/sourcenew.html',
             controller: 'sourcenewController'
         }).
+        when('/sourcedetail', {
+            templateUrl: 'templates/sourcedetail.html',
+            controller: 'sourcedetailController'
+        }).
+        when('/sourcedetail/:sourceid', {
+            templateUrl: 'templates/sourcedetail.html',
+            controller: 'sourcedetailController'
+        }).
         //Kandidaten Verwaltung
         when('/candidates', {
             templateUrl: 'templates/candidates.html',
@@ -408,6 +416,38 @@ app.controller('sourcenewController', function ($scope, $http, $routeParams) {
         });
     };
 });
+
+/**
+ * SourceDetail Controller - Edit selected Source
+ */
+app.controller('sourcedetailController', function ($scope, $http, $routeParams) {
+    $scope.message = "";
+    $scope.iserrmessage = false;
+
+    /**
+     * get Sourcedata to fill into Form for updating selected source
+     */
+    $http.post('source/info', {
+        id: $routeParams.sourceid
+    }).then(function (response) {
+        $scope.source = response.data.data;
+        $scope.iserrmessage = !response.data.sucess;
+        $scope.message = response.data.message;
+    });
+
+
+    $scope.update = function () {
+        $scope.message = "";
+        $http.post('source/update', {
+            id: $scope.source.id, name: $scope.source.name, active: $scope.source.active
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+        });
+
+    }; //end update Function
+
+}); //end wigdetailController
 
 /**
  * Candidates Controller - Candidate Overview

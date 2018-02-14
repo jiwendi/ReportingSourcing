@@ -1,0 +1,34 @@
+﻿<h1 class="page-header"><span class="oi oi-compass"></span> {{source.name}}</h1>
+
+
+<div class="useredit w-50">
+    <div class="alert alert-danger" role="alert" ng-show="message && iserrmessage">
+        <span class="gyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        {{message}}
+    </div>
+
+    <div class="alert alert-success" role="alert" ng-show="message && !iserrmessage">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        {{message}}
+    </div>
+
+    <h3>Quelle bearbeiten</h3>
+
+        <div class="card-body mb-1">
+
+            <div class="input-group mb-1">
+                <div class="input-group-addon alert-info sourcing-width-150">Name</div>
+                <input type="text" class="form-control" id="sourcename" ng-model="source.name" placeholder="Quellen-Name">
+            </div>
+            <div class="input-group mb-1">
+                <div class="input-group-addon alert-info sourcing-width-150" title="0 - Nein, 1 - Ja">Aktiv</div>
+                <input type="text" class="form-control" id="active" ng-model="source.active" placeholder="Aktiv">
+            </div>
+            
+            <button type="button" class="btn btn-info mb-1" ng-click="update()"><span class="oi oi-check" aria-hidden="true"></span> Speichern</button>
+
+
+        </div>
+    
+
+</div>

@@ -21,6 +21,60 @@
 
 
         /**
+        * Sources - Detailinfos
+        */
+        app.post('/source/info', function (req, res) {
+            if (req.session.admin) {
+                var regsuc = false;
+                var message = "";
+                var sourcequery = "SELECT id, name, active from sources WHERE id = ?";
+                var parameter = [req.body.id];
+
+                db.query(sourcequery, parameter, function (sourceerr, sourceresult, sourcefields) {
+                    if (sourceerr) throw sourceerr;
+
+                    sendResponse(res, true, "", sourceresult[0]);
+                });
+            } else {
+                sendResponse(res, false, "Keine Berechtigung!");
+            }
+        }); //end source/info
+
+        app.post('/source/update', function (req, res) {
+            if (req.session.admin) {
+                var message = "";
+                var suc = false;
+
+                if (req.body.name == null || req.body.name == "") {
+                    message = "Bitte gültigen Namen eingeben";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    var query = "UPDATE sources SET name = ?, active = ? WHERE id = ?";
+                    var parameters = [req.body.name, req.body.active, req.body.id];
+
+                    db.query(query, parameters, function (err, result, fields) {
+                        if (err) {
+                            message = "Fehler mit DB";
+                            sendResponse(res, false, message);
+                        } else {
+                            sendResponse(res, true, "Daten wurden gespeichert!");
+                        }
+                    });
+
+                } else {
+                    sendResponse(res, false, message);
+                }
+
+            } else {
+                sendResponse(res, false, "Keine Berechtigung!");
+            }
+        });
+
+
+        /**
         * Gruppe speichern
         */
         app.post('/source/save', function (req, res) {
