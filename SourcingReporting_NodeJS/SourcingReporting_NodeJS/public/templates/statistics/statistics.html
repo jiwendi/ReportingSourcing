@@ -1,11 +1,22 @@
 ﻿<h1 class="page-header"><span class="oi oi-bar-chart"></span>  Statistiken</h1>
 
 <div class="panel panel-default">
-   
+   <!--
+    <div class="panel panel-body m-4 w-25">
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info sourcing-width-150">Start</div>
+            <input type='date' class="form-control sourcing-width-150" id="start" name="start" ng-model="start" value="{{ start | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateBegin()"/>
+        </div>
 
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info sourcing-width-150">Ende</div>
+            <input type='date' class="form-control sourcing-width-150" id="end" name="end" ng-model="end" value="{{ end | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateEnd()" />
+        </div>
+    </div>
+-->
 
     <div class="card w-25 card-float mr-2">
-        <img class="card-img-top" src="../../images/EP-Link-Profil-10.jpg" alt="Card image cap">
+        <img class="card-img-top" src="../../images/EP-Link-Profil.jpg" alt="Card image cap">
         <div class="card-block">
             <table id="requests" class="table">
                 <thead>
@@ -32,9 +43,8 @@
             <table id="requests" class="table">
                 <thead>
                     <tr>
-                        <th> </th>
+                        <th>Mein Jahr </th>
                         <th>Anzahl</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -46,11 +56,43 @@
                         <td>Telefon-Notizen</td>
                         <td>{{myYear.telnotice}}</td>
                     </tr>
+                    <tr>
+                        <td>Besetzungen</td>
+                        <td>{{myYear.hires}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
+    <div class="card w-25 card-float mr-2">
+        <img class="card-img-top" src="../../images/EP-Link-Profil-7.jpg" alt="Card image cap">
+        <div class="card-block">
+            <table id="requests" class="table">
+                <thead>
+                    <tr>
+                        <th>Meine Woche</th>
+                        <th>Anzahl</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Ansprachen</td>
+                        <td>{{myWeek.request}}</td>
+                    </tr>
+                    <tr>
+                        <td>Telefon-Notizen</td>
+                        <td>{{myWeek.telnotice}}</td>
+                    </tr>
+                    <tr>
+                        <td>Besetzungen</td>
+                        <td>{{myWeek.hires}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--
     <div class="card w-25 card-float mr-2">
         <img class="card-img-top" src="../../images/ep_header.jpg" alt="Card image cap">
         <div class="card-block">
@@ -71,6 +113,6 @@
             </table>
         </div>
     </div>
-
+    -->
 
 </div>

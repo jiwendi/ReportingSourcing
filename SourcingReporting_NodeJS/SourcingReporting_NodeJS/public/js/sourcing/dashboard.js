@@ -994,6 +994,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 app.controller('statisticsController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
+
     
     $http.post('stat/rfe').then(function (response) {
         $scope.requestsFromSource = response.data.data.requestsFromSource;
@@ -1004,6 +1005,12 @@ app.controller('statisticsController', function ($scope, $http) {
 
     $http.post('stat/myYear').then(function (response) {
         $scope.myYear = response.data.data;
+        $scope.message = response.data.message;
+        $scope.iserrmessage = !response.data.success;
+    });
+
+    $http.post('stat/myWeek').then(function (response) {
+        $scope.myWeek = response.data.data;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
     });

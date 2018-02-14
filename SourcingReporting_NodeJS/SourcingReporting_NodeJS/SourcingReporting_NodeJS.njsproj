@@ -45,9 +45,15 @@
     <Compile Include="public\js\sourcing\dashboard.js" />
     <Compile Include="public\js\sourcing\login.js" />
     <Compile Include="public\js\sourcing\register.js" />
+    <Compile Include="public\js\tablesort.date.min.js" />
+    <Compile Include="public\js\tablesort.min.js" />
+    <Compile Include="public\js\tablesort.number.min.js" />
     <Compile Include="public\js\transition.js" />
     <Compile Include="server.js" />
     <Compile Include="sourcesrv.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="statisticssrv.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="teamsrv.js">
@@ -69,6 +75,9 @@
     <Content Include="public\css\dashboard.css" />
     <Content Include="public\css\login.css" />
     <Content Include="public\css\select2.min.css" />
+    <Content Include="public\css\tablesort.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\font\css\open-iconic-bootstrap.css" />
     <Content Include="public\font\css\open-iconic-bootstrap.less" />
     <Content Include="public\font\css\open-iconic-bootstrap.min.css" />
@@ -89,6 +98,15 @@
     <Content Include="public\font\fonts\open-iconic.svg" />
     <Content Include="public\font\fonts\open-iconic.ttf" />
     <Content Include="public\font\fonts\open-iconic.woff" />
+    <Content Include="public\images\EP-Link-Profil-1.jpg" />
+    <Content Include="public\images\EP-Link-Profil-10.jpg" />
+    <Content Include="public\images\EP-Link-Profil-2.jpg" />
+    <Content Include="public\images\EP-Link-Profil-3.jpg" />
+    <Content Include="public\images\EP-Link-Profil-4.jpg" />
+    <Content Include="public\images\EP-Link-Profil-6.jpg" />
+    <Content Include="public\images\EP-Link-Profil-7.jpg" />
+    <Content Include="public\images\EP-Link-Profil-9.jpg" />
+    <Content Include="public\images\EP-Link-Profil.jpg" />
     <Content Include="public\images\epunkt.ico" />
     <Content Include="public\images\epunkt.png" />
     <Content Include="public\images\ep_header.jpg" />
@@ -103,15 +121,17 @@
     <Content Include="public\templates\candidates.html" />
     <Content Include="public\templates\dashboard.html" />
     <Content Include="public\templates\groupnew.html" />
+    <Content Include="public\templates\sourcedetail.html" />
     <Content Include="public\templates\sourcenew.html" />
     <Content Include="public\templates\sources.html" />
-    <Content Include="public\templates\statistics\ieb.html" />
+    <Content Include="public\templates\statistics\statistics.html" />
     <Content Include="public\templates\teamdetail.html" />
     <Content Include="public\templates\teamnew.html" />
     <Content Include="public\templates\teams.html" />
     <Content Include="public\templates\userdetail.html" />
     <Content Include="public\templates\usernew.html" />
     <Content Include="public\templates\users.html" />
+    <Content Include="public\templates\wigdetail.html" />
     <Content Include="public\templates\wignew.html" />
     <Content Include="public\templates\wigs.html" />
     <Content Include="README.md" />

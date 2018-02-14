@@ -37,8 +37,25 @@
         app.post('/stat/myYear', function (req, res) {
             var message = "";
             var query = "SELECT COUNT(c1.request) as request, " +
-                "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.telnotice != '0000-00-00') telnotice " +
+                "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.telnotice != '0000-00-00') telnotice, " +
+                "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.hire != '0000-00-00') hires " + 
                 "FROM candidate as c1 WHERE c1.sourcer = ?";
+            var parameter = [req.session.userid];
+
+            db.query(query, parameter, function (err, rows, fields) {
+                if (err) throw err;
+
+                sendResponse(res, true, "", rows[0]);
+            });
+
+        });
+
+        app.post('/stat/myWeek', function (req, res) {
+            var message = "";
+            var query = "SELECT COUNT(c1.request) as request, " + 
+                "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.telnotice != '0000-00-00') telnotice, " +
+                "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.hire != '0000-00-00') hires " + 
+                "FROM candidate as c1 WHERE c1.sourcer = ? AND WEEK(research) = WEEK(sysdate())";
             var parameter = [req.session.userid];
 
             db.query(query, parameter, function (err, rows, fields) {
