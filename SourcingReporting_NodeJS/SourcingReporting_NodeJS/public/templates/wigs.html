@@ -17,15 +17,17 @@
                     <th>Name</th>
                     <th>Zeitraum</th>
                     <th>Ziel</th>
-                    <th>deaktivieren</th>
+                    <th>aktuell</th>
+                    <th>im Header</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="w in wigs">
-                    <td>{{w.name}}</td>
+                    <td><a href="#!wigdetail/{{w.id}}">{{w.name}}</a></td>
                     <td>{{w.start | date: 'dd.MM.yyyy'}} - {{w.end | date: 'dd.MM.yyyy'}}</td>
                     <td>{{w.goal}}</td>
-                    <td><button class="btn btn-info" ng-click="switchWIG({{w.id}})"><span class="oi oi-check"></span></button></td>
+                    <td>{{w.hireThisYear}}</td>
+                    <td>{{w.active}}</td>
                 </tr>
             </tbody>
         </table>

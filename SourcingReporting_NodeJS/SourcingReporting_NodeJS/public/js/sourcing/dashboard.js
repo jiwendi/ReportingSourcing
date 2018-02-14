@@ -85,6 +85,14 @@ app.config(['$routeProvider',
             templateUrl: 'templates/wignew.html',
             controller: 'wignewController'
         }).
+        when('/wigdetail', {
+            templateUrl: 'templates/wigdetail.html',
+            controller: 'wigdetailController'
+        }).
+        when('/wigdetail/:wigid', {
+            templateUrl: 'templates/wigdetail.html',
+            controller: 'wigdetailController'
+        }).
         //Standard: Candidate List
         otherwise({ redirectTo: '/candidates' });
 }]);
@@ -968,12 +976,7 @@ app.controller('wigController', function ($scope, $http) {
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
     });
-
-    $scope.switchWIG = function (wigID) {
-
-
-    };
-
+    
 });
 
 /**
@@ -1011,6 +1014,61 @@ app.controller('wignewController', function ($scope, $http) {
         });
     };
 });
+
+/**
+ * WIGDetail Controller - Edit or delete selected WIG
+ */
+app.controller('wigdetailController', function ($scope, $http, $routeParams) {
+    $scope.message = "";
+    $scope.iserrmessage = false;
+
+    /**
+     * get WIGdata to fill into Form for updating selected WIG
+     */
+    $http.post('wig/detailinfo', {
+        id: $routeParams.wigid
+    }).then(function (response) {
+        $scope.wig = response.data.data;
+        $scope.iserrmessage = !response.data.sucess;
+        $scope.message = response.data.message;
+        });
+
+
+    $scope.update = function () {
+        $scope.message = "";
+        $http.post('wig/update', {
+            id: $scope.wig.id, name: $scope.wig.name, start: $scope.wig.start, end: $scope.wig.end, goal: $scope.wig.goal, active: $scope.wig.active
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+        });
+
+    }; //end update Function
+
+    $scope.delete = function () {
+        $scope.message = "";
+        $http.post('wig/delete', {
+            id: $scope.wig.id
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+
+            if (response.data.success) {
+                $scope.message = response.data.message;
+                //window.location = '#!candidate/new';
+
+                setTimeout(function () {
+                    window.location.href = "#!wigs"; // redirect
+                }, 1000); //will call the function after 2 secs. --> message showed for 2 sec.
+
+            }
+
+        });
+
+    }; //end update Function
+
+
+}); //end wigdetailController
 
 
 /**

@@ -1,0 +1,48 @@
+﻿<h1 class="page-header"><span class="oi oi-flag"></span> {{wig.name}}</h1>
+
+
+<div class="useredit w-50">
+    <div class="alert alert-danger" role="alert" ng-show="message && iserrmessage">
+        <span class="gyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        {{message}}
+    </div>
+
+    <div class="alert alert-success" role="alert" ng-show="message && !iserrmessage">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        {{message}}
+    </div>
+
+    <h3>WIG bearbeiten</h3>
+
+    <div class="card-body mb-1">
+
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info sourcing-width-250">Name</div>
+            <input type="text" class="form-control" id="name" ng-model="wig.name" placeholder="WIG - Name">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info sourcing-width-250">Start</div>
+            <input type="date" class="form-control" id="start" ng-model="wig.start" value="{{ wig.start | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info sourcing-width-250">Ende</div>
+            <input type="date" class="form-control" id="end" ng-model="wig.end" value="{{ wig.end | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info sourcing-width-250">Anzahl d. Besetzungen</div>
+            <input type="number" class="form-control" id="goal" ng-model="wig.goal" min="1">
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-addon alert-info sourcing-width-250" title="Achtung! Andere Aktive WIGs werden deaktiviert!" >Aktiv</div>
+            <input type="text" class="form-control" id="active" ng-model="wig.active">
+        </div>
+
+        <button type="button" class="btn btn-danger mb-1" ng-click="delete()"><span class="oi oi-x" aria-hidden="true"></span> WIG löschen</button>
+
+        <button type="button" class="btn btn-info mb-1" ng-click="update()"><span class="oi oi-check" aria-hidden="true"></span> Speichern</button>
+
+
+    </div>
+
+
+</div>
