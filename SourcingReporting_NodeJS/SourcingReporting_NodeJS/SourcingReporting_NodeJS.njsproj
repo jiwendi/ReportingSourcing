@@ -124,6 +124,7 @@
     <Content Include="public\templates\sourcedetail.html" />
     <Content Include="public\templates\sourcenew.html" />
     <Content Include="public\templates\sources.html" />
+    <Content Include="public\templates\statistics\reqToHire.html" />
     <Content Include="public\templates\statistics\statistics.html" />
     <Content Include="public\templates\teamdetail.html" />
     <Content Include="public\templates\teamnew.html" />

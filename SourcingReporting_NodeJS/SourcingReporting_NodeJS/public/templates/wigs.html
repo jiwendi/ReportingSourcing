@@ -1,35 +1,44 @@
 ﻿<h1 class="page-header"><span class="oi oi-flag"></span>  WIG - Übersicht</h1>
 
-
-<div class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading pb-2">
-        <a href="#!wig/new" class="btn btn-info">
-            <span class="oi oi-plus" aria-hidden="true"></span> neues WIG
-        </a>
-        
+    <div class="alert alert-danger" role="alert" ng-show="message && iserrmessage">
+        <span class="gyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        {{message}}
     </div>
 
-    <div class="panel-body">
-        <table id="wigs" class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Zeitraum</th>
-                    <th>Ziel</th>
-                    <th>aktuell</th>
-                    <th>im Header</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="w in wigs">
-                    <td><a href="#!wigdetail/{{w.id}}">{{w.name}}</a></td>
-                    <td>{{w.start | date: 'dd.MM.yyyy'}} - {{w.end | date: 'dd.MM.yyyy'}}</td>
-                    <td>{{w.goal}}</td>
-                    <td>{{w.hireThisYear}}</td>
-                    <td>{{w.active}}</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="alert alert-success" role="alert" ng-show="message && !iserrmessage">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        {{message}}
     </div>
-</div>
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading pb-2">
+            <a href="#!wig/new" class="btn btn-info">
+                <span class="oi oi-plus" aria-hidden="true"></span> neues WIG
+            </a>
+
+        </div>
+
+        <div class="panel-body">
+            <table id="wigs" class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Zeitraum</th>
+                        <th>Ziel</th>
+                        <th>aktuell</th>
+                        <th>im Header</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="w in wigs">
+                        <td><a href="#!wigdetail/{{w.id}}">{{w.name}}</a></td>
+                        <td>{{w.start | date: 'dd.MM.yyyy'}} - {{w.end | date: 'dd.MM.yyyy'}}</td>
+                        <td>{{w.goal}}</td>
+                        <td>{{w.hireThisYear}}</td>
+                        <td>{{w.active}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

@@ -65,6 +65,42 @@
             });
 
         });
+
+        app.post('/stat/allData', function (req, res) {
+            var message = "";
+            var query = "";
+            var parameter = [];
+
+            db.query(query, parameter, function (err, rows, fields) {
+                if (err) throw err;
+
+                sendResponse(res, true, "", rows);
+            });
+        });
+
+        /*
+        SELECT COUNT(candidate.id), candidate.team_id, team.name 
+        FROM candidate 
+        JOIN team ON team.id = candidate.team_id 
+        WHERE YEAR(candidate.hire) = 2018 GROUP BY candidate.team_id
+
+        */
+        app.post('/stat/hiresInTeams', function (req, res) {
+            var message = "";
+            var query = "SELECT COUNT(candidate.id), candidate.team_id, team.name " +
+                "FROM candidate " +
+                "JOIN team ON team.id = candidate.team_id " +
+                "WHERE YEAR(candidate.hire) = 2018 GROUP BY candidate.team_id";
+            var parameter = [];
+
+            db.query(query, parameter, function (err, rows, fields) {
+                if (err) throw err;
+
+                sendResponse(res, true, "", rows);
+            });
+        });
+
+      
         
 
     } //end setup-function

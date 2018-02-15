@@ -84,6 +84,10 @@ app.config(['$routeProvider',
             templateUrl: 'templates/statistics/statistics.html',
             controller: 'statisticsController'
         }).
+        when('/reqestsToHire', {
+            templateUrl: 'templates/statistics/reqToHire.html',
+            controller: 'statisticsController'
+        }).
         //WIG
         when('/wigs', {
             templateUrl: 'templates/wigs.html',
@@ -1011,6 +1015,12 @@ app.controller('statisticsController', function ($scope, $http) {
 
     $http.post('stat/myWeek').then(function (response) {
         $scope.myWeek = response.data.data;
+        $scope.message = response.data.message;
+        $scope.iserrmessage = !response.data.success;
+    });
+
+    $http.post('stat/allData').then(function (response) {
+        $scope.allData = response.data.data;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
     });

@@ -84,7 +84,7 @@ module.exports = {
          * WIG save - Save a WIG in Database
          */
         app.post('/wig/save', function (req, res) {
-            if (req.session.admin) {
+            if (req.session.userid && req.session.admin) {
                 var message = "";
                 var suc = false;
 
@@ -125,7 +125,7 @@ module.exports = {
           * WIG update - Update a WIG in Database
           */
         app.post('/wig/update', function (req, res) {
-            if (req.session.admin) {
+            if (req.session.userid && req.session.admin) {
                 var message = "";
                 var suc = false;
 
@@ -166,7 +166,7 @@ module.exports = {
           * WIG delete - Delete a WIG from Database
           */
         app.post('/wig/delete', function (req, res) {
-            if (req.session.admin) {
+            if (req.session.userid && req.session.admin) {
                 var message = "";
                 var suc = false;
 
