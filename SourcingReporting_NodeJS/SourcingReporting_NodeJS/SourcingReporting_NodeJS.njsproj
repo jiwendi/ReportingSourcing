@@ -35,6 +35,8 @@
     <Compile Include="public\js\angular-route.min.js" />
     <Compile Include="public\js\angular.min.js" />
     <Compile Include="public\js\bootstrap-datepicker.min.js" />
+    <Compile Include="public\js\Chart.bundle.js" />
+    <Compile Include="public\js\Chart.js" />
     <Compile Include="public\js\collapse.js" />
     <Compile Include="public\js\jquery-3.2.1.min.js" />
     <Compile Include="public\js\jquery-ui.min.js" />
@@ -98,18 +100,21 @@
     <Content Include="public\font\fonts\open-iconic.svg" />
     <Content Include="public\font\fonts\open-iconic.ttf" />
     <Content Include="public\font\fonts\open-iconic.woff" />
-    <Content Include="public\images\EP-Link-Profil-1.jpg" />
-    <Content Include="public\images\EP-Link-Profil-10.jpg" />
-    <Content Include="public\images\EP-Link-Profil-2.jpg" />
-    <Content Include="public\images\EP-Link-Profil-3.jpg" />
-    <Content Include="public\images\EP-Link-Profil-4.jpg" />
-    <Content Include="public\images\EP-Link-Profil-6.jpg" />
-    <Content Include="public\images\EP-Link-Profil-7.jpg" />
+    <Content Include="public\images\Bojan_LinkedIn.jpg" />
+    <Content Include="public\images\Christopher_LinkedIn.jpg" />
     <Content Include="public\images\EP-Link-Profil-9.jpg" />
-    <Content Include="public\images\EP-Link-Profil.jpg" />
     <Content Include="public\images\epunkt.ico" />
     <Content Include="public\images\epunkt.png" />
-    <Content Include="public\images\ep_header.jpg" />
+    <Content Include="public\images\Esther_LinkedIn.jpg" />
+    <Content Include="public\images\Gotthard_LinkedIn.jpg" />
+    <Content Include="public\images\Johanna_LinkedIn.jpg" />
+    <Content Include="public\images\LinkedIn_Esther_2.jpg" />
+    <Content Include="public\images\LinkedIn_Esther_3.jpg" />
+    <Content Include="public\images\LinkedIn_Kathi-Roman.jpg" />
+    <Content Include="public\images\Maria_LinkedIn.jpg" />
+    <Content Include="public\images\Roman_LinkedIn.jpg" />
+    <Content Include="public\images\Valerie_LinkedIn.jpg" />
+    <Content Include="public\images\Wolfgang_LinkedIn.jpg" />
     <Content Include="public\login.html">
       <SubType>Code</SubType>
     </Content>
@@ -124,6 +129,7 @@
     <Content Include="public\templates\sourcedetail.html" />
     <Content Include="public\templates\sourcenew.html" />
     <Content Include="public\templates\sources.html" />
+    <Content Include="public\templates\statistics\reqToHirePlattform.html" />
     <Content Include="public\templates\statistics\reqToHire.html" />
     <Content Include="public\templates\statistics\statistics.html" />
     <Content Include="public\templates\teamdetail.html" />

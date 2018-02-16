@@ -1,137 +1,62 @@
 ﻿<h1 class="page-header"><span class="oi oi-bar-chart"></span>  Statistiken</h1>
 
 <div class="panel panel-default">
-   <!--
-    <div class="panel panel-body m-4 w-25">
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info sourcing-width-150">Start</div>
-            <input type='date' class="form-control sourcing-width-150" id="start" name="start" ng-model="start" value="{{ start | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateBegin()"/>
-        </div>
-
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info sourcing-width-150">Ende</div>
-            <input type='date' class="form-control sourcing-width-150" id="end" name="end" ng-model="end" value="{{ end | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateEnd()" />
-        </div>
-    </div>
--->
-
-    <div class="card w-25 card-float mr-2">
-        <img class="card-img-top" src="../../images/EP-Link-Profil.jpg" alt="Card image cap">
-        <div class="card-block">
-            <table id="requests" class="table">
-                <thead>
-                    <tr>
-                        <th>Ansprachen gesamt</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td align="center">
-                            <h1>{{allRequests.requests}}</h1>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
+   
+    <h3>Von der Ansprache zur Besetzung</h3>
+    <br />
+    <div class="input-group w-25 ml-2">
+        <div class="input-group-addon alert-info sourcing-width-150">Jahr </div>
+        <input class="form-control" type="number" id="yearToFilter" ng-model="yearToFilter" min="2018" value="2018" ng-change="updateAllData()" />
     </div>
 
-    <div class="card w-25 card-float mr-2">
-        <img class="card-img-top" src="../../images/EP-Link-Profil-9.jpg" alt="Card image cap">
-        <div class="card-block">
-            <table id="requests" class="table">
-                <thead>
-                    <tr>
-                        <th>Mein Jahr </th>
-                        <th>Anzahl</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ansprachen</td>
-                        <td>{{myYear.request}}</td>
-                    </tr>
-                    <tr>
-                        <td>Telefon-Notizen</td>
-                        <td>{{myYear.telnotice}}</td>
-                    </tr>
-                    <tr>
-                        <td>Besetzungen</td>
-                        <td>{{myYear.hires}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    
+
+   <br />
+   <br />
+
+    <div class="chart-container w-50">
+        <canvas id="myChart"></canvas>
     </div>
-
-    <div class="card w-25 card-float mr-2">
-        <img class="card-img-top" src="../../images/EP-Link-Profil-7.jpg" alt="Card image cap">
-        <div class="card-block">
-            <table id="requests" class="table">
-                <thead>
-                    <tr>
-                        <th>Meine Woche</th>
-                        <th>Anzahl</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ansprachen</td>
-                        <td>{{myWeek.request}}</td>
-                    </tr>
-                    <tr>
-                        <td>Telefon-Notizen</td>
-                        <td>{{myWeek.telnotice}}</td>
-                    </tr>
-                    <tr>
-                        <td>Besetzungen</td>
-                        <td>{{myWeek.hires}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-
-
-
-    <div class="card w-25 card-float mr-2">
-        <img class="card-img-top" src="../../images/EP-Link-Profil-3.jpg" alt="Card image cap">
-        <div class="card-block">
-            <div class="p-2 m-2">
-                Ansprachen, Interne- und Externe Gespräche, Besetzungen </br>
-                <a role="button" class="btn btn-info mt-2" href="#!reqToHire">Statistik anzeigen</a>
-
-            </div>
-            
-        </div>
-    </div>
-
-
-
-
-    <!--
-    <div class="card w-25 card-float mr-2">
-        <img class="card-img-top" src="../../images/ep_header.jpg" alt="Card image cap">
-        <div class="card-block">
-            <table id="requests" class="table">
-                <thead>
-                    <tr>
-                        <th>Plattform</th>
-                        <th>Ansprachen</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="r in requestsFromSource">
-                        <td>{{r.name}}</td>
-                        <td>{{r.requestFromSource}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    -->
-
+    
+    <br />
+    <br />
+    <table id="requests" class="table w-50">
+        <thead>
+            <tr>
+                <th> </th>
+                <th>Ansprachen</th>
+                <th>Telefonnotizen</th>
+                <th>interne Gespräche</th>
+                <th>externe Gespräche</th>
+                <th>Besetzungen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>Absolute Zahlen</b></td>
+                <td>{{allData.request}}</td>
+                <td>{{allData.telnotice}}</td>
+                <td>{{allData.intern}}</td>
+                <td>{{allData.extern}}</td>
+                <td>{{allData.hires}}</td>
+            </tr>
+            <tr>
+                <td><b>Convertion Rate<br /> je Step</b></td>
+                <td> - </td>
+                <td>{{allData.telnotice / allData.request * 100 | number:1}} %</td>
+                <td>{{allData.intern / allData.telnotice * 100 | number:1}} %</td>
+                <td>{{allData.extern / allData.intern * 100 | number:1}} %</td>
+                <td>{{allData.hires / allData.extern * 100 | number:1}} %</td>
+            </tr>
+            <tr>
+                <td><b>Convertion Rate Gesamt</b></td>
+                <td> - </td>
+                <td>{{allData.telnotice / allData.request * 100 | number:1}} %</td>
+                <td>{{allData.intern / allData.request * 100 | number:1}} %</td>
+                <td>{{allData.extern / allData.request * 100 | number:1}} %</td>
+                <td>{{allData.hires / allData.request * 100 | number:1}} %</td>
+            </tr>
+        </tbody>
+    </table>
+    
 </div>

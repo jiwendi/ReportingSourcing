@@ -86,7 +86,11 @@ app.config(['$routeProvider',
         }).
         when('/reqestsToHire', {
             templateUrl: 'templates/statistics/reqToHire.html',
-            controller: 'statisticsController'
+            controller: 'statisticsReqToHireController'
+        }).
+        when('/reqestsToHireFromPlattform', {
+            templateUrl: 'templates/statistics/reqToHirePlattform.html',
+            controller: 'statisticsReqToHirePlattformController'
         }).
         //WIG
         when('/wigs', {
@@ -123,6 +127,72 @@ var toLocalDate = function (date) {
     //return moment.utc(date).toDate();
     return moment(new Date(date));
 };
+
+var getColor = function (name) {
+
+    var color = '';
+
+    switch (name) {
+        case 'red':
+            color = 'rgba(229, 52, 70, 0.2)';
+            break;
+        case 'medium':
+            color = 'rgba(158, 21, 34, 0.2)';
+            break;
+        case 'dark':
+            color = 'rgba(90, 12, 20, 0.2)';
+            break;
+        case 'black':
+            color = 'rgba(0, 0, 0, 0.2)';
+            break;
+        case 'gray-dark':
+            color = 'rgba(89, 89, 89, 0.2)';
+            break;
+        case 'gray-medium':
+            color = 'rgba(153, 153, 153, 0.2)';
+            break;
+        case 'gray-light':
+            color = 'rgba(230, 230, 230, 0.2)';
+            break;
+        default:
+            color = 'rgba(229, 52, 70, 0.2)'; //default red
+    }
+
+    return color;
+}
+
+var getBorderColor = function (name) {
+
+    var color = '';
+
+    switch (name) {
+        case 'red':
+            color = 'rgba(229, 52, 70, 1)';
+            break;
+        case 'medium':
+            color = 'rgba(158, 21, 34, 1)';
+            break;
+        case 'dark':
+            color = 'rgba(90, 12, 20, 1)';
+            break;
+        case 'black':
+            color = 'rgba(0, 0, 0, 1)';
+            break;
+        case 'gray-dark':
+            color = 'rgba(89, 89, 89, 1)';
+            break;
+        case 'gray-medium':
+            color = 'rgba(153, 153, 153, 1)';
+            break;
+        case 'gray-light':
+            color = 'rgba(230, 230, 230, 1)';
+            break;
+        default:
+            color = 'rgba(229, 52, 70, 1)'; //default red
+    }
+
+    return color;
+}
 
 
 /**
@@ -998,16 +1068,36 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 app.controller('statisticsController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
-
     
-    $http.post('stat/rfe').then(function (response) {
+    $scope.yearToFilter = $('#yearToFilter').val();
+
+    $scope.update = function () {
+
+        $scope.yearToFilter = $('#yearToFilter').val();
+
+        $http.post('stat/rfe', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+            $scope.requestsFromSource = response.data.data.requestsFromSource;
+            $scope.allRequests = response.data.data.allRequests;
+            $scope.message = response.data.message;
+            $scope.iserrmessage = !response.data.success;
+        });
+
+        $http.post('stat/myYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+            $scope.myYear = response.data.data;
+            $scope.message = response.data.message;
+            $scope.iserrmessage = !response.data.success;
+        });
+
+    };
+
+    $http.post('stat/rfe', { yearToFilter: $scope.yearToFilter }).then(function (response) {
         $scope.requestsFromSource = response.data.data.requestsFromSource;
         $scope.allRequests = response.data.data.allRequests;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
     });
 
-    $http.post('stat/myYear').then(function (response) {
+    $http.post('stat/myYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
         $scope.myYear = response.data.data;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
@@ -1019,11 +1109,224 @@ app.controller('statisticsController', function ($scope, $http) {
         $scope.iserrmessage = !response.data.success;
     });
 
-    $http.post('stat/allData').then(function (response) {
+});
+
+app.controller('statisticsReqToHireController', function ($scope, $http) {
+    $scope.message = "";
+    $scope.iserrmessage = false;
+
+    $scope.yearToFilter = $('#yearToFilter').val();
+    $http.post('stat/allData', { yearToFilter: $scope.yearToFilter }).then(function (response) {
         $scope.allData = response.data.data;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
+
+        var ctx = $("#myChart");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Ansprache", "Telefonnotizen", "Interne Gespräche", "Externe Gespräche", "Besetzungen"],
+                datasets: [{
+                    label: 'Anzahl',
+                    data: [$scope.allData.request, $scope.allData.telnotice, $scope.allData.intern, $scope.allData.extern, $scope.allData.hires],
+                    backgroundColor: [
+                        getColor('red'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('red'),
+                        getColor('black')
+                    ],
+                    borderColor: [
+                        getBorderColor('red'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('red'),
+                        getBorderColor('black')
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+
+
+    });//end allData
+
+
+    $scope.updateAllData = function () {
+
+        $scope.yearToFilter = $('#yearToFilter').val();
+
+        $http.post('stat/allData', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+            $scope.allData = response.data.data;
+            $scope.message = response.data.message;
+            $scope.iserrmessage = !response.data.success;
+
+            var ctx = $("#myChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Ansprache", "Telefonnotizen", "Interne Gespräche", "Externe Gespräche", "Besetzungen"],
+                    datasets: [{
+                        label: 'Anzahl',
+                        data: [$scope.allData.request, $scope.allData.telnotice, $scope.allData.intern, $scope.allData.extern, $scope.allData.hires],
+                        backgroundColor: [
+                            getColor('red'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('red'),
+                            getColor('black')
+                        ],
+                        borderColor: [
+                            getBorderColor('red'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('red'),
+                            getBorderColor('black')
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+
+
+        });//end allData
+
+    };
+
+});
+
+app.controller('statisticsReqToHirePlattformController', function ($scope, $http) {
+    $scope.message = "";
+    $scope.iserrmessage = false;
+
+    $scope.yearToFilter = $('#yearToFilter').val();
+    $scope.selectSource = $('#selectSource').val();
+
+    $http.post('stat/allDataPlattform', { source: $('#selectSource').val() }).then(function (response) {
+        $scope.sources = response.data.data.sources;
+        $scope.allData = response.data.data.allData;
+
+        $scope.message = response.data.message;
+        $scope.iserrmessage = !response.data.success;
+
+        var ctx = $("#myChart");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Ansprache", "Telefonnotizen", "Interne Gespräche", "Externe Gespräche", "Besetzungen"],
+                datasets: [{
+                    label: 'Anzahl',
+                    data: [$scope.allData.request, $scope.allData.telnotice, $scope.allData.intern, $scope.allData.extern, $scope.allData.hires],
+                    backgroundColor: [
+                        getColor('red'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('red'),
+                        getColor('black')
+                    ],
+                    borderColor: [
+                        getBorderColor('red'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('red'),
+                        getBorderColor('black')
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
     });
+
+    $scope.updateAllDataPlattform = function () {
+        $scope.selectSource = $('#selectSource').val();
+        $scope.yearToFilter = $('#yearToFilter').val();
+       
+
+        $http.post('stat/allDataPlattform', { yearToFilter: $scope.yearToFilter , source: $scope.selectSource }).then(function (response) {
+            $scope.sources = response.data.data.sources;
+            $scope.allData = response.data.data.allData;
+
+            $scope.message = response.data.message;
+            $scope.iserrmessage = !response.data.success;
+
+            var ctx = $("#myChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ["Ansprache", "Telefonnotizen", "Interne Gespräche", "Externe Gespräche", "Besetzungen"],
+                    datasets: [{
+                        label: 'Anzahl',
+                        data: [$scope.allData.request, $scope.allData.telnotice, $scope.allData.intern, $scope.allData.extern, $scope.allData.hires],
+                        backgroundColor: [
+                            getColor('red'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('red'),
+                            getColor('black')
+                        ],
+                        borderColor: [
+                            getBorderColor('red'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('red'),
+                            getBorderColor('black')
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+        });
+
+    };
+
 
 });
 
