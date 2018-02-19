@@ -56,7 +56,7 @@
                 <tbody>
                     <tr>
                         <td>Ansprachen</td>
-                        <td>{{myYear.request}} ({{myYear.request / allRequests.requests | number:2}} %)</td>
+                        <td>{{myYear.request}} ({{myYear.request / allRequests.requests * 100 | number:2}} %)</td>
                     </tr>
                     <tr>
                         <td>Telefon-Notizen</td>
@@ -157,7 +157,23 @@
                 <p class="card-text">
                     Gesamt und je Plattform
                 </p>
-                <a href="#" class="btn btn-primary">Statistik anzeigen</a>
+                <a href="#!ResponseRate" class="btn btn-primary">Statistik anzeigen</a>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="card sourcing-w-20 card-float m-2">
+        <img class="card-img-top" src="../../images/LinkedIn_Kathi-Roman.jpg" alt="Card image cap">
+        <div class="card-block">
+            <div class="card-body">
+                <h5 class="card-title">Übersicht Telefonnotizen</h5>
+                <p class="card-text">
+                   Übersicht der Telefonnotizen je Sourcer und Kalenderwoche
+                </p>
+                <a href="#" class="btn btn-primary">Statistik anzeigen</a><!-- #!TelefonNotice -->
 
             </div>
 
@@ -166,27 +182,6 @@
         
 
 
-    <!--
-    <div class="card w-25 card-float m-2">
-        <img class="card-img-top" src="../../images/ep_header.jpg" alt="Card image cap">
-        <div class="card-block">
-            <table id="requests" class="table">
-                <thead>
-                    <tr>
-                        <th>Plattform</th>
-                        <th>Ansprachen</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="r in requestsFromSource">
-                        <td>{{r.name}}</td>
-                        <td>{{r.requestFromSource}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    -->
+  
 
 </div>

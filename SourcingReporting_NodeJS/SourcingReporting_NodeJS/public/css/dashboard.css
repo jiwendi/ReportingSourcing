@@ -207,9 +207,16 @@ a:hover{
     width: 20% !important
 }
 
-.card-float {
-float:left;
+.sourcing-position_rt {
+position: absolute;
+top: 30px;
+right: 30px;
 
+}
+
+
+.card-float {
+    float: left;
 }
 
 .wdselect {

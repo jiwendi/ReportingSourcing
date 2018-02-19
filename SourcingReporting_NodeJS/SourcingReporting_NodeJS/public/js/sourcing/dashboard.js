@@ -96,6 +96,14 @@ app.config(['$routeProvider',
             templateUrl: 'templates/statistics/hiresInTeams.html',
             controller: 'statisticsHiresInTeamController'
         }).
+        when('/ResponseRate', {
+            templateUrl: 'templates/statistics/responseRate.html',
+            controller: 'statisticsResponseRateController'
+        }).
+        when('/TelefonNotizen', {
+            templateUrl: 'templates/statistics/telNotice.html',
+            controller: 'statisticsTelNoticeController'
+        }).
         //WIG
         when('/wigs', {
             templateUrl: 'templates/wigs.html',
@@ -686,10 +694,43 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         $scope.team = $('#teamSelect').val();
 
         //alert($('#selectResponseValue').val());
-        $scope.responseVal = $('#selectResponseValue').val();
-       
-        alert($scope.candidate.info);
+        if ($('#selectResponseValue').val() == undefined || $('#selectResponseValue').val() == '') {
+            $scope.responseVal = null;
+        } else {
+            $scope.responseVal = $('#selectResponseValue').val();
+        }
 
+        if ($('#research').val() == '') {
+            $scope.research = '0000-00-00';
+        } else {
+            $scope.research = $('#research').val();
+        }
+
+        if ($('#telnotice').val() == '') {
+            $scope.telnotice = '0000-00-00';
+        } else {
+            $scope.telnotice = $('#telnotice').val();
+        }
+
+        if ($('#intern').val() == '') {
+            $scope.intern = '0000-00-00';
+        } else {
+            $scope.intern = $('#intern').val();
+        }
+
+        if ($('#extern').val() == '') {
+            $scope.extern = '0000-00-00';
+        } else {
+            $scope.extern = $('#extern').val();
+        }
+
+        if ($('#hire').val() == '') {
+            $scope.hire = '0000-00-00';
+        } else {
+            $scope.hire = $('#hire').val();
+        }
+        
+        
         $http.post('candidate/save', {  
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.source,
             source_text: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.tracking, request: $scope.request,
@@ -705,7 +746,7 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
 
                 setTimeout(function () {
                     window.location.href = "#!candidate/new"; //will redirect to candidate/new
-                }, 2000); //will call the function after 2 secs. --> message showed for 2 sec.
+                }, 1000); //will call the function after 2 secs. --> message showed for 2 sec.
 
             }
 
@@ -925,9 +966,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
         location.reload();
     }
+    
 
     $scope.updateResearch = function () {
         $scope.message = "";
+        $scope.research = "";
         
         $http.post('candidate/updateResearch', {
             id: $scope.candidate.id, research: $scope.candidate.research
@@ -1512,6 +1555,273 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
     };
 
 });
+
+app.controller('statisticsResponseRateController', function ($scope, $http) {
+
+    $scope.message = "";
+    $scope.iserrmessage = false;
+
+    $scope.filterFrom = new Date('2018-01-01');
+    $scope.filterTo = new Date('2018-12-31');
+
+    $http.post('stat/responseRate', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+        $scope.responseRates = response.data.data.responseRates;
+        $scope.allResponseRate = response.data.data.allResponseRate;
+
+        $scope.message = response.data.message;
+        $scope.iserrmessage = !response.data.success;
+
+
+        $scope.labels = [];
+        $scope.requests = [];
+        $scope.responses = [];
+
+        for (var i = 0; i < $scope.responseRates.length; i++) {
+            $scope.labels.push($scope.responseRates[i].name);
+            $scope.requests.push($scope.responseRates[i].requests);
+            $scope.responses.push($scope.responseRates[i].responses);
+        }
+
+        var ctx = $("#myChart");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: $scope.labels,
+                datasets: [{
+                    label: 'Ansprache',
+                    data: $scope.requests,
+                    backgroundColor: [
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark')
+                    ],
+                    borderColor: [
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark')
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: 'Response',
+                    data: $scope.responses,
+                    backgroundColor: [
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red'),
+                        getColor('red')
+                    ],
+                    borderColor: [
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red'),
+                        getBorderColor('red')
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    position: 'bottom'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+
+
+    });//end allData
+
+
+    $scope.updateResponseRate = function () {
+
+        $scope.filterFrom = $('#from').val();
+        $scope.filterTo = $('#to').val();
+
+        $http.post('stat/responseRates', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+            $scope.responseRates = response.data.data.responseRates;
+            $scope.allResponseRate = response.data.data.allResponseRate;
+
+            $scope.message = response.data.message;
+            $scope.iserrmessage = !response.data.success;
+
+
+            $scope.labels = [];
+            $scope.requests = [];
+            $scope.responses = [];
+
+            for (var i = 0; i < $scope.responseRates.length; i++) {
+                $scope.labels.push($scope.responseRates[i].name);
+                $scope.requests.push($scope.responseRates[i].requests);
+                $scope.responses.push($scope.responseRates[i].responses);
+            }
+
+            var ctx = $("#myChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: $scope.labels,
+                    datasets: [{
+                        label: 'Anzahl',
+                        data: $scope.requests,
+                        backgroundColor: [
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark')
+                        ],
+                        borderColor: [
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark')
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Anzahl',
+                        data: $scope.responses,
+                        backgroundColor: [
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark')
+                        ],
+                        borderColor: [
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark')
+                        ],
+                        borderWidth: 1
+                    }]
+            },
+                options: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+
+
+        });//end allData
+
+    };
+
+});
+
+app.controller('statisticsTelNoticeController', function ($scope, $http) {
+    //ToDo
+
+    $http.post('stat/telNotice').then(function (response) {
+        $scope.telNotice = response.data.data;
+        $scope.message = response.data.message;
+        $scope.iserrmessage = !response.data.success;
+
+    });
+
+
+});
+
+
+
+
 
 /**
  * wigController - WIG Overview

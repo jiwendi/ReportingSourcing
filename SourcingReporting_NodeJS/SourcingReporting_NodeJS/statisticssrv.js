@@ -136,6 +136,47 @@
             });
         });
 
+
+        /*
+        SELECT COUNT(c1.request) as requests, c1.source_id, sources.name,
+                (SELECT COUNT(c2.response) as response FROM candidate as c2 WHERE c2.source_id = c1.source_id AND c2.response = 1) responses
+                FROM candidate as c1
+                JOIN sources ON c1.source_id = sources.id
+                GROUP BY c1.source_id
+        */
+        app.post('/stat/responseRate', function (req, res) {
+            var message = "";
+            var query = "SELECT COUNT(c1.request) as requests, c1.source_id, sources.name, " +
+                "(SELECT COUNT(c2.response) as response FROM candidate as c2 WHERE c2.source_id = c1.source_id AND c2.response = 1) responses " +
+                "FROM candidate as c1 " +
+                "JOIN sources ON c1.source_id = sources.id " +
+                "GROUP BY c1.source_id";
+
+            var allResponseRateQuery = "SELECT COUNT(c1.request) as requests, " +
+                "(SELECT COUNT(c2.response) as response FROM candidate as c2 WHERE response = 1) responses " +
+                "FROM candidate as c1 " +
+                "JOIN sources ON c1.source_id = sources.id";
+
+            var parameter = [req.body.filterFrom, req.body.filterTo];
+
+            db.query(query, parameter, function (err, rows, fields) {
+                if (err) throw err;
+
+                db.query(allResponseRateQuery, function (allerr, allrows, allfields) {
+                    if (allerr) throw allerr;
+
+                    var result = {
+                        responseRates: rows,
+                        allResponseRate: allrows[0]
+                    };
+
+                    sendResponse(res, true, "", result);
+                });
+            });
+        });
+
+        app.post('/stat/telNotice', function (req, res) { });
+
       
         
 
