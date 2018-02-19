@@ -681,11 +681,15 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         $scope.hire = $('#hire').val();
         $scope.team = $('#teamSelect').val();
 
+        //alert($('#selectResponseValue').val());
+        $scope.responseVal = $('#selectResponseValue').val();
+       
+        alert($scope.candidate.info);
 
-        $http.post('candidate/save', {
+        $http.post('candidate/save', {  
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.source,
             source_text: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.tracking, request: $scope.request,
-            response: $scope.response, responseVal: $scope.responseVal, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.infos,
+            response: $scope.response, responseVal: $scope.responseVal, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.info,
             extern: $scope.extern, hire: $scope.hire, team: $scope.candidate.teamSelect, research: $scope.research, scoreboard: $scope.candidate.scoreboard
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;

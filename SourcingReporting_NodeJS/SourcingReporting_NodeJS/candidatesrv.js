@@ -94,11 +94,11 @@
 
                 if (suc) {
                     var query = "INSERT INTO candidate (firstname, lastname, source_id, source_text, eR, tracking, request, response, " +
-                        "response_value, telnotice, intern, extern, hire, team_id, research, scoreboard, sourcer) " +
-                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,?)";
+                        "response_value, telnotice, intern, extern, hire, team_id, research, scoreboard, sourcer, infos) " +
+                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,?,?)";
                     var parameters = [req.body.firstname, req.body.lastname, req.body.source, req.body.source_text, req.body.eR,
                         req.body.tracking, req.body.request, req.body.response, req.body.responseVal, req.body.telnotice, req.body.intern,
-                        req.body.extern, req.body.hire, req.body.team, req.body.research, req.session.userid];
+                        req.body.extern, req.body.hire, req.body.team, req.body.research, req.session.userid, req.body.infos];
 
                     db.query(query, parameters, function (err, result, fields) {
                         if (err) {
