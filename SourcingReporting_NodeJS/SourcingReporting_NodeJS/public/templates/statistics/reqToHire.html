@@ -5,11 +5,13 @@
     <h3>Von der Ansprache zur Besetzung</h3>
     <br />
     <div class="input-group w-25 ml-2">
-        <div class="input-group-addon alert-info sourcing-width-150">Jahr </div>
-        <input class="form-control" type="number" id="yearToFilter" ng-model="yearToFilter" min="2018" value="2018" ng-change="updateAllData()" />
+        <div class="input-group-addon alert-info sourcing-width-150">von </div>
+        <input class="form-control" type="date" id="from" ng-model="from" min="01.01.2018" ng-change="updateAllData()" />
     </div>
-
-    
+    <div class="input-group w-25 ml-2">
+        <div class="input-group-addon alert-info sourcing-width-150">bis </div>
+        <input class="form-control" type="date" id="to" ng-model="to" min="01.01.2018" ng-change="updateAllData()" />
+    </div>
 
    <br />
    <br />

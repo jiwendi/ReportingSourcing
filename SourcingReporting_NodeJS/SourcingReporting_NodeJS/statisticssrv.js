@@ -73,8 +73,8 @@
                 "(SELECT COUNT(c2.intern) as intern FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.intern != '0000-00-00') intern, " +
                 "(SELECT COUNT(c2.extern) as extern FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.extern != '0000-00-00') extern, " +
                 "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.hire != '0000-00-00') hires " +
-                "FROM candidate as c1 WHERE YEAR(c1.research) = ?";
-            var parameter = [req.body.yearToFilter];
+                "FROM candidate as c1 WHERE c1.research >= ? AND c1.research <= ?";
+            var parameter = [req.body.filterFrom, req.body.filterTo];
 
             db.query(query, parameter, function (err, rows, fields) {
                 if (err) throw err;
@@ -90,9 +90,9 @@
                 "(SELECT COUNT(c2.intern) as intern FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.intern != '0000-00-00') intern, " +
                 "(SELECT COUNT(c2.extern) as extern FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.extern != '0000-00-00') extern, " +
                 "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.hire != '0000-00-00') hires " +
-                "FROM candidate as c1 WHERE YEAR(c1.research) = ? AND c1.source_id = ?";
+                "FROM candidate as c1 WHERE c1.research >= ? AND c1.research <= ? AND c1.source_id = ?";
             var sourceQuery = "SELECT id, name FROM sources";
-            var parameter = [req.body.yearToFilter, req.body.source];
+            var parameter = [req.body.filterFrom, req.body.filterTo, req.body.source];
 
             db.query(query, parameter, function (err, rows, fields) {
                 if (err) throw err;
@@ -115,7 +115,7 @@
         });
 
         /*
-        SELECT COUNT(candidate.id), candidate.team_id, team.name 
+        SELECT COUNT(candidate.id) AS anzahl, candidate.team_id, team.name 
         FROM candidate 
         JOIN team ON team.id = candidate.team_id 
         WHERE YEAR(candidate.hire) = 2018 GROUP BY candidate.team_id
@@ -123,11 +123,11 @@
         */
         app.post('/stat/hiresInTeams', function (req, res) {
             var message = "";
-            var query = "SELECT COUNT(candidate.id), candidate.team_id, team.name " +
+            var query = "SELECT COUNT(candidate.id) AS anzahl, candidate.team_id, team.name " +
                 "FROM candidate " +
                 "JOIN team ON team.id = candidate.team_id " +
-                "WHERE YEAR(candidate.hire) = 2018 GROUP BY candidate.team_id";
-            var parameter = [];
+                "WHERE candidate.hire >= ? AND candidate.hire <= ? GROUP BY candidate.team_id";
+            var parameter = [req.body.filterFrom, req.body.filterTo];
 
             db.query(query, parameter, function (err, rows, fields) {
                 if (err) throw err;

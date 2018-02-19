@@ -203,6 +203,10 @@ a:hover{
     width: 100% !important;
 }
 
+.sourcing-w-20 {
+    width: 20% !important
+}
+
 .card-float {
 float:left;
 

@@ -92,6 +92,10 @@ app.config(['$routeProvider',
             templateUrl: 'templates/statistics/reqToHirePlattform.html',
             controller: 'statisticsReqToHirePlattformController'
         }).
+        when('/HiresInTeam', {
+            templateUrl: 'templates/statistics/hiresInTeams.html',
+            controller: 'statisticsHiresInTeamController'
+        }).
         //WIG
         when('/wigs', {
             templateUrl: 'templates/wigs.html',
@@ -1119,8 +1123,10 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    $scope.yearToFilter = $('#yearToFilter').val();
-    $http.post('stat/allData', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+    $scope.filterFrom = new Date('2018-01-01');
+    $scope.filterTo = new Date('2018-12-31');
+    
+    $http.post('stat/allData', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
         $scope.allData = response.data.data;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
@@ -1153,6 +1159,9 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
                 }]
             },
             options: {
+                legend: {
+                    position: 'bottom'
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -1169,10 +1178,11 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
 
 
     $scope.updateAllData = function () {
+        
+        $scope.filterFrom = $('#from').val();
+        $scope.filterTo = $('#to').val();
 
-        $scope.yearToFilter = $('#yearToFilter').val();
-
-        $http.post('stat/allData', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+        $http.post('stat/allData', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.allData = response.data.data;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
@@ -1205,6 +1215,9 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
                     }]
                 },
                 options: {
+                    legend: {
+                        position: 'bottom'
+                    },
                     scales: {
                         yAxes: [{
                             ticks: {
@@ -1227,10 +1240,11 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    $scope.yearToFilter = $('#yearToFilter').val();
+    $scope.filterFrom = new Date('2018-01-01');
+    $scope.filterTo = new Date('2018-12-31');
     $scope.selectSource = $('#selectSource').val();
-
-    $http.post('stat/allDataPlattform', { source: $('#selectSource').val() }).then(function (response) {
+    
+    $http.post('stat/allDataPlattform', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo, source: $scope.selectSource }).then(function (response) {
         $scope.sources = response.data.data.sources;
         $scope.allData = response.data.data.allData;
 
@@ -1265,6 +1279,9 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
                 }]
             },
             options: {
+                legend: {
+                    position: 'bottom'
+                },
                 scales: {
                     yAxes: [{
                         ticks: {
@@ -1279,10 +1296,11 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
 
     $scope.updateAllDataPlattform = function () {
         $scope.selectSource = $('#selectSource').val();
-        $scope.yearToFilter = $('#yearToFilter').val();
+        $scope.filterFrom = $('#from').val();
+        $scope.filterTo = $('#to').val();
        
 
-        $http.post('stat/allDataPlattform', { yearToFilter: $scope.yearToFilter , source: $scope.selectSource }).then(function (response) {
+        $http.post('stat/allDataPlattform', { source: $scope.selectSource, filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.sources = response.data.data.sources;
             $scope.allData = response.data.data.allData;
 
@@ -1317,6 +1335,9 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
                     }]
                 },
                 options: {
+                    legend: {
+                        position: 'bottom'
+                    },
                     scales: {
                         yAxes: [{
                             ticks: {
@@ -1334,6 +1355,163 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
 
 });
 
+app.controller('statisticsHiresInTeamController', function ($scope, $http) {
+   
+    $scope.message = "";
+    $scope.iserrmessage = false;
+
+    $scope.filterFrom = new Date('2018-01-01');
+    $scope.filterTo = new Date('2018-12-31');
+
+    $http.post('stat/hiresInTeams', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+        $scope.teamHires = response.data.data;
+        $scope.message = response.data.message;
+        $scope.iserrmessage = !response.data.success;
+
+
+        $scope.labels = [];
+        $scope.anzahl = [];
+        for (var i = 0; i < $scope.teamHires.length; i++){
+            $scope.labels.push($scope.teamHires[i].name);
+            $scope.anzahl.push($scope.teamHires[i].anzahl);
+    }
+        
+        var ctx = $("#myChart");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: $scope.labels,
+                datasets: [{
+                    label: 'Anzahl',
+                    data: $scope.anzahl,
+                    backgroundColor: [
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark'),
+                        getColor('gray-dark')
+                    ],
+                    borderColor: [
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark'),
+                        getBorderColor('gray-dark')
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    position: 'bottom'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+
+
+    });//end allData
+
+
+    $scope.updateTeamHires = function () {
+
+        $scope.filterFrom = $('#from').val();
+        $scope.filterTo = $('#to').val();
+        
+        $http.post('stat/hiresInTeams', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+            $scope.teamHires = response.data.data;
+            $scope.message = response.data.message;
+            $scope.iserrmessage = !response.data.success;
+
+            $scope.labels = [];
+            $scope.anzahl = [];
+            for (var i = 0; i < $scope.teamHires.length; i++) {
+                $scope.labels.push($scope.teamHires[i].name);
+                $scope.anzahl.push($scope.teamHires[i].anzahl);
+            }
+
+
+            var ctx = $("#myChart");
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: $scope.labels,
+                    datasets: [{
+                        label: 'Anzahl',
+                        data: $scope.anzahl,
+                        backgroundColor: [
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark'),
+                            getColor('gray-dark')
+                        ],
+                        borderColor: [
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark'),
+                            getBorderColor('gray-dark')
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+
+
+        });//end allData
+
+    };
+
+});
 
 /**
  * wigController - WIG Overview

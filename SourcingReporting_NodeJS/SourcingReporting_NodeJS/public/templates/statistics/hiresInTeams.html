@@ -1,0 +1,40 @@
+﻿<h1 class="page-header"><span class="oi oi-bar-chart"></span>  Statistiken</h1>
+
+<div class="panel panel-default">
+   
+    <h3>Besetzungen je Team</h3>
+    <br />
+    <div class="input-group w-25 ml-2">
+        <div class="input-group-addon alert-info sourcing-width-150">von </div>
+        <input class="form-control" type="date" id="from" ng-model="from" min="01.01.2018" ng-change="updateTeamHires()" />
+    </div>
+    <div class="input-group w-25 ml-2">
+        <div class="input-group-addon alert-info sourcing-width-150">bis </div>
+        <input class="form-control" type="date" id="to" ng-model="to" min="01.01.2018" ng-change="updateTeamHires()" />
+    </div>
+
+   <br />
+   <br />
+
+    <div class="chart-container w-50">
+        <canvas id="myChart"></canvas>
+    </div>
+    
+    <br />
+    <br />
+    <table id="requests" class="table w-50">
+        <thead>
+            <tr>
+                <th>Team</th>
+                <th>Besetzungen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="t in teamHires">
+                <td>{{t.name}}</td>
+                <td>{{t.anzahl}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
