@@ -129,6 +129,9 @@
     <Content Include="public\templates\sourcedetail.html" />
     <Content Include="public\templates\sourcenew.html" />
     <Content Include="public\templates\sources.html" />
+    <Content Include="public\templates\statistics\telNotice.html" />
+    <Content Include="public\templates\statistics\responseRate.html" />
+    <Content Include="public\templates\statistics\hiresInTeams.html" />
     <Content Include="public\templates\statistics\reqToHirePlattform.html" />
     <Content Include="public\templates\statistics\reqToHire.html" />
     <Content Include="public\templates\statistics\statistics.html" />
