@@ -177,7 +177,62 @@
 
         app.post('/stat/telNotice', function (req, res) { });
 
-      
+
+        /*
+        SELECT candidate.firstname, candidate.lastname, candidate.eR, candidate.source_text,
+        CASE WHEN candidate.scoreboard = 0 THEN 'Nein' ELSE 'Ja' END as scoreboard,
+        candidate.hire, sources.name as source, users.firstname as sourcerName, team.name
+        FROM candidate
+        JOIN sources ON candidate.source_id = sources.id
+        JOIN users ON candidate.sourcer = users.id
+        JOIN team ON candidate.team_id = team.id
+        WHERE candidate.hire >= '2018-01-01' AND candidate.hire <= '2018-12-31'
+        ORDER BY candidate.hire
+        */
+        app.post('/stat/hireList', function (req, res) {
+            var query = "SELECT candidate.id, candidate.firstname, candidate.lastname, SUBSTRING(candidate.eR,2) as eR, candidate.source_text, " +
+                "CASE WHEN candidate.scoreboard = 0 THEN 'Nein' ELSE 'Ja' END AS scoreboard, " +
+                "candidate.hire, sources.name as source, users.firstname as sourcerName, team.name " +
+                "FROM candidate " +
+                "JOIN sources ON candidate.source_id = sources.id " +
+                "JOIN users ON candidate.sourcer = users.id " +
+                "JOIN team ON candidate.team_id = team.id " +
+                "WHERE candidate.hire >= ? AND candidate.hire <= ? " +
+                "ORDER BY candidate.hire";
+
+            var countHiresQuery = "SELECT COUNT(candidate.id) AS anzahl " +
+                "FROM candidate " +
+                "WHERE candidate.hire >= '2018-01-01' AND candidate.hire <= '2018-12-31'";
+
+                var parameter = [req.body.filterFrom, req.body.filterTo];
+                var message = "";
+
+                db.query(query, parameter, function (err, rows, fields) {
+                    if (err)
+                    {
+                        sendResponse(res, false, err);
+                        throw err;
+                    } 
+
+                    db.query(countHiresQuery, parameter, function (hireErr, hireRows, hireFields) {
+                        if (hireErr) {
+                            sendResponse(res, false, hireErr);
+                            throw hireErr;
+                        } 
+
+                        var result = {
+                            candidates: rows,
+                            anzahl: hireRows[0]
+                        };
+
+                        sendResponse(res, true, "", result);
+                    });
+
+                    
+                });
+
+
+        });
         
 
     } //end setup-function

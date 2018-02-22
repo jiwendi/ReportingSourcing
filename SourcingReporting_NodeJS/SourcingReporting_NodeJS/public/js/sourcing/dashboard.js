@@ -104,6 +104,10 @@ app.config(['$routeProvider',
             templateUrl: 'templates/statistics/telNotice.html',
             controller: 'statisticsTelNoticeController'
         }).
+        when('/hires', {
+            templateUrl: 'templates/statistics/hireList.html',
+            controller: 'statisticsHireListController'
+        }).
         //WIG
         when('/wigs', {
             templateUrl: 'templates/wigs.html',
@@ -1815,6 +1819,50 @@ app.controller('statisticsTelNoticeController', function ($scope, $http) {
         $scope.iserrmessage = !response.data.success;
 
     });
+
+
+});
+
+app.controller('statisticsHireListController', function ($scope, $http) {
+
+
+   // $scope.filterFrom = $('#from').val();
+   // $scope.filterTo = $('#to').val();
+
+    $scope.filterFrom = new Date(2018, 01, 01);
+    $scope.filterTo = new Date(2018, 12, 31);
+
+   
+
+        $http.post('stat/hireList', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+            $scope.candidates = response.data.data.candidates;
+            $scope.anzahl = response.data.data.anzahl;
+            $scope.message = response.data.message;
+            $scope.iserrmessage = !response.data.success;
+    });
+
+        $scope.updateHires = function () {
+
+            // $scope.filterFrom = $('#from').val();
+            // $scope.filterTo = $('#to').val();
+
+            $scope.filterFrom = new Date($('#from').val());
+            $scope.filterTo = new Date($('#to').val());
+
+
+
+            $http.post('stat/hireList', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+                $scope.candidates = response.data.data.candidates;
+                $scope.anzahl = response.data.data.anzahl;
+                $scope.message = response.data.message;
+                $scope.iserrmessage = !response.data.success;
+            });
+
+
+
+        };
+
+
 
 
 });

@@ -1,0 +1,71 @@
+﻿<h1 class="page-header"><span class="glyphicon glyphicon-folder-open"></span>  Besetzungen Übersicht</h1>
+
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    
+    
+    <div>
+      
+        <div class="input-group w-25 ml-2">
+            <div class="input-group-addon alert-info sourcing-width-150">von </div>
+            <input class="form-control" type="date" id="from" ng-model="from" ng-change="updateHires()" />
+        </div>
+        <div class="input-group w-25 ml-2">
+            <div class="input-group-addon alert-info sourcing-width-150">bis </div>
+            <input class="form-control" type="date" id="to" ng-model="to" ng-change="updateHires()" />
+        </div>
+
+        <div class="panel-heading pb-2 pt-2">
+            <input type="text" class="alert alert-info sourcing-width-250" id="inputName" ng-keyup="searchNames()" placeholder="Nach Namen suchen" />
+            <input type="text" class="alert alert-info sourcing-width-250" id="inputSource" ng-keyup="searchSource()" placeholder="Nach Quelle suchen" />
+            <input type="text" class="alert alert-info sourcing-width-250" id="inputeR" ng-keyup="searcheR()" placeholder="Nach eR-Nr. suchen" />
+            <span class="pr-3 alert alert-info mr-1 sourcing-width-250">
+                <input type="checkbox" ng-model="showTracking" id="showTracking" ng-change="updateTracking()" /> noch nicht am Scoreboard
+            </span>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <table id="candidates" class="table">
+            <thead>
+                <tr>
+                    <th>Sourcer</th>
+                    <th>Name</th>
+                    <th>Quelle</th>
+                    <th>eRecruiterNr.</th>
+                    <th aria-sort="descending">Besetzung</th>
+                    <th>Team</th>
+                    <th>Scoreboard</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr ng-repeat="c in candidates">
+                    <td><b>{{c.sourcerName}}</b></td>
+                    <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                    <td ng-if="c.source_text != null"><a href="{{c.source_text}}" target="_blank">{{c.source}}</a></td>
+                    <td ng-if="c.source_text == null"><a>{{c.source}}</a></td>
+                    <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
+                    <td ng-if="c.eR == null"> </td>
+                    <td>{{c.hire | date: 'dd.MM.yyyy'}}</td>
+                    <td>{{c.name}}</td>
+                    <td>{{c.scoreboard}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src='js/tablesort.min.js'></script>
+
+<!-- Include sort types you need -->
+<script src='js/tablesort.number.min.js'></script>
+<script src='js/tablesort.date.min.js'></script>
+
+<script>
+    new Tablesort(document.getElementById('candidates'));
+
+    refresh.refresh();
+</script>
+
