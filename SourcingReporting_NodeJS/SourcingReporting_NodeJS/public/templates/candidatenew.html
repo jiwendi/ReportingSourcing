@@ -122,8 +122,9 @@
 
             <div class="input-group mb-1" ng-if="hire != null">
                 <div class="input-group-addon alert-info sourcing-width-150">Team</div>
-                <select class="custom-select wdselect" ng-model="teamSelect" ng-change="showSelectValue(teamSelect)"
-                        ng-options="t.id as t.name group by t.city for t in teams track by t.id">
+                <select class="custom-select wdselect" id="team" ng-model="teamSelect" ng-change="showSelectValue(teamSelect)">
+                        <!--ng-options="t.id as t.name group by t.city for t in teams track by t.id">-->
+                    <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
                 </select>
             </div>
 

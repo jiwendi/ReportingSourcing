@@ -733,13 +733,19 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         } else {
             $scope.hire = $('#hire').val();
         }
+
+        if ($('#team').val() == '') {
+            $scope.team = null;
+        } else {
+            $scope.team = $('#team').val();
+        }
         
         
         $http.post('candidate/save', {  
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.source,
             source_text: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.tracking, request: $scope.request,
             response: $scope.response, responseVal: $scope.responseVal, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.info,
-            extern: $scope.extern, hire: $scope.hire, team: $scope.candidate.teamSelect, research: $scope.research, scoreboard: $scope.candidate.scoreboard
+            extern: $scope.extern, hire: $scope.hire, team: $scope.team, research: $scope.research, scoreboard: $scope.candidate.scoreboard
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             
@@ -817,7 +823,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             var id = selectTeam.val();
             $scope.candidate.team_id = id;
         });
-
+        
         var selectSource = $('#selectSource');
         selectSource.select2({ data: sourceData });
         selectSource.val($scope.candidate.source_id);
