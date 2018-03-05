@@ -141,7 +141,7 @@
                         [req.body.firstname, req.body.lastname, req.body.source_text, req.body.eR, req.body.infos, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate!";
+                                message = "Fehler beim UPDATE-Candidate! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -493,7 +493,7 @@
         });
 
         /**
-         * Candidate Detail Update 
+         * Candidate Detail Update  - NOT IN USE
          */
         app.post('/candidate/update', function (req, res) {
             if (req.session.userid) {
@@ -593,7 +593,7 @@
                     "AVG(ABS(DATEDIFF(research, extern))) AS timetoextern, " +
                     "AVG(ABS(DATEDIFF(research, hire))) AS timetohire " +
                     "FROM candidate " +
-                    "WHERE DATE(research) > (NOW() - INTERVAL 2 MONTH)";
+                    "WHERE DATE(research) > (NOW() - INTERVAL 6 MONTH)";
 
                 db.query(timequery, function (err, rows, fields) {
                     if (err) throw err;

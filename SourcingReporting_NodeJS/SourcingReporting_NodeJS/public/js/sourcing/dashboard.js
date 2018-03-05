@@ -759,8 +759,7 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
                 }, 1000); //will call the function after 2 secs. --> message showed for 2 sec.
 
             }
-
-            //$scope.message = response.data.message;
+            
         });
     };
    
