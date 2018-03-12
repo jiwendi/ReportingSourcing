@@ -696,14 +696,17 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         $scope.extern = $('#extern').val();
         $scope.hire = $('#hire').val();
         $scope.team = $('#teamSelect').val();
-
-        //alert($('#selectResponseValue').val());
-        if ($('#selectResponseValue').val() == undefined || $('#selectResponseValue').val() == '') {
-            $scope.responseVal = null;
+        
+        if ($('#selectResponseValue').val() == undefined) {
+            $scope.responseValue = 2;
+        } else if ($('#selectResponseValue').val() == 'number:1') {
+            $scope.responseValue = 1;
+        } else if ($('#selectResponseValue').val() == 'number:0') {
+            $scope.responseValue = 0;
         } else {
-            $scope.responseVal = $('#selectResponseValue').val();
+            $scope.responseValue = 2;
         }
-
+        
         if ($('#research').val() == '') {
             $scope.research = '0000-00-00';
         } else {
@@ -744,7 +747,7 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         $http.post('candidate/save', {  
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.source,
             source_text: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.tracking, request: $scope.request,
-            response: $scope.response, responseVal: $scope.responseVal, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.info,
+            response: $scope.response, responseVal: $scope.responseValue, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.info,
             extern: $scope.extern, hire: $scope.hire, team: $scope.team, research: $scope.research, scoreboard: $scope.candidate.scoreboard
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
