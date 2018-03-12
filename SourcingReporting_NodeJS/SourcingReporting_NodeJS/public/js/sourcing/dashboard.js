@@ -1,5 +1,9 @@
 ﻿var app = angular.module("sourcingApp", ['ngRoute', 'angular.filter']);
 
+const THIS_YEAR = 2018;
+const FILTER_FROM = new Date('2018-01-01');
+const FILTER_TO = new Date('2018-12-31');
+
 app.config(['$routeProvider',
     function ($routeProvider) {
     $routeProvider.when('/dashboard', {
@@ -102,6 +106,10 @@ app.config(['$routeProvider',
         }).
         when('/TelefonNotizen', {
             templateUrl: 'templates/statistics/telNotice.html',
+            controller: 'statisticsTelNoticeController'
+        }).
+        when('/TelefonNotizenGraph', {
+            templateUrl: 'templates/statistics/telNoticeGraph.html',
             controller: 'statisticsTelNoticeController'
         }).
         when('/hires', {
@@ -1215,8 +1223,8 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    $scope.filterFrom = new Date('2018-01-01');
-    $scope.filterTo = new Date('2018-12-31');
+    $scope.filterFrom = FILTER_FROM;
+    $scope.filterTo = FILTER_TO;
     
     $http.post('stat/allData', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
         $scope.allData = response.data.data;
@@ -1332,8 +1340,8 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    $scope.filterFrom = new Date('2018-01-01');
-    $scope.filterTo = new Date('2018-12-31');
+    $scope.filterFrom = FILTER_FROM;
+    $scope.filterTo = FILTER_TO;
     $scope.selectSource = $('#selectSource').val();
     
     $http.post('stat/allDataPlattform', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo, source: $scope.selectSource }).then(function (response) {
@@ -1452,8 +1460,8 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    $scope.filterFrom = new Date('2018-01-01');
-    $scope.filterTo = new Date('2018-12-31');
+    $scope.filterFrom = FILTER_FROM;
+    $scope.filterTo = FILTER_TO;
 
     $http.post('stat/hiresInTeams', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
         $scope.teamHires = response.data.data;
@@ -1463,9 +1471,14 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
 
         $scope.labels = [];
         $scope.anzahl = [];
+        $scope.backgroundColorForChart = [];
+        $scope.borderColorForChart = [];
+
         for (var i = 0; i < $scope.teamHires.length; i++){
             $scope.labels.push($scope.teamHires[i].name);
             $scope.anzahl.push($scope.teamHires[i].anzahl);
+            $scope.backgroundColorForChart.push(getColor('gray-dark'));
+            $scope.borderColorForChart.push(getBorderColor('gray-dark'));
     }
         
         var ctx = $("#myChart");
@@ -1476,34 +1489,8 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
                 datasets: [{
                     label: 'Anzahl',
                     data: $scope.anzahl,
-                    backgroundColor: [
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark')
-                    ],
-                    borderColor: [
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark')
-                    ],
+                    backgroundColor: $scope.backgroundColorForChart,
+                    borderColor: $scope.borderColorForChart,
                     borderWidth: 1
                 }]
             },
@@ -1538,9 +1525,14 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
 
             $scope.labels = [];
             $scope.anzahl = [];
+            $scope.backgroundColorForChart = [];
+            $scope.borderColorForChart = [];
+
             for (var i = 0; i < $scope.teamHires.length; i++) {
                 $scope.labels.push($scope.teamHires[i].name);
                 $scope.anzahl.push($scope.teamHires[i].anzahl);
+                $scope.backgroundColorForChart.push(getColor('gray-dark'));
+                $scope.borderColorForChart.push(getBorderColor('gray-dark'));
             }
 
 
@@ -1552,34 +1544,8 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
                     datasets: [{
                         label: 'Anzahl',
                         data: $scope.anzahl,
-                        backgroundColor: [
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark')
-                        ],
-                        borderColor: [
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark')
-                        ],
+                        backgroundColor: $scope.backgroundColorForChart,
+                        borderColor: $scope.borderColorForChart,
                         borderWidth: 1
                     }]
                 },
@@ -1610,8 +1576,8 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    $scope.filterFrom = new Date('2018-01-01');
-    $scope.filterTo = new Date('2018-12-31');
+    $scope.filterFrom = FILTER_FROM;
+    $scope.filterTo = FILTER_TO;
 
     $http.post('stat/responseRate', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
         $scope.responseRates = response.data.data.responseRates;
@@ -1624,11 +1590,15 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
         $scope.labels = [];
         $scope.requests = [];
         $scope.responses = [];
+        $scope.backgroundColorForChart = [];
+        $scope.borderColorForChart = [];
 
         for (var i = 0; i < $scope.responseRates.length; i++) {
             $scope.labels.push($scope.responseRates[i].name);
             $scope.requests.push($scope.responseRates[i].requests);
             $scope.responses.push($scope.responseRates[i].responses);
+            $scope.backgroundColorForChart.push(getColor('red'));
+            $scope.borderColorForChart.push(getBorderColor('red'));
         }
 
         var ctx = $("#myChart");
@@ -1639,83 +1609,15 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
                 datasets: [{
                     label: 'Ansprache',
                     data: $scope.requests,
-                    backgroundColor: [
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark')
-                    ],
-                    borderColor: [
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark')
-                    ],
+                    backgroundColor: $scope.backgroundColorForChart,
+                    borderColor: $scope.borderColorForChart,
                     borderWidth: 1
                 },
                 {
                     label: 'Response',
                     data: $scope.responses,
-                    backgroundColor: [
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red'),
-                        getColor('red')
-                    ],
-                    borderColor: [
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red'),
-                        getBorderColor('red')
-                    ],
+                    backgroundColor: $scope.backgroundColorForChart,
+                    borderColor: $scope.borderColorForChart,
                     borderWidth: 1
                 }]
             },
@@ -1754,11 +1656,15 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
             $scope.labels = [];
             $scope.requests = [];
             $scope.responses = [];
+            $scope.backgroundColorForChart = [];
+            $scope.borderColorForChart = [];
 
             for (var i = 0; i < $scope.responseRates.length; i++) {
                 $scope.labels.push($scope.responseRates[i].name);
                 $scope.requests.push($scope.responseRates[i].requests);
                 $scope.responses.push($scope.responseRates[i].responses);
+                $scope.backgroundColorForChart.push(getColor('gray-dark'));
+                $scope.borderColorForChart.push(getBorderColor('gray-dark'));
             }
 
             var ctx = $("#myChart");
@@ -1769,67 +1675,15 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
                     datasets: [{
                         label: 'Anzahl',
                         data: $scope.requests,
-                        backgroundColor: [
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark')
-                        ],
-                        borderColor: [
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark')
-                        ],
+                        backgroundColor: $scope.backgroundColorForChart,
+                        borderColor: $scope.borderColorForChart,
                         borderWidth: 1
                     },
                     {
                         label: 'Anzahl',
                         data: $scope.responses,
-                        backgroundColor: [
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark')
-                        ],
-                        borderColor: [
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark')
-                        ],
+                        backgroundColor: $scope.backgroundColorForChart,
+                        borderColor: $scope.borderColorForChart,
                         borderWidth: 1
                     }]
             },
@@ -1857,15 +1711,115 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
 
 app.controller('statisticsTelNoticeController', function ($scope, $http) {
     
-    $http.post('stat/telNotice').then(function (response) {
+    $scope.yearToFilter = THIS_YEAR;
+
+    $http.post('stat/telNotice', { yearToFilter: $scope.yearToFilter }).then(function (response) {
         $scope.telNotice = response.data.data.telNotice;
         $scope.reseaches = response.data.data.reseaches;
+        $scope.telNoticeSum = response.data.data.telSum;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
 
+        $scope.labels = [];
+        $scope.telnoticeData = [];
+        $scope.backgroundColorForChart = [];
+        $scope.borderColorForChart = [];
+
+        for (var i = 0; i < $scope.telNoticeSum.length; i++) {
+            $scope.labels.push('KW ' + $scope.telNoticeSum[i].weeknr);
+            $scope.telnoticeData.push($scope.telNoticeSum[i].telnotice);
+            $scope.backgroundColorForChart.push(getColor('gray-dark'));
+            $scope.borderColorForChart.push(getBorderColor('gray-dark'));
+        }
+
+
+        var ctx = $("#myChart");
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: $scope.labels,
+                datasets: [{
+                    label: 'Anzahl TelNotizen',
+                    data: $scope.telnoticeData,
+                    backgroundColor: $scope.backgroundColorForChart,
+                    borderColor: $scope.borderColorForChart,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    position: 'bottom'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+
+        $scope.update = function () {
+            
+
+                $scope.yearToFilter = $('#yearToFilter').val();
+            
+                $http.post('stat/telNotice', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+                    $scope.telNotice = response.data.data.telNotice;
+                    $scope.reseaches = response.data.data.reseaches;
+                    $scope.telNoticeSum = response.data.data.telSum;
+                    $scope.message = response.data.message;
+                    $scope.iserrmessage = !response.data.success;
+                    $scope.noDataSets = false;
+
+                    $scope.labels = [];
+                    $scope.telnoticeData = [];
+                    $scope.backgroundColorForChart = [];
+                    $scope.borderColorForChart = [];
+
+                    for (var i = 0; i < $scope.telNoticeSum.length; i++) {
+                        $scope.labels.push('KW ' + $scope.telNoticeSum[i].weeknr);
+                        $scope.telnoticeData.push($scope.telNoticeSum[i].telnotice);
+                        $scope.backgroundColorForChart.push(getColor('gray-dark'));
+                        $scope.borderColorForChart.push(getBorderColor('gray-dark'));
+                    }
+
+                    if ($scope.telNotice.length == 0) {
+                        $scope.noDataSets = true;
+                        $scope.message = "keine Datensätze vorhanden";
+                    }
+
+
+                    var ctx = $("#myChart");
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: $scope.labels,
+                            datasets: [{
+                                label: 'Anzahl TelNotizen',
+                                data: $scope.telnoticeData,
+                                backgroundColor: $scope.backgroundColorForChart,
+                                borderColor: $scope.borderColorForChart,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            legend: {
+                                position: 'bottom'
+                            },
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                });
+        };
     });
-
-
 });
 
 app.controller('statisticsHireListController', function ($scope, $http) {
@@ -1874,8 +1828,8 @@ app.controller('statisticsHireListController', function ($scope, $http) {
    // $scope.filterFrom = $('#from').val();
    // $scope.filterTo = $('#to').val();
 
-    $scope.filterFrom = new Date(2018, 01, 01);
-    $scope.filterTo = new Date(2018, 12, 31);
+    $scope.filterFrom = FILTER_FROM; //new Date(2018, 01, 01);
+    $scope.filterTo = FILTER_TO; //new Date(2018, 12, 31);
 
    
 

@@ -205,7 +205,7 @@
             var telNoticeQuery = "SELECT COUNT(c1.telnotice) as telnotice, WEEK(c1.telnotice)+1 as weeknr, users.firstname, c1.sourcer " +
                                 "FROM candidate as c1 " +
                 "JOIN users ON c1.sourcer = users.id " +
-                "WHERE c1.telnotice != '0000-00-00' " +
+                "WHERE c1.telnotice != '0000-00-00' AND YEAR(c1.telnotice) = ? " +
                                 "GROUP BY WEEK(c1.telnotice), c1.sourcer";
 
             var researchQuery = "SELECT COUNT(c1.research) as request, WEEK(c1.research)+1 as weeknr, users.firstname, c1.sourcer " +
@@ -213,23 +213,34 @@
                 "JOIN users ON c1.sourcer = users.id " +
                 "GROUP BY WEEK(c1.research), c1.sourcer";
 
-            db.query(telNoticeQuery, function (telErr, telRows, telFields) {
+            var telNoticeSumQuery = "SELECT COUNT(c1.telnotice) as telnotice, WEEK(c1.telnotice)+1 as weeknr " +
+                            "FROM candidate as c1 " +
+                            "JOIN users ON c1.sourcer = users.id " +
+                            "WHERE c1.telnotice != '0000-00-00' " +
+                "GROUP BY WEEK(c1.telnotice)";
+
+            var parameter = [req.body.yearToFilter];
+
+            db.query(telNoticeQuery, parameter, function (telErr, telRows, telFields) {
                 if (telErr) throw telErr;
 
                 db.query(researchQuery, function (resErr, resRows, resFields) {
                     if (resErr) throw resErr;
 
-                    var result = {
-                        telNotice: telRows,
-                        reseaches: resRows
-                    };
+                    db.query(telNoticeSumQuery, function (telSumErr, telSumRows, telSumFields) {
+                        if (telSumErr) throw telSumErr;
+                        
+                        var result = {
+                            telNotice: telRows,
+                            reseaches: resRows,
+                            telSum: telSumRows
+                        };
 
-                    sendResponse(res, true, "", result);
+                        sendResponse(res, true, "", result);
 
+                    });
                 });
-
             });
-
         });
 
 

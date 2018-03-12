@@ -1,11 +1,26 @@
 ﻿<h1 class="page-header"><span class="oi oi-bar-chart"></span>  Statistiken</h1>
 
 <div class="panel panel-default">
+
+    <div class="alert alert-danger" role="alert" ng-show="message && noDataSets">
+        <span class="oi oi-x" aria-hidden="true"></span> {{message}}
+    </div>
+
+    <div class="alert alert-success" role="alert" ng-show="message && !noDataSets">
+        <span class="oi oi-check" aria-hidden="true"></span> {{message}}
+    </div>
    
-    <h3> Telefonnotizen Übersicht</h3>
-   <!-- <a href="#!TelefonNotizenGraph" class="btn btn-info">Graph anzeigen</a>-->
+    
+    <a href="#!TelefonNotizenGraph" class="btn btn-info">Graph anzeigen</a>
     <br/>
     <br/>
+    <div class="input-group sourcing-w-20 ml-2">
+        <div class="input-group-addon alert-info sourcing-width-150">Jahr </div>
+        <input class="form-control" type="number" id="yearToFilter" ng-model="yearToFilter" min="2018" value="2018" ng-change="update()" />
+    </div>
+    <br/>
+
+    <h3> Telefonnotizen Übersicht {{yearToFilter}}</h3>
 
     <table id="telNoticeTable" class="table w-50" ng-repeat="counts in telNotice |  groupBy:'weeknr'">
         <tr>
@@ -19,5 +34,7 @@
             <td>{{telNot.telnotice}}</td>
         </tr>
     </table>
+
+    
     
 </div>
