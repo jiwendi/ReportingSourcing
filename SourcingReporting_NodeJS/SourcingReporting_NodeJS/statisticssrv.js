@@ -79,10 +79,11 @@
                         if (hireErr) throw hireErr;
 
                         var result = {
-                            request: reqRows[0],
-                            telnotice: telRows[0],
-                            hires: hireRows[0]
-                        };
+                                request: reqRows[0],
+                                telnotice: telRows[0],
+                                hires: hireRows[0]
+                            };
+
                         sendResponse(res, true, "", result);
                     });
                 });

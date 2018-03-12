@@ -1200,9 +1200,11 @@ app.controller('statisticsController', function ($scope, $http) {
     });
 
     $http.post('stat/myWeek').then(function (response) {
+        $scope.myWeek = response.data.data;
         $scope.myWeekRequest = response.data.data.request;
         $scope.myWeekTelNotice = response.data.data.telnotice;
         $scope.myWeekHires = response.data.data.hires;
+
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
     });
