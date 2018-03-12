@@ -1079,6 +1079,39 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
     }
     
 
+    $scope.delete = function () {
+        $scope.message = "";
+
+        if (confirm("Kandidat wirklich löschen?"))
+        { 
+            $http.post('candidate/delete', {
+                id: $scope.candidate.id
+            }).then(function (response) {
+                $scope.iserrmessage = !response.data.success;
+                $scope.message = response.data.message;
+
+                if (response.data.success) {
+                    $scope.message = response.data.message;
+                    //window.location = '#!candidate/new';
+
+                    setTimeout(function () {
+                        window.location.href = "#!candidates"; // redirect
+                    }, 1000); //will call the function after 2 secs. --> message showed for 2 sec.
+                }
+            });
+        }
+
+
+
+    }; //end update Function
+
+
+
+
+
+
+
+
 
     $scope.update = function () {
        // alert("Test");

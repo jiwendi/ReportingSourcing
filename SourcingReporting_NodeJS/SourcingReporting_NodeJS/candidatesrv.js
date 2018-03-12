@@ -131,6 +131,57 @@
 
         });//end candidate/save
 
+
+
+
+        /**
+          * Candidate delete
+          */
+        app.post('/candidate/delete', function (req, res) {
+            if (req.session.userid && req.session.admin) {
+                var message = "";
+                var suc = false;
+
+                if (req.body.id == null || req.body.id == "") {
+                    message = "Keine Candidate-id übergeben!!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    var query = "DELETE FROM candidate WHERE id = ?";
+                    var parameters = [req.body.id];
+
+                    db.query(query, parameters, function (err, result, fields) {
+                        if (err) {
+                            message = "Fehler mit DB (delete candidate)";
+                            sendResponse(res, false, message);
+                        } else {
+                            sendResponse(res, true, "Kandidat wurde gelöscht!");
+
+                        }
+                    });
+
+                } else {
+                    sendResponse(res, false, message);
+                }
+
+            } else {
+                sendResponse(res, false, "Keine Berechtigung!");
+            }
+
+        });
+
+
+
+
+
+
+
+
+
+
+
         app.post('/candidate/updateCandidate', function (req, res) {
             if (req.session.userid) {
                 var suc = false;
