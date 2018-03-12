@@ -90,6 +90,7 @@
             });
         });
 
+        //restestToHire
         app.post('/stat/allData', function (req, res) {
             var message = "";
             var query = "SELECT COUNT(c1.request) as request, " +
