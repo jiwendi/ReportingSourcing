@@ -180,7 +180,8 @@
             var allResponseRateQuery = "SELECT COUNT(c1.request) as requests, " +
                 "(SELECT COUNT(c2.response) as response FROM candidate as c2 WHERE response = 1) responses " +
                 "FROM candidate as c1 " +
-                "JOIN sources ON c1.source_id = sources.id";
+                "JOIN sources ON c1.source_id = sources.id " +
+                "WHERE DATE(research) > (NOW() - INTERVAL 12 MONTH)";
 
             var parameter = [req.body.filterFrom, req.body.filterTo];
 
