@@ -52,18 +52,41 @@
 
         app.post('/stat/myWeek', function (req, res) {
             var message = "";
+            //altes Query - wurde aufgeteilt - kann gellscht werden
+            //ToDo löschen!
+            /*
             var query = "SELECT COUNT(c1.request) as request, " + 
                 "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.telnotice != '0000-00-00') telnotice, " +
                 "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.hire != '0000-00-00') hires " + 
                 "FROM candidate as c1 WHERE c1.sourcer = ? AND WEEK(research) = WEEK(sysdate())";
+            */
+            var requestQuery = "SELECT COUNT(c1.request) as request " +
+                "FROM candidate as c1 WHERE c1.sourcer = ? AND WEEK(c1.research) = WEEK(sysdate())";
+            var telnoticeQuery = "SELECT COUNT(c1.telnotice) as telnotice " +
+                "FROM candidate as c1 WHERE c1.sourcer = ? AND c1.telnotice != '0000-00-00' AND WEEK(c1.telnotice) = WEEK(sysdate())";
+            var hireQuery = "SELECT COUNT(c1.hire) as hire " +
+                "FROM candidate as c1 WHERE c1.sourcer = ? AND c1.hire != '0000-00-00' AND WEEK(c1.hire) = WEEK(sysdate())";
+
             var parameter = [req.session.userid];
 
-            db.query(query, parameter, function (err, rows, fields) {
-                if (err) throw err;
+            db.query(requestQuery, parameter, function (reqErr, reqRows, reqFields) {
+                if (reqErr) throw reqErr;
 
-                sendResponse(res, true, "", rows[0]);
+                db.query(telnoticeQuery, parameter, function (telErr, telRows, telFields) {
+                    if (telErr) throw telErr;
+                    
+                    db.query(hireQuery, parameter, function (hireErr, hireRows, hireFields) {
+                        if (hireErr) throw hireErr;
+
+                        var result = {
+                            request: reqRows[0],
+                            telnotice: telRows[0],
+                            hires: hireRows[0]
+                        };
+                        sendResponse(res, true, "", result);
+                    });
+                });
             });
-
         });
 
         app.post('/stat/allData', function (req, res) {
@@ -175,7 +198,36 @@
             });
         });
 
-        app.post('/stat/telNotice', function (req, res) { });
+        app.post('/stat/telNotice', function (req, res) {
+            var telNoticeQuery = "SELECT COUNT(c1.telnotice) as telnotice, WEEK(c1.telnotice)+1 as weeknr, users.firstname, c1.sourcer " +
+                                "FROM candidate as c1 " +
+                "JOIN users ON c1.sourcer = users.id " +
+                "WHERE c1.telnotice != '0000-00-00' " +
+                                "GROUP BY WEEK(c1.telnotice), c1.sourcer";
+
+            var researchQuery = "SELECT COUNT(c1.research) as request, WEEK(c1.research)+1 as weeknr, users.firstname, c1.sourcer " +
+                "FROM candidate as c1 " +
+                "JOIN users ON c1.sourcer = users.id " +
+                "GROUP BY WEEK(c1.research), c1.sourcer";
+
+            db.query(telNoticeQuery, function (telErr, telRows, telFields) {
+                if (telErr) throw telErr;
+
+                db.query(researchQuery, function (resErr, resRows, resFields) {
+                    if (resErr) throw resErr;
+
+                    var result = {
+                        telNotice: telRows,
+                        reseaches: resRows
+                    };
+
+                    sendResponse(res, true, "", result);
+
+                });
+
+            });
+
+        });
 
 
         /*

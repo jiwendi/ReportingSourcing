@@ -1200,7 +1200,9 @@ app.controller('statisticsController', function ($scope, $http) {
     });
 
     $http.post('stat/myWeek').then(function (response) {
-        $scope.myWeek = response.data.data;
+        $scope.myWeekRequest = response.data.data.request;
+        $scope.myWeekTelNotice = response.data.data.telnotice;
+        $scope.myWeekHires = response.data.data.hires;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
     });
@@ -1852,10 +1854,10 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
 });
 
 app.controller('statisticsTelNoticeController', function ($scope, $http) {
-    //ToDo
-
+    
     $http.post('stat/telNotice').then(function (response) {
-        $scope.telNotice = response.data.data;
+        $scope.telNotice = response.data.data.telNotice;
+        $scope.reseaches = response.data.data.reseaches;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
 

@@ -2,71 +2,22 @@
 
 <div class="panel panel-default">
    
-    <h3>Von der Ansprache zur Besetzung</h3>
-    <br />
-    <div class="input-group w-25 ml-2">
-        <div class="input-group-addon alert-info sourcing-width-150">von </div>
-        <input class="form-control" type="date" id="from" ng-model="from" min="01.01.2018" ng-change="updateAllDataPlattform()" />
-    </div>
-    <div class="input-group w-25 ml-2">
-        <div class="input-group-addon alert-info sourcing-width-150">bis </div>
-        <input class="form-control" type="date" id="to" ng-model="to" min="01.01.2018" ng-change="updateAllDataPlattform()" />
-    </div>
+    <h3> Telefonnotizen Übersicht</h3>
+   <!-- <a href="#!TelefonNotizenGraph" class="btn btn-info">Graph anzeigen</a>-->
+    <br/>
+    <br/>
 
-    <div class="input-group mb-1 w-25 ml-2">
-        <div class="input-group-addon alert-info sourcing-width-150">Quelle</div>
-        <select class="custom-select wdselect" id="selectSource" ng-model="sourceSelect" ng-change="updateAllDataPlattform()">
-            <option ng-repeat="s in sources" value="{{s.id}}">{{s.name}}</option>
-        </select>
-    </div>
-    
-
-   <br />
-   <br />
-
-    <div class="chart-container w-50">
-        <canvas id="myChart"></canvas>
-    </div>
-    
-    <br />
-    <br />
-    <table id="requests" class="table w-50">
-        <thead>
-            <tr>
-                <th> </th>
-                <th>Ansprachen</th>
-                <th>Telefonnotizen</th>
-                <th>interne Gespräche</th>
-                <th>externe Gespräche</th>
-                <th>Besetzungen</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><b>Absolute Zahlen</b></td>
-                <td>{{allData.request}}</td>
-                <td>{{allData.telnotice}}</td>
-                <td>{{allData.intern}}</td>
-                <td>{{allData.extern}}</td>
-                <td>{{allData.hires}}</td>
-            </tr>
-            <tr>
-                <td><b>Convertion Rate<br /> je Step</b></td>
-                <td> - </td>
-                <td>{{allData.telnotice / allData.request * 100 | number:1}} %</td>
-                <td>{{allData.intern / allData.telnotice * 100 | number:1}} %</td>
-                <td>{{allData.extern / allData.intern * 100 | number:1}} %</td>
-                <td>{{allData.hires / allData.extern * 100 | number:1}} %</td>
-            </tr>
-            <tr>
-                <td><b>Convertion Rate Gesamt</b></td>
-                <td> - </td>
-                <td>{{allData.telnotice / allData.request * 100 | number:1}} %</td>
-                <td>{{allData.intern / allData.request * 100 | number:1}} %</td>
-                <td>{{allData.extern / allData.request * 100 | number:1}} %</td>
-                <td>{{allData.hires / allData.request * 100 | number:1}} %</td>
-            </tr>
-        </tbody>
+    <table id="telNoticeTable" class="table w-50" ng-repeat="counts in telNotice |  groupBy:'weeknr'">
+        <tr>
+            <th>Kalenderwoche {{counts[0].weeknr}}</th>
+            <th>Sourcer</th>
+            <th>Telefonnotizen</th>
+        </tr>
+        <tr ng-repeat="telNot in counts">
+            <td> </td>
+            <td>{{telNot.firstname}}</td>
+            <td>{{telNot.telnotice}}</td>
+        </tr>
     </table>
     
 </div>
