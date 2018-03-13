@@ -560,7 +560,8 @@ app.controller('candidatesController', function ($scope, $http) {
      */
     $scope.update = function () {
         $http.post('candidates/get', { showusercandidates: $scope.showusercandidates }).then(function (response) {
-            $scope.candidates = response.data.data;
+            $scope.candidates = response.data.data.candidate;
+            $scope.countCandidate = response.data.data.countCandidate;
         });
     };
 
@@ -568,7 +569,8 @@ app.controller('candidatesController', function ($scope, $http) {
 
     $scope.updateTracking = function () {
         $http.post('candidates/get', { showTracking: $scope.showTracking }).then(function (response) {
-            $scope.candidates = response.data.data;
+            $scope.candidates = response.data.data.candidate;
+            $scope.countCandidate = response.data.data.countCandidate;
         });
     };
     

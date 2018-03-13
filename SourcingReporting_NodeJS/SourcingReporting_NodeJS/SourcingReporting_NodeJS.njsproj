@@ -130,6 +130,7 @@
     <Content Include="public\templates\sourcenew.html" />
     <Content Include="public\templates\sources.html" />
     <Content Include="public\templates\statistics\hireList.html" />
+    <Content Include="public\templates\statistics\telNoticeGraph.html" />
     <Content Include="public\templates\statistics\telNotice.html" />
     <Content Include="public\templates\statistics\responseRate.html" />
     <Content Include="public\templates\statistics\hiresInTeams.html" />

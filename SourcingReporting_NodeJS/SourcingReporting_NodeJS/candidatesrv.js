@@ -22,25 +22,45 @@
                     "LEFT JOIN team ON team.id = candidate.team_id " +
                     "LEFT JOIN city_group ON team.city_group = city_group.id " +
                     "LEFT JOIN users ON candidate.sourcer = users.id";
-                var parameters = [];
+
+                var countCandidateQuery = "SELECT COUNT(candidate.id) as countCandidate FROM candidate";
+
+                var parameter = [];
                 var showusercandidates = req.body.showusercandidates; //true= nur meine kandidate, false= alle
                 
                 if (showusercandidates) {
                     candidatequery = candidatequery + " WHERE candidate.sourcer=?";
-                    parameters = [req.session.userid];
+                    countCandidateQuery = countCandidateQuery + " WHERE sourcer=?";
+                    parameter = [req.session.userid];
                 }
 
                 var showTracking = req.body.showTracking; //true = nur Tracking=1
                 if (showTracking) {
-                    candidatequery = candidatequery + " WHERE candidate.tracking=1";
+                        candidatequery = candidatequery + " WHERE candidate.tracking=1";
+                        countCandidateQuery = countCandidateQuery + " WHERE tracking=1";
                 }
 
 
-                db.query(candidatequery, parameters, function (canderr, candresult, candfields) {
-                    if (canderr) throw canderr;
-                    
+                db.query(candidatequery, parameter, function (candErr, candResult, candFields) {
+                    if (candErr) {
+                        sendResponse(res, false, "Fehler beim Ausführen des Query (Kandidatenübersicht) - " + candErr);
+                        throw candErr;
+                    }
 
-                    sendResponse(res, true, "", candresult);
+                    db.query(countCandidateQuery, parameter, function (countErr, countResult, countFields) {
+                        if (countErr) {
+                            sendResponse(res, false, "Fehler beim Ausführen des Query (Kandidatenübersicht - Count) - " + countErr);
+                            throw countErr;
+                        }
+
+                        var result = {
+                            candidate: candResult,
+                            countCandidate: countResult[0]
+                        };
+
+                        sendResponse(res, true, "", result);
+                    });
+                    
                 });
             } else {
                 sendResponse(res, false, "Keine Berechtigung! (Session.Userid)");
@@ -171,17 +191,7 @@
             }
 
         });
-
-
-
-
-
-
-
-
-
-
-
+        
         app.post('/candidate/updateCandidate', function (req, res) {
             if (req.session.userid) {
                 var suc = false;
@@ -590,57 +600,7 @@
             } else {
                 sendResponse(res, false, "Kein Benutzer eingeloggt!");
             }
-
-
-
-            /*
-            if (req.session.userid) {
-                var suc = false;
-                var message = "";
-                var update = "";
-                var parameters = [];
-
-                if (req.body.id == null) {
-                    message = "Keine ID übergeben!";
-                } else
-                if (req.body.firstname == null || req.body.firstname == "") {
-                    message = "Bitte Vornamen eingeben! - 'unbekannt' bitte bei 'Vorname' eingeben!";
-                } else if (req.body.source == null || req.body.source == "") {
-                    message = "Bitte Quelle auswählen! - " + req.body.source;
-                } else if (req.body.research == null || req.body.research == "") {
-                    message = "Bitte Research-Datum eingeben! - " + req.body.research;
-                } else {
-                    suc = true;
-                }
-
-                if (suc) {
-                    update = "UPDATE candidate SET firstname = ?, lastname = ?, source_id = ?, source_text = ?, " +
-                        "eR = ?, tracking = ?, request = ?, response = ?, response_Value = ?, telnotice = ?, " +
-                        "intern = ?, extern = ?, hire = ?, team_id = ?, scoreboard = ?, sourcer = ?, infos = ?, research = ?" +
-                        "WHERE id = ? ";
-                    parameters = [req.body.firstname, req.body.lastname, req.body.source, req.body.source_text,
-                        req.body.eR, req.body.tracking, req.body.request, req.body.response, req.body.responseVal, req.body.telnotice,
-                        req.body.intern, req.body.extern, req.body.hire, req.body.team, req.body.scoreboard, req.body.sourcer, 
-                        req.body.infos, req.body.research, req.body.id];
-                    
-                        db.query(update, parameters, function (err, result, fields) {
-                            if (err) {
-                                message = "Fehler beim ausführen des UPDATE-Querys";
-                                sendResponse(res, false, message);
-                            } 
-                                sendResponse(res, true, "Kandidaten-Daten wurden gespeichert!");
-                            
-                        });
-                    
-                }else {
-                        sendResponse(res, false, message);
-                    }
-
-            } else {
-                sendResponse(res, false, "Kein Benutzer eingeloggt!");
-            }
-            */
-
+            
         });
 
         /**
