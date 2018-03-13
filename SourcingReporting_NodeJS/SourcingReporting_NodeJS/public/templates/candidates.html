@@ -1,6 +1,12 @@
 ﻿<h1 class="page-header"><span class="glyphicon glyphicon-folder-open"></span>  Kandidatenübersicht</h1>
 
 
+<div>
+    <div class="circle"></div>
+    <div class="circle1"></div>
+</div>
+
+
 <div class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading pb-2">
@@ -88,5 +94,14 @@
     var sortableTable = document.getElementById(candidates);
     sorttable.makeSortable(sortableTable);
 
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.circle, .circle1').removeClass('stop');
+        $('.triggerFull').click(function () {
+            $('.circle, .circle1').toggleClass('stop');
+        });
+    });
 </script>
     
