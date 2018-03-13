@@ -35,7 +35,7 @@
     
 
     <div class="panel-body">
-        <table id="candidates" class="table">
+        <table id="candidates" class="table sortable">
             <thead>
                 <tr>
                     <th>User</th>
@@ -60,7 +60,7 @@
                     <td ng-if="c.eR == null"> </td>
                     <td>{{c.tracking}}</td>
                     <td>{{c.response}} {{c.response_value}}</td>
-                    <td>{{c.telnotice | date: 'dd.MM.yyyy'}}</td>
+                    <td class="sorttable_numeric" sorttable_customkey="{{c.telnotice | date: 'yyyyMMddHHmmss'}}">{{c.telnotice | date: 'dd.MM.yyyy'}}</td>
                     <td>{{c.intern | date: 'dd.MM.yyyy'}}</td>
                     <td>{{c.extern | date: 'dd.MM.yyyy'}}</td>
                     <td>{{c.research | date: 'dd.MM.yyyy'}}</td>
@@ -70,16 +70,23 @@
     </div>
 </div>
 
-
+<!--
 <script src='js/tablesort.min.js'></script>
 
-<!-- Include sort types you need -->
 <script src='js/tablesort.number.min.js'></script>
 <script src='js/tablesort.date.min.js'></script>
+
 
 <script>
     new Tablesort(document.getElementById('candidates'));
 
     refresh.refresh();
 </script>
+-->
 
+<script>
+    var sortableTable = document.getElementById(candidates);
+    sorttable.makeSortable(sortableTable);
+
+</script>
+    

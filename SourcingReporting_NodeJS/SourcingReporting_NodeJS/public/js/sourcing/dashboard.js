@@ -148,8 +148,23 @@ var datetimepickeroptions = {
 };
 
 var toLocalDate = function (date) {
-    //return moment.utc(date).toDate();
     return moment(new Date(date));
+};
+
+//wird nicht verwendet - war zum testen wegen sortieren der Datum in der Kandidatenübersicht (funktionert nicht)
+var dateTransform = function (date) {
+    var date = new Date(date);
+
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    if (month < 10) month = "0" + month;
+    if (day < 10) day = "0" + day;
+
+    var transformedDate = year + '-' + month + '-' + day;
+
+    return transformedDate;
 };
 
 var getColor = function (name) {

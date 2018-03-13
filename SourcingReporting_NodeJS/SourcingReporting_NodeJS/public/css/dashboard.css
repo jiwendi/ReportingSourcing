@@ -37,7 +37,8 @@ body {
 }
 
 a{
-	color: #278C27;
+	/*color: #278C27;*/
+    color: #17A2B8;
 }
 
 a:hover{
@@ -264,3 +265,12 @@ right: 30px;
 max-width: 15% !important;
 
 }
+
+/* Sortable tables */
+table.sortable thead {
+    background-color: #eef5f6;
+    color: #666666;
+    font-weight: bold;
+    cursor: default;
+}
+
