@@ -1,13 +1,37 @@
 ﻿<h1 class="page-header"><span class="glyphicon glyphicon-folder-open"></span>  Kandidatenübersicht</h1>
 
+<!-- Skript for the LoadingScreen-->
+<!--
+<script>
+    function onReady(callback) {
+        var intervalId = window.setInterval(function () {
+            if (document.getElementsByTagName('body')[0] !== undefined) {
+                window.clearInterval(intervalId);
+                callback.call(this);
+            }
+        }, 1000);
+    }
 
-<div>
+    function setVisible(selector, visible) {
+        document.querySelector(selector).style.display = visible ? 'block' : 'none';
+    }
+
+    onReady(function () {
+        setVisible('#candidates', true);
+        setVisible('#loadingCircles', false);
+        //$('#candidates').paginate({ limit: 50 });
+    });
+
+</script>
+
+
+<div id="loadingCircles">
     <div class="circle"></div>
     <div class="circle1"></div>
 </div>
+-->
 
-
-<div class="panel panel-default">
+<div id="candidatesContent" class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading pb-2">
         <a href="#!candidate/new" class="btn btn-info">
@@ -44,6 +68,7 @@
         <table id="candidates" class="table sortable">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>User</th>
                     <th>Name</th>
                     <th>Quelle</th>
@@ -58,6 +83,7 @@
             </thead>
             <tbody id="tableBody">
                 <tr ng-repeat="c in candidates">
+                    <td>{{c.id}}</td>
                     <td><b>{{c.sourcerName}}</b></td>
                     <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
                     <td ng-if="c.source_text != null"><a href="{{c.source_text}}" target="_blank">{{c.source}}</a></td>
@@ -73,6 +99,7 @@
                 </tr>
             </tbody>
         </table>
+        <div id="tableNavigation"> </div>
     </div>
 </div>
 
