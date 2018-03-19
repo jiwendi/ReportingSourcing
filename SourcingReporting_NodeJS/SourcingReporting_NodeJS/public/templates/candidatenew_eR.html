@@ -1,0 +1,69 @@
+﻿<h1 class="page-header"><span class="oi oi-person"></span> Aktualisierter: {{candidate.firstname + ' ' + candidate.lastname}}</h1>
+
+<div class="candidateedit">
+    <div class="alert alert-danger" role="alert" ng-show="message && iserrmessage">
+        <span class="oi oi-x" aria-hidden="true"></span> {{message}}
+    </div>
+
+    <div class="alert alert-success" role="alert" ng-show="message && !iserrmessage">
+        <span class="oi oi-check" aria-hidden="true"></span> {{message}}
+    </div>
+
+
+    <div class="card w-50 p-3 m-5">
+        <div class="card-body mb-1">
+            <!-- Kandidat Name -->
+            <div class="input-group mb-1">
+                <div class="input-group-addon alert-info sourcing-width-150">Vorname</div>
+                <input type="text" class="form-control" id="candidateFirstname" ng-model="candidate.firstname" placeholder="Vorname" tabindex="1" />
+            </div>
+            <div class="input-group mb-1">
+                <div class="input-group-addon alert-info sourcing-width-150">Nachname</div>
+                <input type="text" class="form-control" id="candidateLastname" ng-model="candidate.lastname" placeholder="Nachname" tabindex="2"/>
+            </div>
+
+            <!-- eRecruiter Nr -->
+            <div class="input-group mb-1">
+                <div class="input-group-addon alert-info sourcing-width-150">eRecruiter Nr</div>
+                <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" placeholder="#123456 " tabindex="5"/>
+            </div>
+
+            
+            <!-- Besetzung -->
+            <div class="input-group mb-1">
+                <div class="input-group-addon alert-info sourcing-width-150">Besetzung</div>
+                <input type='date' class="form-control" id="hire" ng-model="hire" placeholder="dd.mm.yyyy"/>
+            </div>
+
+            <div class="input-group mb-1" ng-if="hire != null">
+                <div class="input-group-addon alert-info sourcing-width-150">Team</div>
+                <select class="custom-select wdselect" id="team" ng-model="teamSelect" ng-change="showSelectValue(teamSelect)">
+                        <!--ng-options="t.id as t.name group by t.city for t in teams track by t.id">-->
+                    <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
+                </select>
+            </div>
+
+            <!-- Scoreboard -->
+            <div class="input-group mb-1">
+                <div class="input-group-addon alert-info sourcing-width-150">Scoreboard</div>
+                <select ng-model="scoreboard" class="custom-select wdselect sourcing-width-full">
+                    <option ng-value="0">Nein</option>
+                    <option ng-value="1">Ja</option>
+                </select>
+            </div>
+
+            <!-- Infos -->
+            <div class="input-group mb-1">
+                <div class="input-group-addon alert-info sourcing-width-150">wichtige Infos</div>
+                <textarea rows="5" class="form-control" id="candidateInfo" ng-model="candidate.info" placeholer="wichtige Infos"></textarea>
+
+            </div>
+
+                <!-- Button -->
+                <button type="button" class="btn btn-info mb-1" ng-click="save()" accesskey="s"><span class="oi oi-check" aria-hidden="true"></span> eR-Kandidat speichern </button>
+
+            </div>
+    </div>
+
+
+</div>
