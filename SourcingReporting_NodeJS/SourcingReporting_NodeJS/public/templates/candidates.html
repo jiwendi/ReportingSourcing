@@ -1,29 +1,8 @@
 ﻿<h1 class="page-header"><span class="glyphicon glyphicon-folder-open"></span>  Kandidatenübersicht</h1>
 
 <!-- Skript for the LoadingScreen-->
-<!--
-<script>
-    function onReady(callback) {
-        var intervalId = window.setInterval(function () {
-            if (document.getElementsByTagName('body')[0] !== undefined) {
-                window.clearInterval(intervalId);
-                callback.call(this);
-            }
-        }, 1000);
-    }
-
-    function setVisible(selector, visible) {
-        document.querySelector(selector).style.display = visible ? 'block' : 'none';
-    }
-
-    onReady(function () {
-        setVisible('#candidates', true);
-        setVisible('#loadingCircles', false);
-        //$('#candidates').paginate({ limit: 50 });
-    });
-
-</script>
-
+<!-- 
+<script src="js/sourcing/loadingScreen.js"></script>
 
 <div id="loadingCircles">
     <div class="circle"></div>

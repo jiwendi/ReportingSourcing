@@ -39,7 +39,6 @@
     <Compile Include="public\js\Chart.js" />
     <Compile Include="public\js\collapse.js" />
     <Compile Include="public\js\jquery-3.2.1.min.js" />
-    <Compile Include="public\js\jquery-paginate.min.js" />
     <Compile Include="public\js\jquery-ui.min.js" />
     <Compile Include="public\js\moment.de.js" />
     <Compile Include="public\js\moment.js" />
