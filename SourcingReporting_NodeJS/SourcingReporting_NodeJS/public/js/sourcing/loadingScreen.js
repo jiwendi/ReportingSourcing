@@ -6,13 +6,10 @@
         }
     }, 1000);
 }
-
 function setVisible(selector, visible) {
     document.querySelector(selector).style.display = visible ? 'block' : 'none';
 }
-
 onReady(function () {
-    setVisible('#candidates', true);
+    setVisible('#candidatesContent', true);
     setVisible('#loadingCircles', false);
-    //$('#candidates').paginate({ limit: 50 });
 });
