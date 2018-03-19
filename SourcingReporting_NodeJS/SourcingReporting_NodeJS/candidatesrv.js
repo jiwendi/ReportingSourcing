@@ -174,7 +174,7 @@
 
                     db.query(query, parameters, function (err, result, fields) {
                         if (err) {
-                            message = "Fehler mit DB (delete candidate)";
+                            message = "Fehler mit DB (delete candidate) " + err;
                             sendResponse(res, false, message);
                         } else {
                             sendResponse(res, true, "Kandidat wurde gelöscht!");
@@ -246,7 +246,7 @@
                         [req.body.source, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate (Source)!";
+                                message = "Fehler beim UPDATE-Candidate (Source)! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -281,7 +281,7 @@
                         [req.body.team, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate (Team)!";
+                                message = "Fehler beim UPDATE-Candidate (Team)! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -314,7 +314,7 @@
                         [req.body.research, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate (Research)!";
+                                message = "Fehler beim UPDATE-Candidate (Research)! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -347,7 +347,7 @@
                         [req.body.telnotice, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate (TelNotice)!";
+                                message = "Fehler beim UPDATE-Candidate (TelNotice)! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -380,7 +380,7 @@
                         [req.body.intern, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate (Intern)!";
+                                message = "Fehler beim UPDATE-Candidate (Intern)! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -413,7 +413,7 @@
                         [req.body.extern, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate (Extern)!";
+                                message = "Fehler beim UPDATE-Candidate (Extern)! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -446,7 +446,7 @@
                         [req.body.hire, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate (Hire)!";
+                                message = "Fehler beim UPDATE-Candidate (Hire)! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -479,7 +479,7 @@
                         [req.body.tracking, req.body.request, req.body.response, req.body.response_value, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate (Options)!";
+                                message = "Fehler beim UPDATE-Candidate (Options)! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -513,7 +513,7 @@
                         [req.body.scoreboard, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate (Scoreboard)!";
+                                message = "Fehler beim UPDATE-Candidate (Scoreboard)! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -546,7 +546,7 @@
                         [req.body.sourcer_id, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate (Sourcer)!" + err;
+                                message = "Fehler beim UPDATE-Candidate (Sourcer)! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");
@@ -587,7 +587,7 @@
                         [req.body.firstname, req.body.lastname, req.body.source, req.body.sourceText, req.body.research, req.body.intern, req.body.extern, req.body.hire, req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim UPDATE-Candidate!";
+                                message = "Fehler beim UPDATE-Candidate! " + err;
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Daten wurden gespeichert!");

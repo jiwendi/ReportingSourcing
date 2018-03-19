@@ -1,6 +1,6 @@
 ﻿var app = angular.module("sourcingApp", ['ngRoute', 'angular.filter']);
 
-const THIS_YEAR = 2018;
+const THIS_YEAR = new Number(2018);
 const FILTER_FROM = new Date('2018-01-01');
 const FILTER_TO = new Date('2018-12-31');
 
