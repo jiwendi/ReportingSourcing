@@ -1204,6 +1204,11 @@ app.controller('statisticsController', function ($scope, $http) {
         });
 
         $http.post('stat/myYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+           /*
+        $scope.myYearRequest = response.data.data.request;
+        $scope.myYearTelNotice = response.data.data.telNotice;
+        $scope.myYearHire = response.data.data.hires;
+        */
             $scope.myYear = response.data.data;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
@@ -1219,6 +1224,11 @@ app.controller('statisticsController', function ($scope, $http) {
     });
 
     $http.post('stat/myYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+        /*
+        $scope.myYearRequest = response.data.data.request;
+        $scope.myYearTelNotice = response.data.data.telNotice;
+        $scope.myYearHire = response.data.data.hires;
+        */
         $scope.myYear = response.data.data;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;

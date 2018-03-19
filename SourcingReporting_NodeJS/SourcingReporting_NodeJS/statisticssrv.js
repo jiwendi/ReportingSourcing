@@ -36,16 +36,38 @@
 
         app.post('/stat/myYear', function (req, res) {
             var message = "";
-            var query = "SELECT COUNT(c1.request) as request, " +
-                "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.telnotice != '0000-00-00') telnotice, " +
-                "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.hire != '0000-00-00') hires " + 
-                "FROM candidate as c1 WHERE c1.sourcer = ? AND YEAR(c1.research) = ?";
+            var query = "SELECT COUNT(c1.request) as request FROM candidate as c1 WHERE c1.sourcer = ? AND YEAR(c1.research) = ?";
+            var telNoticeQuery = "SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.sourcer = ? AND YEAR(c2.telnotice) = ?";
+            var hireQuery = "SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.sourcer = ? AND YEAR(c2.hire) = ?"
             var parameter = [req.session.userid, req.body.yearToFilter];
 
             db.query(query, parameter, function (err, rows, fields) {
-                if (err) throw err;
+                if (err) {
+                    sendResponse(res, false, "Fehler beim Select (myYear) " + err);
+                }
 
-                sendResponse(res, true, "", rows[0]);
+                db.query(telNoticeQuery, parameter, function (telErr, telRows, telFields) {
+                    if (telErr) {
+                        sendResponse(res, false, "Fehler beim Select (myYear) " + telErr);
+                    }
+
+
+                    db.query(hireQuery, parameter, function (hireErr, hireRows, hireFields) {
+                        if (hireErr) {
+                            sendResponse(res, false, "Fehler beim Select (myYear) " + hireErr);
+                        }
+
+                        var result = {
+                            request: rows[0],
+                            telNotice: telRows[0],
+                            hires: hireRows[0]
+                        };
+                        sendResponse(res, true, "", result);
+                    });
+                   
+                });
+
+                
             });
 
         });
