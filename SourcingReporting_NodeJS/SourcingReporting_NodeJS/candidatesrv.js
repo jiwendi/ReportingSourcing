@@ -408,9 +408,11 @@
                     suc = true;
                 }
 
+                var parameter = [req.body.extern, req.body.id];
+
                 if (suc) {
-                    db.query("UPDATE candidate SET extern = ? WHERE id = ?",
-                        [req.body.extern, req.body.id],
+                    db.query("UPDATE candidate SET extern = DATE(STR_TO_DATE(?, '%Y-%m-%d')) WHERE id = ?",
+                        parameter,
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate (Extern)! " + err;
