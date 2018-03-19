@@ -1,15 +1,38 @@
 ﻿<h1 class="page-header"><span class="glyphicon glyphicon-folder-open"></span>  Kandidatenübersicht</h1>
+<script>
+    function onReady(callback) {
+        var intervalId = window.setInterval(function () {
+            if (document.getElementsByTagName('body')[0] !== undefined) {
+                window.clearInterval(intervalId);
+                callback.call(this);
+            }
+        }, 1000);
+    }
+    function setVisible(selector, visible) {
+        document.querySelector(selector).style.display = visible ? 'block' : 'none';
+    }
+    onReady(function () {
+        setVisible('#candidates', true);
+        setVisible('#loadingCircles', false);
+        //$('#candidates').paginate({ limit: 50 });
+    });
 
 
-<div class="panel panel-default">
+</script>
+<div id="loadingCircles">
+    <div class="circle"></div>
+    <div class="circle1"></div>
+</div>
+
+<div id="candidatesContent" class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading pb-2">
         <a href="#!candidate/new" class="btn btn-info">
             <span class="oi oi-plus" aria-hidden="true"></span> neuer Kandidat
         </a>
     </div>
-    
-    
+
+
     <div>
         <div class="panel-heading pb-2 pt-2">
             <span class="showusercandidates pr-3 alert alert-info mr-1 sourcing-width-250">
@@ -27,12 +50,12 @@
 
         </div>
     </div>
-    
+
     <div>
         <h6><span class="badge badge-info">{{countCandidate.countCandidate}}</span> Kandidaten in der Datenbank</h6>
     </div>
-    
-    
+
+
 
     <div class="panel-body">
         <table id="candidates" class="table sortable">
@@ -91,4 +114,5 @@
     sorttable.makeSortable(sortableTable);
 
 </script>
+
     
