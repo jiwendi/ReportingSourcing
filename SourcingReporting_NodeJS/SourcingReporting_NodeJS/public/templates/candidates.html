@@ -1,19 +1,28 @@
 ﻿<h1 class="page-header"><span class="glyphicon glyphicon-folder-open"></span>  Kandidatenübersicht</h1>
 
+<<<<<<< HEAD
 <!-- Skript for the LoadingScreen-->
 <!-- 
 <script src="js/sourcing/loadingScreen.js"></script>
 
 <div id="loadingCircles">
+=======
+
+<div>
+>>>>>>> parent of 1861059... Pagination + LoadingPage
     <div class="circle"></div>
     <div class="circle1"></div>
 </div>
--->
 
+<<<<<<< HEAD
 <div id="candidatesContent" class="panel panel-default"></div>
 
 <div class="panel panel-default">
 
+=======
+
+<div class="panel panel-default">
+>>>>>>> parent of 1861059... Pagination + LoadingPage
     <!-- Default panel contents -->
     <div class="panel-heading pb-2">
         <a href="#!candidate/new" class="btn btn-info">
@@ -50,7 +59,6 @@
         <table id="candidates" class="table sortable">
             <thead>
                 <tr>
-                    <th>#</th>
                     <th>User</th>
                     <th>Name</th>
                     <th>Quelle</th>
@@ -65,7 +73,6 @@
             </thead>
             <tbody id="tableBody">
                 <tr ng-repeat="c in candidates">
-                    <td>{{c.id}}</td>
                     <td><b>{{c.sourcerName}}</b></td>
                     <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
                     <td ng-if="c.source_text != null"><a href="{{c.source_text}}" target="_blank">{{c.source}}</a></td>
@@ -81,7 +88,6 @@
                 </tr>
             </tbody>
         </table>
-        <div id="tableNavigation"> </div>
     </div>
 </div>
 

@@ -1,32 +1,7 @@
 ﻿<h1 class="page-header"><span class="glyphicon glyphicon-folder-open"></span>  Besetzungen Übersicht</h1>
-<!-- Skript for the LoadingScreen and Table Sides-->
-<script>
-    function onReady(callback) {
-        var intervalId = window.setInterval(function () {
-            if (document.getElementsByTagName('body')[0] !== undefined) {
-                window.clearInterval(intervalId);
-                callback.call(this);
-            }
-        }, 1000);
-    }
 
-    function setVisible(selector, visible) {
-        document.querySelector(selector).style.display = visible ? 'block' : 'none';
-    }
 
-    onReady(function () {
-        setVisible('#candidatesContent', true);
-        setVisible('#loadingCircles', false);
-    });
-
-</script>
-
-<div id="loadingCircles">
-    <div class="circle"></div>
-    <div class="circle1"></div>
-</div>
-
-<div id="candidatesContent" class="panel panel-default">
+<div class="panel panel-default">
     <!-- Default panel contents -->
     
     
