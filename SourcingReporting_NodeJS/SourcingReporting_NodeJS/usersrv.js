@@ -1,15 +1,12 @@
-﻿var crypto = require('crypto');
-
-module.exports = {
+﻿module.exports = {
     setup: function (app, db, session, toDate, sendResponse) {
 
         /**
          * User Login
          */
         app.post('/user/login', function (req, res) {
-            var hash = crypto.createHash('sha256').update(req.body.passwd).digest('base64');
             
-            db.query('SELECT id, active, admin from users where email=? AND password=?', [req.body.email, hash], function (err, rows, fields) {
+            db.query('SELECT id, active, admin from users where email=? AND password=?', [req.body.email, req.body.passwd], function (err, rows, fields) {
                 if (err) throw err;
                 var suc = false;
 
@@ -114,9 +111,9 @@ module.exports = {
                 } else if (req.body.password != null && req.body.password != "" && req.body.password2 != "") {
                     if (req.body.password == req.body.password2) {
                         suc = true;
-                        var hash = crypto.createHash('sha64').update(req.body.password).digest('base64');
+                        
                         update = "UPDATE users SET firstname=?, lastname=?, email=?, password=?, admin=?, active=? where id=?";
-                        parameters = [req.body.firstname, req.body.lastname, req.body.email, hash, req.body.admin, req.body.active, userid];
+                        parameters = [req.body.firstname, req.body.lastname, req.body.email, req.body.password, req.body.admin, req.body.active, userid];
                     } else {
                         message = "Passwörter müssen übereinstimmen";
                     }
@@ -174,9 +171,8 @@ module.exports = {
                             if (emrows.length > 0) {
                                 sendResponse(res, false, "Email schon vorhanden!");
                             } else {
-                                var hash = crypto.createHash('sha256').update(req.body.password).digest('base64');
                                 var query = "INSERT INTO users (firstname, lastname, email, password, admin, active) VALUES (?,?,?,?,?,?)";
-                                var parameters = [req.body.firstname, req.body.lastname, req.body.email, hash, req.body.admin == 1, req.body.active == 1];
+                                var parameters = [req.body.firstname, req.body.lastname, req.body.email, req.body.password, req.body.admin == 1, req.body.active == 1];
 
                                 db.query(query, parameters, function (err, result, fields) {
                                     if (err) {
