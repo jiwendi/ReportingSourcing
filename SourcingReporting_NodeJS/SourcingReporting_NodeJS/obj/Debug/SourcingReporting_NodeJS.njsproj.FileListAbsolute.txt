@@ -1,0 +1,3 @@
+C:\Users\viktoria.jechsmayr\source\repos\ReportingSourcing\SourcingReporting_NodeJS\SourcingReporting_NodeJS\obj\Debug\SourcingReporting_NodeJS.njsprojResolveAssemblyReference.cache
+C:\Users\viktoria.jechsmayr\source\repos\ReportingSourcing\SourcingReporting_NodeJS\SourcingReporting_NodeJS\obj\Debug\SourcingReporting_NodeJS.njsproj.CoreCompileInputs.cache
+C:\Users\viktoria.jechsmayr\source\repos\ReportingSourcing\SourcingReporting_NodeJS\SourcingReporting_NodeJS\bin\Microsoft.NodejsTools.WebRole.dll

@@ -44,7 +44,12 @@
     <Compile Include="public\js\moment.js" />
     <Compile Include="public\js\popper.min.js" />
     <Compile Include="public\js\select2.full.min.js" />
+    <Compile Include="public\js\sorttable_v1.js" />
+    <Compile Include="public\js\sorttable_v2.js" />
     <Compile Include="public\js\sourcing\dashboard.js" />
+    <Compile Include="public\js\sourcing\loadingScreen.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="public\js\sourcing\login.js" />
     <Compile Include="public\js\sourcing\register.js" />
     <Compile Include="public\js\tablesort.date.min.js" />
@@ -122,6 +127,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\templates\candidatedetail.html" />
+    <Content Include="public\templates\candidatenew_eR.html" />
     <Content Include="public\templates\candidatenew.html" />
     <Content Include="public\templates\candidates.html" />
     <Content Include="public\templates\dashboard.html" />
