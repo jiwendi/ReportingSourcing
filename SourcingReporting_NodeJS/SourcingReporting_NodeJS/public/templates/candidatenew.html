@@ -74,16 +74,8 @@
                         <td>
                             <select id="selectResponse" ng-model="response" class="wdselect" ng-init="response=0">
                                 <option ng-value="0">Nein</option>
-                                <option ng-value="1">Ja</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr ng-if="response == 1">
-                        <th scope="row"> </th>
-                        <td>
-                            <select id="selectResponseValue" ng-model="responseVal" class="wdselect">
-                                <option ng-value="0">Negativ</option>
-                                <option ng-value="1">Positiv</option>
+                                <option ng-value="1">Ja - Positiv</option>
+                                <option ng-value="2">Ja - Negativ</option>
                             </select>
                         </td>
                     </tr>

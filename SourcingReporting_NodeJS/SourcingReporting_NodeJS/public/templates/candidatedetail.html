@@ -69,22 +69,14 @@
                     <tr>
                         <th scope="row">Response</th>
                         <td>
-                            <select ng-model="candidate.response" class="sourcing-width-full" ng-blur="updateOptions()">
+                            <select ng-model="response" class="sourcing-width-full" ng-blur="updateOptions()">
                                 <option ng-value="0">Nein</option>
-                                <option ng-value="1">Ja</option>
+                                <option ng-value="1">Ja - Positiv</option>
+                                <option ng-value="2">Ja - Negativ</option>
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row"> </th>
-                        <td>
-                            <select ng-model="candidate.response_value" class="sourcing-width-full" ng-blur="updateOptions()">
-                                <option ng-value="0">Negativ</option>
-                                <option ng-value="1">Positiv</option>
-                                <!--<option ng-value="null">noch keine Response erhalten</option>-->
-                            </select>
-                        </td>
-                    </tr>
+                  
                 </tbody>
             </table>
 
@@ -96,35 +88,35 @@
 -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Research</div>
-                <input type='date' class="form-control" ng-model="candidate.research" value="{{ candidate.research | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateResearch()"/>
+                <input id="research" type='date' ng-model="research" class="form-control" ng-blur="updateResearch()" required/>
 
             </div>
 
             <!-- Telefonnotiz -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Telefon-Notiz</div>
-                <input type='date' class="form-control" ng-model="candidate.telnotice" value="{{ candidate.telnotice | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateTelnotice()"/>
+                <input id="telnotice" type='date' ng-model="telnotice" class="form-control" ng-blur="updateTelnotice()" required/>
               
             </div>
 
             <!-- Intern -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Internes Gespräch</div>
-                <input type='date' class="form-control" ng-model="candidate.intern" value="{{ candidate.intern | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateIntern()"/>
+                <input id="intern" type='date' ng-model="intern" class="form-control" ng-blur="updateIntern()" required/>
 
             </div>
 
             <!-- Extern -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Externes Gespräch</div>
-                <input type='date' class="form-control" ng-model="candidate.extern" value="{{ candidate.extern | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateExtern()"/>
+                <input id="extern" type='date' ng-model="extern" class="form-control" ng-blur="updateExtern()" required/>
 
             </div>
 
             <!-- Besetzung -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Besetzung</div>
-                <input type='date' class="form-control" ng-model="candidate.hire" value="{{ candidate.hire | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateHire()"/>
+                <input id="hire" type='date' ng-model="hire" class="form-control" ng-blur="updateHire()" required/>
             </div>
             <!-- Besetzung -->
             <div class="input-group mb-1" ><!--ng-if="hire != null"-->
@@ -163,7 +155,7 @@
             <!-- Button -->
            <!-- <button type="button" class="btn btn-info mb-1" ng-click="update()"><span class="oi oi-check" aria-hidden="true"></span> Kandidat speichern </button>-->
 
-             <button type="button" class="btn btn-danger mb-1" ng-click="delete()"><span class="oi oi-check" aria-hidden="true"></span> Kandidat löschen </button>
+             <button type="button" class="btn btn-danger mb-1" ng-click="delete()"><span class="oi oi-x" aria-hidden="true"></span> Kandidat löschen </button>
 
 
         </div>

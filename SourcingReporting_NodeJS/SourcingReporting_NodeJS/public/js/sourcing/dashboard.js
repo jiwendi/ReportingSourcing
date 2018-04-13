@@ -148,7 +148,7 @@ var datetimepickeroptions = {
 };
 
 var toLocalDate = function (date) {
-    return moment(new Date(date));
+    return moment(date).toDate();
 };
 
 //wird nicht verwendet - war zum testen wegen sortieren der Datum in der Kandidatenübersicht (funktionert nicht)
@@ -697,7 +697,6 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         var today = year + '-' + month + '-' + day;
 
         document.getElementById('research').value = today;
-
     });
 
 
@@ -721,16 +720,16 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         $scope.extern = $('#extern').val();
         $scope.hire = $('#hire').val();
         $scope.team = $('#teamSelect').val();
-        
-        if ($('#selectResponseValue').val() == undefined) {
-            $scope.responseValue = 2;
-        } else if ($('#selectResponseValue').val() == 'number:1') {
-            $scope.responseValue = 1;
-        } else if ($('#selectResponseValue').val() == 'number:0') {
-            $scope.responseValue = 0;
-        } else {
-            $scope.responseValue = 2;
+
+        var responseValue = null;
+
+
+        if ($scope.response == 1) {
+            responseValue = 1;
+        } else if ($scope.response == 2) {
+            responseValue = 0;
         }
+
         
         if ($('#research').val() == '') {
             $scope.research = '0000-00-00';
@@ -772,7 +771,7 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         $http.post('candidate/save', {  
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.source,
             source_text: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.tracking, request: $scope.request,
-            response: $scope.response, responseVal: $scope.responseValue, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.info,
+            response: $scope.response, responseVal: responseValue, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.info,
             extern: $scope.extern, hire: $scope.hire, team: $scope.team, research: $scope.research, scoreboard: $scope.candidate.scoreboard
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
@@ -844,8 +843,8 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
         var selectTeam = $('#selectTeam');
         selectTeam.select2({ data: teamData });
-        selectTeam.val($scope.candidate.team_id);
-        selectTeam.trigger("change");
+        //selectTeam.val($scope.candidate.team_id);
+        //selectTeam.trigger("change");
         selectTeam.on("select2:select", function (e) {
             var id = selectTeam.val();
             $scope.candidate.team_id = id;
@@ -853,8 +852,8 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         
         var selectSource = $('#selectSource');
         selectSource.select2({ data: sourceData });
-        selectSource.val($scope.candidate.source_id);
-        selectSource.trigger("change");
+        //selectSource.val($scope.candidate.source_id);
+        //selectSource.trigger("change");
         selectSource.on("select2:select", function (e) {
             var id = selectSource.val();
             $scope.candidate.source_id = id;
@@ -869,44 +868,42 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.extern = toLocalDate($scope.candidate.extern);
         $scope.hire = toLocalDate($scope.candidate.hire);
 
-        var research = $('#research');
-        var telnotice = $('#telnotice');
-        var intern = $('#intern');
-        var extern = $('#extern');
-        var hire = $('#hire');
+        //var research = $('#research');
+        //var telnotice = $('#telnotice');
+        //var intern = $('#intern');
+        //var extern = $('#extern');
+        //var hire = $('#hire');
 
-      
+               
+        //research.datetimepicker(datetimepickeroptions);
+        //research.data('DateTimePicker').date($scope.research);
+        //research.on('dp.change', function (e) {
+        //    $scope.candidate.research = e.date;
+        //});
+                
+        //telnotice.datetimepicker(datetimepickeroptions);
+        //telnotice.data('DateTimePicker').date($scope.telnotice);
+        //telnotice.on('dp.change', function (e) {
+        //    $scope.candidate.telnotice = e.date;
+        //});
 
-        
-        research.datetimepicker(datetimepickeroptions);
-        research.data('DateTimePicker').date($scope.research);
-        research.on('dp.change', function (e) {
-            $scope.candidate.research = e.date;
-        });
-        
-        telnotice.datetimepicker(datetimepickeroptions);
-        telnotice.data('DateTimePicker').date($scope.telnotice);
-        telnotice.on('dp.change', function (e) {
-            $scope.candidate.telnotice = e.date;
-        });
+        //intern.datetimepicker(datetimepickeroptions);
+        //intern.data('DateTimePicker').date($scope.intern);
+        //intern.on('dp.change', function (e) {
+        //    $scope.candidate.intern = e.date;
+        //});
 
-        intern.datetimepicker(datetimepickeroptions);
-        intern.data('DateTimePicker').date($scope.intern);
-        intern.on('dp.change', function (e) {
-            $scope.candidate.intern = e.date;
-        });
+        //extern.datetimepicker(datetimepickeroptions);
+        //extern.data('DateTimePicker').date($scope.extern);
+        //extern.on('dp.change', function (e) {
+        //    $scope.candidate.extern = e.date;
+        //});
 
-        extern.datetimepicker(datetimepickeroptions);
-        extern.data('DateTimePicker').date($scope.extern);
-        extern.on('dp.change', function (e) {
-            $scope.candidate.extern = e.date;
-        });
-
-        hire.datetimepicker(datetimepickeroptions);
-        hire.data('DateTimePicker').date($scope.hire);
-        hire.on('dp.change', function (e) {
-            $scope.candidate.hire = e.date;
-        });
+        //hire.datetimepicker(datetimepickeroptions);
+        //hire.data('DateTimePicker').date($scope.hire);
+        //hire.on('dp.change', function (e) {
+        //    $scope.candidate.hire = e.date;
+        //});
 
         /**
          * Dropdown with select2
@@ -927,36 +924,37 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         var scoreboard = $('#scoreboard');
         scoreboard.select2();
 
-        selectTracking.val($scope.candidate.tracking);
-        selectTracking.trigger("change");
+        //selectTracking.val($scope.candidate.tracking);
+        //selectTracking.trigger("change");
         selectTracking.on("select2:select", function (e) {
             var id = selectTracking.val();
             $scope.tracking = id;
         });
 
-        selectRequest.val($scope.candidate.request);
-        selectRequest.trigger("change");
+        //selectRequest.val($scope.candidate.request);
+        //selectRequest.trigger("change");
         selectRequest.on("select2:select", function (e) {
             var id = selectRequest.val();
             $scope.request = id;
         });
 
-        selectResponse.val($scope.candidate.response);
-        selectResponse.trigger("change");
+        $scope.response = 0;
+
+        if ($scope.candidate.response == 1 && $scope.candidate.response_value == 1) {
+            $scope.response = 1;
+        } else if ($scope.candidate.response == 1 && $scope.candidate.response_value == 0) {
+            $scope.response = 2;
+        }
+        
+        //selectResponse.val($scope.response);
+        //selectResponse.trigger("change");
         selectResponse.on("select2:select", function (e) {
             var id = selectResponse.val();
             $scope.response = id;
         });
-
-        selectResponseVal.val($scope.candidate.response_value);
-        selectResponseVal.trigger("change");
-        selectResponseVal.on("select2:select", function (e) {
-            var id = selectResponseVal.val();
-            $scope.response_value = id;
-        });
-
-        scoreboard.val($scope.candidate.scoreboard);
-        scoreboard.trigger("change");
+        
+        //scoreboard.val($scope.candidate.scoreboard);
+        //scoreboard.trigger("change");
         scoreboard.on("select2:select", function (e) {
             var id = scoreboard.val();
             $scope.scoreboard = id;
@@ -1007,10 +1005,9 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
     $scope.updateResearch = function () {
         $scope.message = "";
-        $scope.research = "";
         
         $http.post('candidate/updateResearch', {
-            id: $scope.candidate.id, research: $scope.candidate.research
+            id: $scope.candidate.id, research: $scope.research
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
@@ -1021,7 +1018,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.message = "";
         
         $http.post('candidate/updateTelnotice', {
-            id: $scope.candidate.id, telnotice: $scope.candidate.telnotice
+            id: $scope.candidate.id, telnotice: $scope.telnotice
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
@@ -1032,7 +1029,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.message = "";
 
         $http.post('candidate/updateIntern', {
-            id: $scope.candidate.id, intern: $scope.candidate.intern
+            id: $scope.candidate.id, intern: $scope.intern
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
@@ -1043,7 +1040,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.message = "";
 
         $http.post('candidate/updateExtern', {
-            id: $scope.candidate.id, extern: $scope.candidate.extern
+            id: $scope.candidate.id, extern: $scope.extern
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
@@ -1054,7 +1051,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.message = "";
 
         $http.post('candidate/updateHire', {
-            id: $scope.candidate.id, hire: $scope.candidate.hire
+            id: $scope.candidate.id, hire: $scope.hire
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
@@ -1093,9 +1090,23 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
     $scope.updateOptions = function () {
         $scope.message = "";
 
+        var responseValue = null;
+
+
+        if ($scope.response == 1) {
+            responseValue = 1;
+            $scope.candidate.response = 1;
+        } else if ($scope.response == 2) {
+            responseValue = 0;
+            $scope.candidate.response = 1;
+        } else {
+            $scope.candidate.response = 0;
+        }
+
+
         $http.post('candidate/updateOptions', {
             id: $scope.candidate.id, tracking: $scope.candidate.tracking, request: $scope.candidate.request,
-            response: $scope.candidate.response, response_value: $scope.candidate.response_value
+            response: $scope.candidate.response, response_value: responseValue
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;

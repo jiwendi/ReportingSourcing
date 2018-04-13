@@ -311,7 +311,7 @@
 
                 if (suc) {
                     db.query("UPDATE candidate SET research = ? WHERE id = ?",
-                        [req.body.research, req.body.id],
+                        [new Date(req.body.research), req.body.id],
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate (Research)! " + err;
@@ -344,7 +344,7 @@
 
                 if (suc) {
                     db.query("UPDATE candidate SET telnotice = ? WHERE id = ?",
-                        [req.body.telnotice, req.body.id],
+                        [new Date(req.body.telnotice), req.body.id],
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate (TelNotice)! " + err;
@@ -377,7 +377,7 @@
 
                 if (suc) {
                     db.query("UPDATE candidate SET intern = ? WHERE id = ?",
-                        [req.body.intern, req.body.id],
+                        [new Date(req.body.intern), req.body.id],
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate (Intern)! " + err;
@@ -407,12 +407,10 @@
                 } else {
                     suc = true;
                 }
-
-                var parameter = [req.body.extern, req.body.id];
-
+                
                 if (suc) {
-                    db.query("UPDATE candidate SET extern = DATE(STR_TO_DATE(?, '%Y-%m-%d')) WHERE id = ?",
-                        parameter,
+                    db.query("UPDATE candidate SET extern = ? WHERE id = ?",
+                        [new Date(req.body.extern), req.body.id],
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate (Extern)! " + err;
@@ -445,7 +443,7 @@
 
                 if (suc) {
                     db.query("UPDATE candidate SET hire = ? WHERE id = ?",
-                        [req.body.hire, req.body.id],
+                        [new Date(req.body.hire), req.body.id],
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate (Hire)! " + err;
