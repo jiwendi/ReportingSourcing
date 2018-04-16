@@ -53,7 +53,7 @@
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto"></ul>
                 <form class="form-inline mt-2 mt-md-0">
-                    <a class="navbar-brand" href="#!wigs">vermittelte Sourcing-Kandidaten: {{hireThisYear.hireThisYear}} / {{wig.goal}}</a>
+                    <a class="navbar-brand" href="#!wigs">vermittelte Sourcing-Kandidaten: {{hireThisYear.hireThisYear + hireThisYeareR.hireThisYear}} / {{wig.goal}}</a>
                 </form>
 
             </div>
@@ -80,6 +80,9 @@
                 <ul class="nav nav-pills flex-column sidebar-margin">
                     <li class="nav-item">
                         <a class="nav-link nav-bg-info" href="#!candidates"><span class="oi oi-people" aria-hidden="true"></span> Kandidaten</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-bg-info" href="#!candidates_eR"><span class="oi oi-fork" aria-hidden="true"></span> eR-Kandidaten</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-bg-info" href="#!statistics"><span class="oi oi-bar-chart" aria-hidden="true"></span> Statistiken</a>
@@ -156,7 +159,15 @@
 
     
 
-    <script src="js/sourcing/dashboard.js"></script>
+    <!--<script src="js/sourcing/dashboard.js"></script>-->
 
+    <script src="js/sourcing/main.js"></script>
+    <script src="js/sourcing/candidate.js"></script>
+    <script src="js/sourcing/candidate_eR.js"></script>
+    <script src="js/sourcing/source.js"></script>
+    <script src="js/sourcing/statistics.js"></script>
+    <script src="js/sourcing/team.js"></script>
+    <script src="js/sourcing/users.js"></script>
+    <script src="js/sourcing/wig.js"></script>
 </body>
 </html>

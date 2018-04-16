@@ -19,6 +19,7 @@ var sourcesrv = require('./sourcesrv');
 var candidatesrv = require('./candidatesrv');
 var wigsrv = require('./wigsrv');
 var statisticssrv = require('./statisticssrv');
+var candidateersrv = require('./candidate_er_srv');
 
 var app = express();
 
@@ -75,6 +76,8 @@ teamsrv.setup(app, db, session, toDate, sendResponse);
 sourcesrv.setup(app, db, session, toDate, sendResponse);
 
 candidatesrv.setup(app, db, session, toDate, sendResponse);
+
+candidateersrv.setup(app, db, session, toDate, sendResponse);
 
 wigsrv.setup(app, db, session, toDate, sendResponse);
 

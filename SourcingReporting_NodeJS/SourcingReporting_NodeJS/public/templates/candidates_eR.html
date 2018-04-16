@@ -1,0 +1,60 @@
+﻿<h1 class="page-header"><span class="glyphicon glyphicon-folder-open"></span>  eR-Kandidatenübersicht</h1>
+
+<script src="js/sourcing/loadingScreen.js"></script>
+
+<div id="loadingCircles">
+    <div class="circle"></div>
+    <div class="circle1"></div>
+</div>
+
+<div id="candidatesContent" class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading pb-2">
+        <a href="#!candidate/newER" class="btn btn-info">
+            <span class="oi oi-plus" aria-hidden="true"></span> neuer eR-Kandidat
+        </a>
+    </div>
+
+
+
+   <br />
+    <div>
+        <h6><span class="badge badge-info">{{countCandidate.countCandidate}}</span> Kandidaten in der Datenbank</h6>
+    </div>
+
+
+
+    <div class="panel-body">
+        <table id="candidates" class="table sortable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>eRecruiterNr.</th>
+                    <th>Besetzung</th>
+                    <th>Team</th>
+                    <th>Scoreboard</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr ng-repeat="c in candidates">
+                    <td>{{c.id}}</td>
+                    <td><a href="#!candidatedetaileR/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                    <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
+                    <td ng-if="c.eR == null"> </td>
+                    <td>{{c.hire | date: 'dd.MM.yyyy'}}</td>
+                    <td>{{c.teamname}}</td>
+                    <td>{{c.scoreboard}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    var sortableTable = document.getElementById("candidates");
+    sorttable.makeSortable(sortableTable);
+    
+</script>
+
+    

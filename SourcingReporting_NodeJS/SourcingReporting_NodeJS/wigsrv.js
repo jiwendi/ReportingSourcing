@@ -7,19 +7,25 @@ module.exports = {
          */
         app.get('/wig/info', function (req, res) {
             var query = "SELECT COUNT(candidate.id) AS hireThisYear FROM candidate, wig WHERE candidate.hire >= wig.start AND candidate.hire <= wig.end AND wig.active = 1";
+            var eRquery = "SELECT COUNT(candidate_eR.id) AS hireThisYear FROM candidate_eR, wig WHERE candidate_eR.hire >= wig.start AND candidate_eR.hire <= wig.end AND wig.active = 1";
             var wigquery = "SELECT wig.start, wig.end, wig.goal FROM wig WHERE wig.active = 1";
 
             db.query(query, function (err, rows, fields) {
                 if (err) throw err;
+
+                db.query(eRquery, function (eRerr, eRrows, eRfields) {
+                    if (eRerr) throw eRerr;
 
                 db.query(wigquery, function (wigerr, wigrows, wigfields) {
                     if (wigerr) throw wigerr;
 
                     var result = {
                         hireThisYear: rows[0],
+                        hireThisYeareR: eRrows[0],
                         wig: wigrows[0]
                     };
                     sendResponse(res, true, "", result);
+                    });
                 });
             });
 

@@ -278,19 +278,30 @@
         ORDER BY candidate.hire
         */
         app.post('/stat/hireList', function (req, res) {
-            var query = "SELECT candidate.id, candidate.firstname, candidate.lastname, SUBSTRING(candidate.eR,2) as eR, candidate.source_text, " +
+            var query = "SELECT candidate.id, candidate.firstname, candidate.lastname, SUBSTRING(candidate.eR,2) as eR, " +
                 "CASE WHEN candidate.scoreboard = 0 THEN 'Nein' ELSE 'Ja' END AS scoreboard, " +
-                "candidate.hire, sources.name as source, users.firstname as sourcerName, team.name " +
+                "candidate.hire, team.name " +
                 "FROM candidate " +
-                "JOIN sources ON candidate.source_id = sources.id " +
-                "JOIN users ON candidate.sourcer = users.id " +
                 "JOIN team ON candidate.team_id = team.id " +
                 "WHERE candidate.hire >= ? AND candidate.hire <= ? " +
                 "ORDER BY candidate.hire";
 
+            var eRquery = "SELECT candidate_eR.id, candidate_eR.firstname, candidate_eR.lastname, SUBSTRING(candidate_eR.eR,2) as eR, " +
+                "CASE WHEN candidate_eR.scoreboard = 0 THEN 'Nein' ELSE 'Ja' END AS scoreboard, " +
+                "candidate_eR.hire, team.name " +
+                "FROM candidate_eR " +
+                "JOIN team ON candidate_eR.team_id = team.id " +
+                "WHERE candidate_eR.hire >= ? AND candidate_eR.hire <= ? " +
+                "ORDER BY candidate_eR.hire";
+
+
             var countHiresQuery = "SELECT COUNT(candidate.id) AS anzahl " +
                 "FROM candidate " +
-                "WHERE candidate.hire >= '2018-01-01' AND candidate.hire <= '2018-12-31'";
+                "WHERE candidate.hire >= ? AND candidate.hire <= ?";
+
+            var counteRHiresQuery = "SELECT COUNT(candidate_eR.id) AS anzahl " +
+                "FROM candidate_eR " +
+                "WHERE candidate_eR.hire >= ? AND candidate_eR.hire <= ?";
 
                 var parameter = [req.body.filterFrom, req.body.filterTo];
                 var message = "";
@@ -302,20 +313,35 @@
                         throw err;
                     } 
 
+                    db.query(eRquery, parameter, function (eRerr, eRrows, eRfields) {
+                        if (eRerr) {
+                            sendResponse(res, false, eRerr);
+                            throw eRerr;
+                        } 
+
                     db.query(countHiresQuery, parameter, function (hireErr, hireRows, hireFields) {
                         if (hireErr) {
                             sendResponse(res, false, hireErr);
                             throw hireErr;
                         } 
 
+                        db.query(counteRHiresQuery, parameter, function (hireeRErr, hireeRRows, hireeRFields) {
+                            if (hireeRErr) {
+                                sendResponse(res, false, hireeRErr);
+                                throw hireeRErr;
+                            } 
+
                         var result = {
                             candidates: rows,
-                            anzahl: hireRows[0]
+                            eRcandidates: eRrows,
+                            anzahl: hireRows[0],
+                            anzahleR: hireeRRows[0]
                         };
 
                         sendResponse(res, true, "", result);
+                        });
                     });
-
+                    });
                     
                 });
 

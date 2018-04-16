@@ -1,4 +1,4 @@
-﻿<h1 class="page-header"><span class="oi oi-person"></span> eR-Kandidat: {{candidate.firstname + ' ' + candidate.lastname}}</h1>
+﻿<h1 class="page-header"><span class="oi oi-person"></span> Aktualisierter: {{candidate.firstname + ' ' + candidate.lastname}}</h1>
 
 <div class="candidateedit">
     <div class="alert alert-danger top-right" role="alert" ng-show="message && iserrmessage">
@@ -35,7 +35,7 @@
                 <input type='date' class="form-control" id="hire" ng-model="hire" placeholder="dd.mm.yyyy"/>
             </div>
 
-            <div class="input-group mb-1">
+            <div class="input-group mb-1" ng-if="hire != null">
                 <div class="input-group-addon alert-info sourcing-width-150">Team</div>
                 <select class="custom-select wdselect" id="team" ng-model="teamSelect" ng-change="showSelectValue(teamSelect)">
                         <!--ng-options="t.id as t.name group by t.city for t in teams track by t.id">-->
@@ -55,7 +55,8 @@
             
 
                 <!-- Button -->
-                <button type="button" class="btn btn-info mb-1" ng-click="save()" accesskey="s"><span class="oi oi-check" aria-hidden="true"></span> eR-Kandidat speichern </button>
+                <button type="button" class="btn btn-info mb-1" ng-click="update()" accesskey="s"><span class="oi oi-check" aria-hidden="true"></span> Änderungen speichern </button>
+                <button type="button" class="btn btn-danger mb-1" ng-click="delete()"><span class="oi oi-x" aria-hidden="true"></span> Kandidat löschen </button>
 
             </div>
     </div>
