@@ -266,6 +266,15 @@ max-width: 15% !important;
 
 }
 
+.top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+
+
+
 /* Sortable tables */
 table.sortable thead {
     background-color: #eef5f6;

@@ -860,7 +860,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         });
 
         /**
-         * Dates with datetimepicker 
+         * Dates with moment 
          */
         $scope.research = toLocalDate($scope.candidate.research);
         $scope.telnotice = toLocalDate($scope.candidate.telnotice);
@@ -868,42 +868,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.extern = toLocalDate($scope.candidate.extern);
         $scope.hire = toLocalDate($scope.candidate.hire);
 
-        //var research = $('#research');
-        //var telnotice = $('#telnotice');
-        //var intern = $('#intern');
-        //var extern = $('#extern');
-        //var hire = $('#hire');
 
-               
-        //research.datetimepicker(datetimepickeroptions);
-        //research.data('DateTimePicker').date($scope.research);
-        //research.on('dp.change', function (e) {
-        //    $scope.candidate.research = e.date;
-        //});
-                
-        //telnotice.datetimepicker(datetimepickeroptions);
-        //telnotice.data('DateTimePicker').date($scope.telnotice);
-        //telnotice.on('dp.change', function (e) {
-        //    $scope.candidate.telnotice = e.date;
-        //});
-
-        //intern.datetimepicker(datetimepickeroptions);
-        //intern.data('DateTimePicker').date($scope.intern);
-        //intern.on('dp.change', function (e) {
-        //    $scope.candidate.intern = e.date;
-        //});
-
-        //extern.datetimepicker(datetimepickeroptions);
-        //extern.data('DateTimePicker').date($scope.extern);
-        //extern.on('dp.change', function (e) {
-        //    $scope.candidate.extern = e.date;
-        //});
-
-        //hire.datetimepicker(datetimepickeroptions);
-        //hire.data('DateTimePicker').date($scope.hire);
-        //hire.on('dp.change', function (e) {
-        //    $scope.candidate.hire = e.date;
-        //});
 
         /**
          * Dropdown with select2
@@ -1976,7 +1941,12 @@ app.controller('wigdetailController', function ($scope, $http, $routeParams) {
     $http.post('wig/detailinfo', {
         id: $routeParams.wigid
     }).then(function (response) {
+        
         $scope.wig = response.data.data;
+        $scope.start = toLocalDate($scope.wig.start);
+        $scope.end = toLocalDate($scope.wig.end);
+
+
         $scope.iserrmessage = !response.data.sucess;
         $scope.message = response.data.message;
         });
@@ -1985,7 +1955,7 @@ app.controller('wigdetailController', function ($scope, $http, $routeParams) {
     $scope.update = function () {
         $scope.message = "";
         $http.post('wig/update', {
-            id: $scope.wig.id, name: $scope.wig.name, start: $scope.wig.start, end: $scope.wig.end, goal: $scope.wig.goal, active: $scope.wig.active
+            id: $scope.wig.id, name: $scope.wig.name, start: $scope.start, end: $scope.end, goal: $scope.wig.goal, active: $scope.wig.active
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;

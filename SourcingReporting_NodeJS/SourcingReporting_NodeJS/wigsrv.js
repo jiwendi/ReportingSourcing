@@ -46,7 +46,7 @@ module.exports = {
 
                 db.query(query, function (err, result, fields) {
                     if (err) {
-                        sendResponse(res, false, "Fehler mit DB");
+                        sendResponse(res, false, "Fehler mit DB - " + err);
                     } else {
                         sendResponse(res, true, "", result);
                     }
@@ -107,7 +107,7 @@ module.exports = {
                             message = "Fehler mit DB";
                             sendResponse(res, false, message);
                         } else {
-                            sendResponse(res, true, "Daten wurden gespeicher!");
+                            sendResponse(res, true, "Daten wurden gespeichert!");
                         }
                     });
                     
