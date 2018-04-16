@@ -134,7 +134,7 @@
                             message = "Fehler beim speichern in der DB - Kandidat save - " + err.message;
                             sendResponse(res, false, message);
                         } else {
-                            sendResponse(res, true, "Kandidat wurde gespeichert! - " + response_Value_afterCheck);
+                            sendResponse(res, true, "Kandidat wurde gespeichert!");
                            
                         }
                     });

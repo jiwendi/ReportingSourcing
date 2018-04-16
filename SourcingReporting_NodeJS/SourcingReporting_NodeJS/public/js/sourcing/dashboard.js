@@ -151,6 +151,11 @@ var toLocalDate = function (date) {
     return moment(date).toDate();
 };
 
+var toLocalDate = function (date, offset) {
+
+    return moment(date).add(offset,'hours').toDate();
+};
+
 //wird nicht verwendet - war zum testen wegen sortieren der Datum in der Kandidatenübersicht (funktionert nicht)
 var dateTransform = function (date) {
     var date = new Date(date);
@@ -560,7 +565,7 @@ app.controller('sourcedetailController', function ($scope, $http, $routeParams) 
 
     }; //end update Function
 
-}); //end wigdetailController
+}); //end sourcedetailController
 
 /**
  * Candidates Controller - Candidate Overview
@@ -1954,8 +1959,12 @@ app.controller('wigdetailController', function ($scope, $http, $routeParams) {
 
     $scope.update = function () {
         $scope.message = "";
+        
+        var start = toLocalDate($scope.start, 2);
+        var end = toLocalDate($scope.end, 2);
+        
         $http.post('wig/update', {
-            id: $scope.wig.id, name: $scope.wig.name, start: $scope.start, end: $scope.end, goal: $scope.wig.goal, active: $scope.wig.active
+            id: $scope.wig.id, name: $scope.wig.name, start: start, end: end, goal: $scope.wig.goal, active: $scope.wig.active
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
