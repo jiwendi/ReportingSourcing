@@ -26,19 +26,144 @@
                 var countCandidateQuery = "SELECT COUNT(candidate.id) as countCandidate FROM candidate";
 
                 var parameter = [];
-                var showusercandidates = req.body.showusercandidates; //true= nur meine kandidate, false= alle
-                
+                var moreParameter = false;
+
+                var showusercandidates = req.body.showusercandidates;
+                var showTracking = req.body.showTracking;
+                var from_telnotice = req.body.from_telnotice;
+                var to_telnotice = req.body.to_telnotice;
+                var from_intern = req.body.from_intern;
+                var to_intern = req.body.to_intern;
+                var from_extern = req.body.from_extern;
+                var to_extern = req.body.to_extern;
+                var from_research = req.body.from_research;
+                var to_research = req.body.to_research;
+
+
+
+
                 if (showusercandidates) {
                     candidatequery = candidatequery + " WHERE candidate.sourcer=?";
                     countCandidateQuery = countCandidateQuery + " WHERE sourcer=?";
                     parameter = [req.session.userid];
+                    moreParameter = true;
                 }
-
-                var showTracking = req.body.showTracking; //true = nur Tracking=1
+                
                 if (showTracking) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.tracking=1";
+                        countCandidateQuery = countCandidateQuery + " AND tracking=1";
+                    } else {
                         candidatequery = candidatequery + " WHERE candidate.tracking=1";
                         countCandidateQuery = countCandidateQuery + " WHERE tracking=1";
+                        moreParameter = true;
+                    }   
                 }
+
+                if (from_telnotice != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.telnotice >= '" + new Date(from_telnotice).toLocaleDateString("de-de") + "'";
+                        countCandidateQuery = countCandidateQuery + " AND telnotice >= '" + new Date(from_telnotice).toLocaleDateString("de-de") + "'";
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.telnotice >= '" + new Date(from_telnotice).toLocaleDateString("de-de") + "'";
+                        countCandidateQuery = countCandidateQuery + " WHERE telnotice >= '" + new Date(from_telnotice).toLocaleDateString("de-de") + "'";
+                        moreParameter = true;
+                    }  
+                }
+
+                if (to_telnotice != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.telnotice <= " + to_telnotice;
+                        countCandidateQuery = countCandidateQuery + " AND telnotice <= " + to_telnotice;
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.telnotice <= " + to_telnotice;
+                        countCandidateQuery = countCandidateQuery + " WHERE telnotice <= " + to_telnotice;
+                        moreParameter = true;
+                    }
+                }
+
+                if (from_intern != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.intern >= ?";
+                        countCandidateQuery = countCandidateQuery + " AND intern >= ?";
+                        parameter = parameter.push(from_intern);
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.intern >= ?";
+                        countCandidateQuery = countCandidateQuery + " WHERE intern >= ?";
+                        parameter = [from_intern];
+                        moreParameter = true;
+                    }
+                }
+
+                if (to_intern != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.intern <= ?";
+                        countCandidateQuery = countCandidateQuery + " AND intern <= ?";
+                        parameter = parameter.push(to_intern);
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.intern <= ?";
+                        countCandidateQuery = countCandidateQuery + " WHERE intern <= ?";
+                        parameter = [to_intern];
+                        moreParameter = true;
+                    }
+                }
+
+                if (from_extern != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.extern >= ?";
+                        countCandidateQuery = countCandidateQuery + " AND extern >= ?";
+                        parameter = parameter.push(from_extern);
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.extern >= ?";
+                        countCandidateQuery = countCandidateQuery + " WHERE extern >= ?";
+                        parameter = [from_extern];
+                        moreParameter = true;
+                    }
+                }
+
+                if (to_extern != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.extern <= ?";
+                        countCandidateQuery = countCandidateQuery + " AND extern <= ?";
+                        parameter = parameter.push(to_extern);
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.extern <= ?";
+                        countCandidateQuery = countCandidateQuery + " WHERE extern <= ?";
+                        parameter = [to_extern];
+                        moreParameter = true;
+                    }
+                }
+
+                if (from_research != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.research >= ?";
+                        countCandidateQuery = countCandidateQuery + " AND research >= ?";
+                        parameter = parameter.push(from_research);
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.research >= ?";
+                        countCandidateQuery = countCandidateQuery + " WHERE research >= ?";
+                        parameter = [from_extern];
+                        moreParameter = true;
+                    }
+                }
+
+                if (to_research != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.research <= ?";
+                        countCandidateQuery = countCandidateQuery + " AND research <= ?";
+                        parameter = parameter.push(to_research);
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.research <= ?";
+                        countCandidateQuery = countCandidateQuery + " WHERE research <= ?";
+                        parameter = [to_research];
+                        moreParameter = true;
+                    }
+                }
+
+
+
+                console.log('---------------------------- \n' + candidatequery + '\n Parameter:' + parameter);
+
 
 
                 db.query(candidatequery, parameter, function (candErr, candResult, candFields) {

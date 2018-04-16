@@ -4,26 +4,107 @@
 app.controller('candidatesController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
-    $scope.showusercandidates = false;
 
-    /**
-     * get Candidates for the Overview & show User Candidates
-     */
-    $scope.update = function () {
-        $http.post('candidates/get', { showusercandidates: $scope.showusercandidates }).then(function (response) {
+    var showusercandidates = false;
+    var showTracking = false;
+
+    var from_telnotice = false;
+    var to_telnotice = false;
+
+    var from_intern = false;
+    var to_intern = false;
+
+    var from_extern = false;
+    var to_extern = false;
+
+    var from_research = false;
+    var to_research = false;
+
+    $scope.resetFilter = function () {
+        $('#from_telnotice').val("");
+        $('#to_telnotice').val("");
+
+        $('#from_intern').val("");
+        $('#to_intern').val("");
+
+        $('#from_extern').val("");
+        $('#to_extern').val("");
+
+        $('#from_research').val("");
+        $('#to_research').val("");
+
+        $('#showusercandidates').removeAttr('checked');
+        $('#showTracking').removeAttr('checked');
+
+
+        $http.post('candidates/get', {
+            showusercandidates: showusercandidates, showTracking: showTracking, from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
+            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research
+        }).then(function (response) {
+            $scope.candidates = response.data.data.candidate;
+            $scope.countCandidate = response.data.data.countCandidate;
+            });
+
+        location.reload();
+
+    };
+
+    $scope.filterCandidates = function () {
+
+        if ($scope.showusercandidates) {
+            showusercandidates = true;
+        }
+
+        if ($scope.showTracking) {
+            showTracking = true;
+        }
+
+        if ($scope.from_telnotice != undefined) {
+            from_telnotice = toLocalDate($scope.from_telnotice, 2);
+        }
+
+        if ($scope.to_telnotice != undefined) {
+            to_telnotice = toLocalDate($scope.to_telnotice, 2);
+        }
+
+        if ($scope.from_intern != undefined) {
+            from_intern = toLocalDate($scope.from_intern, 2);
+        }
+
+        if ($scope.to_intern != undefined) {
+            to_intern = toLocalDate($scope.to_intern, 2);
+        }
+
+        if ($scope.from_extern != undefined) {
+            from_extern = toLocalDate($scope.from_extern, 2);
+        }
+
+        if ($scope.to_extern != undefined) {
+            to_extern = toLocalDate($scope.to_extern, 2);
+        }
+
+        if ($scope.from_research != undefined) {
+            from_research = toLocalDate($scope.from_research, 2);
+        }
+
+        if ($scope.to_research != undefined) {
+            to_research = toLocalDate($scope.to_research, 2);
+        }
+
+
+        $http.post('candidates/get', {
+            showusercandidates: showusercandidates, showTracking: showTracking, from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
+            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research
+        }).then(function (response) {
             $scope.candidates = response.data.data.candidate;
             $scope.countCandidate = response.data.data.countCandidate;
         });
+
+        
+
     };
 
-    $scope.update();
-
-    $scope.updateTracking = function () {
-        $http.post('candidates/get', { showTracking: $scope.showTracking }).then(function (response) {
-            $scope.candidates = response.data.data.candidate;
-            $scope.countCandidate = response.data.data.countCandidate;
-        });
-    };
+    $scope.filterCandidates();
     
 
     $scope.searchNames = function () {

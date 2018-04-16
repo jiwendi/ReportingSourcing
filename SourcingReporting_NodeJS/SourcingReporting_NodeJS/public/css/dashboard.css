@@ -272,7 +272,10 @@ max-width: 15% !important;
     right: 20px;
 }
 
-
+.filter .content {
+    display: none;
+    padding: 5px;
+}
 
 
 /* Sortable tables */

@@ -2,10 +2,7 @@
 
 <script src="js/sourcing/loadingScreen.js"></script>
 
-<div id="loadingCircles">
-    <div class="circle"></div>
-    <div class="circle1"></div>
-</div>
+
 
 <div id="candidatesContent" class="panel panel-default">
     <!-- Default panel contents -->
@@ -17,28 +14,112 @@
 
 
     <div>
-        <div class="panel-heading pb-2 pt-2">
-            <span class="showusercandidates pr-3 alert alert-info mr-1 sourcing-width-250">
-                <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" ng-change="update()" /> Zeige nur meine Kandidaten
-            </span>
-            <span class="pr-3 alert alert-info mr-1 sourcing-width-250">
-                <input type="checkbox" ng-model="showTracking" id="showTracking" ng-change="updateTracking()" /> Beobachten
-            </span><br />
-        </div>
+        
 
-        <div class="panel-heading pb-2 pt-2">
+        <div class="panel-heading pb-2 pt-2 pr-2">
             <input type="text" class="alert alert-info sourcing-width-250" id="inputName" ng-keyup="searchNames()" placeholder="Nach Namen suchen" />
             <input type="text" class="alert alert-info sourcing-width-250" id="inputSource" ng-keyup="searchSource()" placeholder="Nach Quelle suchen" />
             <input type="text" class="alert alert-info sourcing-width-250" id="inputeR" ng-keyup="searcheR()" placeholder="Nach eR-Nr. suchen" />
 
         </div>
+
+        
+
+        <div class="filter pt-2">
+                <div class="header btn btn-info"> Filter einblenden</div>
+                <div class="content">
+                    <br />
+                    <!--<div class="panel-heading pb-2 pt-2">
+                        <span class="showusercandidates pr-3 alert alert-info mr-1 sourcing-width-250">
+                            <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" ng-change="update()" /> Zeige nur meine Kandidaten
+                        </span>
+                        <span class="pr-3 alert alert-info mr-1 sourcing-width-250">
+                            <input type="checkbox" ng-model="showTracking" id="showTracking" ng-change="updateTracking()" /> Beobachten
+                        </span><br />
+                    </div>-->
+
+                    <div class="panel-heading pb-2 pt-2">
+                        <span class="showusercandidates pr-3 alert alert-info mr-1 sourcing-width-250">
+                            <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" /> Zeige nur meine Kandidaten
+                        </span>
+                        <span class="pr-3 alert alert-info mr-1 sourcing-width-250">
+                            <input type="checkbox" ng-model="showTracking" id="showTracking" /> Beobachten
+                        </span><br />
+                    </div>
+                    <br />
+
+                    <table class="table w-50" id="dateFilters">
+                        <thead>
+                            <tr>
+                                <td>TelNotice</td>
+                                <td>Intern</td>
+                                <td>Extern</td>
+                                <td>Research</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="input-group-addon alert-info sourcing-width-150">von </div>
+                                    <input class="form-control sourcing-width-150" type="date" id="from_telnotice" ng-model="from_telnotice">
+                                </td>
+                                <td>
+                                    <div class="input-group-addon alert-info sourcing-width-150">von </div>
+                                    <input class="form-control sourcing-width-150" type="date" id="from_intern" ng-model="from_intern" />
+                                </td>
+                                <td>
+                                    <div class="input-group-addon alert-info sourcing-width-150">von </div>
+                                    <input class="form-control sourcing-width-150" type="date" id="from_extern" ng-model="from_extern" />
+                                </td>
+                                <td>
+                                    <div class="input-group-addon alert-info sourcing-width-150">von </div>
+                                    <input class="form-control sourcing-width-150" type="date" id="from_research" ng-model="from-research" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="input-group-addon alert-info sourcing-width-150">bis </div>
+                                    <input class="form-control sourcing-width-150" type="date" id="to_telnotice" ng-model="to_telnotice" />
+                                </td>
+                                <td>
+                                    <div class="input-group-addon alert-info sourcing-width-150">bis </div>
+                                    <input class="form-control sourcing-width-150" type="date" id="to_intern" ng-model="to_intern" />
+                                </td>
+                                <td>
+                                    <div class="input-group-addon alert-info sourcing-width-150">bis </div>
+                                    <input class="form-control sourcing-width-150" type="date" id="to_extern" ng-model="to_extern" />
+                                </td>
+                                <td>
+                                    <div class="input-group-addon alert-info sourcing-width-150">bis </div>
+                                    <input class="form-control sourcing-width-150" type="date" id="to_research" ng-model="to_research" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> </td>
+                                <td> </td>
+                                <td>
+                                    <div ng-click="resetFilter()" class="btn btn-danger">
+                                        <span class="oi oi-x" aria-hidden="true"></span> Filter zurücksetzen
+                                    </div>
+                                </td>
+                                <td>
+                                    <div ng-click="filterCandidates()" class="btn btn-info">
+                                        <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Filtern
+                                    </div>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+</div>
+
+
+
     </div>
 
     <div>
+        <br /><br />
         <h6><span class="badge badge-info">{{countCandidate.countCandidate}}</span> Kandidaten in der Datenbank</h6>
     </div>
-
-
 
     <div class="panel-body">
         <table id="candidates" class="table sortable">
@@ -78,10 +159,38 @@
     </div>
 </div>
 
+
+
+
+
+<div id="loadingCircles">
+    <div class="circle"></div>
+    <div class="circle1"></div>
+</div>
+
+
+
+
 <script>
     var sortableTable = document.getElementById("candidates");
     sorttable.makeSortable(sortableTable);
-    
+
+    $(".header").click(function () {
+
+        $header = $(this);
+        
+        $content = $header.next();
+       
+        $content.slideToggle(500, function () {
+           
+            $header.text(function () {
+              
+                return $content.is(":visible") ? "Filter einklappen" : "Filter einblenden";
+            });
+        });
+
+    });
+
 </script>
 
     
