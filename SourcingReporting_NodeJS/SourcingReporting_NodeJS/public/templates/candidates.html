@@ -48,48 +48,57 @@
                     </div>
                     <br />
 
-                    <table class="table w-50" id="dateFilters">
+                    <table class="table" id="dateFilters">
                         <thead>
                             <tr>
+                                <td>Research</td>
                                 <td>TelNotice</td>
                                 <td>Intern</td>
                                 <td>Extern</td>
-                                <td>Research</td>
+                                <td>Besetzung</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="input-group-addon alert-info sourcing-width-150">von </div>
-                                    <input class="form-control sourcing-width-150" type="date" id="from_telnotice" ng-model="from_telnotice">
+                                    <div class="input-group-addon alert-info sourcing-width-250">von </div>
+                                    <input class="form-control sourcing-width-250" type="date" id="from_research" ng-model="from_research" />
                                 </td>
                                 <td>
-                                    <div class="input-group-addon alert-info sourcing-width-150">von </div>
-                                    <input class="form-control sourcing-width-150" type="date" id="from_intern" ng-model="from_intern" />
+                                    <div class="input-group-addon alert-info sourcing-width-250">von </div>
+                                    <input class="form-control sourcing-width-250" type="date" id="from_telnotice" ng-model="from_telnotice">
                                 </td>
                                 <td>
-                                    <div class="input-group-addon alert-info sourcing-width-150">von </div>
-                                    <input class="form-control sourcing-width-150" type="date" id="from_extern" ng-model="from_extern" />
+                                    <div class="input-group-addon alert-info sourcing-width-250">von </div>
+                                    <input class="form-control sourcing-width-250" type="date" id="from_intern" ng-model="from_intern" />
                                 </td>
                                 <td>
-                                    <div class="input-group-addon alert-info sourcing-width-150">von </div>
-                                    <input class="form-control sourcing-width-150" type="date" id="from_research" ng-model="from-research" />
+                                    <div class="input-group-addon alert-info sourcing-width-250">von </div>
+                                    <input class="form-control sourcing-width-250" type="date" id="from_extern" ng-model="from_extern" />
+                                </td>
+                                <td>
+                                    <div class="input-group-addon alert-info sourcing-width-250">von </div>
+                                    <input class="form-control sourcing-width-250" type="date" id="from_hire" ng-model="from_hire" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="input-group-addon alert-info sourcing-width-150">bis </div>
-                                    <input class="form-control sourcing-width-150" type="date" id="to_telnotice" ng-model="to_telnotice" />
+                                    <div class="input-group-addon alert-info sourcing-width-250">bis </div>
+                                    <input class="form-control sourcing-width-250" type="date" id="to_research" ng-model="to_research" />
                                 </td>
                                 <td>
-                                    <div class="input-group-addon alert-info sourcing-width-150">bis </div>
-                                    <input class="form-control sourcing-width-150" type="date" id="to_intern" ng-model="to_intern" />
+                                    <div class="input-group-addon alert-info sourcing-width-250">bis </div>
+                                    <input class="form-control sourcing-width-250" type="date" id="to_telnotice" ng-model="to_telnotice" />
                                 </td>
                                 <td>
-                                    <div class="input-group-addon alert-info sourcing-width-150">bis </div>
-                                    <input class="form-control sourcing-width-150" type="date" id="to_extern" ng-model="to_extern" />
+                                    <div class="input-group-addon alert-info sourcing-width-250">bis </div>
+                                    <input class="form-control sourcing-width-250" type="date" id="to_intern" ng-model="to_intern" />
                                 </td>
                                 <td>
-                                    <div class="input-group-addon alert-info sourcing-width-150">bis </div>
-                                    <input class="form-control sourcing-width-150" type="date" id="to_research" ng-model="to_research" />
+                                    <div class="input-group-addon alert-info sourcing-width-250">bis </div>
+                                    <input class="form-control sourcing-width-250" type="date" id="to_extern" ng-model="to_extern" />
+                                </td>
+                                <td>
+                                    <div class="input-group-addon alert-info sourcing-width-250">bis </div>
+                                    <input class="form-control sourcing-width-250" type="date" id="to_hire" ng-model="to_hire" />
                                 </td>
                             </tr>
                             <tr>

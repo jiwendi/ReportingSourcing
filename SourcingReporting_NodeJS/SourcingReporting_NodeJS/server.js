@@ -29,7 +29,7 @@ var app = express();
 var db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'e.Hallo!',
     database: 'epunkt_sourcing'
 });
 
@@ -62,6 +62,11 @@ var auth = function (req, res, next) {
     }
 };
 
+var getDateString = function (date) {
+    return "'" + new Date(date).toLocaleDateString("de-de") + "'";
+};
+
+
 app.get('/dashboard', auth, function (req, res) {
     res.sendFile(__dirname + '/dashboard.html');
 });
@@ -75,7 +80,7 @@ teamsrv.setup(app, db, session, toDate, sendResponse);
 
 sourcesrv.setup(app, db, session, toDate, sendResponse);
 
-candidatesrv.setup(app, db, session, toDate, sendResponse);
+candidatesrv.setup(app, db, session, toDate, sendResponse, getDateString);
 
 candidateersrv.setup(app, db, session, toDate, sendResponse);
 

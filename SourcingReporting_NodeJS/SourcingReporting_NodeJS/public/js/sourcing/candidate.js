@@ -20,6 +20,9 @@ app.controller('candidatesController', function ($scope, $http) {
     var from_research = false;
     var to_research = false;
 
+    var from_hire = false;
+    var to_hire = false;
+
     $scope.resetFilter = function () {
         $('#from_telnotice').val("");
         $('#to_telnotice').val("");
@@ -33,13 +36,16 @@ app.controller('candidatesController', function ($scope, $http) {
         $('#from_research').val("");
         $('#to_research').val("");
 
+        $('#from_hire').val("");
+        $('#to_hire').val("");
+
         $('#showusercandidates').removeAttr('checked');
         $('#showTracking').removeAttr('checked');
 
 
         $http.post('candidates/get', {
             showusercandidates: showusercandidates, showTracking: showTracking, from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
-            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research
+            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire
         }).then(function (response) {
             $scope.candidates = response.data.data.candidate;
             $scope.countCandidate = response.data.data.countCandidate;
@@ -92,9 +98,18 @@ app.controller('candidatesController', function ($scope, $http) {
         }
 
 
+        if ($scope.from_hire != undefined) {
+            from_hire = toLocalDate($scope.from_hire, 2);
+        }
+
+        if ($scope.to_hire != undefined) {
+            to_hire = toLocalDate($scope.to_hire, 2);
+        }
+
+
         $http.post('candidates/get', {
             showusercandidates: showusercandidates, showTracking: showTracking, from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
-            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research
+            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire
         }).then(function (response) {
             $scope.candidates = response.data.data.candidate;
             $scope.countCandidate = response.data.data.countCandidate;

@@ -1,5 +1,5 @@
 ﻿module.exports = {
-    setup: function (app, db, session, toDate, sendResponse) {
+    setup: function (app, db, session, toDate, sendResponse, getDateString) {
 
         /**
         * Candidates - Kandidatenübersicht
@@ -43,9 +43,9 @@
 
 
                 if (showusercandidates) {
-                    candidatequery = candidatequery + " WHERE candidate.sourcer=?";
-                    countCandidateQuery = countCandidateQuery + " WHERE sourcer=?";
-                    parameter = [req.session.userid];
+                    candidatequery = candidatequery + " WHERE candidate.sourcer= " + req.session.userid;
+                    countCandidateQuery = countCandidateQuery + " WHERE sourcer= " + req.session.userid;
+                    //parameter = [req.session.userid];
                     moreParameter = true;
                 }
                 
@@ -62,107 +62,113 @@
 
                 if (from_telnotice != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.telnotice >= '" + new Date(from_telnotice).toLocaleDateString("de-de") + "'";
-                        countCandidateQuery = countCandidateQuery + " AND telnotice >= '" + new Date(from_telnotice).toLocaleDateString("de-de") + "'";
+                        candidatequery = candidatequery + " AND candidate.telnotice >= " + getDateString(from_telnotice);
+                        countCandidateQuery = countCandidateQuery + " AND telnotice >= " + getDateString(from_telnotice);
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.telnotice >= '" + new Date(from_telnotice).toLocaleDateString("de-de") + "'";
-                        countCandidateQuery = countCandidateQuery + " WHERE telnotice >= '" + new Date(from_telnotice).toLocaleDateString("de-de") + "'";
+                        candidatequery = candidatequery + " WHERE candidate.telnotice >= " + getDateString(from_telnotice);
+                        countCandidateQuery = countCandidateQuery + " WHERE telnotice >= " + getDateString(from_telnotice);
                         moreParameter = true;
                     }  
                 }
 
                 if (to_telnotice != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.telnotice <= " + to_telnotice;
-                        countCandidateQuery = countCandidateQuery + " AND telnotice <= " + to_telnotice;
+                        candidatequery = candidatequery + " AND candidate.telnotice <= " + getDateString(to_telnotice);
+                        countCandidateQuery = countCandidateQuery + " AND telnotice <= " + getDateString(to_telnotice);
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.telnotice <= " + to_telnotice;
-                        countCandidateQuery = countCandidateQuery + " WHERE telnotice <= " + to_telnotice;
+                        candidatequery = candidatequery + " WHERE candidate.telnotice <= " + getDateString(to_telnotice);
+                        countCandidateQuery = countCandidateQuery + " WHERE telnotice <= " + getDateString(to_telnotice);
                         moreParameter = true;
                     }
                 }
 
                 if (from_intern != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.intern >= ?";
-                        countCandidateQuery = countCandidateQuery + " AND intern >= ?";
-                        parameter = parameter.push(from_intern);
+                        candidatequery = candidatequery + " AND candidate.intern >= " + getDateString(from_intern);
+                        countCandidateQuery = countCandidateQuery + " AND intern >= " + getDateString(from_intern);
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.intern >= ?";
-                        countCandidateQuery = countCandidateQuery + " WHERE intern >= ?";
-                        parameter = [from_intern];
+                        candidatequery = candidatequery + " WHERE candidate.intern >= " + getDateString(from_intern);
+                        countCandidateQuery = countCandidateQuery + " WHERE intern >= " + getDateString(from_intern);
                         moreParameter = true;
                     }
                 }
 
                 if (to_intern != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.intern <= ?";
-                        countCandidateQuery = countCandidateQuery + " AND intern <= ?";
-                        parameter = parameter.push(to_intern);
+                        candidatequery = candidatequery + " AND candidate.intern <= " + getDateString(to_intern);
+                        countCandidateQuery = countCandidateQuery + " AND intern <= " + getDateString(to_intern);
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.intern <= ?";
-                        countCandidateQuery = countCandidateQuery + " WHERE intern <= ?";
-                        parameter = [to_intern];
+                        candidatequery = candidatequery + " WHERE candidate.intern <= " + getDateString(to_intern);
+                        countCandidateQuery = countCandidateQuery + " WHERE intern <= " + getDateString(to_intern);
                         moreParameter = true;
                     }
                 }
 
                 if (from_extern != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.extern >= ?";
-                        countCandidateQuery = countCandidateQuery + " AND extern >= ?";
-                        parameter = parameter.push(from_extern);
+                        candidatequery = candidatequery + " AND candidate.extern >= " + getDateString(from_extern);
+                        countCandidateQuery = countCandidateQuery + " AND extern >= " + getDateString(from_extern);
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.extern >= ?";
-                        countCandidateQuery = countCandidateQuery + " WHERE extern >= ?";
-                        parameter = [from_extern];
+                        candidatequery = candidatequery + " WHERE candidate.extern >= " + getDateString(from_extern);
+                        countCandidateQuery = countCandidateQuery + " WHERE extern >= " + getDateString(from_extern);
                         moreParameter = true;
                     }
                 }
 
                 if (to_extern != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.extern <= ?";
-                        countCandidateQuery = countCandidateQuery + " AND extern <= ?";
-                        parameter = parameter.push(to_extern);
+                        candidatequery = candidatequery + " AND candidate.extern <= " + getDateString(to_extern);
+                        countCandidateQuery = countCandidateQuery + " AND extern <= " + getDateString(to_extern);
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.extern <= ?";
-                        countCandidateQuery = countCandidateQuery + " WHERE extern <= ?";
-                        parameter = [to_extern];
+                        candidatequery = candidatequery + " WHERE candidate.extern <= " + getDateString(to_extern);
+                        countCandidateQuery = countCandidateQuery + " WHERE extern <= " + getDateString(to_extern);
                         moreParameter = true;
                     }
                 }
 
                 if (from_research != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.research >= ?";
-                        countCandidateQuery = countCandidateQuery + " AND research >= ?";
-                        parameter = parameter.push(from_research);
+                        candidatequery = candidatequery + " AND candidate.research >= " + getDateString(from_research);
+                        countCandidateQuery = countCandidateQuery + " AND research >= " + getDateString(from_research);
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.research >= ?";
-                        countCandidateQuery = countCandidateQuery + " WHERE research >= ?";
-                        parameter = [from_extern];
+                        candidatequery = candidatequery + " WHERE candidate.research >= " + getDateString(from_research);
+                        countCandidateQuery = countCandidateQuery + " WHERE research >= " + getDateString(from_research);
                         moreParameter = true;
                     }
                 }
 
                 if (to_research != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.research <= ?";
-                        countCandidateQuery = countCandidateQuery + " AND research <= ?";
-                        parameter = parameter.push(to_research);
+                        candidatequery = candidatequery + " AND candidate.research <= " + getDateString(to_research);
+                        countCandidateQuery = countCandidateQuery + " AND research <= " + getDateString(to_research);
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.research <= ?";
-                        countCandidateQuery = countCandidateQuery + " WHERE research <= ?";
-                        parameter = [to_research];
+                        candidatequery = candidatequery + " WHERE candidate.research <= " + getDateString(to_research);
+                        countCandidateQuery = countCandidateQuery + " WHERE research <= " + getDateString(to_research);
                         moreParameter = true;
                     }
                 }
 
+                if (from_hire != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.research >= " + getDateString(from_hire);
+                        countCandidateQuery = countCandidateQuery + " AND research >= " + getDateString(from_hire);
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.research >= " + getDateString(from_hire);
+                        countCandidateQuery = countCandidateQuery + " WHERE research >= " + getDateString(from_hire);
+                        moreParameter = true;
+                    }
+                }
 
-
-                console.log('---------------------------- \n' + candidatequery + '\n Parameter:' + parameter);
+                if (to_hire != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.research <= " + getDateString(to_hire);
+                        countCandidateQuery = countCandidateQuery + " AND research <= " + getDateString(to_hire);
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.research <= " + getDateString(to_hire);
+                        countCandidateQuery = countCandidateQuery + " WHERE research <= " + getDateString(to_hire);
+                        moreParameter = true;
+                    }
+                }
 
 
 
@@ -733,10 +739,18 @@
         */
         app.get('/candidate/timeinfo', function (req, res) {
             if (req.session.userid) {
-                var timequery = "SELECT AVG(ABS(DATEDIFF(research, telnotice))) AS timetocall, " +
-                    "AVG(ABS(DATEDIFF(research, intern))) AS timetointerview, " +
-                    "AVG(ABS(DATEDIFF(research, extern))) AS timetoextern, " +
-                    "AVG(ABS(DATEDIFF(research, hire))) AS timetohire " +
+                //round (cast(0.35714285 AS DECIMAL(10,2)),2)
+                //var timequery = "SELECT AVG(ABS(DATEDIFF(research, telnotice))) AS timetocall, " +
+                //    "AVG(ABS(DATEDIFF(research, intern))) AS timetointerview, " +
+                //    "AVG(ABS(DATEDIFF(research, extern))) AS timetoextern, " +
+                //    "AVG(ABS(DATEDIFF(research, hire))) AS timetohire " +
+                //    "FROM candidate " +
+                //    "WHERE DATE(research) > (NOW() - INTERVAL 6 MONTH)";
+
+                var timequery = "SELECT ROUND(CAST(AVG(ABS(DATEDIFF(research, telnotice))) AS DECIMAL(10,2)),2) AS timetocall, " +
+                    "ROUND(CAST(AVG(ABS(DATEDIFF(research, intern))) AS DECIMAL(10,2)),2) AS timetointerview, " +
+                    "ROUND(CAST(AVG(ABS(DATEDIFF(research, extern))) AS DECIMAL(10,2)),2) AS timetoextern, " +
+                    "ROUND(CAST(AVG(ABS(DATEDIFF(research, hire))) AS DECIMAL(10,2)),2) AS timetohire " +
                     "FROM candidate " +
                     "WHERE DATE(research) > (NOW() - INTERVAL 6 MONTH)";
 
