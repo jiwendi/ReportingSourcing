@@ -38,14 +38,16 @@
                 var to_extern = req.body.to_extern;
                 var from_research = req.body.from_research;
                 var to_research = req.body.to_research;
+                var from_hire = req.body.from_hire;
+                var to_hire = req.body.to_hire;
 
 
 
 
                 if (showusercandidates) {
-                    candidatequery = candidatequery + " WHERE candidate.sourcer= " + req.session.userid;
-                    countCandidateQuery = countCandidateQuery + " WHERE sourcer= " + req.session.userid;
-                    //parameter = [req.session.userid];
+                    candidatequery = candidatequery + " WHERE candidate.sourcer= ?";
+                    countCandidateQuery = countCandidateQuery + " WHERE sourcer= ?";
+                    parameter = [req.session.userid];
                     moreParameter = true;
                 }
                 
@@ -150,22 +152,22 @@
 
                 if (from_hire != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.research >= " + getDateString(from_hire);
-                        countCandidateQuery = countCandidateQuery + " AND research >= " + getDateString(from_hire);
+                        candidatequery = candidatequery + " AND candidate.hire >= " + getDateString(from_hire);
+                        countCandidateQuery = countCandidateQuery + " AND hire >= " + getDateString(from_hire);
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.research >= " + getDateString(from_hire);
-                        countCandidateQuery = countCandidateQuery + " WHERE research >= " + getDateString(from_hire);
+                        candidatequery = candidatequery + " WHERE candidate.hire >= " + getDateString(from_hire);
+                        countCandidateQuery = countCandidateQuery + " WHERE hire >= " + getDateString(from_hire);
                         moreParameter = true;
                     }
                 }
 
                 if (to_hire != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.research <= " + getDateString(to_hire);
-                        countCandidateQuery = countCandidateQuery + " AND research <= " + getDateString(to_hire);
+                        candidatequery = candidatequery + " AND candidate.hire <= " + getDateString(to_hire);
+                        countCandidateQuery = countCandidateQuery + " AND hire <= " + getDateString(to_hire);
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.research <= " + getDateString(to_hire);
-                        countCandidateQuery = countCandidateQuery + " WHERE research <= " + getDateString(to_hire);
+                        candidatequery = candidatequery + " WHERE candidate.hire <= " + getDateString(to_hire);
+                        countCandidateQuery = countCandidateQuery + " WHERE hire <= " + getDateString(to_hire);
                         moreParameter = true;
                     }
                 }
