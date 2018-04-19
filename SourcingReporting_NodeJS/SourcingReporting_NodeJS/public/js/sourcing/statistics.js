@@ -12,7 +12,7 @@ app.controller('statisticsController', function ($scope, $http) {
 
         $scope.yearToFilter = $('#yearToFilter').val();
 
-        $http.post('stat/rfe', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+        $http.post('stat/requestsByYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
             $scope.requestsFromSource = response.data.data.requestsFromSource;
             $scope.allRequests = response.data.data.allRequests;
             $scope.message = response.data.message;
@@ -32,7 +32,7 @@ app.controller('statisticsController', function ($scope, $http) {
 
     };
 
-    $http.post('stat/rfe', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+    $http.post('stat/requestsByYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
         $scope.requestsFromSource = response.data.data.requestsFromSource;
         $scope.allRequests = response.data.data.allRequests;
         $scope.message = response.data.message;
@@ -69,75 +69,53 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
     
-    $http.post('stat/allData', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
-        $scope.allData = response.data.data;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+    $scope.resetFilter = function () {
+        $('#from').val("");
+        $('#to').val("");
 
-        var ctx = $("#myChart");
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Ansprache", "Telefonnotizen", "Interne Gespräche", "Externe Gespräche", "Besetzungen"],
-                datasets: [{
-                    label: 'Anzahl',
-                    data: [$scope.allData.request, $scope.allData.telnotice, $scope.allData.intern, $scope.allData.extern, $scope.allData.hires],
-                    backgroundColor: [
-                        getColor('red'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('red'),
-                        getColor('black')
-                    ],
-                    borderColor: [
-                        getBorderColor('red'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('red'),
-                        getBorderColor('black')
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                legend: {
-                    position: 'bottom'
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
+        location.reload();
+    };
 
+    $scope.filter = function () {
 
+        if ($scope.from != undefined) {
+            $scope.filterFrom = toLocalDate($scope.from, 2);
+        }
 
-    });//end allData
+        if ($scope.to != undefined) {
+            $scope.filterTo = toLocalDate($scope.to, 2);
+        }
 
-
-    $scope.updateAllData = function () {
-        
-        $scope.filterFrom = $('#from').val();
-        $scope.filterTo = $('#to').val();
-
-        $http.post('stat/allData', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
-            $scope.allData = response.data.data;
+        $http.post('stat/reqToHire', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+            $scope.reqToHire = response.data.data;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
+
+            var convertionRateTotal = [];
+            var convertionRateSteps = [];
+
+            convertionRateTotal.push(0);
+            convertionRateTotal.push(($scope.reqToHire.telnotice / $scope.reqToHire.request * 100).toFixed(2));
+            convertionRateTotal.push(($scope.reqToHire.intern / $scope.reqToHire.request * 100).toFixed(2));
+            convertionRateTotal.push(($scope.reqToHire.extern / $scope.reqToHire.request * 100).toFixed(2));
+            convertionRateTotal.push(($scope.reqToHire.hires / $scope.reqToHire.request * 100).toFixed(2));
+
+            convertionRateSteps.push(0);
+            convertionRateSteps.push(($scope.reqToHire.telnotice / $scope.reqToHire.request * 100).toFixed(2));
+            convertionRateSteps.push(($scope.reqToHire.intern / $scope.reqToHire.telnotice * 100).toFixed(2));
+            convertionRateSteps.push(($scope.reqToHire.extern / $scope.reqToHire.intern * 100).toFixed(2));
+            convertionRateSteps.push(($scope.reqToHire.hires / $scope.reqToHire.extern * 100).toFixed(2));
+
 
             var ctx = $("#myChart");
             var myChart = new Chart(ctx, {
                 type: 'bar',
+                yAxisID: 'y-axis-1',
                 data: {
                     labels: ["Ansprache", "Telefonnotizen", "Interne Gespräche", "Externe Gespräche", "Besetzungen"],
                     datasets: [{
                         label: 'Anzahl',
-                        data: [$scope.allData.request, $scope.allData.telnotice, $scope.allData.intern, $scope.allData.extern, $scope.allData.hires],
+                        data: [$scope.reqToHire.request, $scope.reqToHire.telnotice, $scope.reqToHire.intern, $scope.reqToHire.extern, $scope.reqToHire.hires],
                         backgroundColor: [
                             getColor('red'),
                             getColor('gray-dark'),
@@ -155,28 +133,67 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
                             getBorderColor('black')
                         ],
                         borderWidth: 1
+                    }, {
+                        label: 'Convertion Rate Gesamt',
+                        yAxisID: 'y-axis-2',
+                        data: convertionRateTotal,
+                        fill: false,
+                        type: 'line',
+                        backgroundColor: getColor('yellow'),
+                        borderColor: getColor('yellow'),
+                        borderWidth: 3,
+                        intersect: true
+                        }
+                        , {
+                        label: 'Convertion Rate je Step',
+                        yAxisID: 'y-axis-2',
+                        data: convertionRateSteps,
+                        fill: false,
+                        type: 'line',
+                        backgroundColor: getColor('green'),
+                        borderColor: getColor('green'),
+                        borderWidth: 3,
+                        intersect: true
                     }]
                 },
                 options: {
                     legend: {
                         position: 'bottom'
                     },
+                    tooltips: {
+                        mode: 'x'
+                    },
                     scales: {
                         yAxes: [{
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            id: 'y-axis-1',
                             ticks: {
-                                beginAtZero: true
+                                        min: 0
+                                    }
+                        }, {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            id: 'y-axis-2',
+                            ticks: {
+                                min: 0,
+                                suggestedMax: 100,
+                                stepSize: 20
+                            },
+                            gridLines: {
+                                drawOnChartArea: false
                             }
                         }]
                     }
                 }
             });
-
-
-
-        });//end allData
-
+        });//end reqToHire
     };
 
+    $scope.filter();
+    
 });
 
 app.controller('statisticsReqToHirePlattformController', function ($scope, $http) {
@@ -186,66 +203,52 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
     $scope.selectSource = $('#selectSource').val();
+
+    $scope.resetFilter = function () {
+        location.reload();
+    };
     
-    $http.post('stat/allDataPlattform', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo, source: $scope.selectSource }).then(function (response) {
-        $scope.sources = response.data.data.sources;
-        $scope.allData = response.data.data.allData;
 
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+    $scope.filter = function () {
 
-        var ctx = $("#myChart");
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ["Ansprache", "Telefonnotizen", "Interne Gespräche", "Externe Gespräche", "Besetzungen"],
-                datasets: [{
-                    label: 'Anzahl',
-                    data: [$scope.allData.request, $scope.allData.telnotice, $scope.allData.intern, $scope.allData.extern, $scope.allData.hires],
-                    backgroundColor: [
-                        getColor('red'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('gray-dark'),
-                        getColor('red'),
-                        getColor('black')
-                    ],
-                    borderColor: [
-                        getBorderColor('red'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('gray-dark'),
-                        getBorderColor('red'),
-                        getBorderColor('black')
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                legend: {
-                    position: 'bottom'
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
+        if ($scope.from != undefined) {
+            $scope.filterFrom = toLocalDate($scope.from,2);
+        }
 
-    });
+        if ($scope.to != undefined) {
+            $scope.filterTo = toLocalDate($scope.to, 2);
+        }
 
-    $scope.updateAllDataPlattform = function () {
-        $scope.selectSource = $('#selectSource').val();
-        $scope.filterFrom = $('#from').val();
-        $scope.filterTo = $('#to').val();
-       
+        if ($scope.selectSource == undefined)
+        {
+            $scope.selectSource = 1;
+        }
 
-        $http.post('stat/allDataPlattform', { source: $scope.selectSource, filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+        if ($('#selectSource').val() == '') {
+            $scope.team = false;
+        } else {
+            $scope.team = $('#selectSource').val();
+        }
+
+        
+        $http.post('stat/reqToHireByPlattform', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo, source: $scope.team }).then(function (response) {
             $scope.sources = response.data.data.sources;
-            $scope.allData = response.data.data.allData;
+            $scope.reqToHireByPlattform = response.data.data.reqToHireByPlattform;
+
+            var convertionRateTotal = [];
+            var convertionRateSteps = [];
+            
+            convertionRateTotal.push(0);
+            convertionRateTotal.push(($scope.reqToHireByPlattform.telnotice / $scope.reqToHireByPlattform.request * 100).toFixed(2));
+            convertionRateTotal.push(($scope.reqToHireByPlattform.intern / $scope.reqToHireByPlattform.request * 100).toFixed(2));
+            convertionRateTotal.push(($scope.reqToHireByPlattform.extern / $scope.reqToHireByPlattform.request * 100).toFixed(2));
+            convertionRateTotal.push(($scope.reqToHireByPlattform.hires / $scope.reqToHireByPlattform.request * 100).toFixed(2));
+
+            convertionRateSteps.push(0);
+            convertionRateSteps.push(($scope.reqToHireByPlattform.telnotice / $scope.reqToHireByPlattform.request * 100).toFixed(2));
+            convertionRateSteps.push(($scope.reqToHireByPlattform.intern / $scope.reqToHireByPlattform.telnotice * 100).toFixed(2));
+            convertionRateSteps.push(($scope.reqToHireByPlattform.extern / $scope.reqToHireByPlattform.intern * 100).toFixed(2));
+            convertionRateSteps.push(($scope.reqToHireByPlattform.hires / $scope.reqToHireByPlattform.extern * 100).toFixed(2));
 
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
@@ -253,38 +256,82 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
             var ctx = $("#myChart");
             var myChart = new Chart(ctx, {
                 type: 'bar',
+                yAxisID: 'y-axis-1',
                 data: {
                     labels: ["Ansprache", "Telefonnotizen", "Interne Gespräche", "Externe Gespräche", "Besetzungen"],
-                    datasets: [{
-                        label: 'Anzahl',
-                        data: [$scope.allData.request, $scope.allData.telnotice, $scope.allData.intern, $scope.allData.extern, $scope.allData.hires],
-                        backgroundColor: [
-                            getColor('red'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('gray-dark'),
-                            getColor('red'),
-                            getColor('black')
-                        ],
-                        borderColor: [
-                            getBorderColor('red'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('gray-dark'),
-                            getBorderColor('red'),
-                            getBorderColor('black')
-                        ],
-                        borderWidth: 1
+                    datasets: [
+                        {
+                            label: 'Anzahl',
+                            data: [$scope.reqToHireByPlattform.request, $scope.reqToHireByPlattform.telnotice, $scope.reqToHireByPlattform.intern, $scope.reqToHireByPlattform.extern, $scope.reqToHireByPlattform.hires],
+                            backgroundColor: [
+                                getColor('red'),
+                                getColor('gray-dark'),
+                                getColor('gray-dark'),
+                                getColor('gray-dark'),
+                                getColor('red'),
+                                getColor('black')
+                            ],
+                            borderColor: [
+                                getBorderColor('red'),
+                                getBorderColor('gray-dark'),
+                                getBorderColor('gray-dark'),
+                                getBorderColor('gray-dark'),
+                                getBorderColor('red'),
+                                getBorderColor('black')
+                            ],
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Convertion Rate Gesamt',
+                            yAxisID: 'y-axis-2',
+                            data: convertionRateTotal,
+                            fill: false,
+                            type: 'line',
+                            backgroundColor: getColor('yellow'),
+                            borderColor: getColor('yellow'),
+                            borderWidth: 3,
+                            intersect: true
+                        },
+                        {
+                            label: 'Convertion Rate je Step',
+                            yAxisID: 'y-axis-2',
+                            data: convertionRateSteps,
+                            fill: false,
+                            type: 'line',
+                            backgroundColor: getColor('green'),
+                            borderColor: getColor('green'),
+                            borderWidth: 3,
+                            intersect: true
                     }]
                 },
                 options: {
                     legend: {
                         position: 'bottom'
                     },
+                    tooltips: {
+                        mode: 'x'
+                    },
                     scales: {
                         yAxes: [{
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            id: 'y-axis-1',
                             ticks: {
-                                beginAtZero: true
+                                min: 0
+                            }
+                        }, {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            id: 'y-axis-2',
+                            ticks: {
+                                min: 0,
+                                suggestedMax: 100,
+                                stepSize: 20
+                            },
+                            gridLines: {
+                                drawOnChartArea: false
                             }
                         }]
                     }
@@ -294,6 +341,9 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
         });
 
     };
+
+    $scope.filter();
+
 
 
 });
@@ -307,7 +357,8 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
     $scope.filterTo = FILTER_TO;
 
     $http.post('stat/hiresInTeams', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
-        $scope.teamHires = response.data.data;
+        $scope.teamHires = response.data.data.hiresInTeams;
+        $scope.countHires = response.data.data.countHires;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
 
@@ -320,9 +371,10 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
         for (var i = 0; i < $scope.teamHires.length; i++){
             $scope.labels.push($scope.teamHires[i].name);
             $scope.anzahl.push($scope.teamHires[i].anzahl);
+
             $scope.backgroundColorForChart.push(getColor('gray-dark'));
-            $scope.borderColorForChart.push(getBorderColor('gray-dark'));
-    }
+            $scope.borderColorForChart.push(getBorderColor('gray-dark'));     
+        }
         
         var ctx = $("#myChart");
         var myChart = new Chart(ctx, {
@@ -375,7 +427,7 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
                 $scope.labels.push($scope.teamHires[i].name);
                 $scope.anzahl.push($scope.teamHires[i].anzahl);
                 $scope.backgroundColorForChart.push(getColor('gray-dark'));
-                $scope.borderColorForChart.push(getBorderColor('gray-dark'));
+                $scope.borderColorForChart.push(getBorderColor('gray-dark'));  
             }
 
 
@@ -422,6 +474,8 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
 
+    var ctx = $("#myChart");
+
     $http.post('stat/responseRate', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
         $scope.responseRates = response.data.data.responseRates;
         $scope.allResponseRate = response.data.data.allResponseRate;
@@ -429,49 +483,81 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
 
-
+        
         $scope.labels = [];
         $scope.requests = [];
         $scope.responses = [];
-        $scope.backgroundColorForChart = [];
-        $scope.borderColorForChart = [];
+        $scope.responseRate = [];
+        $scope.backgroundColorForChartRequest = [];
+        $scope.borderColorForChartRequest = [];
+        $scope.backgroundColorForChartResponse = [];
+        $scope.borderColorForChartResponse = [];
 
         for (var i = 0; i < $scope.responseRates.length; i++) {
             $scope.labels.push($scope.responseRates[i].name);
+            
             $scope.requests.push($scope.responseRates[i].requests);
             $scope.responses.push($scope.responseRates[i].responses);
-            $scope.backgroundColorForChart.push(getColor('red'));
-            $scope.borderColorForChart.push(getBorderColor('red'));
+            
+            $scope.responseRate.push(($scope.responseRates[i].responses / $scope.responseRates[i].requests * 100).toFixed(2));
+            
+            $scope.backgroundColorForChartRequest.push(getColor('red'));
+            $scope.borderColorForChartRequest.push(getBorderColor('red'));
+            $scope.backgroundColorForChartResponse.push(getColor('gray-medium'));
+            $scope.borderColorForChartResponse.push(getBorderColor('gray-medium'));
         }
 
-        var ctx = $("#myChart");
+       // var ctx = $("#myChart");
         var myChart = new Chart(ctx, {
             type: 'bar',
+            yAxisID: 'y-axis-1',
             data: {
                 labels: $scope.labels,
                 datasets: [{
                     label: 'Ansprache',
                     data: $scope.requests,
-                    backgroundColor: $scope.backgroundColorForChart,
-                    borderColor: $scope.borderColorForChart,
+                    backgroundColor: $scope.backgroundColorForChartRequest,
+                    borderColor: $scope.borderColorForChartRequest,
                     borderWidth: 1
                 },
                 {
                     label: 'Response',
                     data: $scope.responses,
-                    backgroundColor: $scope.backgroundColorForChart,
-                    borderColor: $scope.borderColorForChart,
+                    backgroundColor: $scope.backgroundColorForChartResponse,
+                    borderColor: $scope.borderColorForChartResponse,
                     borderWidth: 1
+                },
+                {
+                    label: 'Response Rate',
+                    yAxisID: 'y-axis-2',
+                data: $scope.responseRate,
+                fill: false,
+                type: 'line',
+                backgroundColor: getColor('yellow'),
+                borderColor: getColor('yellow'),
+                borderWidth: 3
                 }]
             },
             options: {
                 legend: {
                     position: 'bottom'
                 },
+                tooltips: {
+                    mode: 'x'
+                },
                 scales: {
                     yAxes: [{
-                        ticks: {
-                            beginAtZero: true
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        id: 'y-axis-1',
+                    }, {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        id: 'y-axis-2',
+                        gridLines: {
+                            drawOnChartArea: false
                         }
                     }]
                 }
@@ -483,12 +569,21 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
     });//end allData
 
 
-    $scope.updateResponseRate = function () {
+    $scope.resetFilter = function () {
+        location.reload();
+    };
 
-        $scope.filterFrom = $('#from').val();
-        $scope.filterTo = $('#to').val();
+    $scope.filter = function () {
+        
+        if ($scope.from != undefined) {
+            $scope.filterFrom = toLocalDate($scope.from, 2);
+        }
 
-        $http.post('stat/responseRates', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+        if ($scope.to != undefined) {
+            $scope.filterTo = toLocalDate($scope.to, 2);
+        }
+        
+        $http.post('stat/responseRate', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.responseRates = response.data.data.responseRates;
             $scope.allResponseRate = response.data.data.allResponseRate;
 
@@ -499,45 +594,78 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
             $scope.labels = [];
             $scope.requests = [];
             $scope.responses = [];
-            $scope.backgroundColorForChart = [];
-            $scope.borderColorForChart = [];
+            $scope.responseRate = [];
+            $scope.backgroundColorForChartRequest = [];
+            $scope.borderColorForChartRequest = [];
+            $scope.backgroundColorForChartResponse = [];
+            $scope.borderColorForChartResponse = [];
 
             for (var i = 0; i < $scope.responseRates.length; i++) {
                 $scope.labels.push($scope.responseRates[i].name);
                 $scope.requests.push($scope.responseRates[i].requests);
                 $scope.responses.push($scope.responseRates[i].responses);
-                $scope.backgroundColorForChart.push(getColor('gray-dark'));
-                $scope.borderColorForChart.push(getBorderColor('gray-dark'));
+                
+                $scope.responseRate.push(($scope.responseRates[i].responses / $scope.responseRates[i].requests * 100).toFixed(2));
+                
+                $scope.backgroundColorForChartRequest.push(getColor('red'));
+                $scope.borderColorForChartRequest.push(getBorderColor('red'));
+                $scope.backgroundColorForChartResponse.push(getColor('gray-medium'));
+                $scope.borderColorForChartResponse.push(getBorderColor('gray-medium'));
             }
 
-            var ctx = $("#myChart");
+            //var ctx = $("#myChart");
             var myChart = new Chart(ctx, {
                 type: 'bar',
+                yAxisID: 'y-axis-1',
                 data: {
                     labels: $scope.labels,
                     datasets: [{
-                        label: 'Anzahl',
+                        label: 'Ansprache',
                         data: $scope.requests,
-                        backgroundColor: $scope.backgroundColorForChart,
-                        borderColor: $scope.borderColorForChart,
+                        backgroundColor: $scope.backgroundColorForChartRequest,
+                        borderColor: $scope.borderColorForChartRequest,
                         borderWidth: 1
                     },
                     {
-                        label: 'Anzahl',
+                        label: 'Response',
                         data: $scope.responses,
-                        backgroundColor: $scope.backgroundColorForChart,
-                        borderColor: $scope.borderColorForChart,
+                        backgroundColor: $scope.backgroundColorForChartResponse,
+                        borderColor: $scope.borderColorForChartResponse,
                         borderWidth: 1
+                    },
+                    {
+                        label: 'Response Rate',
+                        yAxisID: 'y-axis-2',
+                        data: $scope.responseRate,
+                        fill: false,
+                        type: 'line',
+                        backgroundColor: getColor('yellow'),
+                        borderColor: getColor('yellow'),
+                        borderWidth: 3
                     }]
-            },
+                },
                 options: {
                     legend: {
                         position: 'bottom'
                     },
                     scales: {
+                        //yAxes: [{
+                        //    ticks: {
+                        //        beginAtZero: true
+                        //    }
+                        //}]
                         yAxes: [{
-                            ticks: {
-                                beginAtZero: true
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            id: 'y-axis-1',
+                        }, {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            id: 'y-axis-2',
+                            gridLines: {
+                                drawOnChartArea: false
                             }
                         }]
                     }
@@ -547,7 +675,8 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
 
 
         });//end allData
-
+        
+        myChart.update();
     };
 
 });

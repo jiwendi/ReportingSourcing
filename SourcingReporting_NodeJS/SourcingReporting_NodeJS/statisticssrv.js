@@ -1,10 +1,10 @@
 ﻿module.exports = {
-    setup: function (app, db, session, toDate, sendResponse) {
+    setup: function (app, db, session, toDate, sendResponse, getDateString) {
 
         /**
          * Ansprache
          */
-        app.post('/stat/rfe', function (req, res) {
+        app.post('/stat/requestsByYear', function (req, res) {
             var message = "";
             var query = "SELECT COUNT(candidate.id) as requestFromSource, sources.name FROM candidate " +
             "LEFT JOIN sources ON candidate.source_id = sources.id " +
@@ -12,7 +12,7 @@
                 "GROUP BY candidate.source_id";
             var allRequestQuery = "SELECT COUNT(candidate.id) as requests FROM candidate " +
                 "LEFT JOIN sources ON candidate.source_id = sources.id " +
-                "WHERE year(candidate.research) = ? ";
+                "WHERE year(candidate.research) = ? AND request = 1";
             var parameter = [req.body.yearToFilter];
 
                 db.query(query, parameter, function (err, rows, fields) {
@@ -113,16 +113,22 @@
         });
 
         //restestToHire
-        app.post('/stat/allData', function (req, res) {
+        app.post('/stat/reqToHire', function (req, res) {
             var message = "";
-            var query = "SELECT COUNT(c1.request) as request, " +
-                "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.telnotice != '0000-00-00') telnotice, " +
-                "(SELECT COUNT(c2.intern) as intern FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.intern != '0000-00-00') intern, " +
-                "(SELECT COUNT(c2.extern) as extern FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.extern != '0000-00-00') extern, " +
-                "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.hire != '0000-00-00') hires " +
-                "FROM candidate as c1 WHERE c1.research >= ? AND c1.research <= ?";
-            var parameter = [req.body.filterFrom, req.body.filterTo];
 
+            var filter_from = getDateString(req.body.filterFrom);
+            var filter_to = getDateString(req.body.filterTo);
+
+            var query = "SELECT COUNT(c1.request) as request, " +
+                "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.telnotice >= " + filter_from + " AND c2.telnotice <= " + filter_to +") telnotice, " +
+                "(SELECT COUNT(c2.intern) as intern FROM candidate as c2 WHERE c2.intern >= " + filter_from + " AND c2.intern <= " + filter_to +") intern, " +
+                " (SELECT COUNT(c2.extern) as extern FROM candidate as c2 WHERE c2.extern >= " + filter_from + " AND c2.extern <= " + filter_to +") extern, " +
+                "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.hire >= " + filter_from + " AND c2.hire <= " + filter_to + ") hires " +
+                "FROM candidate as c1 WHERE c1.research >= " + filter_from + " AND c1.research <= " + filter_to +" AND request = 1";
+           
+            
+            var parameter = [];
+           
             db.query(query, parameter, function (err, rows, fields) {
                 if (err) throw err;
 
@@ -130,16 +136,31 @@
             });
         });
 
-        app.post('/stat/allDataPlattform', function (req, res) {
+        app.post('/stat/reqToHireByPlattform', function (req, res) {
             var message = "";
+
+            var filter_from = getDateString(req.body.filterFrom);
+            var filter_to = getDateString(req.body.filterTo);
+            var filter_source = req.body.source;
+            
             var query = "SELECT COUNT(c1.request) as request, " +
-                "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.telnotice != '0000-00-00') telnotice, " +
-                "(SELECT COUNT(c2.intern) as intern FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.intern != '0000-00-00') intern, " +
-                "(SELECT COUNT(c2.extern) as extern FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.extern != '0000-00-00') extern, " +
-                "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.sourcer = c1.sourcer AND c2.hire != '0000-00-00') hires " +
-                "FROM candidate as c1 WHERE c1.research >= ? AND c1.research <= ? AND c1.source_id = ?";
+                "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.telnotice >= " + filter_from + " AND c2.telnotice <= " + filter_to + ") telnotice, " +
+                "(SELECT COUNT(c2.intern) as intern FROM candidate as c2 WHERE c2.intern >= " + filter_from + " AND c2.intern <= " + filter_to + ") intern, " +
+                " (SELECT COUNT(c2.extern) as extern FROM candidate as c2 WHERE c2.extern >= " + filter_from + " AND c2.extern <= " + filter_to + ") extern, " +
+                "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.hire >= " + filter_from + " AND c2.hire <= " + filter_to + ") hires " +
+                "FROM candidate as c1 WHERE c1.research >= " + filter_from + " AND c1.research <= " + filter_to + " AND request = 1";
+
+            if (filter_source != false) {
+                query = "SELECT COUNT(c1.request) as request, " +
+                    "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.source_id = " + filter_source + " AND c2.telnotice >= " + filter_from + " AND c2.telnotice <= " + filter_to + ") telnotice, " +
+                    "(SELECT COUNT(c2.intern) as intern FROM candidate as c2 WHERE c2.source_id = " + filter_source + " AND c2.intern >= " + filter_from + " AND c2.intern <= " + filter_to + ") intern, " +
+                    " (SELECT COUNT(c2.extern) as extern FROM candidate as c2 WHERE c2.source_id = " + filter_source + " AND c2.extern >= " + filter_from + " AND c2.extern <= " + filter_to + ") extern, " +
+                    "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.source_id = " + filter_source + " AND c2.hire >= " + filter_from + " AND c2.hire <= " + filter_to + ") hires " +
+                    "FROM candidate as c1 WHERE c1.research >= " + filter_from + " AND c1.research <= " + filter_to + " AND request = 1 AND c1.source_id = ?";
+            }
+            
             var sourceQuery = "SELECT id, name FROM sources";
-            var parameter = [req.body.filterFrom, req.body.filterTo, req.body.source];
+            var parameter = [req.body.source];
 
             db.query(query, parameter, function (err, rows, fields) {
                 if (err) throw err;
@@ -148,16 +169,11 @@
                     if (serr) throw serr;
 
                     var result = {
-                        allData: rows[0],
+                        reqToHireByPlattform: rows[0],
                         sources: srows
                     };
-
                     sendResponse(res, true, "", result);
                 });
-
-
-
-                
             });
         });
 
@@ -174,12 +190,23 @@
                 "FROM candidate " +
                 "JOIN team ON team.id = candidate.team_id " +
                 "WHERE candidate.hire >= ? AND candidate.hire <= ? GROUP BY candidate.team_id";
+            var countQuery = "SELECT COUNT(candidate.id) AS anzahl FROM candidate WHERE candidate.hire >= ? AND candidate.hire <= ?";
             var parameter = [req.body.filterFrom, req.body.filterTo];
 
             db.query(query, parameter, function (err, rows, fields) {
                 if (err) throw err;
 
-                sendResponse(res, true, "", rows);
+                db.query(countQuery, parameter, function (countErr, countRows, countFields) {
+                    if (countErr) throw countErr;
+
+                    var result = {
+                        hiresInTeams: rows,
+                        countHires: countRows[0]
+                    };
+
+                sendResponse(res, true, "", result);
+
+                });
             });
         });
 
@@ -196,8 +223,8 @@
             var query = "SELECT COUNT(c1.request) as requests, c1.source_id, sources.name, " +
                 "(SELECT COUNT(c2.response) as response FROM candidate as c2 WHERE c2.source_id = c1.source_id AND c2.response = 1) responses " +
                 "FROM candidate as c1 " +
-                "JOIN sources ON c1.source_id = sources.id " +
-                "GROUP BY c1.source_id";
+                "JOIN sources ON c1.source_id = sources.id AND c1.research >= ? AND c1.research <= ?" +
+                "GROUP BY c1.source_id ORDER BY COUNT(c1.request) desc";
 
             var allResponseRateQuery = "SELECT COUNT(c1.request) as requests, " +
                 "(SELECT COUNT(c2.response) as response FROM candidate as c2 WHERE response = 1) responses " +

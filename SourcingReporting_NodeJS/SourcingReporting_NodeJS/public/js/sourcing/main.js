@@ -215,6 +215,15 @@ var getColor = function (name) {
         case 'gray-light':
             color = 'rgba(230, 230, 230, 0.2)';
             break;
+        case 'blue':
+            color = 'rgba(0, 160, 230, 0.2)';
+            break;
+        case 'green':
+            color = 'rgba(30, 170, 80, 0.2)';
+            break;
+        case 'yellow':
+            color = 'rgba(255, 200, 10, 0.2)';
+            break;
         default:
             color = 'rgba(229, 52, 70, 0.2)'; //default red
     }
