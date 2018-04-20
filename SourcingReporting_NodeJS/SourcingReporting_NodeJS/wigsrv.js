@@ -45,9 +45,12 @@ module.exports = {
                 var query = "SELECT DISTINCT w.id, w.name, w.start, w.end, w.goal, " +
                     "CASE WHEN w.active = 1 THEN 'Ja' ELSE 'Nein' END AS active, " +
                     "CASE WHEN x.hireThisYear IS NULL THEN '-' ELSE x.hireThisYear END as hireThisYear " +
-                    "FROM wig w LEFT JOIN (SELECT wig.id, count(candidate.id) as hireThisYear FROM candidate, wig " +
-                    "WHERE candidate.hire >= wig.start AND candidate.hire <= wig.end GROUP BY wig.id) x " +
-                    "ON w.id = x.id  WHERE w.id IS NOT NULL ORDER BY w.id";
+                    "FROM wig w " +
+                    "LEFT JOIN (SELECT wig.id, count(candidate.id) as hireThisYear " +
+                    "LEFT JOIN (SELECT wig.id, count(candidate_eR.id) as hireThisYear_eR " +
+                    "FROM candidate, wig " +
+                    "WHERE (candidate.hire >= wig.start AND candidate.hire <= wig.end) OR (candidate_eR.hire >= wig.start AND candidate_eR.hire <= wig.end) GROUP BY wig.id) x " +
+                    "ON w.id = x.id WHERE w.id IS NOT NULL ORDER BY w.id";
 
 
                 db.query(query, function (err, result, fields) {

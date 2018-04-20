@@ -27,19 +27,19 @@
             <!-- eRecruiter Nr -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">eRecruiter Nr</div>
-                <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" placeholder="#123456 " tabindex="5"/>
+                <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" placeholder="#123456 " tabindex="3"/>
             </div>
 
             
             <!-- Besetzung -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Besetzung</div>
-                <input type='date' class="form-control" id="hire" ng-model="hire" placeholder="dd.mm.yyyy"/>
+                <input type='date' class="form-control" id="hire" ng-model="hire" placeholder="dd.mm.yyyy" tabindex="4"/>
             </div>
 
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Team</div>
-                <select class="custom-select wdselect" id="team" ng-model="teamSelect" ng-change="showSelectValue(teamSelect)">
+                <select class="custom-select wdselect" id="team" ng-model="teamSelect"  tabindex="5" ng-change="showSelectValue(teamSelect)">
                         <!--ng-options="t.id as t.name group by t.city for t in teams track by t.id">-->
                     <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
                 </select>
@@ -48,7 +48,7 @@
             <!-- Scoreboard -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Scoreboard</div>
-                <select ng-model="scoreboard" class="custom-select wdselect sourcing-width-full">
+                <select ng-model="scoreboard" class="custom-select wdselect sourcing-width-full"  tabindex="6">
                     <option ng-value="0">Nein</option>
                     <option ng-value="1">Ja</option>
                 </select>

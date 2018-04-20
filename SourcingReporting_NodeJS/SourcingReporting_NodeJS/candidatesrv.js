@@ -749,10 +749,10 @@
                 //    "FROM candidate " +
                 //    "WHERE DATE(research) > (NOW() - INTERVAL 6 MONTH)";
 
-                var timequery = "SELECT ROUND(CAST(AVG(ABS(DATEDIFF(research, telnotice))) AS DECIMAL(10,2)),2) AS timetocall, " +
-                    "ROUND(CAST(AVG(ABS(DATEDIFF(research, intern))) AS DECIMAL(10,2)),2) AS timetointerview, " +
-                    "ROUND(CAST(AVG(ABS(DATEDIFF(research, extern))) AS DECIMAL(10,2)),2) AS timetoextern, " +
-                    "ROUND(CAST(AVG(ABS(DATEDIFF(research, hire))) AS DECIMAL(10,2)),2) AS timetohire " +
+                var timequery = "SELECT AVG(ABS(DATEDIFF(research, telnotice))) AS timetocall, " +
+                    "AVG(ABS(DATEDIFF(research, intern))) AS timetointerview, " +
+                    "AVG(ABS(DATEDIFF(research, extern))) AS timetoextern, " +
+                    "AVG(ABS(DATEDIFF(research, hire))) AS timetohire " +
                     "FROM candidate " +
                     "WHERE DATE(research) > (NOW() - INTERVAL 6 MONTH)";
 

@@ -320,8 +320,7 @@
                 "JOIN team ON candidate_eR.team_id = team.id " +
                 "WHERE candidate_eR.hire >= ? AND candidate_eR.hire <= ? " +
                 "ORDER BY candidate_eR.hire";
-
-
+           
             var countHiresQuery = "SELECT COUNT(candidate.id) AS anzahl " +
                 "FROM candidate " +
                 "WHERE candidate.hire >= ? AND candidate.hire <= ?";
@@ -330,7 +329,7 @@
                 "FROM candidate_eR " +
                 "WHERE candidate_eR.hire >= ? AND candidate_eR.hire <= ?";
 
-                var parameter = [req.body.filterFrom, req.body.filterTo];
+                var parameter = [req.body.filterFrom, req.body.filterTo, req.body.scoreboard];
                 var message = "";
 
                 db.query(query, parameter, function (err, rows, fields) {

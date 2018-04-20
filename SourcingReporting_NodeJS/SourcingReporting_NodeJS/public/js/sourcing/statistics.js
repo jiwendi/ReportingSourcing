@@ -795,42 +795,90 @@ app.controller('statisticsTelNoticeController', function ($scope, $http) {
 });
 
 app.controller('statisticsHireListController', function ($scope, $http) {
+    $scope.filterFrom = FILTER_FROM; 
+    $scope.filterTo = FILTER_TO; 
 
+    var from_hire = false;
+    var to_hire = false;
+    var showScoreboard = false;
 
-   // $scope.filterFrom = $('#from').val();
-   // $scope.filterTo = $('#to').val();
+    $scope.resetFilter = function () { 
+        location.reload();
+    };
+    
+    $scope.filterCandidates = function () {
 
-    $scope.filterFrom = FILTER_FROM; //new Date(2018, 01, 01);
-    $scope.filterTo = FILTER_TO; //new Date(2018, 12, 31);
+        if ($scope.showScoreboard) {
+            showScoreboard = 1;
+        } else {
+            showScoreboard = 0;
+        }
+        
+        if ($scope.from != undefined) {
+            from_hire = toLocalDate($scope.from, 2);
+        } else {
+            from_hire = FILTER_FROM;
+        }
 
-   
-
-        $http.post('stat/hireList', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+        if ($scope.to != undefined) {
+            to_hire = toLocalDate($scope.to, 2);
+        } else {
+            to_hire = FILTER_TO;
+        }
+        
+        $http.post('stat/hireList', {
+            filterFrom: from_hire, filterTo: to_hire, scoreboard: showScoreboard
+        }).then(function (response) {
             $scope.candidates = response.data.data.candidates;
-            $scope.anzahl = response.data.data.anzahl + response.data.data.anzahleR;
+            $scope.anzahl = response.data.data.anzahl;
+            $scope.anzahleR = response.data.data.anzahleR;
             $scope.eRcandidates = response.data.data.eRcandidates;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
-    });
+        });
+    };
 
-        $scope.updateHires = function () {
-            
-            $scope.filterFrom = new Date($('#from').val());
-            $scope.filterTo = new Date($('#to').val());
+    $scope.filterCandidates();
 
+    $scope.searchNames = function () {
+        var input, filter, table, tbody, tr, td, i;
+        input = document.getElementById("inputName");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("candidates");
+        tbody = document.getElementById("tableBody");
+        tr = tbody.getElementsByTagName("tr");
 
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    };
 
-            $http.post('stat/hireList', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
-                $scope.candidates = response.data.data.candidates;
-                $scope.anzahl = response.data.data.anzahl + response.data.data.anzahleR;
-                $scope.eRcandidates = response.data.data.eRcandidates;
-                $scope.message = response.data.message;
-                $scope.iserrmessage = !response.data.success;
-            });
+    $scope.searcheR = function () {
+        var input, filter, table, tbody, tr, td, i;
+        input = document.getElementById("inputeR");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("candidates");
+        tbody = document.getElementById("tableBody");
+        tr = tbody.getElementsByTagName("tr");
 
-
-
-        };
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    };
 
 
 

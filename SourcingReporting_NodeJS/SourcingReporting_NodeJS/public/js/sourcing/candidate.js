@@ -24,32 +24,32 @@ app.controller('candidatesController', function ($scope, $http) {
     var to_hire = false;
 
     $scope.resetFilter = function () {
-        $('#from_telnotice').val("");
-        $('#to_telnotice').val("");
+        //$('#from_telnotice').val("");
+        //$('#to_telnotice').val("");
 
-        $('#from_intern').val("");
-        $('#to_intern').val("");
+        //$('#from_intern').val("");
+        //$('#to_intern').val("");
 
-        $('#from_extern').val("");
-        $('#to_extern').val("");
+        //$('#from_extern').val("");
+        //$('#to_extern').val("");
 
-        $('#from_research').val("");
-        $('#to_research').val("");
+        //$('#from_research').val("");
+        //$('#to_research').val("");
 
-        $('#from_hire').val("");
-        $('#to_hire').val("");
+        //$('#from_hire').val("");
+        //$('#to_hire').val("");
 
-        $('#showusercandidates').removeAttr('checked');
-        $('#showTracking').removeAttr('checked');
+        //$('#showusercandidates').removeAttr('checked');
+        //$('#showTracking').removeAttr('checked');
 
 
-        $http.post('candidates/get', {
-            showusercandidates: showusercandidates, showTracking: showTracking, from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
-            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire
-        }).then(function (response) {
-            $scope.candidates = response.data.data.candidate;
-            $scope.countCandidate = response.data.data.countCandidate;
-            });
+        //$http.post('candidates/get', {
+        //    showusercandidates: showusercandidates, showTracking: showTracking, from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
+        //    from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire
+        //}).then(function (response) {
+        //    $scope.candidates = response.data.data.candidate;
+        //    $scope.countCandidate = response.data.data.countCandidate;
+        //    });
 
         location.reload();
 
@@ -123,8 +123,6 @@ app.controller('candidatesController', function ($scope, $http) {
     
 
     $scope.searchNames = function () {
-
-        // Declare variables 
         var input, filter, table, tbody, tr, td, i;
         input = document.getElementById("inputName");
         filter = input.value.toUpperCase();
@@ -132,7 +130,6 @@ app.controller('candidatesController', function ($scope, $http) {
         tbody = document.getElementById("tableBody");
         tr = tbody.getElementsByTagName("tr");
         
-        // Loop through all table rows, and hide those who don't match the search query
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[2];
             if (td) {
@@ -143,21 +140,16 @@ app.controller('candidatesController', function ($scope, $http) {
                 }
             }
         }
-        
-
-    }
+    };
 
     $scope.searchSource = function () {
-
-        // Declare variables 
         var input, filter, table, tbody, tr, td, i;
         input = document.getElementById("inputSource");
         filter = input.value.toUpperCase();
         table = document.getElementById("candidates");
         tbody = document.getElementById("tableBody");
         tr = tbody.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
+        
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[3];
             if (td) {
@@ -168,21 +160,16 @@ app.controller('candidatesController', function ($scope, $http) {
                 }
             }
         }
-
-
-    }
+    };
 
     $scope.searcheR = function () {
-
-        // Declare variables 
         var input, filter, table, tbody, tr, td, i;
         input = document.getElementById("inputeR");
         filter = input.value.toUpperCase();
         table = document.getElementById("candidates");
         tbody = document.getElementById("tableBody");
         tr = tbody.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
+        
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[4];
             if (td) {
@@ -193,9 +180,7 @@ app.controller('candidatesController', function ($scope, $http) {
                 }
             }
         }
-
-
-    }
+    };
 
 
 
