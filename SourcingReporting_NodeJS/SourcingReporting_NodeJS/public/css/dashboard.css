@@ -208,11 +208,17 @@ a:hover{
     width: 20% !important
 }
 
-.sourcing-position_rt {
-position: absolute;
-top: 30px;
-right: 30px;
+.card_weekly {
+    width: 15% !important;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
 
+.sourcing-position_rt {
+    position: absolute;
+    top: 30px;
+    right: 30px;
 }
 
 

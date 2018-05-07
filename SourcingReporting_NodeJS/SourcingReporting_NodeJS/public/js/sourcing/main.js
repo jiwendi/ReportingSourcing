@@ -133,6 +133,10 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/statistics/hireList.html',
                 controller: 'statisticsHireListController'
             }).
+            when('/weeklyNumbers', {
+                templateUrl: 'templates/statistics/weeklyNumbers.html',
+                controller: 'statisticsWeeklyNumbersController'
+            }).
             //WIG
             when('/wigs', {
                 templateUrl: 'templates/wigs.html',

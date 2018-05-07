@@ -1,0 +1,653 @@
+﻿<h1 class="page-header"><span class="oi oi-bar-chart"></span>  Statistiken</h1>
+
+<div class="panel panel-default">
+
+    
+
+    <h3> Wöchentliche Zahlen - Ansprache und Telefonnotizen</h3>
+
+
+    <div class="alert alert-danger" role="alert" ng-show="message && noDataSets">
+        <span class="oi oi-x" aria-hidden="true"></span> {{message}}
+    </div>
+
+    <div class="alert alert-success" role="alert" ng-show="message && !noDataSets">
+        <span class="oi oi-check" aria-hidden="true"></span> {{message}}
+    </div>
+
+    <br />
+    <br />
+    <div class="input-group sourcing-w-20 ml-2">
+        <div class="input-group-addon alert-info sourcing-width-150">Jahr </div>
+        <input class="form-control" type="number" id="yearToFilter" ng-model="yearToFilter" min="2017" value="2018" ng-change="update()" />
+    </div>
+    <br />
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 1
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 2
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 3
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 4
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 5
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 6
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 7
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 8
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 9
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 10
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 11
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 12
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 13
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 14
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 15
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 16
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 17
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-danger">
+            Kalenderwoche 18
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+    
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 19
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 20
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 21
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 22
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 23
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 24
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 25
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 26
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 27
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 28
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 29
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 30
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 31
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 32
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 33
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 34
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-warning">
+            Kalenderwoche 35
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 36
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 37
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 38
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 39
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 40
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 41
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 42
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 43
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 44
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 45
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 46
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 47
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 48
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 49
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 50
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 51
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+    <div class="card card_weekly">
+        <div class="card-header alert-success">
+            Kalenderwoche 52
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Ansprachen</h5>
+            <p class="card-text">xx</p>
+            <h5 class="card-title">Telefonnotizen</h5>
+            <p class="card-text">xx</p>
+        </div>
+    </div>
+
+
+    
+</div>
