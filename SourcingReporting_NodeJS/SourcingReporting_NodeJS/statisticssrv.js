@@ -373,7 +373,44 @@
 
 
         });
-        
+
+
+        /*
+        SELECT WEEK(research)+1 as KW, COUNT(id)
+        FROM candidate
+        WHERE request = 1 AND YEAR(research) = ?
+        GROUP BY WEEK(research)
+        */
+        app.post('/stat/weeklyNumbers', function (req, res) {
+            var queryRequest = "SELECT WEEK(research)+1 as KW, COUNT(id) as counts FROM candidate WHERE request = 1 AND YEAR(research) = ? GROUP BY WEEK(research)";
+            var queryTelNotice = "SELECT WEEK(telnotice)+1 as KW, COUNT(id) as counts FROM candidate WHERE telnotice != '0000-00-00' AND YEAR(telnotice) = ? GROUP BY WEEK(telnotice)";
+            var parameter = [req.body.yearToFilter];
+            var message = "";
+
+            db.query(queryRequest, parameter, function (errReq, rowsReq, fieldsReq) {
+                if (errReq) {
+                    sendResponse(res, false, errReq);
+                    throw errReq;
+                }
+
+                db.query(queryTelNotice, parameter, function (errTN, rowsTN, fieldsTN) {
+                    if (errTN) {
+                        sendResponse(res, false, errTN);
+                        throw errTN;
+                    }
+
+                    var result = {
+                        requestsByKW: rowsReq,
+                        telnoticeByKW: rowsTN
+                    };
+
+                    sendResponse(res, true, "", result);
+
+                });
+               
+
+            });
+        });
 
     } //end setup-function
 }; //end module.exports

@@ -887,3 +887,26 @@ app.controller('statisticsHireListController', function ($scope, $http) {
 
 
 
+app.controller('statisticsWeeklyNumbersController', function ($scope, $http) {
+    $scope.message = "";
+    $scope.iserrmessage = false;
+
+    $scope.yearToFilter = $('#yearToFilter').val();
+
+    $scope.update = function () {
+
+        $scope.yearToFilter = $('#yearToFilter').val();
+
+        $http.post('stat/weeklyNumbers', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+            $scope.requestsByKW = response.data.data.requestsByKW;
+            $scope.telnoticeByKW = response.data.data.telnoticeByKW;
+            $scope.message = response.data.message;
+            $scope.iserrmessage = !response.data.success;
+        });
+
+    };
+
+    $scope.update();
+    
+
+});

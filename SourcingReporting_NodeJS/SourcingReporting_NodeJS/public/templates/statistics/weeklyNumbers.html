@@ -23,15 +23,24 @@
     </div>
     <br />
 
+
     <div class="card card_weekly">
         <div class="card-header alert-danger">
             Kalenderwoche 1
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 1">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 1">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -40,10 +49,18 @@
             Kalenderwoche 2
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 2">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 2">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -52,22 +69,39 @@
             Kalenderwoche 3
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 3">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 3">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
+    
     <div class="card card_weekly">
         <div class="card-header alert-danger">
             Kalenderwoche 4
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 4">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 4">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -76,10 +110,18 @@
             Kalenderwoche 5
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 5">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 5">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -88,22 +130,38 @@
             Kalenderwoche 6
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 6">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 6">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
-
+    
     <div class="card card_weekly">
         <div class="card-header alert-danger">
             Kalenderwoche 7
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 7">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 7">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -112,10 +170,18 @@
             Kalenderwoche 8
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 8">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 8">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -124,10 +190,18 @@
             Kalenderwoche 9
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 9">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 9">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -136,10 +210,18 @@
             Kalenderwoche 10
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 10">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 10">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -148,10 +230,18 @@
             Kalenderwoche 11
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 11">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 11">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -160,10 +250,18 @@
             Kalenderwoche 12
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 12">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 12">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -172,10 +270,18 @@
             Kalenderwoche 13
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 13">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 13">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -184,10 +290,18 @@
             Kalenderwoche 14
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 14">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 14">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -196,10 +310,18 @@
             Kalenderwoche 15
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 15">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 15">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -208,10 +330,18 @@
             Kalenderwoche 16
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 16">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 16">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -220,10 +350,18 @@
             Kalenderwoche 17
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 17">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 17">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -232,23 +370,38 @@
             Kalenderwoche 18
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 18">
+                <button type="button" class="btn btn-danger">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 18">
+                <button type="button" class="btn btn-danger">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
-    
 
     <div class="card card_weekly">
         <div class="card-header alert-warning">
             Kalenderwoche 19
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 19">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 19">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -257,10 +410,18 @@
             Kalenderwoche 20
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 20">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 20">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -269,10 +430,18 @@
             Kalenderwoche 21
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 21">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 21">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -281,10 +450,20 @@
             Kalenderwoche 22
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 22">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 22">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+
+            </p>
+
         </div>
     </div>
 
@@ -293,10 +472,20 @@
             Kalenderwoche 23
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 23">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 23">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+
+            </p>
+
         </div>
     </div>
 
@@ -305,10 +494,20 @@
             Kalenderwoche 24
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 24">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 24">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+
+            </p>
+
         </div>
     </div>
 
@@ -317,10 +516,20 @@
             Kalenderwoche 25
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 25">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 25">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+
+            </p>
+
         </div>
     </div>
 
@@ -329,10 +538,20 @@
             Kalenderwoche 26
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 26">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 26">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+
+            </p>
+
         </div>
     </div>
 
@@ -341,10 +560,20 @@
             Kalenderwoche 27
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 27">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 27">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+
+            </p>
+
         </div>
     </div>
 
@@ -353,10 +582,20 @@
             Kalenderwoche 28
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 28">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 28">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+
+            </p>
+
         </div>
     </div>
 
@@ -365,10 +604,18 @@
             Kalenderwoche 29
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 29">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 29">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -377,10 +624,18 @@
             Kalenderwoche 30
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 30">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 30">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -389,10 +644,18 @@
             Kalenderwoche 31
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 31">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 31">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -401,10 +664,18 @@
             Kalenderwoche 32
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 32">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 32">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -413,10 +684,18 @@
             Kalenderwoche 33
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 33">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 33">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -425,10 +704,18 @@
             Kalenderwoche 34
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 34">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 34">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -437,10 +724,18 @@
             Kalenderwoche 35
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 35">
+                <button type="button" class="btn btn-warning">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 35">
+                <button type="button" class="btn btn-warning">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -449,10 +744,18 @@
             Kalenderwoche 36
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 36">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 36">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -461,10 +764,18 @@
             Kalenderwoche 37
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 37">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 37">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -473,10 +784,18 @@
             Kalenderwoche 38
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 38">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 38">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -485,10 +804,18 @@
             Kalenderwoche 39
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 39">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 39">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -497,10 +824,18 @@
             Kalenderwoche 40
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 40">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 40">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -509,10 +844,18 @@
             Kalenderwoche 41
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 41">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 41">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -521,10 +864,18 @@
             Kalenderwoche 42
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 42">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 42">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -533,10 +884,18 @@
             Kalenderwoche 43
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 43">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 43">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -545,10 +904,18 @@
             Kalenderwoche 44
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 44">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 44">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -557,10 +924,18 @@
             Kalenderwoche 45
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 45">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 45">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -569,10 +944,18 @@
             Kalenderwoche 46
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 46">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 46">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -581,10 +964,18 @@
             Kalenderwoche 47
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 47">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 47">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -593,10 +984,18 @@
             Kalenderwoche 48
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 48">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 48">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -605,10 +1004,18 @@
             Kalenderwoche 49
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 49">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 49">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -617,10 +1024,18 @@
             Kalenderwoche 50
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 50">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 50">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -629,10 +1044,18 @@
             Kalenderwoche 51
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 51">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 51">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
@@ -641,13 +1064,23 @@
             Kalenderwoche 52
         </div>
         <div class="card-body">
-            <h5 class="card-title">Ansprachen</h5>
-            <p class="card-text">xx</p>
-            <h5 class="card-title">Telefonnotizen</h5>
-            <p class="card-text">xx</p>
+            <p ng-repeat="dataset in requestsByKW" ng-if="dataset.KW == 52">
+                <button type="button" class="btn btn-success">
+                    Ansprachen <span class="badge badge-light">{{dataset.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
+            <p ng-repeat="dataset2 in telnoticeByKW" ng-if="dataset2.KW == 52">
+                <button type="button" class="btn btn-success">
+                    Telefonnotizen <span class="badge badge-light">{{dataset2.counts}}</span>
+                    <span class="sr-only">-</span>
+                </button>
+            </p>
         </div>
     </div>
 
+
+    <br /> <br /><br /> <br /><br /> <br /><br /> <br /><br /> <br /><br /> <br /><br /> <br /><br /> <br /><br /> <br />
 
     
 </div>
