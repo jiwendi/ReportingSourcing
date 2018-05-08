@@ -83,6 +83,11 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/candidatedetail.html',
                 controller: 'candidatedetailController'
             }).
+            //RememberMe Liste
+            when('/rememberMe', {
+                templateUrl: 'templates/rememberMe_List.html',
+                controller: 'rememberMeListController'
+            }).
             //eR Kandidaten
             when('/candidates_eR', {
                 templateUrl: 'templates/candidates_eR.html',

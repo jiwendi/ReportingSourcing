@@ -237,6 +237,7 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         $scope.extern = $('#extern').val();
         $scope.hire = $('#hire').val();
         $scope.team = $('#teamSelect').val();
+        $scope.rememberme = $('#rememberme').val();
 
         var responseValue = null;
 
@@ -283,13 +284,19 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         } else {
             $scope.team = $('#team').val();
         }
+
+        if ($('#rememberme').val() == '') {
+            $scope.rememberme = '0000-00-00';
+        } else {
+            $scope.rememberme = $('#rememberme').val();
+        }
         
         
         $http.post('candidate/save', {  
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.source,
             source_text: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.tracking, request: $scope.request,
             response: $scope.response, responseVal: responseValue, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.info,
-            extern: $scope.extern, hire: $scope.hire, team: $scope.team, research: $scope.research, scoreboard: $scope.candidate.scoreboard
+            extern: $scope.extern, hire: $scope.hire, team: $scope.team, rememberme: $scope.rememberme, research: $scope.research, scoreboard: $scope.candidate.scoreboard
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             
@@ -306,7 +313,7 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
             
         });
     };
-   
+    
 });
 
 
@@ -384,7 +391,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.intern = toLocalDate($scope.candidate.intern);
         $scope.extern = toLocalDate($scope.candidate.extern);
         $scope.hire = toLocalDate($scope.candidate.hire);
-
+        $scope.rememberme = toLocalDate($scope.candidate.rememberme);
 
 
         /**
@@ -540,6 +547,30 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         });
     }
 
+    $scope.updateRememberMe = function () {
+        $scope.message = "";
+
+        $http.post('candidate/updateRememberMe', {
+            id: $scope.candidate.id, rememberme: $scope.rememberme
+        }).then(function (response) {
+            $scope.iserrmessage = !response.data.success;
+            $scope.message = response.data.message;
+        });
+    };
+
+    $scope.deleteRememberMe = function () {
+        $scope.message = "";
+
+        if (confirm("Kandidat von der RememberMe-Liste wirklich entfernen?")) {
+            $http.post('candidate/deleteRememberMe', {
+                id: $scope.candidate.id
+            }).then(function (response) {
+                $scope.iserrmessage = !response.data.success;
+                $scope.message = response.data.message;
+                });
+        }
+    };
+
     $scope.updateScoreboard = function (scoreboard) {
         $scope.message = "";
         $scope.scoreboard = scoreboard;
@@ -626,4 +657,81 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 }); //end candidatedetailController
 
 
-//End CandidateDetail
+app.controller('rememberMeListController', function ($scope, $http) {
+    $scope.filterMonth = getMonth(sysdate());
+
+
+    var filter_month = false;
+    var showusercandidates = false;
+
+    $scope.resetFilter = function () {
+        location.reload();
+    };
+
+    $scope.filterCandidates = function () {
+
+        if ($scope.showusercandidates) {
+            showusercandidates = 1;
+        } else {
+            showusercandidates = 0;
+        }
+
+        if ($scope.filterMonth != undefined) {
+            filter_month = toLocalDate(getMonth(sysdate()),2);
+        } else {
+            filter_month = getMonth(sysdate());
+        }
+
+        $http.post('candidate/rememberMeList', {
+            filter_month: filter_month, usercandidates: showusercandidates
+        }).then(function (response) {
+            $scope.candidates = response.data.data.candidates;
+            $scope.anzahl = response.data.data.anzahl;
+            $scope.message = response.data.message;
+            $scope.iserrmessage = !response.data.success;
+        });
+    };
+
+    $scope.filterCandidates();
+
+    $scope.searchNames = function () {
+        var input, filter, table, tbody, tr, td, i;
+        input = document.getElementById("inputName");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("candidates");
+        tbody = document.getElementById("tableBody");
+        tr = tbody.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    };
+
+    $scope.searcheR = function () {
+        var input, filter, table, tbody, tr, td, i;
+        input = document.getElementById("inputeR");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("candidates");
+        tbody = document.getElementById("tableBody");
+        tr = tbody.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    };
+
+});

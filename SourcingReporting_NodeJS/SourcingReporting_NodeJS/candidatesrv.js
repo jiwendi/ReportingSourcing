@@ -247,8 +247,8 @@
 
                 if (suc) {
                     var query = "INSERT INTO candidate (firstname, lastname, source_id, source_text, eR, tracking, request, response, " +
-                        "response_value, telnotice, intern, extern, hire, team_id, research, scoreboard, sourcer, infos) " +
-                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,?,?)";
+                        "response_value, telnotice, intern, extern, hire, team_id, research, scoreboard, sourcer, infos, rememberme) " +
+                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,?,?,?)";
 
                     var response_Value_afterCheck;
 
@@ -260,7 +260,7 @@
 
                     var parameters = [req.body.firstname, req.body.lastname, req.body.source, req.body.source_text, req.body.eR,
                         req.body.tracking, req.body.request, req.body.response, response_Value_afterCheck, req.body.telnotice, req.body.intern,
-                        req.body.extern, req.body.hire, req.body.team, req.body.research, req.session.userid, req.body.infos];
+                        req.body.extern, req.body.hire, req.body.team, req.body.research, req.session.userid, req.body.infos, req.body.rememberme];
 
                     db.query(query, parameters, function (err, result, fields) {
                         if (err) {
@@ -496,6 +496,72 @@
             }
         });
 
+        app.post('/candidate/updateRememberMe', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET rememberme = ? WHERE id = ?",
+                        [new Date(req.body.rememberme), req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim UPDATE-Candidate (RememberMe)! " + err;
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Daten wurden gespeichert!");
+                            }
+                        });
+
+                } else {
+                    sendResponse(res, false, message);
+                }
+
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
+        app.post('/candidate/deleteRememberMe', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET rememberme = NULL WHERE id = ?",
+                        [req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim UPDATE-Candidate (delete RememberMe)! " + err;
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Daten wurden gespeichert!");
+                            }
+                        });
+
+                } else {
+                    sendResponse(res, false, message);
+                }
+
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
         app.post('/candidate/updateIntern', function (req, res) {
             if (req.session.userid) {
                 var suc = false;
@@ -698,43 +764,43 @@
         /**
          * Candidate Detail Update  - NOT IN USE
          */
-        app.post('/candidate/update', function (req, res) {
-            if (req.session.userid) {
-                var suc = false;
-                var message = "";
-                var update = "";
-                var parameters = [];
+        //app.post('/candidate/update', function (req, res) {
+        //    if (req.session.userid) {
+        //        var suc = false;
+        //        var message = "";
+        //        var update = "";
+        //        var parameters = [];
 
-                if (req.body.id == null) {
-                    message = "Keine KandidatenID übertragen!";
-                } else if (req.body.firstname == null || req.body.firstname == "") {
-                    message = "Bitte Vornamen eingeben!";
-                } else if (req.body.lastname == null || req.body.lastname == "") {
-                    message = "Bitte Lastname eingeben!";
-                } else {
-                    suc = true;
-                }
+        //        if (req.body.id == null) {
+        //            message = "Keine KandidatenID übertragen!";
+        //        } else if (req.body.firstname == null || req.body.firstname == "") {
+        //            message = "Bitte Vornamen eingeben!";
+        //        } else if (req.body.lastname == null || req.body.lastname == "") {
+        //            message = "Bitte Lastname eingeben!";
+        //        } else {
+        //            suc = true;
+        //        }
 
-                if (suc) {
-                    db.query("UPDATE candidate SET firstname = ?, lastname = ?, source_id = ?, source_text = ?, research = ?, intern = ?, extern = ?, hire = ? WHERE id = ?",
-                        [req.body.firstname, req.body.lastname, req.body.source, req.body.sourceText, req.body.research, req.body.intern, req.body.extern, req.body.hire, req.body.id],
-                        function (err, result, fields) {
-                            if (err) {
-                                message = "Fehler beim UPDATE-Candidate! " + err;
-                                sendResponse(res, false, message);
-                            } else {
-                                sendResponse(res, true, "Daten wurden gespeichert!");
-                            }
-                        });
+        //        if (suc) {
+        //            db.query("UPDATE candidate SET firstname = ?, lastname = ?, source_id = ?, source_text = ?, research = ?, intern = ?, extern = ?, hire = ? WHERE id = ?",
+        //                [req.body.firstname, req.body.lastname, req.body.source, req.body.sourceText, req.body.research, req.body.intern, req.body.extern, req.body.hire, req.body.id],
+        //                function (err, result, fields) {
+        //                    if (err) {
+        //                        message = "Fehler beim UPDATE-Candidate! " + err;
+        //                        sendResponse(res, false, message);
+        //                    } else {
+        //                        sendResponse(res, true, "Daten wurden gespeichert!");
+        //                    }
+        //                });
                     
-                } else {
-                    sendResponse(res, false, message);
-                }
-            } else {
-                sendResponse(res, false, "Kein Benutzer eingeloggt!");
-            }
+        //        } else {
+        //            sendResponse(res, false, message);
+        //        }
+        //    } else {
+        //        sendResponse(res, false, "Kein Benutzer eingeloggt!");
+        //    }
             
-        });
+        //});
 
         /**
         * Candidate Time-Infos
@@ -782,6 +848,7 @@
                     "CASE WHEN candidate.telnotice = '0000-00-00' THEN null ELSE candidate.telnotice END AS telnotice," +
                     "CASE WHEN candidate.response_value = null THEN null ELSE candidate.response_value END AS response_value," +
                     "candidate.tracking, candidate.request, candidate.response, candidate.scoreboard," +
+                    "candidate.rememberme, " + 
                     "CASE WHEN candidate.scoreboard = 1 THEN 'Ja' ELSE 'Nein' END as scoreboard_text, " +
                     "ABS(DATEDIFF(candidate.research, candidate.telnotice)) AS timeToCall, ABS(DATEDIFF(candidate.research, candidate.intern)) AS timeToInterview, " +
                     "ABS(DATEDIFF(candidate.research, candidate.extern)) AS timeToExtern, ABS(DATEDIFF(candidate.research, candidate.hire)) AS timeToHire," +
@@ -838,6 +905,88 @@
                 sendResponse(res, false, "Kein Benutzer eingeloggt!");
             }
         }); //end candidate/info
+
+
+
+        /**
+       * Candidates - Kandidatenübersicht
+       */
+        app.post('/candidate/rememberMeList', function (req, res) {
+            if (req.session.userid) {
+                var regsuc = false;
+                var message = "";
+                var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberme, " +
+                    "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
+                    "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR," +
+                    "CASE WHEN candidate.intern = '0000-00-00' THEN '-' ELSE candidate.intern END AS intern," +
+                    "CASE WHEN candidate.extern = '0000-00-00' THEN '-' ELSE candidate.extern END AS extern," +
+                    "CASE WHEN candidate.telnotice = '0000-00-00' THEN '-' ELSE candidate.telnotice END AS telnotice," +
+                    "CASE WHEN candidate.response_value = NULL THEN 'none' ELSE CASE WHEN candidate.response_value = 1 THEN 'pos.' ELSE CASE WHEN candidate.response_value = 0 THEN 'neg.' ELSE ' ' END END END AS response_value," +
+                    "CASE WHEN candidate.tracking = 1 THEN 'ja' ELSE 'nein' END AS tracking," +
+                    "CASE WHEN candidate.response = 1 THEN 'ja |' ELSE 'nein' END AS response," +
+                    "candidate.research, users.firstname as sourcerName, candidate.sourcer " +
+                    "FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
+                    "LEFT JOIN team ON team.id = candidate.team_id " +
+                    "LEFT JOIN city_group ON team.city_group = city_group.id " +
+                    "LEFT JOIN users ON candidate.sourcer = users.id";
+
+                var countCandidateQuery = "SELECT COUNT(candidate.id) as countCandidate FROM candidate";
+
+                var parameter = [];
+                var moreParameter = false;
+
+                var showusercandidates = req.body.showusercandidates;
+                var filter_month = req.body.filter_month;
+
+
+
+
+                if (showusercandidates) {
+                    candidatequery = candidatequery + " WHERE candidate.sourcer= ?";
+                    countCandidateQuery = countCandidateQuery + " WHERE sourcer= ?";
+                    parameter = [req.session.userid];
+                    moreParameter = true;
+                }
+                
+                if (filter_month != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND MONTH(candidate.rememberme) = " + getDateString(getMonth(filter_month));
+                        countCandidateQuery = countCandidateQuery + " AND MONTH(candidate.rememberme) <= " + getDateString(getMonth(filter_month));
+                    } else {
+                        candidatequery = candidatequery + " WHERE MONTH(candidate.rememberme) = " + getDateString(getMonth(filter_month));
+                        countCandidateQuery = countCandidateQuery + " WHERE MONTH(candidate.rememberme) <= " + getDateString(getMonth(filter_month));
+                        moreParameter = true;
+                    }
+                }
+                
+                db.query(candidatequery, parameter, function (candErr, candResult, candFields) {
+                    if (candErr) {
+                        sendResponse(res, false, "Fehler beim Ausführen des Query (RememberMe) - " + candErr);
+                        throw candErr;
+                    }
+
+                    db.query(countCandidateQuery, parameter, function (countErr, countResult, countFields) {
+                        if (countErr) {
+                            sendResponse(res, false, "Fehler beim Ausführen des Query (RememberMe - Count) - " + countErr);
+                            throw countErr;
+                        }
+
+                        var result = {
+                            candidate: candResult,
+                            countCandidate: countResult[0]
+                        };
+
+                        sendResponse(res, true, "", result);
+                    });
+
+                });
+            } else {
+                sendResponse(res, false, "Keine Berechtigung! (Session.Userid)");
+            }
+        }); //end rememberMeList
+
+
+
 
 
     } //end setup-function

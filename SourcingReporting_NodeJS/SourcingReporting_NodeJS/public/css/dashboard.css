@@ -283,6 +283,22 @@ max-width: 15% !important;
     padding: 5px;
 }
 
+.releaseInfo {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: #d1ecf1;
+    border-style: double;
+    border-width: 3px;
+    border-color: #96d4df;
+    border-radius: 5px;
+    box-shadow: 10px 10px #5bbccd;
+    padding: 10px;
+    visibility: hidden;
+    text-align: right;
+}
+
+
 
 /* Sortable tables */
 table.sortable thead {

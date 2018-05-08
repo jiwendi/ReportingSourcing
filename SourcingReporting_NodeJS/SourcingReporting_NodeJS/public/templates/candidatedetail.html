@@ -129,6 +129,13 @@
                 </select>
             </div>
 
+            <!-- Remember Me -->
+            <div class="input-group mb-1 date">
+                <div class="input-group-addon alert-info sourcing-width-150">Remember Me</div>
+                <input id="hire" type='date' ng-model="rememberme" class="form-control" ng-blur="updateRememberMe()" required />
+                <button class="btn btn-info" type="button" ng-click="deleteRememberMe()"><span class="oi oi-x"></span> entfernen</button>
+            </div>
+
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Scoreboard</div>
                 <input type="text" class="form-control sourcing-width-150" id="scoureboard" ng-model="candidate.scoreboard_text" readonly />
