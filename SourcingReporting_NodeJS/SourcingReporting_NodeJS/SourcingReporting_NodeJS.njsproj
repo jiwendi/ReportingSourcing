@@ -638,6 +638,7 @@
     <Content Include="public\templates\candidatedetail_eR.html" />
     <Content Include="public\templates\candidatenew_eR.html" />
     <Content Include="public\templates\candidatenew.html" />
+    <Content Include="public\templates\rememberMe_List.html" />
     <Content Include="public\templates\candidates_eR.html" />
     <Content Include="public\templates\candidates.html" />
     <Content Include="public\templates\dashboard.html" />
