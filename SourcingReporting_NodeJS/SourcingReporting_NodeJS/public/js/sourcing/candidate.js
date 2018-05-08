@@ -658,7 +658,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
 
 app.controller('rememberMeListController', function ($scope, $http) {
-    $scope.filterMonth = getMonth(sysdate());
+    $scope.filterMonth = 5;
 
 
     var filter_month = false;
@@ -669,6 +669,7 @@ app.controller('rememberMeListController', function ($scope, $http) {
     };
 
     $scope.filterCandidates = function () {
+        alert($('#filter_month').val());
 
         if ($scope.showusercandidates) {
             showusercandidates = 1;
@@ -677,22 +678,26 @@ app.controller('rememberMeListController', function ($scope, $http) {
         }
 
         if ($scope.filterMonth != undefined) {
-            filter_month = toLocalDate(getMonth(sysdate()),2);
+            filter_month = toLocalDate($('#filter_month').val());
         } else {
-            filter_month = getMonth(sysdate());
+            filter_month = new Date().getMonth();
         }
 
         $http.post('candidate/rememberMeList', {
             filter_month: filter_month, usercandidates: showusercandidates
         }).then(function (response) {
-            $scope.candidates = response.data.data.candidates;
-            $scope.anzahl = response.data.data.anzahl;
+            $scope.candidate = response.data.data.candidate;
+           
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
         });
     };
 
     $scope.filterCandidates();
+
+    $scope.resetFilter = function () {
+        location.reload();
+    };
 
     $scope.searchNames = function () {
         var input, filter, table, tbody, tr, td, i;

@@ -208,6 +208,23 @@ a:hover{
     width: 20% !important
 }
 
+.sourcing-w-30 {
+    width: 30% !important;
+}
+
+.sourcing-w-60 {
+    width: 60% !important;
+}
+
+.sourcing-h-50 {
+    height: 50px !important;
+
+}
+
+.round_div {
+    border-radius: 3px 0px 0px 3px !important;
+}
+
 .card_weekly {
     width: 13% !important;
     float: left;
@@ -298,6 +315,10 @@ max-width: 15% !important;
     text-align: right;
 }
 
+.padding-buttons {
+margin: 5px;
+
+}
 
 
 /* Sortable tables */

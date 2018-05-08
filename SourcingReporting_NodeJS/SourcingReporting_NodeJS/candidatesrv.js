@@ -915,21 +915,20 @@
             if (req.session.userid) {
                 var regsuc = false;
                 var message = "";
-                var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberme, " +
+                var filterquery = " WHERE candidate.rememberMe IS NOT NULL ";
+                var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberMe, " +
                     "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
                     "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR," +
-                   
                     "CASE WHEN candidate.telnotice = '0000-00-00' THEN '-' ELSE candidate.telnotice END AS telnotice," +
                     "CASE WHEN candidate.response_value = NULL THEN 'none' ELSE CASE WHEN candidate.response_value = 1 THEN 'pos.' ELSE CASE WHEN candidate.response_value = 0 THEN 'neg.' ELSE ' ' END END END AS response_value," +
                     "CASE WHEN candidate.tracking = 1 THEN 'ja' ELSE 'nein' END AS tracking," +
                     "CASE WHEN candidate.response = 1 THEN 'ja |' ELSE 'nein' END AS response," +
                     "candidate.research, users.firstname as sourcerName, candidate.sourcer " +
-                    "FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
-                    "LEFT JOIN team ON team.id = candidate.team_id " +
-                    "LEFT JOIN city_group ON team.city_group = city_group.id " +
-                    "LEFT JOIN users ON candidate.sourcer = users.id";
+                    " FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
+                    "LEFT JOIN users ON candidate.sourcer = users.id " +
+                    filterquery;
 
-                var countCandidateQuery = "SELECT COUNT(candidate.id) as countCandidate FROM candidate";
+                var countCandidateQuery = "SELECT COUNT(candidate.id) as countCandidate FROM candidate WHERE candidate.rememberMe IS NOT NULL";
 
                 var parameter = [];
                 var moreParameter = false;
@@ -941,19 +940,19 @@
 
 
                 if (showusercandidates) {
-                    candidatequery = candidatequery + " WHERE candidate.sourcer= ?";
-                    countCandidateQuery = countCandidateQuery + " WHERE sourcer= ?";
+                    filterquery = filterquery + " AND candidate.sourcer= ?";
+                    countCandidateQuery = countCandidateQuery + " AND sourcer= ?";
                     parameter = [req.session.userid];
                     moreParameter = true;
                 }
                 
                 if (filter_month != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND MONTH(candidate.rememberme) = " + getDateString(getMonth(filter_month));
-                        countCandidateQuery = countCandidateQuery + " AND MONTH(candidate.rememberme) <= " + getDateString(getMonth(filter_month));
+                        filterquery = filterquery + " AND MONTH(candidate.rememberMe) = " + new Date(filter_month).getMonth();
+                        countCandidateQuery = countCandidateQuery + " AND MONTH(candidate.rememberMe) = " + new Date(filter_month).getMonth();
                     } else {
-                        candidatequery = candidatequery + " WHERE MONTH(candidate.rememberme) = " + getDateString(getMonth(filter_month));
-                        countCandidateQuery = countCandidateQuery + " WHERE MONTH(candidate.rememberme) <= " + getDateString(getMonth(filter_month));
+                        filterquery = filterquery + " AND MONTH(candidate.rememberMe) = " + new Date(filter_month).getMonth();
+                        countCandidateQuery = countCandidateQuery + " AND MONTH(candidate.rememberMe) = " + new Date(filter_month).getMonth();
                         moreParameter = true;
                     }
                 }

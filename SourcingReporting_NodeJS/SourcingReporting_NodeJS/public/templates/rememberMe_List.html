@@ -1,19 +1,8 @@
-﻿<h1 class="page-header"><span class="oi oi-clock"></span>  RememberMe-Liste</h1>
-
-<script src="js/sourcing/loadingScreen.js"></script>
-
-
+﻿<h1 class="page-header"><span class="oi oi-clock"></span>  RememberMe - Liste</h1>
 
 <div id="candidatesContent" class="panel panel-default">
-    <!-- Default panel contents -->
-    <div class="panel-heading pb-2">
-        <a href="#!candidate/new" class="btn btn-info">
-            <span class="oi oi-plus" aria-hidden="true"></span> neuer Kandidat
-        </a>
-    </div>
-
-
-    <div>
+   
+    <div class="filter_header">
         
 
         <div class="panel-heading pb-2 pt-2 pr-2">
@@ -23,27 +12,35 @@
 
         </div>
 
-        <div class="panel-heading pb-2 pt-2">
-            <span class="showusercandidates pr-3 alert alert-info mr-1 sourcing-width-250">
-                <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" /> Zeige nur meine Kandidaten
-            </span>
-        </div>
         <div>
-            <div class="input-group-addon alert-info sourcing-width-250">Monat </div>
-            <input class="form-control sourcing-width-250" type="month" id="filter_month" ng-model="filter_moth" />
-        </div>        
 
+                <div class="input-group mt-4 w-75">
+                    <span class="showusercandidates alert alert-info sourcing-w-30">
+                        <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" /> Zeige nur meine Kandidaten
+                    </span>
+                  
+                        <div class="input-group-addon alert-info sourcing-w-20 sourcing-h-50 ml-2 round_div">Monat</div>
+                        <input type="month" class="form-control w-25 sourcing-h-50" id="filter_month" ng-model="filter_month" />
+                
+                </div>
+
+
+            <div ng-click="resetFilter()" class="btn btn-danger padding-buttons">
+                <span class="oi oi-x" aria-hidden="true"></span> Filter zurücksetzen
+            </div>
+            <div ng-click="filterCandidates()" class="btn btn-info padding-buttons">
+                <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Filtern
+            </div>
+
+        </div>
 
 
 
     </div>
 
-    <div>
-        <br /><br />
-        <h6><span class="badge badge-info">{{countCandidate.countCandidate}}</span> Kandidaten in der Datenbank</h6>
-    </div>
+   
 
-    <div class="panel-body">
+    <div class="panel-body mt-4">
         <table id="candidates" class="table sortable">
             <thead>
                 <tr>
@@ -55,12 +52,12 @@
                     <th>beobachten</th>
                     <th>Response</th>
                     <th>Telefon-Notiz</th>
-                   
+                    <th>RememberMe</th>
                     <th aria-sort="descending">Research</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <tr ng-repeat="c in candidates">
+                <tr ng-repeat="c in candidate">
                     <td>{{c.id}}</td>
                     <td><b>{{c.sourcerName}}</b></td>
                     <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
@@ -71,23 +68,13 @@
                     <td>{{c.tracking}}</td>
                     <td>{{c.response}} {{c.response_value}}</td>
                     <td class="sorttable_numeric" sorttable_customkey="{{c.telnotice | date: 'yyyyMMddHHmmss'}}">{{c.telnotice | date: 'dd.MM.yyyy'}}</td>
-                  
+                    <td class="sorttable_numeric" sorttable_customkey="{{c.rememberMe | date: 'yyyyMMddHHmmss'}}">{{c.rememberMe | date: 'dd.MM.yyyy'}}</td>
                     <td>{{c.research | date: 'dd.MM.yyyy'}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-
-
-
-
-
-<div id="loadingCircles">
-    <div class="circle"></div>
-    <div class="circle1"></div>
-</div>
-
 
 
 
