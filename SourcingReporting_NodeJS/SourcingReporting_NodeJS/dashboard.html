@@ -63,6 +63,12 @@
                 <form class="form-inline mt-2 mt-md-0">
                     <a class="navbar-brand" href="#!userdetail">{{user.firstname + ' ' + user.lastname}} <span class="oi oi-cog" aria-hidden="true"></span></a>
                 </form>
+
+           
+                <form class="form-inline mt-2 mt-md-0">
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit" ng-click="logout()"><span class="oi oi-account-logout" aria-hidden="true"></span> Logout</button>
+                </form>
+
                 <!--
                 <form class="form-inline mt-2 mt-md-0">
                     <input class="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search">
@@ -136,17 +142,17 @@
                     </div>
                 </ul>
 
-                <ul class="nav nav-pills flex-column sidebar-margin logoutdiv">
+                <!--<ul class="nav nav-pills flex-column sidebar-margin logoutdiv">
                     <li class="nav-item">
                         <button class="btn btn-outline-info my-2 my-sm-0" type="submit" ng-click="logout()"><span class="oi oi-account-logout" aria-hidden="true"></span> Logout</button>
                     </li>
-                </ul>
+                </ul>-->
 
 
 
             </nav>
             <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3 main-margin">
-                <div id="releaseInfo" class="releaseInfo"><h3>Neues Release kommt!</h3> Das Sourcing Tool ist planmäßig am Mo, 04.06.2018 von 7:00 - 12:00 offline. <br/>Danke für dein Verständnis!<br /><strong>Happy Sourcing :)</strong></div>
+                <div id="releaseInfo" class="releaseInfo"><h3>Neues Release kommt!</h3> Das Sourcing Tool ist planmäßig am Fr, 11.05.2018 von 7:00 - 12:00 offline. <br/>Danke für dein Verständnis!<br /><strong>Happy Sourcing :)</strong></div>
                 <div ng-view></div>
 
             </main>

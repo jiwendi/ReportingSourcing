@@ -30,6 +30,7 @@
 
                 var showusercandidates = req.body.showusercandidates;
                 var showTracking = req.body.showTracking;
+                var showRequest = req.body.showRequest;
                 var from_telnotice = req.body.from_telnotice;
                 var to_telnotice = req.body.to_telnotice;
                 var from_intern = req.body.from_intern;
@@ -60,6 +61,17 @@
                         countCandidateQuery = countCandidateQuery + " WHERE tracking=1";
                         moreParameter = true;
                     }   
+                }
+
+                if (showRequest) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.request=0";
+                        countCandidateQuery = countCandidateQuery + " AND request=0";
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.request=0";
+                        countCandidateQuery = countCandidateQuery + " WHERE request=0";
+                        moreParameter = true;
+                    }
                 }
 
                 if (from_telnotice != false) {
@@ -915,7 +927,23 @@
             if (req.session.userid) {
                 var regsuc = false;
                 var message = "";
-                var filterquery = " WHERE candidate.rememberMe IS NOT NULL ";
+                var filterquery = " WHERE candidate.rememberMe IS NOT NULL";
+                var countCandidateQuery = "SELECT COUNT(candidate.id) as countCandidate FROM candidate WHERE candidate.rememberMe IS NOT NULL";
+                
+                var showusercandidates = req.body.showusercandidates;
+                var filter_month = req.body.filter_month;
+                var userid = req.session.userid;
+                
+                if (showusercandidates) {
+                    filterquery = filterquery + " AND candidate.sourcer= " + userid + "";
+                    countCandidateQuery = countCandidateQuery + " AND sourcer= " + userid + "";  
+                }
+                
+                if (filter_month != false) {
+                    filterquery = filterquery + " AND MONTH(candidate.rememberMe) = " + filter_month + "";
+                    countCandidateQuery = countCandidateQuery + " AND MONTH(candidate.rememberMe) = " + filter_month + "";
+                }
+
                 var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberMe, " +
                     "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
                     "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR," +
@@ -927,43 +955,14 @@
                     " FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
                     "LEFT JOIN users ON candidate.sourcer = users.id " +
                     filterquery;
-
-                var countCandidateQuery = "SELECT COUNT(candidate.id) as countCandidate FROM candidate WHERE candidate.rememberMe IS NOT NULL";
-
-                var parameter = [];
-                var moreParameter = false;
-
-                var showusercandidates = req.body.showusercandidates;
-                var filter_month = req.body.filter_month;
-
-
-
-
-                if (showusercandidates) {
-                    filterquery = filterquery + " AND candidate.sourcer= ?";
-                    countCandidateQuery = countCandidateQuery + " AND sourcer= ?";
-                    parameter = [req.session.userid];
-                    moreParameter = true;
-                }
                 
-                if (filter_month != false) {
-                    if (moreParameter) {
-                        filterquery = filterquery + " AND MONTH(candidate.rememberMe) = " + new Date(filter_month).getMonth();
-                        countCandidateQuery = countCandidateQuery + " AND MONTH(candidate.rememberMe) = " + new Date(filter_month).getMonth();
-                    } else {
-                        filterquery = filterquery + " AND MONTH(candidate.rememberMe) = " + new Date(filter_month).getMonth();
-                        countCandidateQuery = countCandidateQuery + " AND MONTH(candidate.rememberMe) = " + new Date(filter_month).getMonth();
-                        moreParameter = true;
-                    }
-                }
-                
-                db.query(candidatequery, parameter, function (candErr, candResult, candFields) {
+                db.query(candidatequery, function (candErr, candResult, candFields) {
                     if (candErr) {
                         sendResponse(res, false, "Fehler beim Ausführen des Query (RememberMe) - " + candErr);
                         throw candErr;
                     }
 
-                    db.query(countCandidateQuery, parameter, function (countErr, countResult, countFields) {
+                    db.query(countCandidateQuery, function (countErr, countResult, countFields) {
                         if (countErr) {
                             sendResponse(res, false, "Fehler beim Ausführen des Query (RememberMe - Count) - " + countErr);
                             throw countErr;

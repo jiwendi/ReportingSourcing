@@ -295,6 +295,12 @@ app.controller('navBarController', function ($scope, $http) {
         $scope.wig = response.data.data.wig;
     });
 
+    $scope.logout = function () {
+        $http.post('user/logout').then(function (response) {
+            window.location = 'login.html';
+        });
+    };
+
 });
 
 /**
@@ -306,9 +312,9 @@ app.controller('sideBarController', function ($scope, $http) {
         $scope.timeinfo = response.data.data;
     });
 
-    $scope.logout = function () {
-        $http.post('user/logout').then(function (response) {
-            window.location = 'login.html';
-        });
-    };
+    //$scope.logout = function () {
+    //    $http.post('user/logout').then(function (response) {
+    //        window.location = 'login.html';
+    //    });
+    //};
 });

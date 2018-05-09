@@ -7,6 +7,7 @@ app.controller('candidatesController', function ($scope, $http) {
 
     var showusercandidates = false;
     var showTracking = false;
+    var showRequest = false;
 
     var from_telnotice = false;
     var to_telnotice = false;
@@ -24,35 +25,7 @@ app.controller('candidatesController', function ($scope, $http) {
     var to_hire = false;
 
     $scope.resetFilter = function () {
-        //$('#from_telnotice').val("");
-        //$('#to_telnotice').val("");
-
-        //$('#from_intern').val("");
-        //$('#to_intern').val("");
-
-        //$('#from_extern').val("");
-        //$('#to_extern').val("");
-
-        //$('#from_research').val("");
-        //$('#to_research').val("");
-
-        //$('#from_hire').val("");
-        //$('#to_hire').val("");
-
-        //$('#showusercandidates').removeAttr('checked');
-        //$('#showTracking').removeAttr('checked');
-
-
-        //$http.post('candidates/get', {
-        //    showusercandidates: showusercandidates, showTracking: showTracking, from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
-        //    from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire
-        //}).then(function (response) {
-        //    $scope.candidates = response.data.data.candidate;
-        //    $scope.countCandidate = response.data.data.countCandidate;
-        //    });
-
         location.reload();
-
     };
 
     $scope.filterCandidates = function () {
@@ -63,6 +36,10 @@ app.controller('candidatesController', function ($scope, $http) {
 
         if ($scope.showTracking) {
             showTracking = true;
+        }
+
+        if ($scope.showRequest) {
+            showRequest = true;
         }
 
         if ($scope.from_telnotice != undefined) {
@@ -109,7 +86,7 @@ app.controller('candidatesController', function ($scope, $http) {
 
         $http.post('candidates/get', {
             showusercandidates: showusercandidates, showTracking: showTracking, from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
-            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire
+            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire, showRequest: showRequest
         }).then(function (response) {
             $scope.candidates = response.data.data.candidate;
             $scope.countCandidate = response.data.data.countCandidate;
@@ -658,7 +635,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
 
 app.controller('rememberMeListController', function ($scope, $http) {
-    $scope.filterMonth = 5;
+    $scope.filterMonth = $('#filter_month').val().substring(5);
 
 
     var filter_month = false;
@@ -669,25 +646,24 @@ app.controller('rememberMeListController', function ($scope, $http) {
     };
 
     $scope.filterCandidates = function () {
-        alert($('#filter_month').val());
-
+        var fm = $('#filter_month').val();
+        
         if ($scope.showusercandidates) {
-            showusercandidates = 1;
+            showusercandidates = true;
         } else {
-            showusercandidates = 0;
+            showusercandidates = false;
         }
 
         if ($scope.filterMonth != undefined) {
-            filter_month = toLocalDate($('#filter_month').val());
+            filter_month = fm.substring(5);
         } else {
             filter_month = new Date().getMonth();
         }
-
+        
         $http.post('candidate/rememberMeList', {
-            filter_month: filter_month, usercandidates: showusercandidates
+            filter_month: filter_month, showusercandidates: showusercandidates
         }).then(function (response) {
-            $scope.candidate = response.data.data.candidate;
-           
+            $scope.candidate = response.data.data.candidate;    
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
         });
@@ -708,7 +684,7 @@ app.controller('rememberMeListController', function ($scope, $http) {
         tr = tbody.getElementsByTagName("tr");
 
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
+            td = tr[i].getElementsByTagName("td")[2];
             if (td) {
                 if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
@@ -728,7 +704,27 @@ app.controller('rememberMeListController', function ($scope, $http) {
         tr = tbody.getElementsByTagName("tr");
 
         for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
+            td = tr[i].getElementsByTagName("td")[4];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    };
+
+    $scope.searchSource = function () {
+        var input, filter, table, tbody, tr, td, i;
+        input = document.getElementById("inputSource");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("candidates");
+        tbody = document.getElementById("tableBody");
+        tr = tbody.getElementsByTagName("tr");
+
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
             if (td) {
                 if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
