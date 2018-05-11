@@ -263,11 +263,10 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         }
 
         if ($('#rememberme').val() == '') {
-            $scope.rememberme = '0000-00-00';
+            $scope.rememberme = null;
         } else {
             $scope.rememberme = $('#rememberme').val();
         }
-        
         
         $http.post('candidate/save', {  
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.source,
