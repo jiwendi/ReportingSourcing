@@ -142,7 +142,7 @@
           * Candidate delete
           */
         app.post('/candidateER/delete', function (req, res) {
-            if (req.session.userid && req.session.admin) {
+            if (req.session.userid) {
                 var message = "";
                 var suc = false;
 

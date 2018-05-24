@@ -142,6 +142,10 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/statistics/weeklyNumbers.html',
                 controller: 'statisticsWeeklyNumbersController'
             }).
+            when('/responseValues', {
+                templateUrl: 'templates/statistics/responseValues.html',
+                controller: 'responseValuesController'
+            }).
             //WIG
             when('/wigs', {
                 templateUrl: 'templates/wigs.html',
@@ -158,6 +162,11 @@ app.config(['$routeProvider',
             when('/wigdetail/:wigid', {
                 templateUrl: 'templates/wigdetail.html',
                 controller: 'wigdetailController'
+            }).
+            //myDashboard
+            when('/myDashboard', {
+                templateUrl: 'templates/personalDashboard.html',
+                controller: 'personalDashboardController'
             }).
             //Standard: Candidate List
             otherwise({ redirectTo: '/candidates' });

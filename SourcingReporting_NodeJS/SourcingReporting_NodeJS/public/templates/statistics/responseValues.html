@@ -1,0 +1,88 @@
+﻿<h1 class="page-header"><span class="oi oi-bar-chart"></span>  Statistiken</h1>
+
+<div class="panel panel-default">
+   
+    <h3>Response-Values</h3>
+    <br />
+    
+    <div class="filter pt-2">
+        <div class="header btn btn-info"> Filter einblenden</div>
+        <div class="content">
+            <table class="table w-50">
+                <tr>
+                    <td>
+                        <div class="input-group-addon alert-info sourcing-width-250">von </div>
+                        <input class="form-control sourcing-width-250" type="date" id="from" ng-model="from" />
+                    </td>
+                    <td>
+                        <div class="input-group-addon alert-info sourcing-width-250">bis </div>
+                        <input class="form-control sourcing-width-250" type="date" id="to" ng-model="to" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div ng-click="resetFilter()" class="btn btn-danger">
+                            <span class="oi oi-x" aria-hidden="true"></span> Filter zurücksetzen
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-click="update()" class="btn btn-info">
+                            <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Filtern
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+    <br /><br />
+    <div id="filterAnzeige">
+        <h4>aktuelle Darstellung: </h4>
+        <p>Jahr: <b>{{yearToFilter}}</b><br />
+           Zeitraum: <b>{{filterFrom | date: 'dd.MM.yyyy'}} - {{filterTo | date: 'dd.MM.yyyy'}}</b>
+        </p>
+    </div>
+    <div class="chart-container w-75" id="ChartDiv">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <br />
+    <br />
+    <table id="requests" class="table w-75 card-float">
+        <thead>
+            <tr>
+                <th>Ansprachen</th>
+                <th>Response gesamt</th>
+                <th>Response positiv</th>
+                <th>Response negativ</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr ">
+                <td>{{responseValues.ansprachen}}</td>
+                <td>{{responseValues.response_gesamt}} ({{100 / responseValues.ansprachen * responseValues.response_gesamt | number: 2}}%)</td>
+                <td>{{responseValues.positiveResponse}} ({{100 / responseValues.response_gesamt * responseValues.positiveResponse | number: 2}}%)</td>
+                <td>{{responseValues.negativeResponse}} ({{100 / responseValues.response_gesamt * responseValues.negativeResponse | number: 2}}%)</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    
+    
+</div>
+
+<script>
+
+    $(".header").click(function () {
+        $header = $(this);
+        $content = $header.next();
+        $content.slideToggle(500, function () {
+            $header.text(function () {
+                return $content.is(":visible") ? "Filter einklappen" : "Filter einblenden";
+            });
+        });
+    });
+</script>

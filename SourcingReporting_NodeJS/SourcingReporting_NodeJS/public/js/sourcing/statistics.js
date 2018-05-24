@@ -910,3 +910,112 @@ app.controller('statisticsWeeklyNumbersController', function ($scope, $http) {
     
 
 });
+
+
+app.controller('responseValuesController', function ($scope, $http) {
+    $scope.message = "";
+    $scope.iserrmessage = false;
+
+    $scope.yearToFilter = THIS_YEAR;
+    $scope.filterFrom = FILTER_FROM;
+    $scope.filterTo = FILTER_TO;
+
+    $scope.resetFilter = function () {
+        location.reload();
+    };
+
+    $scope.update = function () {
+
+        $scope.filterFrom = $('#from').val();
+
+        if (!$scope.filterFrom)
+        {
+            $scope.filterFrom = FILTER_FROM;
+        }
+       
+        $scope.filterTo = $('#to').val();
+
+        if (!$scope.filterTo) {
+            $scope.filterTo = FILTER_TO;
+        }
+
+
+        $http.post('stat/responseValues', { yearToFilter: $scope.yearToFilter, filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+            $scope.responseValues = response.data.data;
+            $scope.message = response.data.message;
+            $scope.iserrmessage = !response.data.success;
+
+            $scope.percentage = [];
+            $scope.percentage.push(100);
+            $scope.percentage.push((100 / $scope.responseValues.ansprachen * $scope.responseValues.response_gesamt).toFixed(2));
+            $scope.percentage.push((100 / $scope.responseValues.response_gesamt * $scope.responseValues.positiveResponse).toFixed(2));
+            $scope.percentage.push((100 / $scope.responseValues.response_gesamt * $scope.responseValues.negativeResponse).toFixed(2));
+
+
+
+            var ctx = $('#myChart');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                yAxisID: 'y-axis-1',
+                data: {
+                    labels: ['Ansprachen', 'Response-Gesamt', 'Response-Positiv', 'Response-Negativ'],
+                    datasets: [{
+                        label: 'Absolute Zahlen',
+                        data: [$scope.responseValues.ansprachen, $scope.responseValues.response_gesamt, $scope.responseValues.positiveResponse, $scope.responseValues.negativeResponse  ],
+                        backgroundColor: getColor('red'),
+                        borderColor: getColor('red'),
+                        borderWidth: 1
+                    },  {
+                            label: 'Prozent',
+                            yAxisID: 'y-axis-2',
+                            data: $scope.percentage,
+                            fill: false,
+                            type: 'line',
+                            backgroundColor: getColor('yellow'),
+                            borderColor: getColor('yellow'),
+                            borderWidth: 3
+                    }]
+                },
+                options: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltips: {
+                        mode: 'x'
+                    },
+                    scales: {
+                        yAxes: [{
+                            type: 'linear',
+                            display: true, 
+                            position: 'left',
+                            id: 'y-axis-1',
+                            ticks: {
+                                suggestedMin: 0,
+                                suggestedMax: 10
+                            }
+                        }, {
+                                type: 'linear',
+                                display: true,
+                                position: 'right',
+                                id: 'y-axis-2',
+                                gridLines: {
+                                    drawOnChartArea: false
+                                },
+                                ticks: {
+                                    suggestedMin: 0,
+                                    suggestedMax: 100
+                                }
+                            }]
+                    }
+                }
+
+            }); //ende myChart
+
+        });
+
+    };
+
+    $scope.update();
+
+
+});

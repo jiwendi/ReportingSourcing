@@ -412,5 +412,41 @@
             });
         });
 
+        //ToDO: Release 1.4 Statistik Response Positiv/Negativ
+        /*
+        SELECT COUNT(*) as response_gesamt,
+        (SELECT COUNT(*) FROM epunkt_Sourcing.candidate WHERE response = 1 AND response_value = 1 AND YEAR(research)=2018) as positiveResponse,
+        (SELECT COUNT(*) FROM epunkt_Sourcing.candidate WHERE response = 1 AND response_value = 0 AND YEAR(research)=2018) as negativeResponse,
+        (SELECT COUNT(*) FROM epunkt_Sourcing.candidate WHERE request = 1 AND YEAR(research)=2018) as ansprachen
+        FROM epunkt_Sourcing.candidate
+        WHERE response = 1 and research >= '2018-01-01' AND research <= '2018-12-31'
+        */
+        
+        app.post('/stat/responseValues', function (req, res) {
+            var query = "SELECT COUNT(*) as response_gesamt, " +
+                "(SELECT COUNT(*) FROM epunkt_Sourcing.candidate WHERE response = 1 AND response_value = 1 AND YEAR(research) = ?) as positiveResponse, " +
+                "(SELECT COUNT(*) FROM epunkt_Sourcing.candidate WHERE response = 1 AND response_value = 0 AND YEAR(research) = ?) as negativeResponse, " +
+                "(SELECT COUNT(*) FROM epunkt_Sourcing.candidate WHERE request = 1 AND YEAR(research)=?) as ansprachen " +
+                "FROM epunkt_Sourcing.candidate " +
+                "WHERE response = 1 and research >= ? AND research <= ? LIMIT 1";
+
+            var yearToFilter = req.body.yearToFilter; // Variable löschen und Jahr aus filterFrom/filterTo herausnehmen
+
+            var parameter = [yearToFilter, yearToFilter, yearToFilter, req.body.filterFrom, req.body.filterTo];
+            var message = "";
+
+            db.query(query, parameter, function (err, rows, fields) {
+                if (err) {
+                    sendResponse(res, false, err);
+                    throw err;
+                }
+                
+                sendResponse(res, true, "", rows[0]);
+
+            });
+        });
+
+
+
     } //end setup-function
 }; //end module.exports

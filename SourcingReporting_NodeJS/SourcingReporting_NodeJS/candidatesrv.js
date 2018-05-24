@@ -303,7 +303,7 @@
           * Candidate delete
           */
         app.post('/candidate/delete', function (req, res) {
-            if (req.session.userid && req.session.admin) {
+            if (req.session.userid) {
                 var message = "";
                 var suc = false;
 
@@ -678,6 +678,7 @@
                 var suc = false;
                 var message = "";
                 var update = "";
+                var parameter = [];
 
                 if (req.body.id == null) {
                     message = "Keine KandidatenID übertragen!";
@@ -685,9 +686,15 @@
                     suc = true;
                 }
 
+                if (req.body.response == 0) {
+                    parameter = [req.body.tracking, req.body.request, req.body.response, null, req.body.id];
+                } else {
+                    parameter = [req.body.tracking, req.body.request, req.body.response, req.body.response_value, req.body.id];
+                }
+                
                 if (suc) {
                     db.query("UPDATE candidate SET tracking = ?, request = ?, response = ?, response_value = ? WHERE id = ?",
-                        [req.body.tracking, req.body.request, req.body.response, req.body.response_value, req.body.id],
+                        parameter,
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim UPDATE-Candidate (Options)! " + err;
@@ -815,7 +822,7 @@
         //});
 
         /**
-        * Candidate Time-Infos
+        * Candidate Time-Infos Sidebar
         */
         app.get('/candidate/timeinfo', function (req, res) {
             if (req.session.userid) {
@@ -832,7 +839,7 @@
                     "AVG(ABS(DATEDIFF(research, extern))) AS timetoextern, " +
                     "AVG(ABS(DATEDIFF(research, hire))) AS timetohire " +
                     "FROM candidate " +
-                    "WHERE DATE(research) > (NOW() - INTERVAL 6 MONTH)";
+                    "WHERE DATE(research) > (NOW() - INTERVAL 12 MONTH)";
 
                 db.query(timequery, function (err, rows, fields) {
                     if (err) throw err;
