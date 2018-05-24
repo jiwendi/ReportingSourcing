@@ -628,6 +628,7 @@
     <Content Include="public\images\Roman_LinkedIn.jpg" />
     <Content Include="public\images\Valerie_LinkedIn.jpg" />
     <Content Include="public\images\Wolfgang_LinkedIn.jpg" />
+    <Content Include="public\404page.html" />
     <Content Include="public\login.html">
       <SubType>Code</SubType>
     </Content>
@@ -646,6 +647,7 @@
     <Content Include="public\templates\sourcedetail.html" />
     <Content Include="public\templates\sourcenew.html" />
     <Content Include="public\templates\sources.html" />
+    <Content Include="public\templates\personalDashboard.html" />
     <Content Include="public\templates\statistics\hireList.html" />
     <Content Include="public\templates\statistics\responseValues.html" />
     <Content Include="public\templates\statistics\weeklyNumbers.html" />
