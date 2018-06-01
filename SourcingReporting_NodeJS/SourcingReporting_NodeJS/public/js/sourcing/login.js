@@ -10,7 +10,7 @@ app.controller('loginController', function ($scope, $http) {
             if (response.data.success) {
                 window.location = '/dashboard';
             } else {
-                $scope.message = "Email oder Passwort falsch! \n Wenn du dein Passwort vergessen hast wende dich bitte an Viki :)";
+                $scope.message = response.data.message;
             }
         });
     }

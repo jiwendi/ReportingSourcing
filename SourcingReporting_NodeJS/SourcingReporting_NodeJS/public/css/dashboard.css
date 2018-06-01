@@ -269,16 +269,22 @@ a:hover{
     align-content: flex-start;
 }
 
-.birthday {
+.birthdayParent {
     position: absolute;
     top: 20px;
     right: 20px;
+}
+
+.birthday {
+    position: relative;
+    margin: 10px;
     border-color: #495057;
     border-style: solid;
     border-width: 3px;
     padding: 10px;
     background-color: #b9e3e9;
 }
+
 
 .wdselect {
     width: 100%;

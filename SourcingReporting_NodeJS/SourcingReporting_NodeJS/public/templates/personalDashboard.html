@@ -1,15 +1,36 @@
 ﻿<h1 class="page-header"><span class="oi oi-home"></span>  MyDashboard</h1>
+<div class="alert alert-danger top-right" role="alert" ng-show="message && iserrmessage">
+    <span class="oi oi-flash" aria-hidden="true"></span>
+    {{message}}
+</div>
+
+<div class="alert alert-success top-right" role="alert" ng-show="message && !iserrmessage">
+    <span class="oi oi-check" aria-hidden="true"></span>
+    {{message}}
+</div>
 
 <div class="panel panel-default">
     <br />
-    <h5>Hallo Viktoria!</h5>
+    <h5>{{greetings}} {{user.firstname}}!</h5>
 
+    <table>
+        <tr>
+            <td>
+                <div class="panel-heading mr-2">
+                    <a href="#!candidate/new" class="btn btn-info">
+                        <span class="oi oi-plus" aria-hidden="true"></span> neuer Kandidat
+                    </a>
+                </div>
+            </td>
+            <td>
+                <div class="input-group w-20">
+                    <div class="input-group-addon alert-info w-50">Jahr </div>
+                    <input class="form-control w-50" type="number" id="yearToFilter" ng-model="yearToFilter" min="2017" value="2018" ng-change="update()" />
+                </div>
+            </td>
+        </tr>
 
-    <div class="panel-heading pb-2">
-        <a href="#!candidate/new" class="btn btn-info">
-            <span class="oi oi-plus" aria-hidden="true"></span> neuer Kandidat
-        </a>
-    </div>
+    </table>
 
     <div class="float-overflow">
 
@@ -19,14 +40,14 @@
                 <table id="requests" class="table">
                     <thead>
                         <tr>
-                            <th>Ansprachen gesamt 2018</th>
+                            <th>Ansprachen gesamt {{yearToFilter}}</th>
 
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td align="center">
-                                <h1>3229</h1>
+                                <h1>{{allRequests.requests}}</h1>
                             </td>
                         </tr>
                     </tbody>
@@ -41,22 +62,22 @@
                 <table id="requests" class="table">
                     <thead>
                         <tr>
-                            <th>Mein Jahr 2018</th>
+                            <th>Mein Jahr {{yearToFilter}}</th>
                             <th>Anzahl</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Ansprachen</td>
-                            <td>xx (xx nicht)</td>
+                            <td>{{myYear.request.request}} ({{myYear.request.request / allRequests.requests * 100 | number:2}} %)</td>
                         </tr>
                         <tr>
                             <td>Telefon-Notizen</td>
-                            <td>xxx</td>
+                            <td>{{myYear.telNotice.telnotice}}</td>
                         </tr>
                         <tr>
                             <td>Besetzungen</td>
-                            <td>xxx</td>
+                            <td>{{myYear.hires.hire}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -76,73 +97,39 @@
                     <tbody>
                         <tr>
                             <td>Ansprachen</td>
-                            <td>xx (xx nicht)</td>
+                            <td>{{myWeek.request.request}}</td>
                         </tr>
                         <tr>
                             <td>Telefon-Notizen</td>
-                            <td>xx</td>
+                            <td>{{myWeek.telnotice.telnotice}}</td>
                         </tr>
                         <tr>
                             <td>Besetzungen</td>
-                            <td>xx</td>
+                            <td>{{myWeek.hires.hire}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
+
 
         <div class="card sourcing-w-30 card-float2 m-2">
-            <img class="card-img-top" src="../../images/EP-Link-Profil-9.jpg" alt="Card image cap">
+            <img class="card-img-top" src="../../images/Johanna_LinkedIn.jpg" alt="Card image cap">
             <div class="card-block">
                 <table id="requests" class="table">
                     <thead>
                         <tr>
-                            <th>RememberMe - Mai 2018</th>
+                            <th>RememberMe - {{monthName}}</th>
                             <th> </th>
                             <th> </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Name</td>
-                            <td>eR</td>
-                            <td>Datum</td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>eR</td>
-                            <td>Datum</td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>eR</td>
-                            <td>Datum</td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>eR</td>
-                            <td>Datum</td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>eR</td>
-                            <td>Datum</td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>eR</td>
-                            <td>Datum</td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>eR</td>
-                            <td>Datum</td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td>eR</td>
-                            <td>Datum</td>
+                        <tr ng-repeat="c in candidate">
+                            <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                            <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
+                            <td ng-if="c.eR == null"> </td>
+                            <td class="sorttable_numeric" sorttable_customkey="{{c.rememberMe | date: 'yyyyMMddHHmmss'}}">{{c.rememberMe | date: 'dd.MM.yyyy'}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -150,11 +137,10 @@
         </div>
 
     </div>
-    <div class="birthday">
-
-        <b>Vorname</b> hat heute Geburtstag! <img src="../images/gift.png" width="30px" />
-
+    <div class="birthdayParent">
+        <div class="birthday" ng-repeat="b in birthdays">
+            <b>{{b.firstname}}</b> hat heute Geburtstag! <img src="../images/gift.png" width="30" />
+        </div>
     </div>
-
 
 </div>

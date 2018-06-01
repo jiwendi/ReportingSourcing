@@ -1,106 +1,7 @@
 ﻿<h1 class="page-header"><span class="oi oi-bar-chart"></span>  Statistiken</h1>
 
-<div class="panel panel-default">
-   <!--
-    <div class="panel panel-body m-4 w-25">
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info sourcing-width-150">Start</div>
-            <input type='date' class="form-control sourcing-width-150" id="start" name="start" ng-model="start" value="{{ start | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateBegin()"/>
-        </div>
-
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info sourcing-width-150">Ende</div>
-            <input type='date' class="form-control sourcing-width-150" id="end" name="end" ng-model="end" value="{{ end | date: 'yyyy-MM-dd' }}" ng-model-options="{timezone:'UTC'}" ng-blur="updateEnd()" />
-        </div>
-    </div>
--->
-    
-    <div class="input-group sourcing-w-20 ml-2">
-        <div class="input-group-addon alert-info sourcing-width-150">Jahr </div>
-        <input class="form-control" type="number" id="yearToFilter" ng-model="yearToFilter" min="2016" value="2018" ng-change="update()" />
-    </div>
-
-    <div class="card sourcing-w-20 card-float m-2">
-        <img class="card-img-top" src="../../images/Bojan_LinkedIn.jpg" alt="Card image cap">
-        <div class="card-block">
-            <table id="requests" class="table">
-                <thead>
-                    <tr>
-                        <th>Ansprachen gesamt {{yearToFilter}}</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td align="center">
-                            <h1>{{allRequests.requests}}</h1>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
-    </div>
-
-    <div class="card sourcing-w-20 card-float m-2">
-        <img class="card-img-top" src="../../images/Christopher_LinkedIn.jpg" alt="Card image cap">
-        <div class="card-block">
-            <table id="requests" class="table">
-                <thead>
-                    <tr>
-                        <th>Mein Jahr {{yearToFilter}}</th>
-                        <th>Anzahl</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ansprachen</td>
-                        <td>{{myYear.request.request}} ({{myYear.request.request / allRequests.requests * 100 | number:2}} %)</td>
-                    </tr>
-                    <tr>
-                        <td>Telefon-Notizen</td>
-                        <td>{{myYear.telNotice.telnotice}}</td>
-                    </tr>
-                    <tr>
-                        <td>Besetzungen</td>
-                        <td>{{myYear.hires.hire}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="card sourcing-w-20 card-float m-2">
-        <img class="card-img-top" src="../../images/EP-Link-Profil-9.jpg" alt="Card image cap">
-        <div class="card-block">
-            <table id="requests" class="table">
-                <thead>
-                    <tr>
-                        <th>Meine Woche</th>
-                        <th>Anzahl</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ansprachen</td>
-                        <td>{{myWeek.request.request}}</td>
-                    </tr>
-                    <tr>
-                        <td>Telefon-Notizen</td>
-                        <td>{{myWeek.telnotice.telnotice}}</td>
-                    </tr>
-                    <tr>
-                        <td>Besetzungen</td>
-                        <td>{{myWeek.hires.hire}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-
-
-
+<div class="panel panel-default float-overflow">
+   
     <div class="card sourcing-w-20 card-float m-2">
         <img class="card-img-top" src="../../images/Esther_LinkedIn.jpg" alt="Card image cap">
         <div class="card-block">
@@ -147,6 +48,21 @@
         </div>
     </div>
 
+    <div class="card sourcing-w-20 card-float m-2">
+        <img class="card-img-top" src="../../images/LinkedIn_Kathi-Roman.jpg" alt="Card image cap">
+        <div class="card-block">
+            <div class="card-body">
+                <h5 class="card-title">Übersicht Telefonnotizen</h5>
+                <p class="card-text">
+                    Übersicht der Telefonnotizen je Sourcer und Kalenderwoche
+                </p>
+                <a href="#!TelefonNotizen" class="btn btn-info">Statistik anzeigen</a><!-- #!TelefonNotice -->
+
+            </div>
+
+        </div>
+    </div>
+
 
     <div class="card sourcing-w-20 card-float m-2">
         <img class="card-img-top" src="../../images/LinkedIn_Esther_2.jpg" alt="Card image cap">
@@ -179,38 +95,6 @@
         </div>
     </div>
 
-
-    <div class="card sourcing-w-20 card-float m-2">
-        <img class="card-img-top" src="../../images/LinkedIn_Kathi-Roman.jpg" alt="Card image cap">
-        <div class="card-block">
-            <div class="card-body">
-                <h5 class="card-title">Übersicht Telefonnotizen</h5>
-                <p class="card-text">
-                   Übersicht der Telefonnotizen je Sourcer und Kalenderwoche
-                </p>
-                <a href="#!TelefonNotizen" class="btn btn-info">Statistik anzeigen</a><!-- #!TelefonNotice -->
-
-            </div>
-
-        </div>
-    </div>
-        
-    <div class="card sourcing-w-20 card-float m-2">
-        <img class="card-img-top" src="../../images/Maria_LinkedIn.jpg" alt="Card image cap">
-        <div class="card-block">
-            <div class="card-body">
-                <h5 class="card-title">Besetzungsliste</h5>
-                <p class="card-text">
-                    Übersicht der Besetzungen
-                </p>
-                <a href="#!hires" class="btn btn-info">Statistik anzeigen</a>
-
-            </div>
-
-        </div>
-    </div>
-
-
     <div class="card sourcing-w-20 card-float m-2">
         <img class="card-img-top" src="../../images/Wolfgang_LinkedIn.jpg" alt="Card image cap">
         <div class="card-block">
@@ -225,9 +109,5 @@
 
         </div>
     </div>
-
-
-
-  
 
 </div>

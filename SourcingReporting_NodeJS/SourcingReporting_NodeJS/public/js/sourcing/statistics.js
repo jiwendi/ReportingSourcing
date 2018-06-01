@@ -2,47 +2,6 @@
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    $scope.yearToFilter = $('#yearToFilter').val();
-
-    $scope.update = function () {
-        $scope.yearToFilter = $('#yearToFilter').val();
-
-        $http.post('statistics/requestsByYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
-            $scope.requestsFromSource = response.data.data.requestsFromSource;
-            $scope.allRequests = response.data.data.allRequests;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
-        });
-
-        $http.post('statistics/myYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
-            $scope.myYear = response.data.data;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
-        });
-    };
-
-    $http.post('statistics/requestsByYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
-        $scope.requestsFromSource = response.data.data.requestsFromSource;
-        $scope.allRequests = response.data.data.allRequests;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
-    });
-
-    $http.post('stat/myYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
-        $scope.myYear = response.data.data;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
-    });
-
-    $http.post('statistics/myWeek').then(function (response) {
-        $scope.myWeek = response.data.data;
-        $scope.myWeekRequest = response.data.data.request;
-        $scope.myWeekTelNotice = response.data.data.telnotice;
-        $scope.myWeekHires = response.data.data.hires;
-
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
-    });
 });
 
 app.controller('statisticsOverallAnalysisController', function ($scope, $http) {

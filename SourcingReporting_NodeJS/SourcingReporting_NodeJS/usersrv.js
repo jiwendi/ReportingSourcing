@@ -6,14 +6,11 @@
                 if (err) {
                     sendResponse(res, false, "Fehler beim Anmelden! " + err);
                 } else {
-                    var suc = false;
-
                     if (rows.length > 0 && rows[0].active == 1) {
                         req.session.userid = rows[0].id;
                         req.session.admin = rows[0].admin;
-                        suc = true;
                     }
-                    sendResponse(res, suc, "");
+                    sendResponse(res, true, "");
                 }
             });
         });
@@ -69,6 +66,23 @@
                         }
                     });
                 }
+            } else {
+                sendResponse(res, false, "Kein Benutzer eingeloggt!");
+            }
+        });
+
+        app.get('/user/getAllBirthdays', function (req, res) {
+            if (req.session.userid){
+                var query = "SELECT id, firstname, birthday from users WHERE active = 1 AND MONTH(birthday) = MONTH(sysdate()) AND DAY(birthday) = DAY(sysdate())";
+
+                db.query(query, function (err, result, fields) {
+                    if (err) {
+                        message = "Fehler beim Abfragen der Geburtstags-Daten! " + err;
+                        sendResponse(res, false, message);
+                    } else {
+                        sendResponse(res, true, "", result);
+                    }
+                });
             } else {
                 sendResponse(res, false, "Kein Benutzer eingeloggt!");
             }

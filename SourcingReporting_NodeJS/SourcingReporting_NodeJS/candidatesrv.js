@@ -873,5 +873,35 @@
                 sendResponse(res, false, "Kein Benutzer eingeloggt!");
             }
         });
+
+        app.post('/personalDashboard/myRememberMeListThisMonth', function (req, res) {
+            if (req.session.userid) {
+                var regsuc = false;
+                var message = "";
+                
+                var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberMe, " +
+                    "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
+                    "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR," +
+                    "CASE WHEN candidate.telnotice = '0000-00-00' THEN '-' ELSE candidate.telnotice END AS telnotice," +
+                    "CASE WHEN candidate.response_value = NULL THEN 'none' ELSE CASE WHEN candidate.response_value = 1 THEN 'pos.' ELSE CASE WHEN candidate.response_value = 0 THEN 'neg.' ELSE ' ' END END END AS response_value," +
+                    "CASE WHEN candidate.tracking = 1 THEN 'ja' ELSE 'nein' END AS tracking," +
+                    "CASE WHEN candidate.response = 1 THEN 'ja |' ELSE 'nein' END AS response," +
+                    "candidate.research, users.firstname as sourcerName, candidate.sourcer " +
+                    "FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
+                    "LEFT JOIN users ON candidate.sourcer = users.id " +
+                    "WHERE candidate.rememberMe IS NOT NULL AND candidate.sourcer = " + req.session.userid + " AND MONTH(candidate.rememberme) = MONTH(sysdate()) " +
+                    "ORDER BY candidate.rememberMe";
+
+                db.query(candidatequery, function (candErr, candResult, candFields) {
+                    if (candErr) {
+                        sendResponse(res, false, "Fehler beim Abfragen der Kandidaten aus der Datenbank! " + candErr);
+                    } else {
+                        sendResponse(res, true, "", candResult);
+                    }
+                });
+            } else {
+                sendResponse(res, false, "Kein Benutzer eingeloggt!");
+            }
+        });
     }
 };

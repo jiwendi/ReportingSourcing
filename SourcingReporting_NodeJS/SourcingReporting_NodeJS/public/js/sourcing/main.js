@@ -267,7 +267,7 @@ app.controller('dashboardController', function ($scope, $http) {
 });
 
 app.controller('navBarController', function ($scope, $http) {
-    $http.post('user/info').then(function (response) {
+    $http.post('user/showUserDetails').then(function (response) {
         $scope.user = response.data.data;
     });
 
