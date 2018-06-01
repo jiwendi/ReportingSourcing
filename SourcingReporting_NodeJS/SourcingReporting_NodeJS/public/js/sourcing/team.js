@@ -5,18 +5,12 @@ app.controller('teamsController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
     
-    /**
-     * get Team and Group Data for Team & Group Overview
-     */
-    $http.get('teams/get').then(function (response) {
+    $http.get('teams/showTeamOverview').then(function (response) {
         $scope.groups = response.data.data.groups;
         $scope.teams = response.data.data.teams;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
-    });
-
-    
-    
+    }); 
 });
 
 /**
@@ -28,9 +22,7 @@ app.controller('teamnewController', function ($scope, $http, $routeParams) {
     $scope.team = { teamname: "", gruppe: ""};
     $scope.gruppe = "";
 
-    //get Value from groupSelect
     $scope.showSelectValue = function (groupSelect) {
-       // console.log(groupSelect);
         $scope.gruppe = groupSelect;
     }
 
@@ -50,10 +42,9 @@ app.controller('teamnewController', function ($scope, $http, $routeParams) {
     /**
      * Get Group Data to fill into select
      */
-    $http.post('team/data').then(function (response) {
+    $http.post('team/getDataForSelect').then(function (response) {
         $scope.groups = response.data.data;
     });
-
 }); 
 
 
@@ -67,7 +58,7 @@ app.controller('teamdetailController', function ($scope, $http, $routeParams) {
     /**
      * get Teamdata to fill into Form for updating selected Team
      */
-    $http.post('team/info', { teamid: $routeParams.teamid }).then(function (response) {
+    $http.post('team/getDetailsForSelectedTeam', { teamid: $routeParams.teamid }).then(function (response) {
         $scope.team = response.data.data.team;
         $scope.gruppe = response.data.data.gruppe;
         $scope.iserrmessage = !response.data.sucess;
@@ -85,8 +76,6 @@ app.controller('teamdetailController', function ($scope, $http, $routeParams) {
 
         var selectGroup = $('#selectgroup');
         selectGroup.select2();
-
-        //console.log($scope.gruppe); //alle Gruppen
         
         selectGroup.val($scope.team.city_group);
         selectGroup.trigger("change");
@@ -94,8 +83,6 @@ app.controller('teamdetailController', function ($scope, $http, $routeParams) {
             var id = selectGroup.val();
             $scope.gruppe.id = id;
         });
-
-        
     });
 
     $scope.update = function () {
@@ -104,10 +91,7 @@ app.controller('teamdetailController', function ($scope, $http, $routeParams) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-
-    }; //end update Function
-       
-
+    };
 }); //end teamdetailController
 
 /**

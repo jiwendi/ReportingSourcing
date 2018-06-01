@@ -112,15 +112,15 @@ app.config(['$routeProvider',
             }).
             when('/reqestsToHire', {
                 templateUrl: 'templates/statistics/reqToHire.html',
-                controller: 'statisticsReqToHireController'
+                controller: 'statisticsOverallAnalysisController'
             }).
             when('/reqestsToHireFromPlattform', {
                 templateUrl: 'templates/statistics/reqToHirePlattform.html',
-                controller: 'statisticsReqToHirePlattformController'
+                controller: 'statisticsOverallAnalysisByPlattformController'
             }).
             when('/HiresInTeam', {
                 templateUrl: 'templates/statistics/hiresInTeams.html',
-                controller: 'statisticsHiresInTeamController'
+                controller: 'statisticsHiresByTeamController'
             }).
             when('/ResponseRate', {
                 templateUrl: 'templates/statistics/responseRate.html',
@@ -188,33 +188,15 @@ var toLocalDate = function (date) {
 };
 
 var toLocalDate = function (date, offset) {
-
     return moment(date).add(offset, 'hours').toDate();
 };
 
-//wird nicht verwendet - war zum testen wegen sortieren der Datum in der Kandidatenübersicht (funktionert nicht)
-var dateTransform = function (date) {
-    var date = new Date(date);
-
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-
-    if (month < 10) month = "0" + month;
-    if (day < 10) day = "0" + day;
-
-    var transformedDate = year + '-' + month + '-' + day;
-
-    return transformedDate;
-};
-
 var getColor = function (name) {
-
     var color = '';
 
     switch (name) {
         case 'red':
-            color = 'rgba(229, 52, 70, 0.2)';
+            color = 'rgba(250, 50, 70, 0.2)';
             break;
         case 'medium':
             color = 'rgba(158, 21, 34, 0.2)';
@@ -244,19 +226,17 @@ var getColor = function (name) {
             color = 'rgba(255, 200, 10, 0.2)';
             break;
         default:
-            color = 'rgba(229, 52, 70, 0.2)'; //default red
+            color = 'rgba(250, 50, 70, 0.2)'; //default epunkt-red
     }
-
     return color;
 }
 
 var getBorderColor = function (name) {
-
     var color = '';
 
     switch (name) {
         case 'red':
-            color = 'rgba(229, 52, 70, 1)';
+            color = 'rgba(250, 50, 70, 1)';
             break;
         case 'medium':
             color = 'rgba(158, 21, 34, 1)';
@@ -277,29 +257,21 @@ var getBorderColor = function (name) {
             color = 'rgba(230, 230, 230, 1)';
             break;
         default:
-            color = 'rgba(229, 52, 70, 1)'; //default red
+            color = 'rgba(250, 50, 70, 1)'; //default epunkt-red
     }
-
     return color;
 }
 
-
-/**
- * Dashboard Controller
- */
 app.controller('dashboardController', function ($scope, $http) {
-    //leer
+    //leer - wird nicht benötigt
 });
 
-/**
- * NavBarController - LoggedIn User and Search
- */
 app.controller('navBarController', function ($scope, $http) {
     $http.post('user/info').then(function (response) {
         $scope.user = response.data.data;
     });
 
-    $http.get('wig/info').then(function (response) {
+    $http.get('wig/showWigInHeader').then(function (response) {
         $scope.hireThisYear = response.data.data.hireThisYear;
         $scope.hireThisYeareR = response.data.data.hireThisYeareR;
         $scope.wig = response.data.data.wig;
@@ -310,21 +282,11 @@ app.controller('navBarController', function ($scope, $http) {
             window.location = 'login.html';
         });
     };
-
 });
 
-/**
- * SideBarController - Logout
- */
 app.controller('sideBarController', function ($scope, $http) {
 
-    $http.get('candidate/timeinfo').then(function (response) {
+    $http.get('candidate/showTimeInfosInSideBar').then(function (response) {
         $scope.timeinfo = response.data.data;
     });
-
-    //$scope.logout = function () {
-    //    $http.post('user/logout').then(function (response) {
-    //        window.location = 'login.html';
-    //    });
-    //};
 });

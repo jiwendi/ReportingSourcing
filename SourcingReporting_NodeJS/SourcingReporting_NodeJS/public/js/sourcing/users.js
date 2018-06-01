@@ -5,6 +5,9 @@ app.controller('usersController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
+    /*
+     * Return "inactiveuser" for highlighting inactive Users via css in user-Overview
+    */
     $scope.isuserinactive = function (user) {
         if (user.active == "Nein") {
             return "inactiveuser";
@@ -13,12 +16,10 @@ app.controller('usersController', function ($scope, $http) {
         }
     };
 
-   
-
     /**
      * get User-Data for the user Overview
      */
-    $http.get('users/get').then(function (response) {
+    $http.get('users/showUserOverview').then(function (response) {
         $scope.users = response.data.data;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
@@ -37,7 +38,7 @@ app.controller('userdetailController', function ($scope, $http, $routeParams) {
     /**
      * Insert Userdata in Form for editing the selected User
      */
-    $http.post('user/info', { userid: $routeParams.userid }).then(function (response) {
+    $http.post('user/showUserDetails', { userid: $routeParams.userid }).then(function (response) {
         $scope.user = response.data.data;
         $scope.iserrmessage = !response.data.sucess;
         $scope.message = response.data.message;
@@ -62,9 +63,7 @@ app.controller('userdetailController', function ($scope, $http, $routeParams) {
                 var id = selectActive.val();
                 $scope.user.active = id;
             });
-
         }
-
     });
 
     /**
@@ -79,7 +78,6 @@ app.controller('userdetailController', function ($scope, $http, $routeParams) {
             $scope.message = response.data.message;
             });
     };
-
 }); 
 
 /**

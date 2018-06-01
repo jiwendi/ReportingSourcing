@@ -6,11 +6,13 @@
     <br/>
     <br/>
 
+    <div class="input-group sourcing-w-20 ml-2">
+        <div class="input-group-addon alert-info sourcing-width-150">Jahr </div>
+        <input class="form-control" type="number" id="yearToFilter" ng-model="yearToFilter" min="2017" value="2018" ng-change="update()" />
+    </div>
 
     <h3>Telefonnotizen Gesamt</h3>
     <div class="chart-container">
         <canvas id="myChart"></canvas>
     </div>
-
-    
 </div>

@@ -316,6 +316,14 @@ a:hover{
         color: #000 !important;
     }
 
+.candidateNotOnScoreboard {
+    background-color: #b9e3e9;
+    color: #000;
+}
+    .candidateNotOnScoreboard a {
+        color: #000 !important;
+    }
+
 .candname_infos {
     background-color: #b9e3e9;
     color: #000;

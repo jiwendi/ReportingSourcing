@@ -1,6 +1,4 @@
-﻿
-
-/**
+﻿/**
  * wigController - WIG Overview
  */
 app.controller('wigController', function ($scope, $http) {
@@ -11,12 +9,11 @@ app.controller('wigController', function ($scope, $http) {
     /**
      * get WIGs for the Overview
      */
-    $http.get('wig/get').then(function (response) {
+    $http.get('wig/showWigOverview').then(function (response) {
         $scope.wigs = response.data.data;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
-    });
-    
+    }); 
 });
 
 /**
@@ -26,7 +23,6 @@ app.controller('wignewController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
     
-
     /**
      * Save Function to create a new WIG at Database 
      */
@@ -34,9 +30,7 @@ app.controller('wignewController', function ($scope, $http) {
         $scope.message = "";
         $scope.start = $('#start').val();
         $scope.end = $('#end').val();
-       
-
-
+  
         $http.post('wig/save', {
             name: $scope.wig.name, start: $scope.start, end: $scope.end, goal: $scope.wig.goal
         }).then(function (response) {
@@ -44,13 +38,10 @@ app.controller('wignewController', function ($scope, $http) {
            
             if (response.data.success) {
                 $scope.message = response.data.message;
-               
                 setTimeout(function () {
                     window.location.href = "#!wigs"; //will redirect to wigs
                 }, 2000); //will call the function after 2 secs. --> message showed for 2 sec.
-
             }
-            
         });
     };
 });
@@ -65,23 +56,18 @@ app.controller('wigdetailController', function ($scope, $http, $routeParams) {
     /**
      * get WIGdata to fill into Form for updating selected WIG
      */
-    $http.post('wig/detailinfo', {
+    $http.post('wig/showDetailsForSelectedWig', {
         id: $routeParams.wigid
-    }).then(function (response) {
-        
+    }).then(function (response) { 
         $scope.wig = response.data.data;
         $scope.start = toLocalDate($scope.wig.start);
         $scope.end = toLocalDate($scope.wig.end);
-
-
         $scope.iserrmessage = !response.data.sucess;
         $scope.message = response.data.message;
         });
 
-
     $scope.update = function () {
         $scope.message = "";
-        
         var start = toLocalDate($scope.start, 2);
         var end = toLocalDate($scope.end, 2);
         
@@ -91,7 +77,6 @@ app.controller('wigdetailController', function ($scope, $http, $routeParams) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-
     }; //end update Function
 
     $scope.delete = function () {
@@ -109,12 +94,7 @@ app.controller('wigdetailController', function ($scope, $http, $routeParams) {
                 setTimeout(function () {
                     window.location.href = "#!wigs"; // redirect
                 }, 1000); //will call the function after 2 secs. --> message showed for 2 sec.
-
             }
-
         });
-
-    }; //end update Function
-
-
-}); //end wigdetailController
+    }; 
+});

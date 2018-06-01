@@ -1,29 +1,25 @@
 ﻿module.exports = {
     setup: function (app, db, session, toDate, sendResponse) {
-        /**
-        * Sources - Quellenübersicht
-        */
-        app.get('/sources/get', function (req, res) {
+
+        app.get('/sources/showSourceOverview', function (req, res) {
             if (req.session.admin) {
                 var regsuc = false;
                 var message = "";
-                var sourcequery = "SELECT id, name, CASE WHEN active = 1 THEN 'Ja' ELSE 'Nein' END AS active from sources";
-                
-                db.query(sourcequery, function (sourceerr, sourceresult, sourcefields) {
-                    if (sourceerr) throw sourceerr;
+                var sourcequery = "SELECT id, name, CASE WHEN active = 1 THEN 'Ja' ELSE 'Nein' END AS active from sources ORDER BY name";
 
-                    sendResponse(res, true, "", sourceresult);
+                db.query(sourcequery, function (sourceerr, sourceresult, sourcefields) {
+                    if (sourceerr) {
+                        sendResponse(res, false, "Fehler beim Abfragen der Quellen aus der Datenbank! " + sourceerr);
+                    } else {
+                        sendResponse(res, true, "", sourceresult);
+                    }
                 });
             } else {
                 sendResponse(res, false, "Keine Berechtigung!");
             }
-        }); //end sources/get
+        });
 
-
-        /**
-        * Sources - Detailinfos
-        */
-        app.post('/source/info', function (req, res) {
+        app.post('/source/showDetailsFromSelectedSource', function (req, res) {
             if (req.session.admin) {
                 var regsuc = false;
                 var message = "";
@@ -31,14 +27,16 @@
                 var parameter = [req.body.id];
 
                 db.query(sourcequery, parameter, function (sourceerr, sourceresult, sourcefields) {
-                    if (sourceerr) throw sourceerr;
-
-                    sendResponse(res, true, "", sourceresult[0]);
+                    if (sourceerr) {
+                        sendResponse(res, false, "Fehler beim Abfragen der Detail-Daten! " + sourceerr);
+                    } else {
+                        sendResponse(res, true, "", sourceresult[0]);
+                    }
                 });
             } else {
-                sendResponse(res, false, "Keine Berechtigung!");
+                sendResponse(res, false, "Keine Berechtigung! (Bitte wende dich an einen Admin!)");
             }
-        }); //end source/info
+        });
 
         app.post('/source/update', function (req, res) {
             if (req.session.admin) {
@@ -57,26 +55,20 @@
 
                     db.query(query, parameters, function (err, result, fields) {
                         if (err) {
-                            message = "Fehler mit DB";
+                            message = "Fehler beim Aktualisieren der Quelle in der Datenbank! " + err;
                             sendResponse(res, false, message);
                         } else {
                             sendResponse(res, true, "Daten wurden gespeichert!");
                         }
                     });
-
                 } else {
                     sendResponse(res, false, message);
                 }
-
             } else {
                 sendResponse(res, false, "Keine Berechtigung!");
             }
         });
 
-
-        /**
-        * Gruppe speichern
-        */
         app.post('/source/save', function (req, res) {
             if (req.session.admin) {
                 var suc = false;
@@ -94,22 +86,18 @@
 
                     db.query(query, parameters, function (err, result, fields) {
                         if (err) {
-                            message = "Fehler bei <insert into sources>";
+                            message = "Fehler beim Einfügen der Quelle in die Datenbank! " + err;
                             sendResponse(res, false, message);
                         } else {
                             sendResponse(res, true, "Daten wurden gespeichert!");
                         }
-                    });//end db query
+                    });
                 } else {
                     sendResponse(res, false, message);
                 }
             } else {
                 sendResponse(res, false, "Keine Admin-Rechte!");
             }
-
-        }); //end source/save
-
-
-
+        });
     }
-}
+};

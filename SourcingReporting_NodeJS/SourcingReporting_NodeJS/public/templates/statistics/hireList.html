@@ -59,7 +59,7 @@
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <tr ng-repeat="c in candidates">
+                <tr ng-repeat="c in candidates" ng-class="candidateNotOnScoreboard(c)">
                     <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
                     <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
                     <td ng-if="c.eR == null"> </td>
@@ -67,7 +67,7 @@
                     <td>{{c.name}}</td>
                     <td>{{c.scoreboard}}</td>
                 </tr>
-                <tr ng-repeat="c in eRcandidates">
+                <tr ng-repeat="c in eRcandidates" ng-class="candidateNotOnScoreboard(c)">
                     <td><a href="#!candidatedetaileR/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
                     <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
                     <td ng-if="c.eR == null"> </td>

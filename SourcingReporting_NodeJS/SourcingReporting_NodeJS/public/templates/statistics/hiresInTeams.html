@@ -4,6 +4,41 @@
    
     <h3>Besetzungen je Team</h3>
     <br />
+
+    <div class="filter pt-2">
+        <div class="header btn btn-info"> Filter einblenden</div>
+        <div class="content">
+            <table class="table w-50">
+                <tr>
+                    <td>
+                        <div class="input-group-addon alert-info sourcing-width-250">von </div>
+                        <input class="form-control sourcing-width-250" type="date" id="from" ng-model="from" />
+                    </td>
+                    <td>
+                        <div class="input-group-addon alert-info sourcing-width-250">bis </div>
+                        <input class="form-control sourcing-width-250" type="date" id="to" ng-model="to" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div ng-click="resetFilter()" class="btn btn-danger">
+                            <span class="oi oi-x" aria-hidden="true"></span> Filter zurücksetzen
+                        </div>
+                    </td>
+                    <td>
+                        <div ng-click="filter()" class="btn btn-info">
+                            <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Filtern
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!--
     <div class="input-group w-25 ml-2">
         <div class="input-group-addon alert-info sourcing-width-150">von </div>
         <input class="form-control" type="date" id="from" ng-model="from" min="01.01.2018" ng-change="updateTeamHires()" />
@@ -12,6 +47,8 @@
         <div class="input-group-addon alert-info sourcing-width-150">bis </div>
         <input class="form-control" type="date" id="to" ng-model="to" min="01.01.2018" ng-change="updateTeamHires()" />
     </div>
+    -->
+
 
    <br />
    <br />
@@ -38,3 +75,16 @@
     </table>
     
 </div>
+
+<script>
+
+    $(".header").click(function () {
+        $header = $(this);
+        $content = $header.next();
+        $content.slideToggle(500, function () {
+            $header.text(function () {
+                return $content.is(":visible") ? "Filter einklappen" : "Filter einblenden";
+            });
+        });
+    });
+</script>

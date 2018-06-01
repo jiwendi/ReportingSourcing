@@ -1,10 +1,10 @@
-﻿/**
- * Sources Controller - Sources Overview
- */
-app.controller('sourcesController', function ($scope, $http, $routeParams) {
+﻿app.controller('sourcesController', function ($scope, $http, $routeParams) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
+    /*
+     * Return "inactivesource" for highlighting inactive Sources via css in source-Overview
+     */
     $scope.issourceinactive = function (source) {
         if (source.active == "Nein") {
             return "inactivesource";
@@ -12,28 +12,20 @@ app.controller('sourcesController', function ($scope, $http, $routeParams) {
             return "";
         }
     };
-    /**
-     * get Sources for the Overview
-     */
-    $http.get('sources/get').then(function (response) {
+
+    $http.get('sources/showSourceOverview').then(function (response) {
         $scope.sources = response.data.data;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
     });
-
 });
 
-/**
- * Sourcenew Controller - Create a new Source
- */
+
 app.controller('sourcenewController', function ($scope, $http, $routeParams) {
     $scope.message = "";
     $scope.iserrmessage = false;
     $scope.source = "";
 
-    /**
-     * Save Function to create a new Source at Database 
-     */
     $scope.save = function () {
         $scope.message = "";
         $http.post('source/save', {
@@ -45,24 +37,17 @@ app.controller('sourcenewController', function ($scope, $http, $routeParams) {
     };
 });
 
-/**
- * SourceDetail Controller - Edit selected Source
- */
 app.controller('sourcedetailController', function ($scope, $http, $routeParams) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    /**
-     * get Sourcedata to fill into Form for updating selected source
-     */
-    $http.post('source/info', {
+    $http.post('source/showDetailsFromSelectedSource', {
         id: $routeParams.sourceid
     }).then(function (response) {
         $scope.source = response.data.data;
         $scope.iserrmessage = !response.data.sucess;
         $scope.message = response.data.message;
     });
-
 
     $scope.update = function () {
         $scope.message = "";
@@ -72,7 +57,5 @@ app.controller('sourcedetailController', function ($scope, $http, $routeParams) 
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-
-    }; //end update Function
-
-}); //end sourcedetailController
+    };
+}); 

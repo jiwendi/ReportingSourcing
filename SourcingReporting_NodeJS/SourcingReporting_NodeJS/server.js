@@ -11,7 +11,6 @@ var uuid = require('node-uuid');
 var moment = require('moment');
 
 var tablesort = require('tablesort');
-//tablesort(el, options);
 
 var usersrv = require('./usersrv');
 var teamsrv = require('./teamsrv');
@@ -39,7 +38,7 @@ app.use(bp.urlencoded({ extended: true }));
 
 app.use(session({
     genid: function (req) {
-        return uuid.v4(); // generate a v4 random ID
+        return uuid.v4();
     },
     resave: false,
     saveUninitialized: false,
@@ -66,13 +65,12 @@ var getDateString = function (date) {
     return "'" + new Date(date).toLocaleDateString("de-de") + "'";
 };
 
-
 app.get('/dashboard', auth, function (req, res) {
     res.sendFile(__dirname + '/dashboard.html');
 });
 
 /**
- *  Servers
+ *  include all Servers
  */
 usersrv.setup(app, db, session, toDate, sendResponse);
 

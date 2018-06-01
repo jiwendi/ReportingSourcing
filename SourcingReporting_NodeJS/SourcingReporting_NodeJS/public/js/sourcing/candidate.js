@@ -1,7 +1,4 @@
-﻿/**
- * Candidates Controller - Candidate Overview
- */
-app.controller('candidatesController', function ($scope, $http) {
+﻿app.controller('candidatesController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
@@ -29,7 +26,6 @@ app.controller('candidatesController', function ($scope, $http) {
     };
 
     $scope.filterCandidates = function () {
-
         if ($scope.showusercandidates) {
             showusercandidates = true;
         }
@@ -74,7 +70,6 @@ app.controller('candidatesController', function ($scope, $http) {
             to_research = toLocalDate($scope.to_research, 2);
         }
 
-
         if ($scope.from_hire != undefined) {
             from_hire = toLocalDate($scope.from_hire, 2);
         }
@@ -83,22 +78,20 @@ app.controller('candidatesController', function ($scope, $http) {
             to_hire = toLocalDate($scope.to_hire, 2);
         }
 
-
-        $http.post('candidates/get', {
+        $http.post('candidates/showCandidateOverview', {
             showusercandidates: showusercandidates, showTracking: showTracking, from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
             from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire, showRequest: showRequest
         }).then(function (response) {
             $scope.candidates = response.data.data.candidate;
             $scope.countCandidate = response.data.data.countCandidate;
         });
-
-        
-
     };
 
     $scope.filterCandidates();
-    
 
+    /*
+     * Search Candidates by Name, Source and eR-Number
+     */
     $scope.searchNames = function () {
         var input, filter, table, tbody, tr, td, i;
         input = document.getElementById("inputName");
@@ -106,7 +99,7 @@ app.controller('candidatesController', function ($scope, $http) {
         table = document.getElementById("candidates");
         tbody = document.getElementById("tableBody");
         tr = tbody.getElementsByTagName("tr");
-        
+
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[2];
             if (td) {
@@ -126,7 +119,7 @@ app.controller('candidatesController', function ($scope, $http) {
         table = document.getElementById("candidates");
         tbody = document.getElementById("tableBody");
         tr = tbody.getElementsByTagName("tr");
-        
+
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[3];
             if (td) {
@@ -146,7 +139,7 @@ app.controller('candidatesController', function ($scope, $http) {
         table = document.getElementById("candidates");
         tbody = document.getElementById("tableBody");
         tr = tbody.getElementsByTagName("tr");
-        
+
         for (i = 0; i < tr.length; i++) {
             td = tr[i].getElementsByTagName("td")[4];
             if (td) {
@@ -158,28 +151,24 @@ app.controller('candidatesController', function ($scope, $http) {
             }
         }
     };
-
-
-
 });
 
-
-/**
- * CandidateNew Controller - Create a new Candidate
- */
 app.controller('candidatenewController', function ($scope, $http, $routeParams) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    //Get Data for candidate new
-    $http.post('candidate/data').then(function (response) {
+    $http.post('candidate/getSelectData').then(function (response) {
         $scope.sources = response.data.data.sources;
         $scope.teams = response.data.data.teams;
-                
+        $scope.source = "";
+
         $scope.candidate = {
             tracking: 1, request: 1, response: 0, research: null, telnotice: null
         };
 
+        /**
+         * Automatically set Research-Date today
+         */
         var date = new Date();
         var day = date.getDate();
         var month = date.getMonth() + 1;
@@ -193,19 +182,10 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         document.getElementById('research').value = today;
     });
 
-
-
-    $scope.source = "";
-
-    //get Value from groupSelect
     $scope.showSourceValue = function (sourceSelect) {
         $scope.source = sourceSelect;
     }
-    
 
-    /**
-     * Save Function to create a new Candidate at Database 
-     */
     $scope.save = function () {
         $scope.message = "";
         $scope.telnotice = $('#telnotice').val();
@@ -218,14 +198,12 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
 
         var responseValue = null;
 
-
         if ($scope.response == 1) {
             responseValue = 1;
         } else if ($scope.response == 2) {
             responseValue = 0;
         }
-
-        
+        //ToDo: 0000-00-00 durch null ersetzen!
         if ($('#research').val() == '') {
             $scope.research = '0000-00-00';
         } else {
@@ -267,56 +245,49 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         } else {
             $scope.rememberme = $('#rememberme').val();
         }
-        
-        $http.post('candidate/save', {  
+
+        $http.post('candidate/save', {
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.source,
             source_text: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.tracking, request: $scope.request,
             response: $scope.response, responseVal: responseValue, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.info,
             extern: $scope.extern, hire: $scope.hire, team: $scope.team, rememberme: $scope.rememberme, research: $scope.research, scoreboard: $scope.candidate.scoreboard
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
-            
 
+            /*
+             * Redirect after 1sec to Candidate/New after successfully saved Candidate
+             */
             if (response.data.success) {
                 $scope.message = response.data.message;
-                //window.location = '#!candidate/new';
 
                 setTimeout(function () {
-                    window.location.href = "#!candidate/new"; //will redirect to candidate/new
-                }, 1000); //will call the function after 2 secs. --> message showed for 2 sec.
-
+                    window.location.href = "#!candidate/new";
+                }, 1000);
             }
-            
         });
     };
-    
 });
 
-
-/**
- * CandidateDetail Controller - Edit selected Candidate
- */
 app.controller('candidatedetailController', function ($scope, $http, $routeParams) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    /**
-     * get Candidate-data to fill into Form for updating selected Team
-     */
-    $http.post('candidate/info', { candidateid: $routeParams.candidateid }).then(function (response) {
+    $http.post('candidate/showDetailForSelectedCandidate', { candidateid: $routeParams.candidateid }).then(function (response) {
         $scope.candidate = response.data.data.candidate;
         $scope.sources = response.data.data.sources;
         $scope.teams = response.data.data.teams;
         $scope.citys = response.data.data.citys;
         $scope.sourcer = response.data.data.sourcer;
-
         $scope.iserrmessage = !response.data.sucess;
         $scope.message = response.data.message;
-        
 
-        /**
-         * Dropdowns with Datamaps and select2
-         */
+        $scope.research = toLocalDate($scope.candidate.research);
+        $scope.telnotice = toLocalDate($scope.candidate.telnotice);
+        $scope.intern = toLocalDate($scope.candidate.intern);
+        $scope.extern = toLocalDate($scope.candidate.extern);
+        $scope.hire = toLocalDate($scope.candidate.hire);
+        $scope.rememberme = toLocalDate($scope.candidate.rememberme);
+
         var sourcerData = $.map($scope.sourcer, function (sourcer) {
             sourcer.text = sourcer.firstname + ' ' + sourcer.lastname;
             return sourcer;
@@ -343,65 +314,34 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
         var selectTeam = $('#selectTeam');
         selectTeam.select2({ data: teamData });
-        //selectTeam.val($scope.candidate.team_id);
-        //selectTeam.trigger("change");
         selectTeam.on("select2:select", function (e) {
             var id = selectTeam.val();
             $scope.candidate.team_id = id;
         });
-        
+
         var selectSource = $('#selectSource');
         selectSource.select2({ data: sourceData });
-        //selectSource.val($scope.candidate.source_id);
-        //selectSource.trigger("change");
         selectSource.on("select2:select", function (e) {
             var id = selectSource.val();
             $scope.candidate.source_id = id;
         });
 
-        /**
-         * Dates with moment 
-         */
-        $scope.research = toLocalDate($scope.candidate.research);
-        $scope.telnotice = toLocalDate($scope.candidate.telnotice);
-        $scope.intern = toLocalDate($scope.candidate.intern);
-        $scope.extern = toLocalDate($scope.candidate.extern);
-        $scope.hire = toLocalDate($scope.candidate.hire);
-        $scope.rememberme = toLocalDate($scope.candidate.rememberme);
-
-
-        /**
-         * Dropdown with select2
-         */
-
         var selectTracking = $('#selectTracking');
         selectTracking.select2();
-
-        var selectRequest = $('#selectRequest');
-        selectRequest.select2();
-
-        var selectResponse = $('#selectResponse');
-        selectResponse.select2();
-
-        var selectResponseVal = $('#selectResponseValue');
-        selectResponseVal.select2();
-
-        var scoreboard = $('#scoreboard');
-        scoreboard.select2();
-
-        //selectTracking.val($scope.candidate.tracking);
-        //selectTracking.trigger("change");
         selectTracking.on("select2:select", function (e) {
             var id = selectTracking.val();
             $scope.tracking = id;
         });
 
-        //selectRequest.val($scope.candidate.request);
-        //selectRequest.trigger("change");
+        var selectRequest = $('#selectRequest');
+        selectRequest.select2();
         selectRequest.on("select2:select", function (e) {
             var id = selectRequest.val();
             $scope.request = id;
         });
+
+        var selectResponse = $('#selectResponse');
+        selectResponse.select2();
 
         $scope.response = 0;
 
@@ -410,25 +350,24 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         } else if ($scope.candidate.response == 1 && $scope.candidate.response_value == 0) {
             $scope.response = 2;
         }
-        
-        //selectResponse.val($scope.response);
-        //selectResponse.trigger("change");
+
         selectResponse.on("select2:select", function (e) {
             var id = selectResponse.val();
             $scope.response = id;
         });
-        
-        //scoreboard.val($scope.candidate.scoreboard);
-        //scoreboard.trigger("change");
+
+        var selectResponseVal = $('#selectResponseValue');
+        selectResponseVal.select2();
+
+        var scoreboard = $('#scoreboard');
+        scoreboard.select2();
         scoreboard.on("select2:select", function (e) {
             var id = scoreboard.val();
             $scope.scoreboard = id;
         });
+    });
 
 
-    });//end candidate/info
-
-   
     $scope.updateCandidate = function () {
         $scope.message = "";
 
@@ -438,19 +377,18 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
-            });
+        });
     }
 
     $scope.updateSource = function (selectSource) {
         $scope.source = selectSource;
-        
+
         $http.post('candidate/updateSource', {
             id: $scope.candidate.id, source: $scope.source
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
-            });
-
+        });
         location.reload();
     }
 
@@ -463,31 +401,31 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-
         location.reload();
     }
-    
+
 
     $scope.updateResearch = function () {
         $scope.message = "";
-        
+
         $http.post('candidate/updateResearch', {
             id: $scope.candidate.id, research: $scope.research
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
-            });
+        });
     }
 
     $scope.updateTelnotice = function () {
         $scope.message = "";
-        
+
         $http.post('candidate/updateTelnotice', {
             id: $scope.candidate.id, telnotice: $scope.telnotice
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
+        location.reload();
     }
 
     $scope.updateIntern = function () {
@@ -499,6 +437,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
+        location.reload();
     }
 
     $scope.updateExtern = function () {
@@ -510,6 +449,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
+        location.reload();
     }
 
     $scope.updateHire = function () {
@@ -521,6 +461,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
+        location.reload();
     }
 
     $scope.updateRememberMe = function () {
@@ -543,7 +484,8 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             }).then(function (response) {
                 $scope.iserrmessage = !response.data.success;
                 $scope.message = response.data.message;
-                });
+            });
+            location.reload();
         }
     };
 
@@ -556,31 +498,25 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
-            });
-
+        });
         location.reload();
     }
 
     $scope.updateSourcer = function () {
         $scope.message = "";
-             
+
         $http.post('candidate/updateSourcer', {
             id: $scope.candidate.id, sourcer_id: $scope.selectSourcer
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-
         location.reload();
-        
-        
     }
 
     $scope.updateOptions = function () {
         $scope.message = "";
-
         var responseValue = null;
-
 
         if ($scope.response == 1) {
             responseValue = 1;
@@ -592,23 +528,20 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.candidate.response = 0;
         }
 
-
         $http.post('candidate/updateOptions', {
             id: $scope.candidate.id, tracking: $scope.candidate.tracking, request: $scope.candidate.request,
             response: $scope.candidate.response, response_value: responseValue
         }).then(function (response) {
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
-            });
-
+        });
     }
-    
+
 
     $scope.delete = function () {
         $scope.message = "";
 
-        if (confirm("Kandidat wirklich löschen?"))
-        { 
+        if (confirm("Kandidat wirklich löschen?")) {
             $http.post('candidate/delete', {
                 id: $scope.candidate.id
             }).then(function (response) {
@@ -617,25 +550,19 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
                 if (response.data.success) {
                     $scope.message = response.data.message;
-                    //window.location = '#!candidate/new';
 
                     setTimeout(function () {
-                        window.location.href = "#!candidates"; // redirect
-                    }, 1000); //will call the function after 2 secs. --> message showed for 2 sec.
+                        window.location.href = "#!candidates";
+                    }, 1000);
                 }
             });
         }
-
-
-
-    }; //end update Function
-    
-}); //end candidatedetailController
+    };
+});
 
 
 app.controller('rememberMeListController', function ($scope, $http) {
     $scope.filterMonth = $('#filter_month').val().substring(5);
-
 
     var filter_month = false;
     var showusercandidates = false;
@@ -646,7 +573,7 @@ app.controller('rememberMeListController', function ($scope, $http) {
 
     $scope.filterCandidates = function () {
         var fm = $('#filter_month').val();
-        
+
         if ($scope.showusercandidates) {
             showusercandidates = true;
         } else {
@@ -658,11 +585,11 @@ app.controller('rememberMeListController', function ($scope, $http) {
         } else {
             filter_month = new Date().getMonth();
         }
-        
+
         $http.post('candidate/rememberMeList', {
             filter_month: filter_month, showusercandidates: showusercandidates
         }).then(function (response) {
-            $scope.candidate = response.data.data.candidate;    
+            $scope.candidate = response.data.data.candidate;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
         });
@@ -733,5 +660,4 @@ app.controller('rememberMeListController', function ($scope, $http) {
             }
         }
     };
-
 });

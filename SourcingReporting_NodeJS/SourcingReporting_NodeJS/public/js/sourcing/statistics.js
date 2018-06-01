@@ -1,38 +1,27 @@
-﻿
-/**
- * StatisticsController
- */
-app.controller('statisticsController', function ($scope, $http) {
+﻿app.controller('statisticsController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
-    
+
     $scope.yearToFilter = $('#yearToFilter').val();
 
     $scope.update = function () {
-
         $scope.yearToFilter = $('#yearToFilter').val();
 
-        $http.post('stat/requestsByYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+        $http.post('statistics/requestsByYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
             $scope.requestsFromSource = response.data.data.requestsFromSource;
             $scope.allRequests = response.data.data.allRequests;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
         });
 
-        $http.post('stat/myYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
-           /*
-        $scope.myYearRequest = response.data.data.request;
-        $scope.myYearTelNotice = response.data.data.telNotice;
-        $scope.myYearHire = response.data.data.hires;
-        */
+        $http.post('statistics/myYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
             $scope.myYear = response.data.data;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
         });
-
     };
 
-    $http.post('stat/requestsByYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+    $http.post('statistics/requestsByYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
         $scope.requestsFromSource = response.data.data.requestsFromSource;
         $scope.allRequests = response.data.data.allRequests;
         $scope.message = response.data.message;
@@ -40,17 +29,12 @@ app.controller('statisticsController', function ($scope, $http) {
     });
 
     $http.post('stat/myYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
-        /*
-        $scope.myYearRequest = response.data.data.request;
-        $scope.myYearTelNotice = response.data.data.telNotice;
-        $scope.myYearHire = response.data.data.hires;
-        */
         $scope.myYear = response.data.data;
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
     });
 
-    $http.post('stat/myWeek').then(function (response) {
+    $http.post('statistics/myWeek').then(function (response) {
         $scope.myWeek = response.data.data;
         $scope.myWeekRequest = response.data.data.request;
         $scope.myWeekTelNotice = response.data.data.telnotice;
@@ -59,25 +43,20 @@ app.controller('statisticsController', function ($scope, $http) {
         $scope.message = response.data.message;
         $scope.iserrmessage = !response.data.success;
     });
-
 });
 
-app.controller('statisticsReqToHireController', function ($scope, $http) {
+app.controller('statisticsOverallAnalysisController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
-    
-    $scope.resetFilter = function () {
-        $('#from').val("");
-        $('#to').val("");
 
+    $scope.resetFilter = function () {
         location.reload();
     };
 
     $scope.filter = function () {
-
         if ($scope.from != undefined) {
             $scope.filterFrom = toLocalDate($scope.from, 2);
         }
@@ -86,7 +65,7 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
             $scope.filterTo = toLocalDate($scope.to, 2);
         }
 
-        $http.post('stat/reqToHire', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+        $http.post('statistics/overallAnalysis', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.reqToHire = response.data.data;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
@@ -105,7 +84,6 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
             convertionRateSteps.push(($scope.reqToHire.intern / $scope.reqToHire.telnotice * 100).toFixed(2));
             convertionRateSteps.push(($scope.reqToHire.extern / $scope.reqToHire.intern * 100).toFixed(2));
             convertionRateSteps.push(($scope.reqToHire.hires / $scope.reqToHire.extern * 100).toFixed(2));
-
 
             var ctx = $("#myChart");
             var myChart = new Chart(ctx, {
@@ -143,7 +121,7 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
                         borderColor: getColor('yellow'),
                         borderWidth: 3,
                         intersect: true
-                        }
+                    }
                         , {
                         label: 'Convertion Rate je Step',
                         yAxisID: 'y-axis-2',
@@ -170,8 +148,8 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
                             position: 'left',
                             id: 'y-axis-1',
                             ticks: {
-                                        min: 0
-                                    }
+                                min: 0
+                            }
                         }, {
                             type: 'linear',
                             display: true,
@@ -189,14 +167,12 @@ app.controller('statisticsReqToHireController', function ($scope, $http) {
                     }
                 }
             });
-        });//end reqToHire
+        });
     };
-
     $scope.filter();
-    
 });
 
-app.controller('statisticsReqToHirePlattformController', function ($scope, $http) {
+app.controller('statisticsOverallAnalysisByPlattformController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
@@ -207,20 +183,17 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
     $scope.resetFilter = function () {
         location.reload();
     };
-    
 
     $scope.filter = function () {
-
         if ($scope.from != undefined) {
-            $scope.filterFrom = toLocalDate($scope.from,2);
+            $scope.filterFrom = toLocalDate($scope.from, 2);
         }
 
         if ($scope.to != undefined) {
             $scope.filterTo = toLocalDate($scope.to, 2);
         }
 
-        if ($scope.selectSource == undefined)
-        {
+        if ($scope.selectSource == undefined) {
             $scope.selectSource = 1;
         }
 
@@ -230,14 +203,13 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
             $scope.team = $('#selectSource').val();
         }
 
-        
-        $http.post('stat/reqToHireByPlattform', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo, source: $scope.team }).then(function (response) {
+        $http.post('statistics/overallAnalysisByPlattform', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo, source: $scope.team }).then(function (response) {
             $scope.sources = response.data.data.sources;
             $scope.reqToHireByPlattform = response.data.data.reqToHireByPlattform;
 
             var convertionRateTotal = [];
             var convertionRateSteps = [];
-            
+
             convertionRateTotal.push(0);
             convertionRateTotal.push(($scope.reqToHireByPlattform.telnotice / $scope.reqToHireByPlattform.request * 100).toFixed(2));
             convertionRateTotal.push(($scope.reqToHireByPlattform.intern / $scope.reqToHireByPlattform.request * 100).toFixed(2));
@@ -302,7 +274,7 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
                             borderColor: getColor('green'),
                             borderWidth: 3,
                             intersect: true
-                    }]
+                        }]
                 },
                 options: {
                     legend: {
@@ -337,84 +309,34 @@ app.controller('statisticsReqToHirePlattformController', function ($scope, $http
                     }
                 }
             });
-
         });
-
     };
-
     $scope.filter();
-
-
-
 });
 
-app.controller('statisticsHiresInTeamController', function ($scope, $http) {
-   
+app.controller('statisticsHiresByTeamController', function ($scope, $http) {
     $scope.message = "";
     $scope.iserrmessage = false;
 
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
 
-    $http.post('stat/hiresInTeams', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
-        $scope.teamHires = response.data.data.hiresInTeams;
-        $scope.countHires = response.data.data.countHires;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+    $scope.resetFilter = function () {
+        location.reload();
+    };
 
-
-        $scope.labels = [];
-        $scope.anzahl = [];
-        $scope.backgroundColorForChart = [];
-        $scope.borderColorForChart = [];
-
-        for (var i = 0; i < $scope.teamHires.length; i++){
-            $scope.labels.push($scope.teamHires[i].name);
-            $scope.anzahl.push($scope.teamHires[i].anzahl);
-
-            $scope.backgroundColorForChart.push(getColor('gray-dark'));
-            $scope.borderColorForChart.push(getBorderColor('gray-dark'));     
+    $scope.filter = function () {
+        if ($scope.from != undefined) {
+            $scope.filterFrom = toLocalDate($scope.from, 2);
         }
-        
-        var ctx = $("#myChart");
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: $scope.labels,
-                datasets: [{
-                    label: 'Anzahl',
-                    data: $scope.anzahl,
-                    backgroundColor: $scope.backgroundColorForChart,
-                    borderColor: $scope.borderColorForChart,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                legend: {
-                    position: 'bottom'
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
 
+        if ($scope.to != undefined) {
+            $scope.filterTo = toLocalDate($scope.to, 2);
+        }
 
-
-    });//end allData
-
-
-    $scope.updateTeamHires = function () {
-
-        $scope.filterFrom = $('#from').val();
-        $scope.filterTo = $('#to').val();
-        
-        $http.post('stat/hiresInTeams', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
-            $scope.teamHires = response.data.data;
+        $http.post('statistics/hiresByTeams', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+            $scope.teamHires = response.data.data.hiresInTeams;
+            $scope.countHires = response.data.data.countHires;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
 
@@ -426,10 +348,10 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
             for (var i = 0; i < $scope.teamHires.length; i++) {
                 $scope.labels.push($scope.teamHires[i].name);
                 $scope.anzahl.push($scope.teamHires[i].anzahl);
-                $scope.backgroundColorForChart.push(getColor('gray-dark'));
-                $scope.borderColorForChart.push(getBorderColor('gray-dark'));  
-            }
 
+                $scope.backgroundColorForChart.push(getColor('gray-dark'));
+                $scope.borderColorForChart.push(getBorderColor('gray-dark'));
+            }
 
             var ctx = $("#myChart");
             var myChart = new Chart(ctx, {
@@ -457,17 +379,12 @@ app.controller('statisticsHiresInTeamController', function ($scope, $http) {
                     }
                 }
             });
-
-
-
-        });//end allData
-
+        });
     };
-
+    $scope.filter();
 });
 
 app.controller('statisticsResponseRateController', function ($scope, $http) {
-
     $scope.message = "";
     $scope.iserrmessage = false;
 
@@ -476,105 +393,98 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
 
     var ctx = $("#myChart");
 
-    $http.post('stat/responseRate', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
-        $scope.responseRates = response.data.data.responseRates;
-        $scope.allResponseRate = response.data.data.allResponseRate;
+    //$http.post('statistics/responseRate', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+    //    $scope.responseRates = response.data.data.responseRates;
+    //    $scope.allResponseRate = response.data.data.allResponseRate;
 
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+    //    $scope.message = response.data.message;
+    //    $scope.iserrmessage = !response.data.success;
 
-        
-        $scope.labels = [];
-        $scope.requests = [];
-        $scope.responses = [];
-        $scope.responseRate = [];
-        $scope.backgroundColorForChartRequest = [];
-        $scope.borderColorForChartRequest = [];
-        $scope.backgroundColorForChartResponse = [];
-        $scope.borderColorForChartResponse = [];
+    //    $scope.labels = [];
+    //    $scope.requests = [];
+    //    $scope.responses = [];
+    //    $scope.responseRate = [];
+    //    $scope.backgroundColorForChartRequest = [];
+    //    $scope.borderColorForChartRequest = [];
+    //    $scope.backgroundColorForChartResponse = [];
+    //    $scope.borderColorForChartResponse = [];
 
-        for (var i = 0; i < $scope.responseRates.length; i++) {
-            $scope.labels.push($scope.responseRates[i].name);
-            
-            $scope.requests.push($scope.responseRates[i].requests);
-            $scope.responses.push($scope.responseRates[i].responses);
-            
-            $scope.responseRate.push(($scope.responseRates[i].responses / $scope.responseRates[i].requests * 100).toFixed(2));
-            
-            $scope.backgroundColorForChartRequest.push(getColor('red'));
-            $scope.borderColorForChartRequest.push(getBorderColor('red'));
-            $scope.backgroundColorForChartResponse.push(getColor('gray-medium'));
-            $scope.borderColorForChartResponse.push(getBorderColor('gray-medium'));
-        }
+    //    for (var i = 0; i < $scope.responseRates.length; i++) {
+    //        $scope.labels.push($scope.responseRates[i].name);
 
-       // var ctx = $("#myChart");
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            yAxisID: 'y-axis-1',
-            data: {
-                labels: $scope.labels,
-                datasets: [{
-                    label: 'Ansprache',
-                    data: $scope.requests,
-                    backgroundColor: $scope.backgroundColorForChartRequest,
-                    borderColor: $scope.borderColorForChartRequest,
-                    borderWidth: 1
-                },
-                {
-                    label: 'Response',
-                    data: $scope.responses,
-                    backgroundColor: $scope.backgroundColorForChartResponse,
-                    borderColor: $scope.borderColorForChartResponse,
-                    borderWidth: 1
-                },
-                {
-                    label: 'Response Rate',
-                    yAxisID: 'y-axis-2',
-                data: $scope.responseRate,
-                fill: false,
-                type: 'line',
-                backgroundColor: getColor('yellow'),
-                borderColor: getColor('yellow'),
-                borderWidth: 3
-                }]
-            },
-            options: {
-                legend: {
-                    position: 'bottom'
-                },
-                tooltips: {
-                    mode: 'x'
-                },
-                scales: {
-                    yAxes: [{
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        id: 'y-axis-1',
-                    }, {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        id: 'y-axis-2',
-                        gridLines: {
-                            drawOnChartArea: false
-                        }
-                    }]
-                }
-            }
-        });
+    //        $scope.requests.push($scope.responseRates[i].requests);
+    //        $scope.responses.push($scope.responseRates[i].responses);
 
+    //        $scope.responseRate.push(($scope.responseRates[i].responses / $scope.responseRates[i].requests * 100).toFixed(2));
 
+    //        $scope.backgroundColorForChartRequest.push(getColor('red'));
+    //        $scope.borderColorForChartRequest.push(getBorderColor('red'));
+    //        $scope.backgroundColorForChartResponse.push(getColor('gray-medium'));
+    //        $scope.borderColorForChartResponse.push(getBorderColor('gray-medium'));
+    //    }
 
-    });//end allData
-
+    //    var myChart = new Chart(ctx, {
+    //        type: 'bar',
+    //        yAxisID: 'y-axis-1',
+    //        data: {
+    //            labels: $scope.labels,
+    //            datasets: [{
+    //                label: 'Ansprache',
+    //                data: $scope.requests,
+    //                backgroundColor: $scope.backgroundColorForChartRequest,
+    //                borderColor: $scope.borderColorForChartRequest,
+    //                borderWidth: 1
+    //            },
+    //            {
+    //                label: 'Response',
+    //                data: $scope.responses,
+    //                backgroundColor: $scope.backgroundColorForChartResponse,
+    //                borderColor: $scope.borderColorForChartResponse,
+    //                borderWidth: 1
+    //            },
+    //            {
+    //                label: 'Response Rate',
+    //                yAxisID: 'y-axis-2',
+    //            data: $scope.responseRate,
+    //            fill: false,
+    //            type: 'line',
+    //            backgroundColor: getColor('yellow'),
+    //            borderColor: getColor('yellow'),
+    //            borderWidth: 3
+    //            }]
+    //        },
+    //        options: {
+    //            legend: {
+    //                position: 'bottom'
+    //            },
+    //            tooltips: {
+    //                mode: 'x'
+    //            },
+    //            scales: {
+    //                yAxes: [{
+    //                    type: 'linear',
+    //                    display: true,
+    //                    position: 'left',
+    //                    id: 'y-axis-1',
+    //                }, {
+    //                    type: 'linear',
+    //                    display: true,
+    //                    position: 'right',
+    //                    id: 'y-axis-2',
+    //                    gridLines: {
+    //                        drawOnChartArea: false
+    //                    }
+    //                }]
+    //            }
+    //        }
+    //    });
+    //});
 
     $scope.resetFilter = function () {
         location.reload();
     };
 
     $scope.filter = function () {
-        
         if ($scope.from != undefined) {
             $scope.filterFrom = toLocalDate($scope.from, 2);
         }
@@ -582,14 +492,12 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
         if ($scope.to != undefined) {
             $scope.filterTo = toLocalDate($scope.to, 2);
         }
-        
-        $http.post('stat/responseRate', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+
+        $http.post('statistics/responseRate', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.responseRates = response.data.data.responseRates;
             $scope.allResponseRate = response.data.data.allResponseRate;
-
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
-
 
             $scope.labels = [];
             $scope.requests = [];
@@ -604,16 +512,15 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
                 $scope.labels.push($scope.responseRates[i].name);
                 $scope.requests.push($scope.responseRates[i].requests);
                 $scope.responses.push($scope.responseRates[i].responses);
-                
+
                 $scope.responseRate.push(($scope.responseRates[i].responses / $scope.responseRates[i].requests * 100).toFixed(2));
-                
+
                 $scope.backgroundColorForChartRequest.push(getColor('red'));
                 $scope.borderColorForChartRequest.push(getBorderColor('red'));
                 $scope.backgroundColorForChartResponse.push(getColor('gray-medium'));
                 $scope.borderColorForChartResponse.push(getBorderColor('gray-medium'));
             }
 
-            //var ctx = $("#myChart");
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 yAxisID: 'y-axis-1',
@@ -649,11 +556,6 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
                         position: 'bottom'
                     },
                     scales: {
-                        //yAxes: [{
-                        //    ticks: {
-                        //        beginAtZero: true
-                        //    }
-                        //}]
                         yAxes: [{
                             type: 'linear',
                             display: true,
@@ -671,21 +573,16 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
                     }
                 }
             });
-
-
-
-        });//end allData
-        
+        });
         myChart.update();
     };
-
+    $scope.filter();
 });
 
 app.controller('statisticsTelNoticeController', function ($scope, $http) {
-    
     $scope.yearToFilter = THIS_YEAR;
 
-    $http.post('stat/telNotice', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+    $http.post('statistics/telNoticeOverview', { yearToFilter: $scope.yearToFilter }).then(function (response) {
         $scope.telNotice = response.data.data.telNotice;
         $scope.reseaches = response.data.data.reseaches;
         $scope.telNoticeSum = response.data.data.telSum;
@@ -703,7 +600,6 @@ app.controller('statisticsTelNoticeController', function ($scope, $http) {
             $scope.backgroundColorForChart.push(getColor('gray-dark'));
             $scope.borderColorForChart.push(getBorderColor('gray-dark'));
         }
-
 
         var ctx = $("#myChart");
         var myChart = new Chart(ctx, {
@@ -733,79 +629,87 @@ app.controller('statisticsTelNoticeController', function ($scope, $http) {
         });
 
         $scope.update = function () {
-            
+            $scope.yearToFilter = $('#yearToFilter').val();
 
-                $scope.yearToFilter = $('#yearToFilter').val();
-            
-                $http.post('stat/telNotice', { yearToFilter: $scope.yearToFilter }).then(function (response) {
-                    $scope.telNotice = response.data.data.telNotice;
-                    $scope.reseaches = response.data.data.reseaches;
-                    $scope.telNoticeSum = response.data.data.telSum;
-                    $scope.message = response.data.message;
-                    $scope.iserrmessage = !response.data.success;
-                    $scope.noDataSets = false;
+            $http.post('statistics/telNoticeOverview', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+                $scope.telNotice = response.data.data.telNotice;
+                $scope.reseaches = response.data.data.reseaches;
+                $scope.telNoticeSum = response.data.data.telSum;
+                $scope.message = response.data.message;
+                $scope.iserrmessage = !response.data.success;
+                $scope.noDataSets = false;
 
-                    $scope.labels = [];
-                    $scope.telnoticeData = [];
-                    $scope.backgroundColorForChart = [];
-                    $scope.borderColorForChart = [];
+                $scope.labels = [];
+                $scope.telnoticeData = [];
+                $scope.backgroundColorForChart = [];
+                $scope.borderColorForChart = [];
 
-                    for (var i = 0; i < $scope.telNoticeSum.length; i++) {
-                        $scope.labels.push('KW ' + $scope.telNoticeSum[i].weeknr);
-                        $scope.telnoticeData.push($scope.telNoticeSum[i].telnotice);
-                        $scope.backgroundColorForChart.push(getColor('gray-dark'));
-                        $scope.borderColorForChart.push(getBorderColor('gray-dark'));
-                    }
+                for (var i = 0; i < $scope.telNoticeSum.length; i++) {
+                    $scope.labels.push('KW ' + $scope.telNoticeSum[i].weeknr);
+                    $scope.telnoticeData.push($scope.telNoticeSum[i].telnotice);
+                    $scope.backgroundColorForChart.push(getColor('gray-dark'));
+                    $scope.borderColorForChart.push(getBorderColor('gray-dark'));
+                }
 
-                    if ($scope.telNotice.length == 0) {
-                        $scope.noDataSets = true;
-                        $scope.message = "keine Datensätze vorhanden";
-                    }
+                if ($scope.telNotice.length == 0) {
+                    $scope.noDataSets = true;
+                    $scope.message = "keine Datensätze vorhanden";
+                }
 
-
-                    var ctx = $("#myChart");
-                    var myChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: $scope.labels,
-                            datasets: [{
-                                label: 'Anzahl TelNotizen',
-                                data: $scope.telnoticeData,
-                                backgroundColor: $scope.backgroundColorForChart,
-                                borderColor: $scope.borderColorForChart,
-                                borderWidth: 1
-                            }]
+                var ctx = $("#myChart");
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: $scope.labels,
+                        datasets: [{
+                            label: 'Anzahl TelNotizen',
+                            data: $scope.telnoticeData,
+                            backgroundColor: $scope.backgroundColorForChart,
+                            borderColor: $scope.borderColorForChart,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            position: 'bottom'
                         },
-                        options: {
-                            legend: {
-                                position: 'bottom'
-                            },
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            }
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
                         }
-                    });
+                    }
                 });
+            });
         };
     });
 });
 
 app.controller('statisticsHireListController', function ($scope, $http) {
-    $scope.filterFrom = FILTER_FROM; 
-    $scope.filterTo = FILTER_TO; 
+    $scope.filterFrom = FILTER_FROM;
+    $scope.filterTo = FILTER_TO;
 
     var from_hire = false;
     var to_hire = false;
     var showScoreboard = false;
 
-    $scope.resetFilter = function () { 
+    /*
+     * Return "candidateNotOnScoreboard" for highlighting Candidated with Scoreboard = 0 on Hire-List
+     */
+    $scope.isnotatScoreboard = function (candidate) {
+        if (candidate.scoreboard == "Nein") {
+            return "candidateNotOnScoreboard";
+        } else {
+            return "";
+        }
+    };
+
+    $scope.resetFilter = function () {
         location.reload();
     };
-    
+
     $scope.filterCandidates = function () {
 
         if ($scope.showScoreboard) {
@@ -813,7 +717,7 @@ app.controller('statisticsHireListController', function ($scope, $http) {
         } else {
             showScoreboard = 0;
         }
-        
+
         if ($scope.from != undefined) {
             from_hire = toLocalDate($scope.from, 2);
         } else {
@@ -825,8 +729,8 @@ app.controller('statisticsHireListController', function ($scope, $http) {
         } else {
             to_hire = FILTER_TO;
         }
-        
-        $http.post('stat/hireList', {
+
+        $http.post('statistics/hireList', {
             filterFrom: from_hire, filterTo: to_hire, scoreboard: showScoreboard
         }).then(function (response) {
             $scope.candidates = response.data.data.candidates;
@@ -879,10 +783,6 @@ app.controller('statisticsHireListController', function ($scope, $http) {
             }
         }
     };
-
-
-
-
 });
 
 
@@ -894,21 +794,16 @@ app.controller('statisticsWeeklyNumbersController', function ($scope, $http) {
     $scope.yearToFilter = $('#yearToFilter').val();
 
     $scope.update = function () {
-
         $scope.yearToFilter = $('#yearToFilter').val();
 
-        $http.post('stat/weeklyNumbers', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+        $http.post('statistics/weeklyNumbers', { yearToFilter: $scope.yearToFilter }).then(function (response) {
             $scope.requestsByKW = response.data.data.requestsByKW;
             $scope.telnoticeByKW = response.data.data.telnoticeByKW;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
         });
-
     };
-
     $scope.update();
-    
-
 });
 
 
@@ -920,27 +815,26 @@ app.controller('responseValuesController', function ($scope, $http) {
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
 
+    var ctx = $('#myChart');
+
     $scope.resetFilter = function () {
         location.reload();
     };
 
-    $scope.update = function () {
-
+    $scope.filter = function () {
         $scope.filterFrom = $('#from').val();
 
-        if (!$scope.filterFrom)
-        {
+        if (!$scope.filterFrom) {
             $scope.filterFrom = FILTER_FROM;
         }
-       
+
         $scope.filterTo = $('#to').val();
 
         if (!$scope.filterTo) {
             $scope.filterTo = FILTER_TO;
         }
 
-
-        $http.post('stat/responseValues', { yearToFilter: $scope.yearToFilter, filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
+        $http.post('statistics/responseValues', { yearToFilter: $scope.yearToFilter, filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.responseValues = response.data.data;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;
@@ -951,9 +845,6 @@ app.controller('responseValuesController', function ($scope, $http) {
             $scope.percentage.push((100 / $scope.responseValues.response_gesamt * $scope.responseValues.positiveResponse).toFixed(2));
             $scope.percentage.push((100 / $scope.responseValues.response_gesamt * $scope.responseValues.negativeResponse).toFixed(2));
 
-
-
-            var ctx = $('#myChart');
             var myChart = new Chart(ctx, {
                 type: 'bar',
                 yAxisID: 'y-axis-1',
@@ -961,19 +852,19 @@ app.controller('responseValuesController', function ($scope, $http) {
                     labels: ['Ansprachen', 'Response-Gesamt', 'Response-Positiv', 'Response-Negativ'],
                     datasets: [{
                         label: 'Absolute Zahlen',
-                        data: [$scope.responseValues.ansprachen, $scope.responseValues.response_gesamt, $scope.responseValues.positiveResponse, $scope.responseValues.negativeResponse  ],
+                        data: [$scope.responseValues.ansprachen, $scope.responseValues.response_gesamt, $scope.responseValues.positiveResponse, $scope.responseValues.negativeResponse],
                         backgroundColor: getColor('red'),
                         borderColor: getColor('red'),
                         borderWidth: 1
-                    },  {
-                            label: 'Prozent',
-                            yAxisID: 'y-axis-2',
-                            data: $scope.percentage,
-                            fill: false,
-                            type: 'line',
-                            backgroundColor: getColor('yellow'),
-                            borderColor: getColor('yellow'),
-                            borderWidth: 3
+                    }, {
+                        label: 'Prozent',
+                        yAxisID: 'y-axis-2',
+                        data: $scope.percentage,
+                        fill: false,
+                        type: 'line',
+                        backgroundColor: getColor('yellow'),
+                        borderColor: getColor('yellow'),
+                        borderWidth: 3
                     }]
                 },
                 options: {
@@ -986,7 +877,7 @@ app.controller('responseValuesController', function ($scope, $http) {
                     scales: {
                         yAxes: [{
                             type: 'linear',
-                            display: true, 
+                            display: true,
                             position: 'left',
                             id: 'y-axis-1',
                             ticks: {
@@ -994,28 +885,22 @@ app.controller('responseValuesController', function ($scope, $http) {
                                 suggestedMax: 10
                             }
                         }, {
-                                type: 'linear',
-                                display: true,
-                                position: 'right',
-                                id: 'y-axis-2',
-                                gridLines: {
-                                    drawOnChartArea: false
-                                },
-                                ticks: {
-                                    suggestedMin: 0,
-                                    suggestedMax: 100
-                                }
-                            }]
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            id: 'y-axis-2',
+                            gridLines: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                suggestedMin: 0,
+                                suggestedMax: 100
+                            }
+                        }]
                     }
                 }
-
-            }); //ende myChart
-
+            });
         });
-
     };
-
-    $scope.update();
-
-
+    $scope.filter();
 });
