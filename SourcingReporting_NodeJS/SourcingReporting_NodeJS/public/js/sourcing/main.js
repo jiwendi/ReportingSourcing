@@ -169,7 +169,8 @@ app.config(['$routeProvider',
                 controller: 'personalDashboardController'
             }).
             //Standard: Candidate List
-            otherwise({ redirectTo: '/candidates' });
+            otherwise({ redirectTo: '/myDashboard' });
+        //otherwise({ redirectTo: '/candidates' });
     }]);
 
 /**

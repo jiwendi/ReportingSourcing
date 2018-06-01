@@ -446,6 +446,202 @@
             });
         });
 
+        /* toDo Release 1.4 Statistik Pie Time-To Telefonnotiz*/
+        /*
+
+
+ SELECT (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00') as totalTelNotice,
+		(SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00'
+        AND ABS(DATEDIFF(research, telnotice)) = 0 ) as iszero,
+   (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00'
+        AND ABS(DATEDIFF(research, telnotice)) >= 1
+        AND ABS(DATEDIFF(research, telnotice)) <=2) as oneortwo,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00'
+        AND ABS(DATEDIFF(research, telnotice)) >= 3
+        AND ABS(DATEDIFF(research, telnotice)) <=6) as threetosix,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00'
+        AND ABS(DATEDIFF(research, telnotice)) >= 7
+        AND ABS(DATEDIFF(research, telnotice)) <=9) as seventonine,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00'
+        AND ABS(DATEDIFF(research, telnotice)) >= 10
+        AND ABS(DATEDIFF(research, telnotice)) <=13) as f10t13,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00'
+        AND ABS(DATEDIFF(research, telnotice)) >= 14
+        AND ABS(DATEDIFF(research, telnotice)) <=17) as f14t17,
+         (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00'
+        AND ABS(DATEDIFF(research, telnotice)) >= 18
+        AND ABS(DATEDIFF(research, telnotice)) <=25) as f18t25,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00'
+        AND ABS(DATEDIFF(research, telnotice)) > 25
+        AND ABS(DATEDIFF(research, telnotice)) <=50) as f25t50,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00'
+        AND ABS(DATEDIFF(research, telnotice)) > 50
+        AND ABS(DATEDIFF(research, telnotice)) <=100) as f50t100,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE telnotice != '0000-00-00'
+        AND ABS(DATEDIFF(research, telnotice)) > 100) as up100
+FROM epunkt_sourcing.candidate
+LIMIT 1
+
+        */
+
+
+
+        /*ToDo Release 1.4 Time-To-Intern*/
+
+        /*
+
+ SELECT (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE intern != '0000-00-00') as totalIntern,
+   (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE intern != '0000-00-00'
+        AND ABS(DATEDIFF(research, intern)) >= 0
+        AND ABS(DATEDIFF(research, intern)) <=7) as f0t7,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE intern != '0000-00-00'
+        AND ABS(DATEDIFF(research, intern)) >= 8
+        AND ABS(DATEDIFF(research, intern)) <=14) as f8t14,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE intern != '0000-00-00'
+        AND ABS(DATEDIFF(research, intern)) >= 15
+        AND ABS(DATEDIFF(research, intern)) <=21) as f15t21,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE intern != '0000-00-00'
+        AND ABS(DATEDIFF(research, intern)) >= 22
+        AND ABS(DATEDIFF(research, intern)) <=30) as f22t30,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE intern != '0000-00-00'
+        AND ABS(DATEDIFF(research, intern)) > 30
+        AND ABS(DATEDIFF(research, intern)) <=60) as f30t60,
+         (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE intern != '0000-00-00'
+        AND ABS(DATEDIFF(research, intern)) > 60
+        AND ABS(DATEDIFF(research, intern)) <=90) as f60t90,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE intern != '0000-00-00'
+        AND ABS(DATEDIFF(research, intern)) > 90
+        AND ABS(DATEDIFF(research, intern)) <=120) as f90t120,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE intern != '0000-00-00'
+        AND ABS(DATEDIFF(research, intern)) > 120) as up120
+FROM epunkt_sourcing.candidate
+LIMIT 1
+
+
+        */
+
+
+        /*ToDo Release 1.4 Time-To-Extern*/
+
+        /*
+
+ SELECT (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE extern != '0000-00-00') as totalExtern,
+   (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE extern != '0000-00-00'
+        AND ABS(DATEDIFF(research, extern)) >= 0
+        AND ABS(DATEDIFF(research, extern)) <=30) as Monat1,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE extern != '0000-00-00'
+        AND ABS(DATEDIFF(research, extern)) > 30
+        AND ABS(DATEDIFF(research, extern)) <=60) as Monat2,
+         (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE extern != '0000-00-00'
+        AND ABS(DATEDIFF(research, extern)) > 60
+        AND ABS(DATEDIFF(research, extern)) <=90) as Monat3,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE extern != '0000-00-00'
+        AND ABS(DATEDIFF(research, extern)) > 90
+        AND ABS(DATEDIFF(research, extern)) <=120) as Monat4,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE extern != '0000-00-00'
+        AND ABS(DATEDIFF(research, extern)) > 120) as upMonat4
+FROM epunkt_sourcing.candidate
+LIMIT 1
+
+
+        */
+
+        /*ToDo Release 1.4 Time To Hire*/
+        /*
+
+ SELECT (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE hire != '0000-00-00') as totalHire,
+   (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE hire != '0000-00-00'
+        AND ABS(DATEDIFF(research, hire)) >= 0
+        AND ABS(DATEDIFF(research, hire)) <=30) as Monat1,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE hire != '0000-00-00'
+        AND ABS(DATEDIFF(research, hire)) > 30
+        AND ABS(DATEDIFF(research, hire)) <=60) as Monat2,
+         (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE hire != '0000-00-00'
+        AND ABS(DATEDIFF(research, hire)) > 60
+        AND ABS(DATEDIFF(research, hire)) <=90) as Monat3,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE hire != '0000-00-00'
+        AND ABS(DATEDIFF(research, hire)) > 90
+        AND ABS(DATEDIFF(research, hire)) <=120) as Monat4,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE hire != '0000-00-00'
+        AND ABS(DATEDIFF(research, hire)) > 120
+        AND ABS(DATEDIFF(research, hire)) <=150) as Monat5,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE hire != '0000-00-00'
+        AND ABS(DATEDIFF(research, hire)) > 150
+        AND ABS(DATEDIFF(research, hire)) <=180) as Monat6,
+        (SELECT COUNT(id)
+		FROM epunkt_sourcing.candidate
+		WHERE hire != '0000-00-00'
+        AND ABS(DATEDIFF(research, hire)) > 180) as upMonat6
+FROM epunkt_sourcing.candidate
+LIMIT 1
+
+        */
 
 
     } //end setup-function
