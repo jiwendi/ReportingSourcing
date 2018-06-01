@@ -530,6 +530,9 @@
     <Compile Include="public\js\sourcing\main.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="public\js\sourcing\personalDashboard.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="public\js\sourcing\source.js">
       <SubType>Code</SubType>
     </Compile>
