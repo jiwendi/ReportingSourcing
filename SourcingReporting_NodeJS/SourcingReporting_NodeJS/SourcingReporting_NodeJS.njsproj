@@ -652,6 +652,10 @@
     <Content Include="public\templates\personalDashboard.html" />
     <Content Include="public\templates\statistics\hireList.html" />
     <Content Include="public\templates\statistics\responseValues.html" />
+    <Content Include="public\templates\statistics\timeToHireScattering.html" />
+    <Content Include="public\templates\statistics\timeToExternScattering.html" />
+    <Content Include="public\templates\statistics\timeToInternScattering.html" />
+    <Content Include="public\templates\statistics\timeToTelNoticeScattering.html" />
     <Content Include="public\templates\statistics\weeklyNumbers.html" />
     <Content Include="public\templates\statistics\telNoticeGraph.html" />
     <Content Include="public\templates\statistics\telNotice.html" />

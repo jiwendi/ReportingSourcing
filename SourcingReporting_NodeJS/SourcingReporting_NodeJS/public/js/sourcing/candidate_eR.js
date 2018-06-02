@@ -97,7 +97,7 @@ app.controller('candidatedetailERController', function ($scope, $http, $routePar
     $scope.update = function () {
         $scope.message = "";
         var team_id = $('#team').val();
-
+        alert(team_id + " " + $scope.teamSelect);
         $http.post('candidateER/updateCandidate', {
             id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, eR: $scope.candidate.eR, team: team_id, hire: toLocalDate($scope.hire), scoreboard: $scope.scoreboard
         }).then(function (response) {

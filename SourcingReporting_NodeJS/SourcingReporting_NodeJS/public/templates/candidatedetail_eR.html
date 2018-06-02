@@ -39,6 +39,7 @@
 
             <div class="input-group mb-1" ng-if="hire != null">
                 <div class="input-group-addon alert-info sourcing-width-150">Team</div>
+                <input type="text" class="form-control sourcing-width-150" id="teamName" ng-model="candidate.teamname" readonly />
                 <select class="custom-select wdselect" id="team" ng-model="teamSelect" ng-change="showSelectValue(teamSelect)">
                         <!--ng-options="t.id as t.name group by t.city for t in teams track by t.id">-->
                     <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
@@ -48,6 +49,7 @@
             <!-- Scoreboard -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Scoreboard</div>
+                <input type="text" class="form-control sourcing-width-150" id="scoreboardText" ng-model="candidate.scoreboardText" readonly />
                 <select ng-model="scoreboard" class="custom-select wdselect sourcing-width-full">
                     <option ng-value="0">Nein</option>
                     <option ng-value="1">Ja</option>

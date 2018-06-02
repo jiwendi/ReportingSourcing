@@ -171,6 +171,7 @@
             if (req.session.userid) {
                 var parameter = [req.body.candidateid];
                 var candidatequery = "SELECT candidate_er.id, candidate_er.firstname, candidate_er.lastname, candidate_er.eR, team.name as teamname, candidate_er.scoreboard, " +
+                    "CASE WHEN candidate_er.scoreboard = 1 THEN 'Ja' ELSE 'Nein' END AS scoreboardText, " +
                     "CASE WHEN candidate_er.hire = '0000-00-00' THEN null ELSE candidate_er.hire END AS hire " +
                     "FROM candidate_er " +
                     "LEFT JOIN team ON team.id = candidate_er.team_id " +

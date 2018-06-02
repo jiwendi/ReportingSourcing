@@ -98,27 +98,28 @@
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Telefon-Notiz</div>
                 <input id="telnotice" type='date' ng-model="telnotice" class="form-control" ng-blur="updateTelnotice()" required/>
-              
+                <button class="btn btn-info" type="button" ng-click="deleteTelNotice()"><span class="oi oi-x"></span> entfernen</button>
             </div>
 
             <!-- Intern -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Internes Gespräch</div>
                 <input id="intern" type='date' ng-model="intern" class="form-control" ng-blur="updateIntern()" required/>
-
+                <button class="btn btn-info" type="button" ng-click="deleteIntern()"><span class="oi oi-x"></span> entfernen</button>
             </div>
 
             <!-- Extern -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Externes Gespräch</div>
                 <input id="extern" type='date' ng-model="extern" class="form-control" ng-blur="updateExtern()" required/>
-
+                <button class="btn btn-info" type="button" ng-click="deleteExtern()"><span class="oi oi-x"></span> entfernen</button>
             </div>
 
             <!-- Besetzung -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Besetzung</div>
                 <input id="hire" type='date' ng-model="hire" class="form-control" ng-blur="updateHire()" required/>
+                <button class="btn btn-info" type="button" ng-click="deleteHire()" title="Löscht automatisch auch das Team!"><span class="oi oi-x"></span> entfernen</button>
             </div>
             <!-- Besetzung -->
             <div class="input-group mb-1" ><!--ng-if="hire != null"-->
