@@ -145,7 +145,7 @@
                 " (SELECT COUNT(c2.extern) as extern FROM candidate as c2 WHERE c2.extern >= " + filter_from + " AND c2.extern <= " + filter_to + ") extern, " +
                 "(SELECT COUNT(c2.hire) as hire FROM candidate as c2 WHERE c2.hire >= " + filter_from + " AND c2.hire <= " + filter_to + ") hires " +
                 "FROM candidate as c1 WHERE c1.research >= " + filter_from + " AND c1.research <= " + filter_to + " AND request = 1";
-
+            var sourceNameQuery = "SELECT name from sources WHERE id = " + req.body.source;
             if (filter_source != false) {
                 query = "SELECT COUNT(c1.request) as request, " +
                     "(SELECT COUNT(c2.telnotice) as telnotice FROM candidate as c2 WHERE c2.source_id = " + filter_source + " AND c2.telnotice >= " + filter_from + " AND c2.telnotice <= " + filter_to + ") telnotice, " +
@@ -165,11 +165,18 @@
                         if (serr) {
                             sendResponse(res, false, "Fehler beim Abfragen der Quellen! " + serr);
                         } else {
-                            var result = {
-                                reqToHireByPlattform: rows[0],
-                                sources: srows
-                            };
-                            sendResponse(res, true, "", result);
+                            db.query(sourceNameQuery, function (snerr, snrows, snfields) {
+                                if (snerr) {
+                                    sendResponse(res, false, "Fehler beim Abfragen des QuellenNamens" + snerr);
+                                } else {
+                                    var result = {
+                                        reqToHireByPlattform: rows[0],
+                                        sources: srows,
+                                        sourceName: snrows[0]
+                                    };
+                                    sendResponse(res, true, "", result);
+                                }
+                            });
                         }
                     });
                 }

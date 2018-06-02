@@ -4,7 +4,6 @@
    
     <h3>Response Rate</h3>
     <br />
-    
     <div class="filter pt-2">
         <div class="header btn btn-info"> Filter einblenden</div>
         <div class="content">
@@ -63,7 +62,12 @@
    <br />
 
     <br />
-
+    <div id="filterAnzeige">
+        <h4>aktuelle Darstellung: </h4>
+        <p>
+            Zeitraum: <b>{{filterFrom | date: 'dd.MM.yyyy'}} - {{filterTo | date: 'dd.MM.yyyy'}}</b>
+        </p>
+    </div>
     <div class="chart-container w-75" id="ChartDiv">
         <canvas id="myChart"></canvas>
     </div>

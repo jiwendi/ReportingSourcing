@@ -146,6 +146,22 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/statistics/responseValues.html',
                 controller: 'responseValuesController'
             }).
+            when('/timeToTelNoticeScattering', {
+                templateUrl: 'templates/statistics/timeToTelNoticeScattering.html',
+                controller: 'timeToTelNoticeScatteringController'
+            }).
+            when('/timeToInternScattering', {
+                templateUrl: 'templates/statistics/timeToInternScattering.html',
+                controller: 'timeToInternScatteringController'
+            }).
+            when('/timeToExternScattering', {
+                templateUrl: 'templates/statistics/timeToExternScattering.html',
+                controller: 'timeToExternScatteringController'
+            }).
+            when('/timeToHireScattering', {
+                templateUrl: 'templates/statistics/timeToHireScattering.html',
+                controller: 'timeToHireScatteringController'
+            }).
             //WIG
             when('/wigs', {
                 templateUrl: 'templates/wigs.html',
@@ -222,8 +238,23 @@ var getColor = function (name) {
         case 'green':
             color = 'rgba(30, 170, 80, 0.2)';
             break;
+        case 'dark-green':
+            color = 'rgba(0, 120, 60, 0.2)';
+            break;
         case 'yellow':
             color = 'rgba(255, 200, 10, 0.2)';
+            break;
+        case 'lila':
+            color = 'rgba(160, 70, 160, 0.2)';
+            break;
+        case 'pink':
+            color = 'rgba(255, 130, 190, 0.2)';
+            break;
+        case 'magenta':
+            color = 'rgba(255, 0, 255, 0.2)';
+            break;
+        case 'orange':
+            color = 'rgba(255, 130, 0, 0.2)';
             break;
         default:
             color = 'rgba(250, 50, 70, 0.2)'; //default epunkt-red
@@ -255,6 +286,30 @@ var getBorderColor = function (name) {
             break;
         case 'gray-light':
             color = 'rgba(230, 230, 230, 1)';
+            break;
+        case 'blue':
+            color = 'rgba(0, 160, 230, 1)';
+            break;
+        case 'green':
+            color = 'rgba(30, 170, 80, 1)';
+            break;
+        case 'dark-green':
+            color = 'rgba(0, 120, 60, 1)';
+            break;
+        case 'yellow':
+            color = 'rgba(255, 200, 10, 1)';
+            break;
+        case 'lila':
+            color = 'rgba(160, 70, 160, 1)';
+            break;
+        case 'pink':
+            color = 'rgba(255, 130, 190, 1)';
+            break;
+        case 'magenta':
+            color = 'rgba(255, 0, 255, 1)';
+            break;
+        case 'orange':
+            color = 'rgba(255, 130, 0, 1)';
             break;
         default:
             color = 'rgba(250, 50, 70, 1)'; //default epunkt-red

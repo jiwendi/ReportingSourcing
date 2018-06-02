@@ -425,7 +425,6 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-        location.reload();
     }
 
     $scope.updateIntern = function () {
@@ -437,7 +436,6 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-        location.reload();
     }
 
     $scope.updateExtern = function () {
@@ -449,7 +447,6 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-        location.reload();
     }
 
     $scope.updateHire = function () {
@@ -461,7 +458,6 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-        location.reload();
     }
 
     $scope.updateRememberMe = function () {

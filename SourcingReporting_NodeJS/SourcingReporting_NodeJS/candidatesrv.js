@@ -771,7 +771,7 @@
                     "LEFT JOIN city_group ON team.city_group = city_group.id " +
                     " WHERE team.active=1";
                 var cityquery = "SELECT id, city FROM city_group";
-                var userquery = "SELECT id, firstname, lastname FROM users WHERE active=1 ORDER BY name";
+                var userquery = "SELECT id, firstname, lastname FROM users WHERE active=1 ORDER BY firstname";
 
                 db.query(candidatequery, parameter, function (err, rows, fields) {
                     if (err) {

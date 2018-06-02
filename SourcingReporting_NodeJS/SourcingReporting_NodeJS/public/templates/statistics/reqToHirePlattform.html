@@ -46,8 +46,14 @@
 
    <br />
    <br />
-
-    <div class="chart-container w-75">
+    <div id="filterAnzeige">
+        <h4>aktuelle Darstellung: </h4>
+        <p>
+            Quelle: <b>{{sourceName.name}}</b><br />
+            Zeitraum: <b>{{filterFrom | date: 'dd.MM.yyyy'}} - {{filterTo | date: 'dd.MM.yyyy'}}</b>
+        </p>
+    </div>
+    <div class="chart-container w-75" id="ChartDiv">
         <canvas id="myChart"></canvas>
     </div>
     
