@@ -28,7 +28,7 @@ var app = express();
 var db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '', //e.Hallo!
+    password: 'e.Hallo!', //e.Hallo!
     database: 'epunkt_sourcing'
 });
 

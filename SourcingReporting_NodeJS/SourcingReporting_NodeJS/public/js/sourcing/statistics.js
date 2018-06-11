@@ -299,6 +299,7 @@ app.controller('statisticsHiresByTeamController', function ($scope, $http) {
 
         $http.post('statistics/hiresByTeams', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.teamHires = response.data.data.hiresInTeams;
+            $scope.teamHiresER = response.data.data.eRHiresInTeams;
             $scope.countHires = response.data.data.countHires;
             $scope.message = response.data.message;
             $scope.iserrmessage = !response.data.success;

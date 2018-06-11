@@ -3,32 +3,21 @@
 
         app.post('/statistics/requestsByYear', function (req, res) {
             var message = "";
-            //var query = "SELECT COUNT(candidate.id) as requestFromSource, sources.name FROM candidate " +
-            //    "LEFT JOIN sources ON candidate.source_id = sources.id " +
-            //    "WHERE year(candidate.research) = ? " +
-            //    "GROUP BY candidate.source_id";
             var allRequestQuery = "SELECT COUNT(candidate.id) as requests FROM candidate " +
                 "LEFT JOIN sources ON candidate.source_id = sources.id " +
                 "WHERE year(candidate.research) = ? AND request = 1";
             var parameter = [req.body.yearToFilter];
 
-            //db.query(query, parameter, function (err, rows, fields) {
-            //    if (err) {
-            //        sendResponse(res, false, "Fehler beim Abfragen der Ansprachen je Plattform! " + err);
-            //    } else {
             db.query(allRequestQuery, parameter, function (allerr, allrows, allfields) {
                 if (allerr) {
                     sendResponse(res, false, "Fehler beim Abfragen der Ansprachenanzahl (Gesamt)! " + allerr);
                 } else {
                     var result = {
-                        //requestsFromSource: rows,
                         allRequests: allrows[0]
                     };
                     sendResponse(res, true, "", result);
                 }
             });
-            //    }
-            //});
         });
 
         app.post('/statistics/myYear', function (req, res) {
@@ -189,6 +178,11 @@
                 "FROM candidate " +
                 "JOIN team ON team.id = candidate.team_id " +
                 "WHERE candidate.hire >= ? AND candidate.hire <= ? GROUP BY candidate.team_id";
+            var eRQuery = "SELECT COUNT(candidate_er.id) AS anzahl, candidate_er.team_id, team.name " +
+            "FROM epunkt_sourcing.candidate_er " +
+                "JOIN epunkt_sourcing.team ON team.id = candidate_er.team_id " +
+                "WHERE candidate_er.hire >= ? AND candidate_er.hire <= ? GROUP BY candidate_er.team_id" + 
+                "GROUP BY candidate_er.team_id";
             var countQuery = "SELECT COUNT(candidate.id) AS anzahl FROM candidate WHERE candidate.hire >= ? AND candidate.hire <= ?";
             var parameter = [req.body.filterFrom, req.body.filterTo];
 
@@ -200,11 +194,18 @@
                         if (countErr) {
                             sendResponse(res, false, "Fehler beim Abfragen der Besetzungsanzahl! " + countErr);
                         } else {
-                            var result = {
-                                hiresInTeams: rows,
-                                countHires: countRows[0]
-                            };
-                            sendResponse(res, true, "", result);
+                            db.query(eRQuery, parameter, function (erErr, erRows, erFields) {
+                                if (erErr) {
+                                    sendResponse(res, false, "Fehler beim Abfragen der eR-Besetzungsdaten aus der Datenbank! " + erErr);
+                                } else {
+                                    var result = {
+                                        hiresInTeams: rows,
+                                        eRHiresInTeams: erRows,
+                                        countHires: countRows[0]
+                                    };
+                                    sendResponse(res, true, "", result);
+                                }
+                            });
                         }
                     });
                 }

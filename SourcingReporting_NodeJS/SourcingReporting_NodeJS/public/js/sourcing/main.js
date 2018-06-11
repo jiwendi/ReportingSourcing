@@ -179,6 +179,11 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/wigdetail.html',
                 controller: 'wigdetailController'
             }).
+            //Sourcing Heroes
+            when('/sourcingHeroes', {
+                templateUrl: 'templates/scoreboardHeroes.html',
+                controller: 'sourcingHeroesController'
+            }).
             //myDashboard
             when('/myDashboard', {
                 templateUrl: 'templates/personalDashboard.html',
@@ -344,4 +349,8 @@ app.controller('sideBarController', function ($scope, $http) {
     $http.get('candidate/showTimeInfosInSideBar').then(function (response) {
         $scope.timeinfo = response.data.data;
     });
+});
+
+app.controller('sourcingHeroesController', function($scope, $http){
+//leer
 });

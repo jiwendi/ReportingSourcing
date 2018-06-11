@@ -729,7 +729,7 @@
                     "AVG(ABS(DATEDIFF(research, extern))) AS timetoextern, " +
                     "AVG(ABS(DATEDIFF(research, hire))) AS timetohire " +
                     "FROM candidate " +
-                    "WHERE DATE(research) > (NOW() - INTERVAL 12 MONTH)";
+                    "WHERE DATE(research) > (NOW() - INTERVAL 6 MONTH)";
 
                 db.query(timequery, function (err, rows, fields) {
                     if (err) {

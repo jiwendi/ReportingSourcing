@@ -646,6 +646,9 @@
     <Content Include="public\templates\candidates.html" />
     <Content Include="public\templates\dashboard.html" />
     <Content Include="public\templates\groupnew.html" />
+    <Content Include="public\templates\scoreboardHeroes.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\templates\sourcedetail.html" />
     <Content Include="public\templates\sourcenew.html" />
     <Content Include="public\templates\sources.html" />

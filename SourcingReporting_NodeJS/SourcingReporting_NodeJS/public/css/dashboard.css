@@ -362,13 +362,12 @@ max-width: 15% !important;
     border-radius: 5px;
     box-shadow: 10px 10px #5bbccd;
     padding: 10px;
-    visibility: hidden;
+    visibility: visible;
     text-align: right;
 }
 
 .padding-buttons {
-margin: 5px;
-
+    margin: 5px;
 }
 
 #filterAnzeige {
