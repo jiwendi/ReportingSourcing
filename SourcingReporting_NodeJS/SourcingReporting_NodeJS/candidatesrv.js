@@ -7,10 +7,10 @@
                 var message = "";
                 var candidatequery = "SELECT candidate.id, candidate.firstname as firstname," +
                     "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
-                    "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR," +
-                    "CASE WHEN candidate.intern = '0000-00-00' THEN '-' ELSE candidate.intern END AS intern," +
-                    "CASE WHEN candidate.extern = '0000-00-00' THEN '-' ELSE candidate.extern END AS extern," +
-                    "CASE WHEN candidate.telnotice = '0000-00-00' THEN '-' ELSE candidate.telnotice END AS telnotice," +
+                    "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR, candidate.hire, " +
+                    "CASE WHEN candidate.intern IS NULL THEN '-' ELSE candidate.intern END AS intern," +
+                    "CASE WHEN candidate.extern IS NULL THEN '-' ELSE candidate.extern END AS extern," +
+                    "CASE WHEN candidate.telnotice IS NULL THEN '-' ELSE candidate.telnotice END AS telnotice," +
                     "CASE WHEN candidate.response_value = NULL THEN 'none' ELSE CASE WHEN candidate.response_value = 1 THEN 'pos.' ELSE CASE WHEN candidate.response_value = 0 THEN 'neg.' ELSE ' ' END END END AS response_value," +
                     "CASE WHEN candidate.tracking = 1 THEN 'ja' ELSE 'nein' END AS tracking," +
                     "CASE WHEN candidate.response = 1 THEN 'ja |' ELSE 'nein' END AS response," +
@@ -467,6 +467,37 @@
             }
         });
 
+        app.post('/candidate/deleteTelNotice', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET telnotice = NULL WHERE id = ?",
+                        [req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim Reset des Telefonnotiz-Datums! " + err;
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Telefonnotiz-Datum wurde zurückgesetzt!");
+                            }
+                        });
+                } else {
+                    sendResponse(res, false, message);
+                }
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
         app.post('/candidate/updateRememberMe', function (req, res) {
             if (req.session.userid) {
                 var suc = false;
@@ -560,6 +591,37 @@
             }
         });
 
+        app.post('/candidate/deleteIntern', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET intern = NULL WHERE id = ?",
+                        [req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim Reset des Datums des Internen Gesprächs! " + err;
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Internes Gesprächs-Datum wurde zurückgesetzt!");
+                            }
+                        });
+                } else {
+                    sendResponse(res, false, message);
+                }
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
         app.post('/candidate/updateExtern', function (req, res) {
             if (req.session.userid) {
                 var suc = false;
@@ -591,6 +653,37 @@
             }
         });
 
+        app.post('/candidate/deleteExterb', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET extern = NULL WHERE id = ?",
+                        [req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim Reset des Datums des Externen Gesprächs! " + err;
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Externes Gesprächs-Datum wurde zurückgesetzt!");
+                            }
+                        });
+                } else {
+                    sendResponse(res, false, message);
+                }
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
         app.post('/candidate/updateHire', function (req, res) {
             if (req.session.userid) {
                 var suc = false;
@@ -612,6 +705,37 @@
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Besetzungs-Datum wurde gespeichert! (Bitte Team nicht vergessen!)");
+                            }
+                        });
+                } else {
+                    sendResponse(res, false, message);
+                }
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
+        app.post('/candidate/deleteHire', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET hire = NULL, team_id = NULL WHERE id = ?",
+                        [req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim Reset der Besetzung und des Teams! " + err;
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Besetzung und Team wurde zurückgesetzt!");
                             }
                         });
                 } else {
@@ -750,10 +874,8 @@
                 var candidatequery = "SELECT candidate.id, candidate.firstname as firstname," +
                     "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
                     "sources.name as source, candidate.source_id as source_id, candidate.source_text, candidate.eR," +
-                    "CASE WHEN candidate.intern = '0000-00-00' THEN null ELSE candidate.intern END AS intern," +
-                    "CASE WHEN candidate.extern = '0000-00-00' THEN null ELSE candidate.extern END AS extern," +
-                    "CASE WHEN candidate.hire = '0000-00-00' THEN null ELSE candidate.hire END AS hire, candidate.infos, " +
-                    "CASE WHEN candidate.telnotice = '0000-00-00' THEN null ELSE candidate.telnotice END AS telnotice," +
+                    "candidate.intern, candidate.extern, candidate.hire, candidate.infos, " +
+                    "CASE WHEN candidate.telnotice IS NULL THEN null ELSE candidate.telnotice END AS telnotice," +
                     "CASE WHEN candidate.response_value = null THEN null ELSE candidate.response_value END AS response_value," +
                     "candidate.tracking, candidate.request, candidate.response, candidate.scoreboard," +
                     "candidate.rememberme, " +
@@ -843,7 +965,7 @@
                 var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberMe, " +
                     "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
                     "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR," +
-                    "CASE WHEN candidate.telnotice = '0000-00-00' THEN '-' ELSE candidate.telnotice END AS telnotice," +
+                    "CASE WHEN candidate.telnotice IS NULL THEN '-' ELSE candidate.telnotice END AS telnotice," +
                     "CASE WHEN candidate.response_value = NULL THEN 'none' ELSE CASE WHEN candidate.response_value = 1 THEN 'pos.' ELSE CASE WHEN candidate.response_value = 0 THEN 'neg.' ELSE ' ' END END END AS response_value," +
                     "CASE WHEN candidate.tracking = 1 THEN 'ja' ELSE 'nein' END AS tracking," +
                     "CASE WHEN candidate.response = 1 THEN 'ja |' ELSE 'nein' END AS response," +
@@ -882,7 +1004,7 @@
                 var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberMe, " +
                     "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
                     "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR," +
-                    "CASE WHEN candidate.telnotice = '0000-00-00' THEN '-' ELSE candidate.telnotice END AS telnotice," +
+                    "CASE WHEN candidate.telnotice IS NULL THEN '-' ELSE candidate.telnotice END AS telnotice," +
                     "CASE WHEN candidate.response_value = NULL THEN 'none' ELSE CASE WHEN candidate.response_value = 1 THEN 'pos.' ELSE CASE WHEN candidate.response_value = 0 THEN 'neg.' ELSE ' ' END END END AS response_value," +
                     "CASE WHEN candidate.tracking = 1 THEN 'ja' ELSE 'nein' END AS tracking," +
                     "CASE WHEN candidate.response = 1 THEN 'ja |' ELSE 'nein' END AS response," +

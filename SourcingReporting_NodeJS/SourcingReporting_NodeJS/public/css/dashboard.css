@@ -313,6 +313,15 @@ a:hover{
         color: #000 !important;
     }
 
+.hiredCandidate {
+    background-color: #b9e3e9;
+    color: #000;
+}
+
+    .hiredCandidate a {
+        color: #000 !important;
+    }
+
 .inactivesource {
     background-color: #b9e3e9;
     color: #000;

@@ -21,6 +21,16 @@
     var from_hire = false;
     var to_hire = false;
 
+    $scope.ishiredcandidate = function (candidate) {
+        if (candidate.hire != null) {
+            return "hiredCandidate";
+        } else {
+            return "";
+        }
+    };
+
+
+
     $scope.resetFilter = function () {
         location.reload();
     };
@@ -205,31 +215,36 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         }
         //ToDo: 0000-00-00 durch null ersetzen!
         if ($('#research').val() == '') {
-            $scope.research = '0000-00-00';
+            //$scope.research = '0000-00-00';
+            $scope.research = null;
         } else {
             $scope.research = $('#research').val();
         }
 
         if ($('#telnotice').val() == '') {
-            $scope.telnotice = '0000-00-00';
+            //$scope.telnotice = '0000-00-00';
+            $scope.telnotice = null;
         } else {
             $scope.telnotice = $('#telnotice').val();
         }
 
         if ($('#intern').val() == '') {
-            $scope.intern = '0000-00-00';
+            //$scope.intern = '0000-00-00';
+            $scope.intern = null;
         } else {
             $scope.intern = $('#intern').val();
         }
 
         if ($('#extern').val() == '') {
-            $scope.extern = '0000-00-00';
+            //$scope.extern = '0000-00-00';
+            $scope.extern = null;
         } else {
             $scope.extern = $('#extern').val();
         }
 
         if ($('#hire').val() == '') {
-            $scope.hire = '0000-00-00';
+            //$scope.hire = '0000-00-00';
+            $scope.hire = null;
         } else {
             $scope.hire = $('#hire').val();
         }
@@ -414,7 +429,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-    }
+    };
 
     $scope.updateTelnotice = function () {
         $scope.message = "";
@@ -425,7 +440,21 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-    }
+    };
+
+    $scope.deleteTelNotice = function () {
+        $scope.message = "";
+
+        if (confirm("Telefonnotiz wirklich entfernen?")) {
+            $http.post('candidate/deleteTelNotice', {
+                id: $scope.candidate.id
+            }).then(function (response) {
+                $scope.iserrmessage = !response.data.success;
+                $scope.message = response.data.message;
+            });
+            location.reload();
+        }
+    };
 
     $scope.updateIntern = function () {
         $scope.message = "";
@@ -436,7 +465,21 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-    }
+    };
+
+    $scope.deleteIntern = function () {
+        $scope.message = "";
+
+        if (confirm("Internes Gespräch wirklich entfernen?")) {
+            $http.post('candidate/deleteIntern', {
+                id: $scope.candidate.id
+            }).then(function (response) {
+                $scope.iserrmessage = !response.data.success;
+                $scope.message = response.data.message;
+            });
+            location.reload();
+        }
+    };
 
     $scope.updateExtern = function () {
         $scope.message = "";
@@ -447,7 +490,21 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-    }
+    };
+
+    $scope.deleteExtern = function () {
+        $scope.message = "";
+
+        if (confirm("Externes Gespräch wirklich entfernen?")) {
+            $http.post('candidate/deleteExtern', {
+                id: $scope.candidate.id
+            }).then(function (response) {
+                $scope.iserrmessage = !response.data.success;
+                $scope.message = response.data.message;
+            });
+            location.reload();
+        }
+    };
 
     $scope.updateHire = function () {
         $scope.message = "";
@@ -458,7 +515,21 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.iserrmessage = !response.data.success;
             $scope.message = response.data.message;
         });
-    }
+    };
+
+    $scope.deleteHire = function () {
+        $scope.message = "";
+
+        if (confirm("Besetzung (inkl. Team) wirklich entfernen?")) {
+            $http.post('candidate/deleteHire', {
+                id: $scope.candidate.id
+            }).then(function (response) {
+                $scope.iserrmessage = !response.data.success;
+                $scope.message = response.data.message;
+            });
+            location.reload();
+        }
+    };
 
     $scope.updateRememberMe = function () {
         $scope.message = "";

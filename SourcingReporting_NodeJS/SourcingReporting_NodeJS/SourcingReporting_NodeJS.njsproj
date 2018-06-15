@@ -522,7 +522,6 @@
     <Compile Include="public\js\sourcing\candidate_eR.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="public\js\sourcing\dashboard.js" />
     <Compile Include="public\js\sourcing\loadingScreen.js">
       <SubType>Code</SubType>
     </Compile>

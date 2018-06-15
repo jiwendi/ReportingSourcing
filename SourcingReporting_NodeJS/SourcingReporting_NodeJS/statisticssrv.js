@@ -61,9 +61,9 @@
             var notRequestedQuery = "SELECT COUNT(c1.request) as request " +
                 "FROM candidate as c1 WHERE c1.sourcer = ? AND WEEK(c1.research) = WEEK(sysdate()) AND request=0";
             var telnoticeQuery = "SELECT COUNT(c1.telnotice) as telnotice " +
-                "FROM candidate as c1 WHERE c1.sourcer = ? AND c1.telnotice != '0000-00-00' AND WEEK(c1.telnotice) = WEEK(sysdate())";
+                "FROM candidate as c1 WHERE c1.sourcer = ? AND c1.telnotice IS NOT NULL AND WEEK(c1.telnotice) = WEEK(sysdate())";
             var hireQuery = "SELECT COUNT(c1.hire) as hire " +
-                "FROM candidate as c1 WHERE c1.sourcer = ? AND c1.hire != '0000-00-00' AND WEEK(c1.hire) = WEEK(sysdate())";
+                "FROM candidate as c1 WHERE c1.sourcer = ? AND c1.hire IS NOT NULL AND WEEK(c1.hire) = WEEK(sysdate())";
 
             db.query(requestQuery, parameter, function (reqErr, reqRows, reqFields) {
                 if (reqErr) {
@@ -176,13 +176,8 @@
             var message = "";
             var query = "SELECT COUNT(candidate.id) AS anzahl, candidate.team_id, team.name " +
                 "FROM candidate " +
-                "JOIN team ON team.id = candidate.team_id " +
+                "LEFT OUTER JOIN team ON team.id = candidate.team_id " +
                 "WHERE candidate.hire >= ? AND candidate.hire <= ? GROUP BY candidate.team_id";
-            var eRQuery = "SELECT COUNT(candidate_er.id) AS anzahl, candidate_er.team_id, team.name " +
-            "FROM epunkt_sourcing.candidate_er " +
-                "JOIN epunkt_sourcing.team ON team.id = candidate_er.team_id " +
-                "WHERE candidate_er.hire >= ? AND candidate_er.hire <= ? GROUP BY candidate_er.team_id" + 
-                "GROUP BY candidate_er.team_id";
             var countQuery = "SELECT COUNT(candidate.id) AS anzahl FROM candidate WHERE candidate.hire >= ? AND candidate.hire <= ?";
             var parameter = [req.body.filterFrom, req.body.filterTo];
 
@@ -194,18 +189,11 @@
                         if (countErr) {
                             sendResponse(res, false, "Fehler beim Abfragen der Besetzungsanzahl! " + countErr);
                         } else {
-                            db.query(eRQuery, parameter, function (erErr, erRows, erFields) {
-                                if (erErr) {
-                                    sendResponse(res, false, "Fehler beim Abfragen der eR-Besetzungsdaten aus der Datenbank! " + erErr);
-                                } else {
-                                    var result = {
-                                        hiresInTeams: rows,
-                                        eRHiresInTeams: erRows,
-                                        countHires: countRows[0]
-                                    };
-                                    sendResponse(res, true, "", result);
-                                }
-                            });
+                            var result = {
+                                hiresInTeams: rows,
+                                countHires: countRows[0]
+                            };
+                            sendResponse(res, true, "", result);
                         }
                     });
                 }
@@ -249,7 +237,7 @@
             var telNoticeQuery = "SELECT COUNT(c1.telnotice) as telnotice, WEEK(c1.telnotice)+1 as weeknr, users.firstname, c1.sourcer " +
                 "FROM candidate as c1 " +
                 "JOIN users ON c1.sourcer = users.id " +
-                "WHERE c1.telnotice != '0000-00-00' AND YEAR(c1.telnotice) = ? " +
+                "WHERE c1.telnotice IS NOT NULL AND YEAR(c1.telnotice) = ? " +
                 "GROUP BY WEEK(c1.telnotice), c1.sourcer ORDER BY users.firstname";
             var researchQuery = "SELECT COUNT(c1.research) as request, WEEK(c1.research)+1 as weeknr, users.firstname, c1.sourcer " +
                 "FROM candidate as c1 " +
@@ -258,7 +246,7 @@
             var telNoticeSumQuery = "SELECT COUNT(c1.telnotice) as telnotice, WEEK(c1.telnotice)+1 as weeknr " +
                 "FROM candidate as c1 " +
                 "JOIN users ON c1.sourcer = users.id " +
-                "WHERE c1.telnotice != '0000-00-00' " +
+                "WHERE c1.telnotice IS NOT NULL " +
                 "GROUP BY WEEK(c1.telnotice)";
             var parameter = [req.body.yearToFilter];
 
@@ -349,7 +337,7 @@
 
         app.post('/statistics/weeklyNumbers', function (req, res) {
             var queryRequest = "SELECT WEEK(research)+1 as KW, COUNT(id) as counts FROM candidate WHERE request = 1 AND YEAR(research) = ? GROUP BY WEEK(research)";
-            var queryTelNotice = "SELECT WEEK(telnotice)+1 as KW, COUNT(id) as counts FROM candidate WHERE telnotice != '0000-00-00' AND YEAR(telnotice) = ? GROUP BY WEEK(telnotice)";
+            var queryTelNotice = "SELECT WEEK(telnotice)+1 as KW, COUNT(id) as counts FROM candidate WHERE telnotice IS NOT NULL AND YEAR(telnotice) = ? GROUP BY WEEK(telnotice)";
             var parameter = [req.body.yearToFilter];
             var message = "";
 
@@ -397,16 +385,16 @@
 
         /* Release 1.4 Statistik Pie-Chart Time-To Telefonnotiz*/
         app.post('/statistics/timeToTelNoticeScattering', function (req, res) {
-            var query = " SELECT (SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00') as totalTelNotice, (SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00' AND ABS(DATEDIFF(research, telnotice)) = 0 ) as iszero, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00' AND ABS(DATEDIFF(research, telnotice)) >= 1 AND ABS(DATEDIFF(research, telnotice)) <= 2) as oneortwo, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00' AND ABS(DATEDIFF(research, telnotice)) >= 3 AND ABS(DATEDIFF(research, telnotice)) <= 6) as threetosix, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00' AND ABS(DATEDIFF(research, telnotice)) >= 7 AND ABS(DATEDIFF(research, telnotice)) <= 9) as seventonine, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00' AND ABS(DATEDIFF(research, telnotice)) >= 10 AND ABS(DATEDIFF(research, telnotice)) <= 13) as f10t13, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00' AND ABS(DATEDIFF(research, telnotice)) >= 14 AND ABS(DATEDIFF(research, telnotice)) <= 17) as f14t17, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00' AND ABS(DATEDIFF(research, telnotice)) >= 18 AND ABS(DATEDIFF(research, telnotice)) <= 25) as f18t25, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00' AND ABS(DATEDIFF(research, telnotice)) > 25 AND ABS(DATEDIFF(research, telnotice)) <= 50) as f25t50, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00' AND ABS(DATEDIFF(research, telnotice)) > 50 AND ABS(DATEDIFF(research, telnotice)) <= 100) as f50t100, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice != '0000-00-00' AND ABS(DATEDIFF(research, telnotice)) > 100) as up100 " +
+            var query = " SELECT (SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL) as totalTelNotice, (SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL AND ABS(DATEDIFF(research, telnotice)) = 0 ) as iszero, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL AND ABS(DATEDIFF(research, telnotice)) >= 1 AND ABS(DATEDIFF(research, telnotice)) <= 2) as oneortwo, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL AND ABS(DATEDIFF(research, telnotice)) >= 3 AND ABS(DATEDIFF(research, telnotice)) <= 6) as threetosix, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL AND ABS(DATEDIFF(research, telnotice)) >= 7 AND ABS(DATEDIFF(research, telnotice)) <= 9) as seventonine, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL AND ABS(DATEDIFF(research, telnotice)) >= 10 AND ABS(DATEDIFF(research, telnotice)) <= 13) as f10t13, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL AND ABS(DATEDIFF(research, telnotice)) >= 14 AND ABS(DATEDIFF(research, telnotice)) <= 17) as f14t17, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL AND ABS(DATEDIFF(research, telnotice)) >= 18 AND ABS(DATEDIFF(research, telnotice)) <= 25) as f18t25, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL AND ABS(DATEDIFF(research, telnotice)) > 25 AND ABS(DATEDIFF(research, telnotice)) <= 50) as f25t50, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL AND ABS(DATEDIFF(research, telnotice)) > 50 AND ABS(DATEDIFF(research, telnotice)) <= 100) as f50t100, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE telnotice IS NOT NULL AND ABS(DATEDIFF(research, telnotice)) > 100) as up100 " +
                 "FROM epunkt_sourcing.candidate LIMIT 1";
 
             db.query(query, function (err, rows, fields) {
@@ -420,15 +408,15 @@
 
         /* Release 1.4 Statistik Pie-Chart Time-To-Intern*/
         app.post('/statistics/timeToInternScattering', function (req, res) {
-            var query = "SELECT (SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern != '0000-00-00') as totalIntern, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern != '0000-00-00' AND ABS(DATEDIFF(research, intern)) >= 0 AND ABS(DATEDIFF(research, intern)) <= 7) as f0t7, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern != '0000-00-00' AND ABS(DATEDIFF(research, intern)) >= 8 AND ABS(DATEDIFF(research, intern)) <= 14) as f8t14, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern != '0000-00-00' AND ABS(DATEDIFF(research, intern)) >= 15 AND ABS(DATEDIFF(research, intern)) <= 21) as f15t21, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern != '0000-00-00' AND ABS(DATEDIFF(research, intern)) >= 22 AND ABS(DATEDIFF(research, intern)) <= 30) as f22t30, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern != '0000-00-00' AND ABS(DATEDIFF(research, intern)) > 30 AND ABS(DATEDIFF(research, intern)) <= 60) as f30t60, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern != '0000-00-00' AND ABS(DATEDIFF(research, intern)) > 60 AND ABS(DATEDIFF(research, intern)) <= 90) as f60t90, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern != '0000-00-00' AND ABS(DATEDIFF(research, intern)) > 90 AND ABS(DATEDIFF(research, intern)) <= 120) as f90t120, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern != '0000-00-00' AND ABS(DATEDIFF(research, intern)) > 120) as up120 " +
+            var query = "SELECT (SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern IS NOT NULL) as totalIntern, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern IS NOT NULL AND ABS(DATEDIFF(research, intern)) >= 0 AND ABS(DATEDIFF(research, intern)) <= 7) as f0t7, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern IS NOT NULL AND ABS(DATEDIFF(research, intern)) >= 8 AND ABS(DATEDIFF(research, intern)) <= 14) as f8t14, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern IS NOT NULL AND ABS(DATEDIFF(research, intern)) >= 15 AND ABS(DATEDIFF(research, intern)) <= 21) as f15t21, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern IS NOT NULL AND ABS(DATEDIFF(research, intern)) >= 22 AND ABS(DATEDIFF(research, intern)) <= 30) as f22t30, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern IS NOT NULL AND ABS(DATEDIFF(research, intern)) > 30 AND ABS(DATEDIFF(research, intern)) <= 60) as f30t60, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern IS NOT NULL AND ABS(DATEDIFF(research, intern)) > 60 AND ABS(DATEDIFF(research, intern)) <= 90) as f60t90, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern IS NOT NULL AND ABS(DATEDIFF(research, intern)) > 90 AND ABS(DATEDIFF(research, intern)) <= 120) as f90t120, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE intern IS NOT NULL AND ABS(DATEDIFF(research, intern)) > 120) as up120 " +
                 "FROM epunkt_sourcing.candidate LIMIT 1";
 
             db.query(query, function (err, rows, fields) {
@@ -442,12 +430,12 @@
 
         /* Release 1.4 Statistik Pie-Chart Time-To-Extern*/
         app.post('/statistics/timeToExternScattering', function (req, res) {
-            var query = " SELECT (SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern != '0000-00-00') as totalExtern, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern != '0000-00-00' AND ABS(DATEDIFF(research, extern)) >= 0 AND ABS(DATEDIFF(research, extern)) <= 30) as Monat1, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern != '0000-00-00' AND ABS(DATEDIFF(research, extern)) > 30 AND ABS(DATEDIFF(research, extern)) <= 60) as Monat2, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern != '0000-00-00' AND ABS(DATEDIFF(research, extern)) > 60 AND ABS(DATEDIFF(research, extern)) <= 90) as Monat3, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern != '0000-00-00' AND ABS(DATEDIFF(research, extern)) > 90 AND ABS(DATEDIFF(research, extern)) <= 120) as Monat4, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern != '0000-00-00' AND ABS(DATEDIFF(research, extern)) > 120) as upMonat4 " +
+            var query = " SELECT (SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern IS NOT NULL) as totalExtern, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern IS NOT NULL AND ABS(DATEDIFF(research, extern)) >= 0 AND ABS(DATEDIFF(research, extern)) <= 30) as Monat1, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern IS NOT NULL AND ABS(DATEDIFF(research, extern)) > 30 AND ABS(DATEDIFF(research, extern)) <= 60) as Monat2, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern IS NOT NULL AND ABS(DATEDIFF(research, extern)) > 60 AND ABS(DATEDIFF(research, extern)) <= 90) as Monat3, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern IS NOT NULL AND ABS(DATEDIFF(research, extern)) > 90 AND ABS(DATEDIFF(research, extern)) <= 120) as Monat4, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE extern IS NOT NULL AND ABS(DATEDIFF(research, extern)) > 120) as upMonat4 " +
                 "FROM epunkt_sourcing.candidate LIMIT 1";
 
             db.query(query, function (err, rows, fields) {
@@ -461,14 +449,14 @@
 
         /* Release 1.4 Statistik Pie-Chart Time-To-Hire*/
         app.post('/statistics/timeToHireScattering', function (req, res) {
-            var query = " SELECT (SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire != '0000-00-00') as totalHire, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire != '0000-00-00' AND ABS(DATEDIFF(research, hire)) >= 0 AND ABS(DATEDIFF(research, hire)) <= 30) as Monat1, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire != '0000-00-00' AND ABS(DATEDIFF(research, hire)) > 30 AND ABS(DATEDIFF(research, hire)) <= 60) as Monat2, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire != '0000-00-00' AND ABS(DATEDIFF(research, hire)) > 60 AND ABS(DATEDIFF(research, hire)) <= 90) as Monat3, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire != '0000-00-00' AND ABS(DATEDIFF(research, hire)) > 90 AND ABS(DATEDIFF(research, hire)) <= 120) as Monat4, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire != '0000-00-00' AND ABS(DATEDIFF(research, hire)) > 120 AND ABS(DATEDIFF(research, hire)) <= 150) as Monat5, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire != '0000-00-00' AND ABS(DATEDIFF(research, hire)) > 150 AND ABS(DATEDIFF(research, hire)) <= 180) as Monat6, " +
-                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire != '0000-00-00' AND ABS(DATEDIFF(research, hire)) > 180) as upMonat6 " +
+            var query = " SELECT (SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire IS NOT NULL) as totalHire, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire IS NOT NULL AND ABS(DATEDIFF(research, hire)) >= 0 AND ABS(DATEDIFF(research, hire)) <= 30) as Monat1, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire IS NOT NULL AND ABS(DATEDIFF(research, hire)) > 30 AND ABS(DATEDIFF(research, hire)) <= 60) as Monat2, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire IS NOT NULL AND ABS(DATEDIFF(research, hire)) > 60 AND ABS(DATEDIFF(research, hire)) <= 90) as Monat3, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire IS NOT NULL AND ABS(DATEDIFF(research, hire)) > 90 AND ABS(DATEDIFF(research, hire)) <= 120) as Monat4, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire IS NOT NULL AND ABS(DATEDIFF(research, hire)) > 120 AND ABS(DATEDIFF(research, hire)) <= 150) as Monat5, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire IS NOT NULL AND ABS(DATEDIFF(research, hire)) > 150 AND ABS(DATEDIFF(research, hire)) <= 180) as Monat6, " +
+                "(SELECT COUNT(id) FROM epunkt_sourcing.candidate WHERE hire IS NOT NULL AND ABS(DATEDIFF(research, hire)) > 180) as upMonat6 " +
                 "FROM epunkt_sourcing.candidate LIMIT 1";
 
             db.query(query, function (err, rows, fields) {

@@ -27,7 +27,8 @@ app.controller('candidatenewERController', function ($scope, $http, $routeParams
         $scope.sourcer = $('#sourcer').val();
 
         if ($('#hire').val() == '') {
-            $scope.hire = '0000-00-00';
+            //$scope.hire = '0000-00-00';
+            $scope.hire = null;
         } else {
             $scope.hire = $('#hire').val();
         }
@@ -97,7 +98,7 @@ app.controller('candidatedetailERController', function ($scope, $http, $routePar
     $scope.update = function () {
         $scope.message = "";
         var team_id = $('#team').val();
-        alert(team_id + " " + $scope.teamSelect);
+       // alert("Teamid: " + team_id + " TeamSelect: " + $scope.teamSelect);
         $http.post('candidateER/updateCandidate', {
             id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, eR: $scope.candidate.eR, team: team_id, hire: toLocalDate($scope.hire), scoreboard: $scope.scoreboard
         }).then(function (response) {

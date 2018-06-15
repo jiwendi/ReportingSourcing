@@ -144,7 +144,7 @@
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <tr ng-repeat="c in candidates">
+                <tr ng-repeat="c in candidates" ng-class="ishiredcandidate(c)">
                     <td>{{c.id}}</td>
                     <td><b>{{c.sourcerName}}</b></td>
                     <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
