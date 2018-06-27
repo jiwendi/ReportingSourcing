@@ -1,0 +1,35 @@
+﻿.sourcing-sidebar {
+    display:none;
+}
+
+sidebar {
+    display: none;
+}
+
+.releaseInfo {
+    display: none;
+}
+
+.filter-panel {
+    display: none;
+}
+
+.search-panel {
+    display: none;
+}
+
+.panel-heading {
+    display: none;
+}
+
+.navbar {
+    display: none;
+}
+
+.nav-item {
+    display: none;
+}
+
+.timeinfo {
+    display: none;
+}

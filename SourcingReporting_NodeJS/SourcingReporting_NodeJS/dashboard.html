@@ -9,11 +9,16 @@
 
     <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet" media="screen and (min-width: 1600px)">
     <link href="font/css/open-iconic-bootstrap.css" rel="stylesheet">
     <link href="css/select2.min.css" rel="stylesheet" />
     <link href="css/tablesort.css" rel="stylesheet" />
     <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" media="screen and (max-width:1600px)" href="css/responsive/laptop.css"/>
+    <link rel="stylesheet" media="screen and (max-width:900px)" href="css/responsive/mobile.css" />
+    <link rel="stylesheet" media="print" href="css/responsive/print.css" />
 
     <!-- JS -->    
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
@@ -149,7 +154,7 @@
             </nav>
             <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3 main-margin">
                 <div id="releaseInfo" class="releaseInfo"><h3>Neues Release kommt!</h3> Das Sourcing Tool ist außerplanmäßig bereits am Mo, 18.06.2018 von 8:00 - 12:00 offline. <br/>Danke für dein Verständnis!<br /><strong>Happy Sourcing :)</strong></div>
-                <div ng-view></div>
+                <div class="main-view" ng-view></div>
 
             </main>
         </div>

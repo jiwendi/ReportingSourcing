@@ -590,6 +590,18 @@
     <Content Include="public\css\bootstrap.min.css" />
     <Content Include="public\css\dashboard.css" />
     <Content Include="public\css\login.css" />
+    <Content Include="public\css\responsive\laptop.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\css\responsive\mobile.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\css\responsive\monitor.css">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\css\responsive\print.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="public\css\select2.min.css" />
     <Content Include="public\css\tablesort.css">
       <SubType>Code</SubType>
@@ -721,6 +733,7 @@
     <Folder Include="public\bower_components\moment\templates\" />
     <Folder Include="public\" />
     <Folder Include="public\css\" />
+    <Folder Include="public\css\responsive\" />
     <Folder Include="public\font\" />
     <Folder Include="public\font\css\" />
     <Folder Include="public\font\fonts\" />
