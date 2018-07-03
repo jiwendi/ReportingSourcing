@@ -1,0 +1,166 @@
+﻿<h1 class="page-header"><span class="oi oi-clipboard"></span>  Time-To-Max-Listen</h1>
+
+
+<div id="timeToMaxCollapse">
+    
+    <div class="accordion" id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingTelNotice">
+                <h5 class="mb-0">
+                    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseTelNotice" aria-expanded="true" aria-controls="collapseTelNotice">
+                        <span class="oi oi-magnifying-glass"></span> Time-To-TelNotice
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseTelNotice" class="collapse show" aria-labelledby="headingTelNotice" data-parent="#accordion">
+                <div class="card-body">
+                    <table id="candidates" class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th aria-sort="descending">Time-To-Telnotice</th>
+                                <th>Research</th>
+                                <th>TelNotice</th>
+                                <th>Sourcer</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr ng-repeat="c in timeToTelNotice">
+                                <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                                <td class="sorttable_numeric">{{c.timeto}}</td>
+                                <td class="sorttable_numeric" sorttable_customkey="{{c.research | date: 'yyyyMMddHHmmss'}}">{{c.research | date: 'dd.MM.yyyy'}}</td>
+                                <td class="sorttable_numeric" sorttable_customkey="{{c.telnotice | date: 'yyyyMMddHHmmss'}}">{{c.telnotice | date: 'dd.MM.yyyy'}}</td>
+                                <td>{{c.sourcer}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingIntern">
+                <h5 class="mb-0">
+                    <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseIntern" aria-expanded="false" aria-controls="collapseIntern">
+                        <span class="oi oi-magnifying-glass"></span> Time-To-Intern
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseIntern" class="collapse" aria-labelledby="headingIntern" data-parent="#accordion">
+                <div class="card-body">
+                    <table id="candidates" class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th aria-sort="descending">Time-To-Interview</th>
+                                <th>Research</th>
+                                <th>Interview</th>
+                                <th>Sourcer</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr ng-repeat="c in timeToIntern">
+                                <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                                <td class="sorttable_numeric">{{c.timeto}}</td>
+                                <td class="sorttable_numeric" sorttable_customkey="{{c.research | date: 'yyyyMMddHHmmss'}}">{{c.research | date: 'dd.MM.yyyy'}}</td>
+                                <td class="sorttable_numeric" sorttable_customkey="{{c.intern | date: 'yyyyMMddHHmmss'}}">{{c.intern | date: 'dd.MM.yyyy'}}</td>
+                                <td>{{c.sourcer}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingExtern">
+                <h5 class="mb-0">
+                    <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseExtern" aria-expanded="false" aria-controls="collapseExtern">
+                        <span class="oi oi-magnifying-glass"></span> Time-To-Extern
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseExtern" class="collapse" aria-labelledby="headingExtern" data-parent="#accordion">
+                <div class="card-body">
+                    <table id="candidates" class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th aria-sort="descending">Time-To-Extern</th>
+                                <th>Research</th>
+                                <th>Extern</th>
+                                <th>Sourcer</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr ng-repeat="c in timeToExtern">
+                                <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                                <td class="sorttable_numeric">{{c.timeto}}</td>
+                                <td class="sorttable_numeric" sorttable_customkey="{{c.research | date: 'yyyyMMddHHmmss'}}">{{c.research | date: 'dd.MM.yyyy'}}</td>
+                                <td class="sorttable_numeric" sorttable_customkey="{{c.extern | date: 'yyyyMMddHHmmss'}}">{{c.extern | date: 'dd.MM.yyyy'}}</td>
+                                <td>{{c.sourcer}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingHire">
+                <h5 class="mb-0">
+                    <button class="btn btn-info collapsed" type="button" data-toggle="collapse" data-target="#collapseHire" aria-expanded="false" aria-controls="collapseHire">
+                        <span class="oi oi-magnifying-glass"></span> Time-To-Hire
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseHire" class="collapse" aria-labelledby="headingHire" data-parent="#accordion">
+                <div class="card-body">
+                    <table id="candidates" class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th aria-sort="descending">Time-To-Hire</th>
+                                <th>Research</th>
+                                <th>Besetzung</th>
+                                <th>Sourcer</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr ng-repeat="c in timeToHire">
+                                <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                                <td class="sorttable_numeric">{{c.timeto}}</td>
+                                <td class="sorttable_numeric" sorttable_customkey="{{c.research | date: 'yyyyMMddHHmmss'}}">{{c.research | date: 'dd.MM.yyyy'}}</td>
+                                <td class="sorttable_numeric" sorttable_customkey="{{c.hire | date: 'yyyyMMddHHmmss'}}">{{c.hire | date: 'dd.MM.yyyy'}}</td>
+                                <td>{{c.sourcer}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+
+
+
+<script src='js/tablesort.min.js'></script>
+
+<!-- Include sort types you need -->
+<script src='js/tablesort.number.min.js'></script>
+<script src='js/tablesort.date.min.js'></script>
+
+
+<script>
+
+    $('.collapse').collapse();
+</script>

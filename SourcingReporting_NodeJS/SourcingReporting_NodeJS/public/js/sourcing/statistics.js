@@ -1156,3 +1156,23 @@ app.controller('timeToHireScatteringController', function ($scope, $http) {
     });
 
 });
+
+app.controller('timeToMaxController', function ($scope, $http) {
+    $scope.message = "";
+    $scope.iserrmessage = false;
+
+    $http.post('statistics/timetomax').then(function (response) {
+        $scope.requestsByKW = response.data.data.requestsByKW;
+        $scope.telnoticeByKW = response.data.data.telnoticeByKW;
+
+        $scope.timeToTelNotice = response.data.data.timeToTelNotice;
+        $scope.timeToIntern = response.data.data.timeToIntern;
+        $scope.timeToExtern = response.data.data.timeToExtern;
+        $scope.timeToHire = response.data.data.timeToHire;
+
+        $scope.message = response.data.message;
+        $scope.iserrmessage = !response.data.success;
+    });
+
+
+});

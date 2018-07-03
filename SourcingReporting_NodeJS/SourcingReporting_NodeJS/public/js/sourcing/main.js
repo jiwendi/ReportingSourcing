@@ -107,7 +107,7 @@ app.config(['$routeProvider',
             }).
             //Statistiken
             when('/statistics', {
-                templateUrl: 'templates/statistics/statistics.html',
+                templateUrl: 'templates/statistics/statisticsOverview.html',
                 controller: 'statisticsController'
             }).
             when('/reqestsToHire', {
@@ -162,6 +162,10 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/statistics/timeToHireScattering.html',
                 controller: 'timeToHireScatteringController'
             }).
+            when('/timetomax', {
+                templateUrl: 'templates/statistics/timeToMax.html',
+                controller: 'timeToMaxController'
+            }).
             //WIG
             when('/wigs', {
                 templateUrl: 'templates/wigs.html',
@@ -188,6 +192,11 @@ app.config(['$routeProvider',
             when('/myDashboard', {
                 templateUrl: 'templates/personalDashboard.html',
                 controller: 'personalDashboardController'
+            }).
+            //Settings
+            when('/settings', {
+                templateUrl: 'templates/settingsOverview.html',
+                controller: 'settingsController'
             }).
             //Standard: Candidate List
             otherwise({ redirectTo: '/myDashboard' });
@@ -353,4 +362,8 @@ app.controller('sideBarController', function ($scope, $http) {
 
 app.controller('sourcingHeroesController', function($scope, $http){
 //leer
+});
+
+app.controller('settingsController', function ($scope, $http) {
+    //leer
 });

@@ -467,5 +467,66 @@
                 }
             });
         });
+
+        /* Release 1.5 Time To Max-Listen */
+        app.post('/statistics/timetomax', function (req, res) {
+            var telnoticeQuery = "SELECT ABS(DATEDIFF(c.research, c.telnotice)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.telnotice, s.firstname as sourcer " +
+                "FROM epunkt_sourcing.candidate c " +
+                "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.telnotice)) >20 " +
+                "ORDER BY ABS(DATEDIFF(c.research, c.telnotice)) desc " +
+                "LIMIT 10";
+            var internQuery = "SELECT ABS(DATEDIFF(c.research, c.intern)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.intern, s.firstname as sourcer " +
+                "FROM epunkt_sourcing.candidate c " +
+                "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.intern)) >50 " +
+                "ORDER BY ABS(DATEDIFF(c.research, c.intern)) desc " +
+                "LIMIT 10";
+            var externQuery = "SELECT ABS(DATEDIFF(c.research, c.extern)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.extern, s.firstname as sourcer " +
+                "FROM epunkt_sourcing.candidate c " +
+                "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.extern)) >70 " +
+                "ORDER BY ABS(DATEDIFF(c.research, c.extern)) desc " +
+                "LIMIT 10";
+            var hireQuery = "SELECT ABS(DATEDIFF(c.research, c.hire)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.hire, s.firstname as sourcer " +
+                "FROM epunkt_sourcing.candidate c " +
+                "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.hire)) >100 " +
+                "ORDER BY ABS(DATEDIFF(c.research, c.hire)) desc " +
+                "LIMIT 10";
+
+            db.query(telnoticeQuery, function (tnErr, tnRows, tnFields) {
+                if (tnErr) {
+                    sendResponse(res, false, "Fehler beim Abfragen der time-to-max-Liste (Telnotice) " + tnErr);
+                } else {
+                    db.query(internQuery, function (iErr, iRows, iFields) {
+                        if (iErr) {
+                            sendResponse(res, false, "Fehler beim Abfragen der time-to-max-Liste (Intern) " + iErr);
+                        } else {
+                            db.query(externQuery, function (eErr, eRows, eFields) {
+                                if (eErr) {
+                                    sendResponse(res, false, "Fehler beim Abfragen der time-to-max-Liste (Extern) " + eErr);
+                                } else {
+                                    db.query(hireQuery, function (hErr, hRows, hFields) {
+                                        if (hErr) {
+                                            sendResponse(res, false, "Fehler beim Abfragen der time-to-max-Liste (Hire) " + hErr);
+                                        } else {
+                                            var result = {
+                                                timeToTelNotice: tnRows,
+                                                timeToIntern: iRows,
+                                                timeToExtern: eRows,
+                                                timeToHire: hRows
+                                            };
+                                            sendResponse(res, true, "", result);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
+        });
     }
 }; 

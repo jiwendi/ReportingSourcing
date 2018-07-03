@@ -660,10 +660,12 @@
     <Content Include="public\templates\scoreboardHeroes.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="public\templates\settingsOverview.html" />
     <Content Include="public\templates\sourcedetail.html" />
     <Content Include="public\templates\sourcenew.html" />
     <Content Include="public\templates\sources.html" />
     <Content Include="public\templates\personalDashboard.html" />
+    <Content Include="public\templates\statistics\timeToMax.html" />
     <Content Include="public\templates\statistics\hireList.html" />
     <Content Include="public\templates\statistics\responseValues.html" />
     <Content Include="public\templates\statistics\timeToHireScattering.html" />
@@ -677,7 +679,7 @@
     <Content Include="public\templates\statistics\hiresInTeams.html" />
     <Content Include="public\templates\statistics\reqToHirePlattform.html" />
     <Content Include="public\templates\statistics\reqToHire.html" />
-    <Content Include="public\templates\statistics\statistics.html" />
+    <Content Include="public\templates\statistics\statisticsOverview.html" />
     <Content Include="public\templates\teamdetail.html" />
     <Content Include="public\templates\teamnew.html" />
     <Content Include="public\templates\teams.html" />

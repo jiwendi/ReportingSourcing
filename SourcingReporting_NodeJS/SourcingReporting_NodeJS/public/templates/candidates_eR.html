@@ -39,7 +39,7 @@
                     <td><a href="#!candidatedetaileR/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
                     <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
                     <td ng-if="c.eR == null"> </td>
-                    <td>{{c.hire | date: 'dd.MM.yyyy'}}</td>
+                    <td class="sorttable_numeric" sorttable_customkey="{{c.hire | date: 'yyyyMMddHHmmss'}}">{{c.hire | date: 'dd.MM.yyyy'}}</td>
                     <td>{{c.teamname}}</td>
                     <td>{{c.scoreboard}}</td>
                 </tr>
