@@ -532,6 +532,9 @@
     <Compile Include="public\js\sourcing\personalDashboard.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="public\js\sourcing\settings.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="public\js\sourcing\source.js">
       <SubType>Code</SubType>
     </Compile>
@@ -552,6 +555,9 @@
     <Compile Include="public\js\tablesort.number.min.js" />
     <Compile Include="public\js\transition.js" />
     <Compile Include="server.js" />
+    <Compile Include="settingssrv.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="sourcesrv.js">
       <SubType>Code</SubType>
     </Compile>
@@ -652,6 +658,7 @@
     <Content Include="public\templates\candidatedetail_eR.html" />
     <Content Include="public\templates\candidatenew_eR.html" />
     <Content Include="public\templates\candidatenew.html" />
+    <Content Include="public\templates\anonymizeCandidates.html" />
     <Content Include="public\templates\rememberMe_List.html" />
     <Content Include="public\templates\candidates_eR.html" />
     <Content Include="public\templates\candidates.html" />

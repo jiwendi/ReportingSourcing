@@ -364,6 +364,24 @@ a {
     padding: 5px;
 }
 
+.anonymise_input {
+    width: 25%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid #17a2b8;
+    border-radius: .25rem;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+}
+
+.table_blank {
+    border: none;
+}
+
 .releaseInfo {
     position: absolute;
     right: 20px;

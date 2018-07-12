@@ -19,6 +19,7 @@ var candidatesrv = require('./candidatesrv');
 var wigsrv = require('./wigsrv');
 var statisticssrv = require('./statisticssrv');
 var candidateersrv = require('./candidate_er_srv');
+var settingssrv = require('./settingssrv');
 
 var app = express();
 
@@ -85,6 +86,8 @@ candidateersrv.setup(app, db, session, toDate, sendResponse);
 wigsrv.setup(app, db, session, toDate, sendResponse);
 
 statisticssrv.setup(app, db, session, toDate, sendResponse, getDateString);
+
+settingssrv.setup(app, db, session, toDate, sendResponse, getDateString);
 
 app.listen(8081, function () {
     console.log('Sourcing App listening on port 8081!');

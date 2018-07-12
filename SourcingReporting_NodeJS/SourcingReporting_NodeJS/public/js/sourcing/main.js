@@ -3,6 +3,7 @@
 const THIS_YEAR = new Number(2018);
 const FILTER_FROM = new Date('2018-01-01');
 const FILTER_TO = new Date('2018-12-31');
+const FILTER_DAYS = new Number(365);
 
 app.config(['$routeProvider',
     function ($routeProvider) {
@@ -197,6 +198,10 @@ app.config(['$routeProvider',
             when('/settings', {
                 templateUrl: 'templates/settingsOverview.html',
                 controller: 'settingsController'
+            }).
+            when('/candidateAnonymize', {
+                templateUrl: 'templates/anonymizeCandidates.html',
+                controller: 'anonymizeCandidateController'
             }).
             //Standard: Candidate List
             otherwise({ redirectTo: '/myDashboard' });
