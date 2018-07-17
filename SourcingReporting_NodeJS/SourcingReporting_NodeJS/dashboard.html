@@ -66,8 +66,9 @@
                 </form>
 
                 <form class="form-inline mt-2 mt-md-0 mr-2">
-                    <input class="form-control mr-sm-3" type="text" placeholder="Kandidatensuche" aria-label="Suche">
-                    <button class="btn btn-outline-info my-3 my-sm-0" type="submit" ng-click="searchCandidate()">Suche</button>
+                    <input title="Suche nach Vorname ODER Nachname, eR ODER Link möglich!" class="form-control mr-sm-3" type="text" ng-model="searchString" name="searchString" placeholder="Kandidatensuche" aria-label="Suche" ng-keyup="searchCandidate()">
+                    <!--<button class="btn btn-outline-info my-3 my-sm-0" type="submit">Suche</button>-->
+                    <div id="livesearch"></div>
                 </form>
 
            

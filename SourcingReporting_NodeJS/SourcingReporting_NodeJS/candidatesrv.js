@@ -1000,7 +1000,7 @@
             if (req.session.userid) {
                 var regsuc = false;
                 var message = "";
-                
+
                 var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberMe, " +
                     "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
                     "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR," +
@@ -1011,7 +1011,7 @@
                     "candidate.research, users.firstname as sourcerName, candidate.sourcer " +
                     "FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
                     "LEFT JOIN users ON candidate.sourcer = users.id " +
-                    "WHERE candidate.rememberMe IS NOT NULL AND candidate.sourcer = " + req.session.userid + " AND MONTH(candidate.rememberme) = MONTH(sysdate()) " +
+                    "WHERE candidate.rememberMe IS NOT NULL AND candidate.sourcer = " + req.session.userid + " AND MONTH(candidate.rememberme) <= MONTH(sysdate()) AND YEAR(candidate.rememberme) <= YEAR(sysdate()) " +
                     "ORDER BY candidate.rememberMe";
 
                 db.query(candidatequery, function (candErr, candResult, candFields) {
@@ -1019,6 +1019,27 @@
                         sendResponse(res, false, "Fehler beim Abfragen der Kandidaten aus der Datenbank! " + candErr);
                     } else {
                         sendResponse(res, true, "", candResult);
+                    }
+                });
+            } else {
+                sendResponse(res, false, "Kein Benutzer eingeloggt!");
+            }
+        });
+
+        app.post('/candidate/livesearch', function (req, res) {
+            var searchString = req.body.searchString;
+            var query = "SELECT id, firstname, lastname FROM candidate WHERE firstname like '%" + searchString + "%' OR lastname like '%" + searchString + "%' OR eR like '%" + searchString + "%' OR source_text like '%" + searchString + "%'";
+            if (req.session.userid) {
+                db.query(query, function (err, rows, fields) {
+                    if (err) {
+                        sendResponse(res, false, "Fehler beim Abfragen des LiveSearch-Anfrage! " + err);
+                    } else {
+                        var data = "";
+                        for (var i = 0; i < rows.length; i++)
+                        {
+                            data = data + '<a href="#!candidatedetail/'+ rows[i].id + '">' + rows[i].firstname + ' ' + rows[i].lastname + '</a><br />';
+                        }
+                        sendResponse(res, true, "", data);
                     }
                 });
             } else {

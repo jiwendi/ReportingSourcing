@@ -69,6 +69,7 @@
     $http.post('statistics/myWeek').then(function (response) {
         $scope.myWeek = response.data.data;
         $scope.myWeekRequest = response.data.data.request;
+        $scope.myWeekNotRequested = response.data.data.notRequested;
         $scope.myWeekTelNotice = response.data.data.telnotice;
         $scope.myWeekHires = response.data.data.hires;
         

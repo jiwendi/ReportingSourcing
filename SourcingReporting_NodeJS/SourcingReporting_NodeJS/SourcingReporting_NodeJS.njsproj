@@ -505,6 +505,7 @@
     <Compile Include="candidatesrv.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="public\js\alertify.js" />
     <Compile Include="public\js\angular-filter.min.js" />
     <Compile Include="public\js\angular-route.min.js" />
     <Compile Include="public\js\angular.min.js" />
@@ -593,6 +594,9 @@
     </Content>
     <Content Include="epunkt_sourcing.sql" />
     <Content Include="package.json" />
+    <Content Include="public\css\alertify\alertify.bootstrap.css" />
+    <Content Include="public\css\alertify\alertify.core.css" />
+    <Content Include="public\css\alertify\alertify.default.css" />
     <Content Include="public\css\bootstrap.min.css" />
     <Content Include="public\css\dashboard.css" />
     <Content Include="public\css\login.css" />
@@ -758,6 +762,7 @@
     <Folder Include="public\bower_components\moment\templates\" />
     <Folder Include="public\" />
     <Folder Include="public\css\" />
+    <Folder Include="public\css\alertify\" />
     <Folder Include="public\css\responsive\" />
     <Folder Include="public\font\" />
     <Folder Include="public\font\css\" />

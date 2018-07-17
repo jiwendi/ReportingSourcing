@@ -352,7 +352,63 @@ app.controller('navBarController', function ($scope, $http) {
     });
 
     $scope.searchCandidate = function () {
-        alertify.alert("Sorry! Die Suche funktioniert noch nicht!");
+        var str = $scope.searchString;
+        //alertify.log(str);
+        //alertify.alert("Sorry! Die Suche funktioniert noch nicht!");
+        if (str.length == 0) {
+            document.getElementById("livesearch").innerHTML = "";
+            document.getElementById("livesearch").style.border = "0px";
+            return;
+        } else {
+            $http.post('candidate/livesearch', {
+                searchString: $scope.searchString
+            }).then(function (response) {
+                document.getElementById("livesearch").innerHTML = response.data.data;
+                document.getElementById("livesearch").style.border = "1px solid #A5ACB2";
+                document.getElementById("livesearch").className = "bg-light";
+                document.getElementById("livesearch").style.maxHeight = "200px";
+                document.getElementById("livesearch").style.overflowY = "scroll";
+                document.getElementById("livesearch").style.position = "absolute";
+                document.getElementById("livesearch").style.top = "49px";
+                document.getElementById("livesearch").style.right = "135px";
+                document.getElementById("livesearch").style.borderRadius = "5px";
+                document.getElementById("livesearch").style.width = "202px";
+
+                if (!response.data.success) {
+                    alertify.error(response.data.message);
+                }
+            });
+        }
+
+        
+
+        /*
+        <script>
+            function showResult(str) {
+             
+              if (window.XMLHttpRequest) {
+                // code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+              } else {  // code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+              }
+              xmlhttp.onreadystatechange=function() {
+                if (this.readyState==4 && this.status==200) {
+                  document.getElementById("livesearch").innerHTML=this.responseText;
+                  document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+                }
+              }
+              xmlhttp.open("GET","livesearch.php?q="+str,true);
+              xmlhttp.send();
+            }
+            </script>
+
+        */
+
+
+
+
+
     };
 
     $scope.logout = function () {

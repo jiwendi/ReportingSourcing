@@ -69,7 +69,19 @@
                     <tbody>
                         <tr>
                             <td>Ansprachen</td>
-                            <td>{{myYear.request.request}} ({{myYear.request.request / allRequests.requests * 100 | number:2}} %)</td>
+                            <td>{{myYear.request.request}} <!--({{myYear.request.request / allRequests.requests * 100 | number:2}} %)--></td>
+                        </tr>
+                        <tr>
+                            <td>Response</td>
+                            <td>{{myYear.requests.response}} <span class="badge badge-info" title="meine Response Rate">{{myYear.requests.response / myYear.request.request * 100 | number:2}} %</span></td>
+                        </tr>
+                        <tr>
+                            <td>Response positiv</td>
+                            <td>{{myYear.requestsPositiv.response_positiv}} <span class="badge badge-success">{{myYear.requestsPositiv.response_positiv/myYear.requests.response * 100 | number:2}} %</span></td>
+                        </tr>
+                        <tr>
+                            <td>Response negativ</td>
+                            <td>{{myYear.requestsNegativ.response_negativ}} <span class="badge badge-danger">{{myYear.requestsNegativ.response_negativ/myYear.requests.response * 100 | number:2}} %</span></td>
                         </tr>
                         <tr>
                             <td>Telefon-Notizen</td>
@@ -100,6 +112,10 @@
                             <td>{{myWeek.request.request}}</td>
                         </tr>
                         <tr>
+                            <td>nicht angesprochen</td>
+                            <td>{{myWeek.notRequested.notRequested}}</td>
+                        </tr>
+                        <tr>
                             <td>Telefon-Notizen</td>
                             <td>{{myWeek.telnotice.telnotice}}</td>
                         </tr>
@@ -119,7 +135,7 @@
                 <table id="requests" class="table">
                     <thead>
                         <tr>
-                            <th>RememberMe - {{monthName}}</th>
+                            <th>Meine RememberMe-Liste</th>
                             <th> </th>
                             <th> </th>
                         </tr>

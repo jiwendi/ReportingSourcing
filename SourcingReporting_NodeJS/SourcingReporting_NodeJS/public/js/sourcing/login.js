@@ -1,5 +1,18 @@
 var app = angular.module("sourcingApp", []);
 
+app.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if (event.which === 13) {
+                scope.$apply(function () {
+                    scope.$eval(attrs.ngEnter);
+                });
+                event.preventDefault();
+            }
+        });
+    };
+});
+
 app.controller('loginController', function ($scope, $http) {
     $scope.email = "";
     $scope.password = "";

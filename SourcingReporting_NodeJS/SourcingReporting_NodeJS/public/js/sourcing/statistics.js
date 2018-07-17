@@ -4,9 +4,6 @@
 });
 
 app.controller('statisticsOverallAnalysisController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
-
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
 
@@ -25,8 +22,6 @@ app.controller('statisticsOverallAnalysisController', function ($scope, $http) {
 
         $http.post('statistics/overallAnalysis', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.reqToHire = response.data.data;
-            //$scope.message = response.data.message;
-            //$scope.iserrmessage = !response.data.success;
 
             if (!response.data.success) {
                 alertify.set({ delay: 10000 });
@@ -483,8 +478,6 @@ app.controller('statisticsTelNoticeController', function ($scope, $http) {
         $scope.telNotice = response.data.data.telNotice;
         $scope.reseaches = response.data.data.reseaches;
         $scope.telNoticeSum = response.data.data.telSum;
-        //$scope.message = response.data.message;
-        //$scope.iserrmessage = !response.data.success;
 
         if (!response.data.success) {
             alertify.set({ delay: 10000 });
@@ -539,9 +532,6 @@ app.controller('statisticsTelNoticeController', function ($scope, $http) {
                 $scope.telNotice = response.data.data.telNotice;
                 $scope.reseaches = response.data.data.reseaches;
                 $scope.telNoticeSum = response.data.data.telSum;
-                //$scope.message = response.data.message;
-                //$scope.iserrmessage = !response.data.success;
-                $scope.noDataSets = false;
 
                 if (!response.data.success) {
                     alertify.set({ delay: 10000 });
@@ -561,8 +551,8 @@ app.controller('statisticsTelNoticeController', function ($scope, $http) {
                 }
 
                 if ($scope.telNotice.length == 0) {
-                    $scope.noDataSets = true;
-                    $scope.message = "keine Datensätze vorhanden";
+                    alertify.set({ delay: 10000 });
+                    alertify.error("keine Datensätze für " + $scope.yearToFilter + " vorhanden");
                 }
                 
                 $("#ChartDiv").empty();
