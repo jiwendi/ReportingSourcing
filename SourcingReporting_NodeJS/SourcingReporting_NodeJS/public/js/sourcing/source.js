@@ -15,47 +15,52 @@
 
     $http.get('sources/showSourceOverview').then(function (response) {
         $scope.sources = response.data.data;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+        if (!response.data.success) {
+            alertify.error(response.data.message);
+        }
     });
 });
 
 
 app.controller('sourcenewController', function ($scope, $http, $routeParams) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
     $scope.source = "";
 
     $scope.save = function () {
-        $scope.message = "";
         $http.post('source/save', {
             sourcename: $scope.source
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+                setTimeout(function () {
+                    window.location.href = "#!sources";
+                }, 1000);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     };
 });
 
 app.controller('sourcedetailController', function ($scope, $http, $routeParams) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
 
     $http.post('source/showDetailsFromSelectedSource', {
         id: $routeParams.sourceid
     }).then(function (response) {
         $scope.source = response.data.data;
-        $scope.iserrmessage = !response.data.sucess;
-        $scope.message = response.data.message;
+        if (!response.data.success) {
+            alertify.error(response.data.message);
+        }
     });
 
     $scope.update = function () {
-        $scope.message = "";
         $http.post('source/update', {
             id: $scope.source.id, name: $scope.source.name, active: $scope.source.active
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     };
 }); 

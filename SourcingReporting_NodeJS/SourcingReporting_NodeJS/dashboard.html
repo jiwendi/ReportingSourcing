@@ -20,6 +20,9 @@
     <link rel="stylesheet" media="screen and (max-width:900px)" href="css/responsive/mobile.css" />
     <link rel="stylesheet" media="print" href="css/responsive/print.css" />
 
+    <link rel="stylesheet" href="css/alertify/alertify.core.css" />
+    <link rel="stylesheet" href="css/alertify/alertify.default.css" id="toggleCSS" />
+
     <!-- JS -->    
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
@@ -35,6 +38,7 @@
     <script src="js/Chart.js"></script>
     <script src="js/Chart.bundle.js"></script>
     <script src="js/sorttable_v2.js"></script>
+    <script src="js/alertify.js"></script>
 
 </head>
 <body ng-app="sourcingApp">
@@ -55,8 +59,15 @@
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto"></ul>
 
+                
+
                 <form class="form-inline mt-2 mt-md-0">
                     <a class="navbar-brand" href="#!userdetail">{{user.firstname + ' ' + user.lastname}} <span class="oi oi-cog" aria-hidden="true"></span></a>
+                </form>
+
+                <form class="form-inline mt-2 mt-md-0 mr-2">
+                    <input class="form-control mr-sm-3" type="text" placeholder="Kandidatensuche" aria-label="Suche">
+                    <button class="btn btn-outline-info my-3 my-sm-0" type="submit" ng-click="searchCandidate()">Suche</button>
                 </form>
 
            
@@ -64,12 +75,6 @@
                     <button class="btn btn-outline-info my-2 my-sm-0" type="submit" ng-click="logout()"><span class="oi oi-account-logout" aria-hidden="true"></span> Logout</button>
                 </form>
 
-                <!--
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="form-control mr-sm-3" type="text" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-info my-3 my-sm-0" type="submit">Suche</button>
-                </form>
--->
             </div>
         </nav>
 
@@ -125,11 +130,11 @@
                     </li>
                 </ul>
 
-                <!--<ul class="nav nav-pills flex-column sidebar-margin">
+                <ul class="nav nav-pills flex-column sidebar-margin">
                     <li class="nav-item">
                         <a class="nav-link nav-bg-info" href="#!sourcingHeroes"><span class="oi oi-location" aria-hidden="true"></span> Sourcing Helden</a>
                     </li>
-                </ul>-->
+                </ul>
 
                 <ul class="nav nav-pills flex-column sidebar-margin timeinfo">
                     <div class="card">

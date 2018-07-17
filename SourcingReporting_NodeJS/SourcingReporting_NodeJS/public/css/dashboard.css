@@ -378,6 +378,10 @@ max-width: 16% !important;
 border: none;
 }
 
+.card-size {
+    height: 215px !important;
+}
+
 .releaseInfo {
     position: absolute;
     right: 20px;

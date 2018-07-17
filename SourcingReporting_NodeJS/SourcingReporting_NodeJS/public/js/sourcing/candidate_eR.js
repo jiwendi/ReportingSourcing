@@ -7,6 +7,11 @@
         $http.post('candidatesER/showERCandidateOverview', { showScoreboard: $scope.showScoreboard }).then(function (response) {
             $scope.candidates = response.data.data.candidate;
             $scope.countCandidate = response.data.data.countCandidate;
+
+            if (!response.data.success) {
+                alertify.alert(response.data.message);
+            }
+
         });
     };
     $scope.update();
@@ -43,13 +48,14 @@ app.controller('candidatenewERController', function ($scope, $http, $routeParams
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, eR: $scope.candidate.eR,
             hire: $scope.hire, team: $('#team').val(), scoreboard: $scope.scoreboard
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
-
             if (response.data.success) {
+                alertify.success(response.data.message);
                 setTimeout(function () {
                     window.location.href = "#!candidate/newER";
                 }, 1000);
+
+            } else {
+                alertify.error(response.data.message);
             }
         });
     };
@@ -96,34 +102,34 @@ app.controller('candidatedetailERController', function ($scope, $http, $routePar
     });
 
     $scope.update = function () {
-        $scope.message = "";
         var team_id = $('#team').val();
-       // alert("Teamid: " + team_id + " TeamSelect: " + $scope.teamSelect);
         $http.post('candidateER/updateCandidate', {
             id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, eR: $scope.candidate.eR, team: team_id, hire: toLocalDate($scope.hire), scoreboard: $scope.scoreboard
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     };
 
     $scope.delete = function () {
-        $scope.message = "";
-
-        if (confirm("Kandidat wirklich löschen?")) {
-            $http.post('candidateER/delete', {
-                id: $scope.candidate.id
-            }).then(function (response) {
-                $scope.iserrmessage = !response.data.success;
-                $scope.message = response.data.message;
-
-                if (response.data.success) {
-                    $scope.message = response.data.message;
-                    setTimeout(function () {
-                        window.location.href = "#!candidates_eR";
-                    }, 1000);
-                }
-            });
-        }
+        alertify.confirm("Kandidat wirklich löschen?", function (e) {
+            if (e) {
+                $http.post('candidateER/delete', { id: $scope.candidate.id }).then(function (response) {
+                    if (response.data.success) {
+                        alertify.success(response.data.message);
+                        setTimeout(function () {
+                            window.location.href = "#!candidates_eR";
+                        }, 1000);
+                    } else {
+                        alertify.error(response.data.message);
+                    }
+                });
+            } else {
+                alertify.log("Kandidat löschen - Abgebrochen");
+            }
+        });
     };
 }); 

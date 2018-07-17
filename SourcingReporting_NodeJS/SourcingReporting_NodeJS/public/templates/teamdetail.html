@@ -1,22 +1,7 @@
 ﻿<h1 class="page-header"><span class="oi oi-person"></span> {{team.name}}</h1>
-
-
 <div class="useredit">
-    <div class="alert alert-danger top-right" role="alert" ng-show="message && iserrmessage">
-        <span class="oi oi-flash" aria-hidden="true"></span>
-        {{message}}
-    </div>
-
-    <div class="alert alert-success top-right" role="alert" ng-show="message && !iserrmessage">
-        <span class="oi oi-check" aria-hidden="true"></span>
-        {{message}}
-    </div>
-
     <h3>Team bearbeiten</h3>
-
-    
         <div class="card-body mb-1">
-
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info w-25">Name</div>
                 <input type="text" class="form-control wdselect" ng-model="team.name" placeholder="Teamname">
@@ -34,11 +19,6 @@
                     <option value="1">Ja</option>
                 </select>
             </div>
-
             <button type="button" class="btn btn-info mb-1" ng-click="update()"><span class="oi oi-check" aria-hidden="true"></span> Speichern</button>
-
-
         </div>
-    
-
 </div>

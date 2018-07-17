@@ -351,6 +351,10 @@ app.controller('navBarController', function ($scope, $http) {
         $scope.wig = response.data.data.wig;
     });
 
+    $scope.searchCandidate = function () {
+        alertify.alert("Sorry! Die Suche funktioniert noch nicht!");
+    };
+
     $scope.logout = function () {
         $http.post('user/logout').then(function (response) {
             window.location = 'login.html';

@@ -1,7 +1,4 @@
 ﻿app.controller('anonymizeCandidateController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
-
     $scope.ishiredcandidate = function (candidate) {
         if (candidate.hire != null) {
             return "hiredCandidate";

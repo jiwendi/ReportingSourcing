@@ -2,8 +2,6 @@
 
 <script src="js/sourcing/loadingScreen.js"></script>
 
-
-
 <div id="candidatesContent" class="panel panel-default">
     <!-- Default panel contents -->
     <div class="panel-heading pb-2">
@@ -11,19 +9,13 @@
             <span class="oi oi-plus" aria-hidden="true"></span> neuer Kandidat
         </a>
     </div>
-
-
     <div>
-        
 
         <div class="panel-heading pb-2 pt-2 pr-2 search-panel">
             <input type="text" class="alert alert-info sourcing-width-250" id="inputName" ng-keyup="searchNames()" placeholder="Nach Namen suchen" />
             <input type="text" class="alert alert-info sourcing-width-250" id="inputSource" ng-keyup="searchSource()" placeholder="Nach Quelle suchen" />
             <input type="text" class="alert alert-info sourcing-width-250" id="inputeR" ng-keyup="searcheR()" placeholder="Nach eR-Nr. suchen" />
-
         </div>
-
-        
 
         <div class="filter pt-2 filter-panel">
                 <div class="header btn btn-info"> Filter einblenden</div>
@@ -114,11 +106,7 @@
                         </thead>
                     </table>
                 </div>
-
 </div>
-
-
-
     </div>
 
     <div>
@@ -164,17 +152,10 @@
     </div>
 </div>
 
-
-
-
-
 <div id="loadingCircles">
     <div class="circle"></div>
     <div class="circle1"></div>
 </div>
-
-
-
 
 <script>
     var sortableTable = document.getElementById("candidates");
@@ -190,5 +171,3 @@
         });
     });
 </script>
-
-    

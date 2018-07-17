@@ -71,15 +71,17 @@
         $scope.myWeekRequest = response.data.data.request;
         $scope.myWeekTelNotice = response.data.data.telnotice;
         $scope.myWeekHires = response.data.data.hires;
-
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+        
+        if (!response.data.success){
+            alertify.error(response.data.message);
+        }
     });
 
     $http.post('personalDashboard/myRememberMeListThisMonth').then(function (response) {
         $scope.candidate = response.data.data;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+        if (!response.data.success) {
+            alertify.error(response.data.message);
+        }
     });
 
     $scope.update = function () {
@@ -88,18 +90,17 @@
         $http.post('statistics/requestsByYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
             $scope.requestsFromSource = response.data.data.requestsFromSource;
             $scope.allRequests = response.data.data.allRequests;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
+            if (!response.data.success) {
+                alertify.error(response.data.message);
+            }
         });
 
         $http.post('statistics/myYear', { yearToFilter: $scope.yearToFilter }).then(function (response) {
             $scope.myYear = response.data.data;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
+            if (!response.data.success) {
+                alertify.error(response.data.message);
+            }
         });
     };
     $scope.update();
-
-    
-
 });

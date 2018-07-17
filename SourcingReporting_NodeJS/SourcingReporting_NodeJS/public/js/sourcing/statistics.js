@@ -1,6 +1,5 @@
 ﻿app.controller('statisticsController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
+//leer
 
 });
 
@@ -26,8 +25,13 @@ app.controller('statisticsOverallAnalysisController', function ($scope, $http) {
 
         $http.post('statistics/overallAnalysis', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.reqToHire = response.data.data;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
+            //$scope.message = response.data.message;
+            //$scope.iserrmessage = !response.data.success;
+
+            if (!response.data.success) {
+                alertify.set({ delay: 10000 });
+                alertify.error(response.data.message);
+            }
 
             var convertionRateTotal = [];
             var convertionRateSteps = [];
@@ -134,8 +138,8 @@ app.controller('statisticsOverallAnalysisController', function ($scope, $http) {
 });
 
 app.controller('statisticsOverallAnalysisByPlattformController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
+    //$scope.message = "";
+    //$scope.iserrmessage = false;
 
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
@@ -183,8 +187,12 @@ app.controller('statisticsOverallAnalysisByPlattformController', function ($scop
             convertionRateSteps.push(($scope.reqToHireByPlattform.extern / $scope.reqToHireByPlattform.intern * 100).toFixed(2));
             convertionRateSteps.push(($scope.reqToHireByPlattform.hires / $scope.reqToHireByPlattform.extern * 100).toFixed(2));
 
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
+            //$scope.message = response.data.message;
+            //$scope.iserrmessage = !response.data.success;
+            if (!response.data.success) {
+                alertify.set({ delay: 10000 });
+                alertify.error(response.data.message);
+            }
 
             $("#ChartDiv").empty();
             $("#ChartDiv").append('<canvas id="myChart"></canvas>');
@@ -278,8 +286,8 @@ app.controller('statisticsOverallAnalysisByPlattformController', function ($scop
 });
 
 app.controller('statisticsHiresByTeamController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
+    //$scope.message = "";
+    //$scope.iserrmessage = false;
 
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
@@ -301,8 +309,13 @@ app.controller('statisticsHiresByTeamController', function ($scope, $http) {
             $scope.teamHires = response.data.data.hiresInTeams;
             $scope.teamHiresER = response.data.data.eRHiresInTeams;
             $scope.countHires = response.data.data.countHires;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
+            //$scope.message = response.data.message;
+            //$scope.iserrmessage = !response.data.success;
+
+            if (!response.data.success) {
+                alertify.set({ delay: 10000 });
+                alertify.error(response.data.message);
+            }
 
             $scope.labels = [];
             $scope.anzahl = [];
@@ -351,8 +364,8 @@ app.controller('statisticsHiresByTeamController', function ($scope, $http) {
 });
 
 app.controller('statisticsResponseRateController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
+    //$scope.message = "";
+    //$scope.iserrmessage = false;
 
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
@@ -373,8 +386,13 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
         $http.post('statistics/responseRate', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.responseRates = response.data.data.responseRates;
             $scope.allResponseRate = response.data.data.allResponseRate;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
+            //$scope.message = response.data.message;
+            //$scope.iserrmessage = !response.data.success;
+
+            if (!response.data.success) {
+                alertify.set({ delay: 10000 });
+                alertify.error(response.data.message);
+            }
 
             $scope.labels = [];
             $scope.requests = [];
@@ -465,8 +483,13 @@ app.controller('statisticsTelNoticeController', function ($scope, $http) {
         $scope.telNotice = response.data.data.telNotice;
         $scope.reseaches = response.data.data.reseaches;
         $scope.telNoticeSum = response.data.data.telSum;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+        //$scope.message = response.data.message;
+        //$scope.iserrmessage = !response.data.success;
+
+        if (!response.data.success) {
+            alertify.set({ delay: 10000 });
+            alertify.error(response.data.message);
+        }
 
         $scope.labels = [];
         $scope.telnoticeData = [];
@@ -516,9 +539,14 @@ app.controller('statisticsTelNoticeController', function ($scope, $http) {
                 $scope.telNotice = response.data.data.telNotice;
                 $scope.reseaches = response.data.data.reseaches;
                 $scope.telNoticeSum = response.data.data.telSum;
-                $scope.message = response.data.message;
-                $scope.iserrmessage = !response.data.success;
+                //$scope.message = response.data.message;
+                //$scope.iserrmessage = !response.data.success;
                 $scope.noDataSets = false;
+
+                if (!response.data.success) {
+                    alertify.set({ delay: 10000 });
+                    alertify.error(response.data.message);
+                }
 
                 $scope.labels = [];
                 $scope.telnoticeData = [];
@@ -536,7 +564,7 @@ app.controller('statisticsTelNoticeController', function ($scope, $http) {
                     $scope.noDataSets = true;
                     $scope.message = "keine Datensätze vorhanden";
                 }
-
+                
                 $("#ChartDiv").empty();
                 $("#ChartDiv").append('<canvas id="myChart"></canvas>');
                 var ctx = $("#myChart");
@@ -620,8 +648,10 @@ app.controller('statisticsHireListController', function ($scope, $http) {
             $scope.anzahl = response.data.data.anzahl;
             $scope.anzahleR = response.data.data.anzahleR;
             $scope.eRcandidates = response.data.data.eRcandidates;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
+            if (!response.data.success) {
+                alertify.set({ delay: 10000 });
+                alertify.error(response.data.message);
+            }
         });
     };
 
@@ -682,8 +712,10 @@ app.controller('statisticsWeeklyNumbersController', function ($scope, $http) {
         $http.post('statistics/weeklyNumbers', { yearToFilter: $scope.yearToFilter }).then(function (response) {
             $scope.requestsByKW = response.data.data.requestsByKW;
             $scope.telnoticeByKW = response.data.data.telnoticeByKW;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
+            if (!response.data.success) {
+                alertify.set({ delay: 10000 });
+                alertify.error(response.data.message);
+            }
         });
     };
     $scope.update();
@@ -691,9 +723,6 @@ app.controller('statisticsWeeklyNumbersController', function ($scope, $http) {
 
 
 app.controller('responseValuesController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
-
     $scope.yearToFilter = THIS_YEAR;
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
@@ -717,9 +746,14 @@ app.controller('responseValuesController', function ($scope, $http) {
 
         $http.post('statistics/responseValues', { yearToFilter: $scope.yearToFilter, filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.responseValues = response.data.data;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
-
+            //$scope.message = response.data.message;
+            //$scope.iserrmessage = !response.data.success;
+            
+            if (!response.data.success) {
+                alertify.set({ delay: 10000 });
+                alertify.error(response.data.message);
+            }
+            
             $scope.percentage = [];
             $scope.percentage.push(100);
             $scope.percentage.push((100 / $scope.responseValues.ansprachen * $scope.responseValues.response_gesamt).toFixed(2));
@@ -790,17 +824,20 @@ app.controller('responseValuesController', function ($scope, $http) {
 });
 
 app.controller('timeToTelNoticeScatteringController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
 
     $http.post('statistics/timeToTelNoticeScattering').then(function (response) {
         $scope.data = response.data.data;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+        //$scope.message = response.data.message;
+        //$scope.iserrmessage = !response.data.success;
         $scope.dataset = [];
         $scope.borderColorForChart = [];
         $scope.backgroundColorForChart = [];
         $scope.labels = [];
+
+        if (!response.data.success) {
+            alertify.set({ delay: 10000 });
+            alertify.error(response.data.message);
+        }
 
         if ($scope.data.iszero > 0) {
             $scope.dataset.push($scope.data.iszero);
@@ -899,17 +936,20 @@ app.controller('timeToTelNoticeScatteringController', function ($scope, $http) {
 });
 
 app.controller('timeToInternScatteringController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
 
     $http.post('statistics/timeToInternScattering').then(function (response) {
         $scope.data = response.data.data;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+        //$scope.message = response.data.message;
+        //$scope.iserrmessage = !response.data.success;
         $scope.dataset = [];
         $scope.borderColorForChart = [];
         $scope.backgroundColorForChart = [];
         $scope.labels = [];
+
+        if (!response.data.success) {
+            alertify.set({ delay: 10000 });
+            alertify.error(response.data.message);
+        }
 
         if ($scope.data.f0t7 > 0) {
             $scope.dataset.push($scope.data.f0t7);
@@ -994,17 +1034,20 @@ app.controller('timeToInternScatteringController', function ($scope, $http) {
 });
 
 app.controller('timeToExternScatteringController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
 
     $http.post('statistics/timeToExternScattering').then(function (response) {
         $scope.data = response.data.data;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+        //$scope.message = response.data.message;
+        //$scope.iserrmessage = !response.data.success;
         $scope.dataset = [];
         $scope.borderColorForChart = [];
         $scope.backgroundColorForChart = [];
         $scope.labels = [];
+
+        if (!response.data.success) {
+            alertify.set({ delay: 10000 });
+            alertify.error(response.data.message);
+        }
 
         if ($scope.data.Monat1 > 0) {
             $scope.dataset.push($scope.data.Monat1);
@@ -1069,17 +1112,20 @@ app.controller('timeToExternScatteringController', function ($scope, $http) {
 });
 
 app.controller('timeToHireScatteringController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
 
     $http.post('statistics/timeToHireScattering').then(function (response) {
         $scope.data = response.data.data;
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+        //$scope.message = response.data.message;
+        //$scope.iserrmessage = !response.data.success;
         $scope.dataset = [];
         $scope.borderColorForChart = [];
         $scope.backgroundColorForChart = [];
         $scope.labels = [];
+
+        if (!response.data.success) {
+            alertify.set({ delay: 10000 });
+            alertify.error(response.data.message);
+        }
 
         if ($scope.data.Monat1 > 0) {
             $scope.dataset.push($scope.data.Monat1);
@@ -1158,9 +1204,6 @@ app.controller('timeToHireScatteringController', function ($scope, $http) {
 });
 
 app.controller('timeToMaxController', function ($scope, $http) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
-
     $http.post('statistics/timetomax').then(function (response) {
         $scope.requestsByKW = response.data.data.requestsByKW;
         $scope.telnoticeByKW = response.data.data.telnoticeByKW;
@@ -1170,8 +1213,12 @@ app.controller('timeToMaxController', function ($scope, $http) {
         $scope.timeToExtern = response.data.data.timeToExtern;
         $scope.timeToHire = response.data.data.timeToHire;
 
-        $scope.message = response.data.message;
-        $scope.iserrmessage = !response.data.success;
+        //$scope.message = response.data.message;
+        //$scope.iserrmessage = !response.data.success;
+        if (!response.data.success) {
+            alertify.set({ delay: 10000 });
+            alertify.error(response.data.message);
+        }
     });
 
 

@@ -1,21 +1,8 @@
 ﻿<h1 class="page-header"><span class="oi oi-flag"></span> {{wig.name}}</h1>
-
-
 <div class="useredit w-50">
-    <div class="alert alert-danger top-right" role="alert" ng-show="message && iserrmessage">
-        <span class="oi oi-flash" aria-hidden="true"></span>
-        {{message}}
-    </div>
-
-    <div class="alert alert-success top-right" role="alert" ng-show="message && !iserrmessage">
-        <span class="oi oi-check" aria-hidden="true"></span>
-        {{message}}
-    </div>
-
     <h3>WIG bearbeiten</h3>
 
     <div class="card-body mb-1">
-
         <div class="input-group mb-1">
             <div class="input-group-addon alert-info sourcing-width-250">Name</div>
             <input type="text" class="form-control" id="name" ng-model="wig.name" placeholder="WIG - Name">
@@ -38,11 +25,6 @@
         </div>
 
         <button type="button" class="btn btn-danger mb-1" ng-click="delete()"><span class="oi oi-x" aria-hidden="true"></span> WIG löschen</button>
-
         <button type="button" class="btn btn-info mb-1" ng-click="update()"><span class="oi oi-check" aria-hidden="true"></span> Speichern</button>
-
-
     </div>
-
-
 </div>

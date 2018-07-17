@@ -29,8 +29,6 @@
         }
     };
 
-
-
     $scope.resetFilter = function () {
         location.reload();
     };
@@ -94,6 +92,10 @@
         }).then(function (response) {
             $scope.candidates = response.data.data.candidate;
             $scope.countCandidate = response.data.data.countCandidate;
+
+            if (!response.data.success) {
+                alertify.alert(response.data.message);
+            }
         });
     };
 
@@ -267,17 +269,14 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
             response: $scope.response, responseVal: responseValue, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.info,
             extern: $scope.extern, hire: $scope.hire, team: $scope.team, rememberme: $scope.rememberme, research: $scope.research, scoreboard: $scope.candidate.scoreboard
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-
-            /*
-             * Redirect after 1sec to Candidate/New after successfully saved Candidate
-             */
             if (response.data.success) {
-                $scope.message = response.data.message;
-
+                alertify.success(response.data.message);
                 setTimeout(function () {
                     window.location.href = "#!candidate/new";
                 }, 1000);
+
+            } else {
+                alertify.error(response.data.message);
             }
         });
     };
@@ -288,6 +287,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
     $scope.iserrmessage = false;
 
     $http.post('candidate/showDetailForSelectedCandidate', { candidateid: $routeParams.candidateid }).then(function (response) {
+
+        if (!response.data.success) {
+            alertify.error(response.data.message);
+        }
+
         $scope.candidate = response.data.data.candidate;
         $scope.sources = response.data.data.sources;
         $scope.teams = response.data.data.teams;
@@ -390,8 +394,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             id: $scope.candidate.id, firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source_text: $scope.candidate.source_text,
             eR: $scope.candidate.eR, infos: $scope.candidate.infos
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     }
 
@@ -401,8 +408,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $http.post('candidate/updateSource', {
             id: $scope.candidate.id, source: $scope.source
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
         location.reload();
     }
@@ -413,8 +423,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $http.post('candidate/updateTeam', {
             id: $scope.candidate.id, team: $scope.team
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
         location.reload();
     }
@@ -426,8 +439,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $http.post('candidate/updateResearch', {
             id: $scope.candidate.id, research: $scope.research
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     };
 
@@ -437,8 +453,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $http.post('candidate/updateTelnotice', {
             id: $scope.candidate.id, telnotice: $scope.telnotice
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     };
 
@@ -449,8 +468,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $http.post('candidate/deleteTelNotice', {
                 id: $scope.candidate.id
             }).then(function (response) {
-                $scope.iserrmessage = !response.data.success;
-                $scope.message = response.data.message;
+                if (response.data.success) {
+                    alertify.success(response.data.message);
+                } else {
+                    alertify.error(response.data.message);
+                }
             });
             location.reload();
         }
@@ -462,8 +484,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $http.post('candidate/updateIntern', {
             id: $scope.candidate.id, intern: $scope.intern
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     };
 
@@ -474,8 +499,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $http.post('candidate/deleteIntern', {
                 id: $scope.candidate.id
             }).then(function (response) {
-                $scope.iserrmessage = !response.data.success;
-                $scope.message = response.data.message;
+                if (response.data.success) {
+                    alertify.success(response.data.message);
+                } else {
+                    alertify.error(response.data.message);
+                }
             });
             location.reload();
         }
@@ -487,8 +515,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $http.post('candidate/updateExtern', {
             id: $scope.candidate.id, extern: $scope.extern
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     };
 
@@ -499,8 +530,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $http.post('candidate/deleteExtern', {
                 id: $scope.candidate.id
             }).then(function (response) {
-                $scope.iserrmessage = !response.data.success;
-                $scope.message = response.data.message;
+                if (response.data.success) {
+                    alertify.success(response.data.message);
+                } else {
+                    alertify.error(response.data.message);
+                }
             });
             location.reload();
         }
@@ -512,8 +546,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $http.post('candidate/updateHire', {
             id: $scope.candidate.id, hire: $scope.hire
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     };
 
@@ -524,8 +561,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $http.post('candidate/deleteHire', {
                 id: $scope.candidate.id
             }).then(function (response) {
-                $scope.iserrmessage = !response.data.success;
-                $scope.message = response.data.message;
+                if (response.data.success) {
+                    alertify.success(response.data.message);
+                } else {
+                    alertify.error(response.data.message);
+                }
             });
             location.reload();
         }
@@ -537,23 +577,30 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $http.post('candidate/updateRememberMe', {
             id: $scope.candidate.id, rememberme: $scope.rememberme
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     };
 
     $scope.deleteRememberMe = function () {
         $scope.message = "";
 
-        if (confirm("Kandidat von der RememberMe-Liste wirklich entfernen?")) {
-            $http.post('candidate/deleteRememberMe', {
-                id: $scope.candidate.id
-            }).then(function (response) {
-                $scope.iserrmessage = !response.data.success;
-                $scope.message = response.data.message;
-            });
-            location.reload();
-        }
+        alertify.confirm("Kandidat wirklich von der RememberMe-Liste entfernen?", function (e) {
+            if (e) {
+                $http.post('candidate/deleteRememberMe', { id: $scope.candidate.id }).then(function (response) {
+                    if (response.data.success) {
+                        alertify.success(response.data.message);
+                    } else {
+                        alertify.error(response.data.message);
+                    }
+                });
+            } else {
+                alertify.log("RememberMe nicht entfernt!");
+            }
+        });
     };
 
     $scope.updateScoreboard = function (scoreboard) {
@@ -563,8 +610,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $http.post('candidate/updateScoreboard', {
             id: $scope.candidate.id, scoreboard: $scope.scoreboard
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
         location.reload();
     }
@@ -575,8 +625,11 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $http.post('candidate/updateSourcer', {
             id: $scope.candidate.id, sourcer_id: $scope.selectSourcer
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
         location.reload();
     }
@@ -599,31 +652,32 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             id: $scope.candidate.id, tracking: $scope.candidate.tracking, request: $scope.candidate.request,
             response: $scope.candidate.response, response_value: responseValue
         }).then(function (response) {
-            $scope.iserrmessage = !response.data.success;
-            $scope.message = response.data.message;
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
         });
     }
 
 
     $scope.delete = function () {
-        $scope.message = "";
-
-        if (confirm("Kandidat wirklich löschen?")) {
-            $http.post('candidate/delete', {
-                id: $scope.candidate.id
-            }).then(function (response) {
-                $scope.iserrmessage = !response.data.success;
-                $scope.message = response.data.message;
-
-                if (response.data.success) {
-                    $scope.message = response.data.message;
-
-                    setTimeout(function () {
-                        window.location.href = "#!candidates";
-                    }, 1000);
-                }
-            });
-        }
+        alertify.confirm("Kandidat wirklich löschen?", function (e) {
+            if (e) {
+                $http.post('candidate/delete', { id: $scope.candidate.id }).then(function (response) {
+                    if (response.data.success) {
+                        alertify.success(response.data.message);
+                        setTimeout(function () {
+                            window.location.href = "#!candidates";
+                        }, 1000);
+                    } else {
+                        alertify.error(response.data.message);
+                    }
+                });
+            } else {
+                alertify.log("Kandidat löschen - Abgebrochen");
+            }
+        });
     };
 });
 
@@ -657,8 +711,9 @@ app.controller('rememberMeListController', function ($scope, $http) {
             filter_month: filter_month, showusercandidates: showusercandidates
         }).then(function (response) {
             $scope.candidate = response.data.data.candidate;
-            $scope.message = response.data.message;
-            $scope.iserrmessage = !response.data.success;
+            if (!response.data.success) {
+                alertify.alert(response.data.message);
+            }
         });
     };
 
