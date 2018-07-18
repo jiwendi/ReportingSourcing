@@ -682,7 +682,7 @@
     <Content Include="public\templates\rememberMe_List.html" />
     <Content Include="public\templates\candidates_eR.html" />
     <Content Include="public\templates\candidates.html" />
-    <Content Include="public\templates\dashboard.html" />
+    <Content Include="public\templates\releaseInfo.html" />
     <Content Include="public\templates\groupnew.html" />
     <Content Include="public\templates\scoreboardHeroes.html">
       <SubType>Code</SubType>

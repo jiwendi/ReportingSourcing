@@ -1,0 +1,98 @@
+﻿<h1 class="page-header"><span class="oi oi-bullhorn"></span> System- und Release Infos</h1>
+Diese Webanwendung soll das Einpflegen, Verwalten und Analysieren der Sourcing-Kandidaten vereinfachen.<br>
+
+<br><br>
+<div class="panel panel-info">
+    <div class="panel-heading"><h4>Release Infos</h4></div>
+    <div class="panel-body">
+        <div class="card" style="width: 40rem;">
+            <img class="card-img-top" src="../images/LinkedIn_Kathi-Roman.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Release 1.5 - 20.07.2018</h4>
+                <p class="card-text">Neues in Version 1.5:</p>
+                <ul>
+                    <li><strong>Kandidatensuche</strong> in der Nav-Bar rechts oben hinzugefügt</li>
+                    <ul>
+                        <li>Suche nach Vorname ODER Nachname</li>
+                        <li>Suche nach eR-Nummer</li>
+                        <li>Suche nach Quelle-Zusatz (Link)</li>
+                    </ul>
+                    <li><strong>Alertify</strong> als Framework für die Alerts (Benachrichtigungen) eingefügt</li>
+                    <ul>
+                        <li>Benachrichtigungen werden nun rechts unten übereinander gestaffelt angezeigt, statt rechts oben (übereinander)</li>
+                        <li>Benachrichtigungen werden nun nach einer gewissen Zeit automatisch ausgeblendet (und bleiben nicht ewig stehen)</li>
+                    </ul>
+                    <li><strong>Einstellungen</strong> wurden ins Menü übernommen</li>
+                    <ul>
+                        <li>Menü wird dadurch übersichtlicher</li>
+                        <li>Teams, Quellen, Benutzer in Einstellungen verschoben</li>
+                        <li>Kandidaten anonymisieren (DSGVO) in Einstellungen hinzugefügt - jedoch noch ohne Backend-Funktionalität</li>
+                    </ul>
+                    <li><strong>Responsive Design</strong> begonnen - Darstellung auf hp epunkt Laptops angepasst</li>
+                    <li><strong>Time-To-Max Listen</strong> hinzugefügt (für Fehlersuche bei Time-To (6M) Anzeige)</li>
+                    <li><strong>BUGFIX: RememberMe-Liste</strong> kann nun nach Datum sortiert werden</li>
+                    <li><strong>BUGFIX: Besetzungs-Liste</strong> kann nun nach Datum sortiert werden</li>
+                    <li><strong>myDashboard</strong></li>
+                    <ul>
+                        <li>myRememberMe-Liste: Anzeige aller Kandidaten <strong>bis zum aktuellen Monat</strong>, bisher wurde nur das aktuelle Monat angezeigt; nun werden auch die "älteren" RememberMe angezeigt</li>
+                        <li>Anzeige von Ansprache/nicht angesprochen (meine Woche)</li>
+                        <li>Anzeige von Response (inkl. persönlicher Response Rate), Aufteilung auf positive und negative Response (inkl. %-Angabe)</li>
+                    </ul>
+                    <li><strong>Sourcing-Heros</strong> Übersicht hinzugefügt</li>
+                    <li><strong>Enter bei Login</strong> funktioniert nun</li>
+                </ul>
+
+                <h5>Easter Egg 1</h5>
+                <p>Aufgedeckt von <strong>Julia</strong>: Ansprache auf myDashboard ändert sich je Tageszeit</p>
+
+                <h5>Easter Egg 2</h5>
+                <p>Noch nicht aufgedeckt...</p>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="panel-heading"><h4>Technische Umsetzung &amp; Support</h4></div>
+    <div class="panel-body card-float mr-4">
+        <div class="card" style="width: 30rem;">
+            <img class="card-img-top" src="../images/LinkedIn_Esther_2.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">Viktoria Jechsmayr</h4>
+                <p class="card-text">Ihr wisst wer ich bin... <span class="oi oi-bug" title="Bug gefunden? It's a feature!"></span></p>
+                <a href="https://www.epunkt.com/u/team/jechsmayr-viktoria/" class="btn btn-danger card-buttons">epunkt</a>
+                <a href="https://www.linkedin.com/in/viktoria-jechsmayr/" class="btn btn-danger card-buttons">LinkedIn</a>
+                <a href="https://stackoverflow.com/users/8055029/viktoria-jechsmayr" class="btn btn-danger card-buttons">StackOverflow</a>
+                <a href="https://github.com/vJechsmayr" class="btn btn-danger card-buttons">GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="card" style="width: 30rem;">
+            <img class="card-img-top" src="../images/Gotthard_LinkedIn.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h4 class="card-title">System-Info</h4>
+                <p class="card-text">
+                    Die Webanwendung wurde serverseitig mit <b><a href="https://nodejs.org/de/">NodeJS</a></b> inkl express-Framework umgesetzt.
+                    Clientseitig besteht der Web-Service aus <b>HTML5-Seiten, CSS und dem <a href="https://angular.io/">Angular</a>-Framework</b>. Die Seiten werden asynchron mit <b>AJAX</b> bei Bedarf nachgeladen.<br />
+                    Außerdem wurde für das Design das <b><a href="https://getbootstrap.com/">Bootstrap</a></b>-Framework verwendet.<br>
+                    <br />
+                    <b>verwendete JavaScript-Frameworks</b>:
+                    <ul>
+                        <li>Grundfunktionen: </li>
+                        <ul>
+                            <li><a href="https://angular.io/">Angular</a></li>
+                            <li><a href="https://jquery.com/">jQuery</a></li>
+                        </ul>
+                        <li>Statistiken:</li>
+                        <ul><li><a href="http://www.chartjs.org/">Chart.JS</a></li></ul>
+                        <li>Alerts: </li>
+                        <ul><li><a href="https://alertifyjs.com/">AlertifyJS</a></li></ul>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+    <br />
+
+</div>

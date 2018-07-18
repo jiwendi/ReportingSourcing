@@ -1,40 +1,27 @@
 ﻿<h1 class="page-header"><span class="oi oi-people"></span>  Kandidaten anonymisieren</h1>
 
-<div> Noch ohne Funktion! </div>
+<div> <h4 class="alert alert-danger sourcing-w-30">Noch ohne Funktion!</h4> </div>
 
 <div id="candidatesContent" class="panel panel-default">
-    
-               
-                <div class="anonymizeCandidates">
-                   <table class="table_blank w-50" id="anonymizeCandidate">
-                       <tr>
-                           <td>Resarch vor: </td>
-                           <td><input type="date" class="anonymise_input sourcing-w-30" ng-model="from_research" value="2017-01-01"/></td>
-                       </tr>
-                       <tr>
-                           <td>letzte Aktion > </td>
-                           <td title="540 Tage = ca. 18 Monate"><input type="number" class="anonymise_input sourcing-w-30" ng-model="lastActivity" min="1" value="540"/> Tage</td>
-                       </tr>
-                       <tr>
-                           <td>
-                               <div ng-click="searchCandidatesToAnonymize()" class="btn btn-info">
-                                   <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Suchen
-                               </div>
-                           </td>
-                       </tr>
-                   </table>
-                   
-                 
-                 
-                </div>
-
-
-
-
-
-    
-
-
+    <div class="anonymizeCandidates">
+        <table class="table_blank w-50" id="anonymizeCandidate">
+            <tr>
+                <td>Resarch vor: </td>
+                <td><input type="date" class="anonymise_input sourcing-w-30" ng-model="from_research" value="2017-01-01" /></td>
+            </tr>
+            <tr>
+                <td>letzte Aktion > </td>
+                <td title="540 Tage = ca. 18 Monate"><input type="number" class="anonymise_input sourcing-w-30" ng-model="lastActivity" min="1" value="540" /> Tage</td>
+            </tr>
+            <tr>
+                <td>
+                    <div ng-click="searchCandidatesToAnonymize()" class="btn btn-info">
+                        <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Suchen
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
     <div>
         <br /><br />
         <h6><span class="badge badge-info">{{countCandidate.countCandidate}}</span> Kandidaten in der Datenbank</h6>
@@ -62,7 +49,7 @@
             </thead>
             <tbody id="tableBody">
                 <tr ng-repeat="c in candidates" ng-class="ishiredcandidate(c)">
-                    <td><input type="checkbox" ng-model="selectedCandidate"/></td>
+                    <td><input type="checkbox" ng-model="selectedCandidate" /></td>
                     <td>{{c.id}}</td>
                     <td><b>{{c.sourcerName}}</b></td>
                     <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
@@ -80,4 +67,3 @@
     </div>
 </div>
 
-    

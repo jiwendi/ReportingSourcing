@@ -817,8 +817,6 @@ app.controller('timeToTelNoticeScatteringController', function ($scope, $http) {
 
     $http.post('statistics/timeToTelNoticeScattering').then(function (response) {
         $scope.data = response.data.data;
-        //$scope.message = response.data.message;
-        //$scope.iserrmessage = !response.data.success;
         $scope.dataset = [];
         $scope.borderColorForChart = [];
         $scope.backgroundColorForChart = [];

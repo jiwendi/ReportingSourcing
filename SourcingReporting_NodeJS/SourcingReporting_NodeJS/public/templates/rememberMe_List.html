@@ -1,44 +1,30 @@
 ﻿<h1 class="page-header"><span class="oi oi-clock"></span>  RememberMe - Liste</h1>
 
 <div id="candidatesContent" class="panel panel-default">
-   
-    <div class="filter_header">
-        
 
-        <div class="panel-heading pb-2 pt-2 pr-2">
+    <div class="filter_header">
+        <div class="panel-heading pt-2 pr-2">
             <input type="text" class="alert alert-info sourcing-width-250" id="inputName" ng-keyup="searchNames()" placeholder="Nach Namen suchen" />
             <input type="text" class="alert alert-info sourcing-width-250" id="inputSource" ng-keyup="searchSource()" placeholder="Nach Quelle suchen" />
             <input type="text" class="alert alert-info sourcing-width-250" id="inputeR" ng-keyup="searcheR()" placeholder="Nach eR-Nr. suchen" />
-
         </div>
-
         <div>
-
-                <div class="input-group mt-4 w-75">
-                    <span class="showusercandidates alert alert-info sourcing-w-30">
-                        <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" /> Zeige nur meine Kandidaten
-                    </span>
-                  <br />
-                        <div class="input-group-addon alert-info sourcing-width-150 sourcing-h-50 ml-2 round_div">Monat</div>
-                        <input type="month" class="form-control-sourcing-w-20 sourcing-h-50" id="filter_month" ng-model="filter_month" />
-                
-                </div>
-
-
+            <div class="input-group w-75">
+                <span class="showusercandidates alert alert-info sourcing-w-30">
+                    <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" /> Zeige nur meine Kandidaten
+                </span>
+                <br />
+                <div class="input-group-addon alert-info sourcing-width-150 sourcing-h-50 ml-2 round_div">Monat</div>
+                <input type="month" class="form-control-sourcing-w-20 sourcing-h-50" id="filter_month" ng-model="filter_month" />
+            </div>
             <div ng-click="resetFilter()" class="btn btn-danger padding-buttons">
                 <span class="oi oi-x" aria-hidden="true"></span> Filter zurücksetzen
             </div>
             <div ng-click="filterCandidates()" class="btn btn-info padding-buttons">
                 <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Filtern
             </div>
-
         </div>
-
-
-
     </div>
-
-   
 
     <div class="panel-body mt-4">
         <table id="candidates" class="table sortable">
@@ -83,4 +69,3 @@
     sorttable.makeSortable(sortableTable);
 </script>
 
-    
