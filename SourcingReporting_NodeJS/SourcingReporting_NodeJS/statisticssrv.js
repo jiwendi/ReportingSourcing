@@ -497,25 +497,25 @@
             var telnoticeQuery = "SELECT ABS(DATEDIFF(c.research, c.telnotice)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.telnotice, s.firstname as sourcer " +
                 "FROM epunkt_sourcing.candidate c " +
                 "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
-                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.telnotice)) >20 " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.telnotice)) >20 AND (DATE(c.telnotice) > (NOW() - INTERVAL 6 MONTH) OR DATE(c.research) > (NOW() - INTERVAL 6 MONTH)) " +
                 "ORDER BY ABS(DATEDIFF(c.research, c.telnotice)) desc " +
                 "LIMIT 10";
             var internQuery = "SELECT ABS(DATEDIFF(c.research, c.intern)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.intern, s.firstname as sourcer " +
                 "FROM epunkt_sourcing.candidate c " +
                 "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
-                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.intern)) >50 " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.intern)) >50 AND (DATE(c.intern) > (NOW() - INTERVAL 6 MONTH) OR DATE(c.research) > (NOW() - INTERVAL 6 MONTH)) " +
                 "ORDER BY ABS(DATEDIFF(c.research, c.intern)) desc " +
                 "LIMIT 10";
             var externQuery = "SELECT ABS(DATEDIFF(c.research, c.extern)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.extern, s.firstname as sourcer " +
                 "FROM epunkt_sourcing.candidate c " +
                 "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
-                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.extern)) >70 " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.extern)) >70 AND (DATE(c.extern) > (NOW() - INTERVAL 6 MONTH) OR DATE(c.research) > (NOW() - INTERVAL 6 MONTH)) " +
                 "ORDER BY ABS(DATEDIFF(c.research, c.extern)) desc " +
                 "LIMIT 10";
             var hireQuery = "SELECT ABS(DATEDIFF(c.research, c.hire)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.hire, s.firstname as sourcer " +
                 "FROM epunkt_sourcing.candidate c " +
                 "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
-                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.hire)) >100 " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.hire)) >100 AND (DATE(c.hire) > (NOW() - INTERVAL 6 MONTH) OR DATE(c.research) > (NOW() - INTERVAL 6 MONTH)) " +
                 "ORDER BY ABS(DATEDIFF(c.research, c.hire)) desc " +
                 "LIMIT 10";
 
@@ -555,7 +555,7 @@
 
         /*Release 1.5 myDashboard myTelnotice-This-Week*/
         app.get('/personalDashboard/telnoticeThisWeek', function (req, res) {
-            var query = "SELECT id, firstname, lastname, eR, telnotice FROM candidate " +
+            var query = "SELECT id, firstname, lastname, SUBSTRING(candidate.eR,2) as eR, telnotice FROM candidate " +
                 "WHERE sourcer = " + req.session.userid + " AND WEEK(telnotice) = WEEK(sysdate()) AND YEAR(telnotice) = YEAR(sysdate())";
 
             db.query(query, function (err, rows, fields) {
