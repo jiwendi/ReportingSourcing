@@ -83,7 +83,8 @@
                         </tr>
                         <tr>
                             <td>Besetzungen</td>
-                            <td>{{myYear.hires.hire}} <span class="badge badge-info" title="Convertion Rate Ansprache-Besetzung">{{myYear.hires.hire / myYear.request.request * 100 | number:2}} %</span></td>
+                            <td>{{myYear.hires.hire}} <span class="badge badge-info" title="Convertion Rate Ansprache-Besetzung">{{myYear.hires.hire / myYear.request.request * 100 | number:2}} %</span> <span class="badge badge-warning" title="Convertion Rate Telefonnotiz-Besetzung">{{myYear.hires.hire / myYear.telNotice.telnotice * 100 | number:2}} %</span>
+							</td>
                         </tr>
                     </tbody>
                 </table>
