@@ -53,12 +53,6 @@
                     </tbody>
                 </table>
 
-            </div>
-        </div>
-
-        <div class="card sourcing-w-20 card-float2 m-2">
-            <img class="card-img-top" src="../../images/Christopher_LinkedIn.jpg" alt="Card image cap">
-            <div class="card-block">
                 <table id="requests" class="table">
                     <thead>
                         <tr>
@@ -85,11 +79,11 @@
                         </tr>
                         <tr>
                             <td>Telefon-Notizen</td>
-                            <td>{{myYear.telNotice.telnotice}}</td>
+                            <td>{{myYear.telNotice.telnotice}} <span class="badge badge-info" title="Convertion Rate Ansprache-Telefonnotiz">{{myYear.telNotice.telnotice / myYear.request.request * 100 | number:2}} %</span></td>
                         </tr>
                         <tr>
                             <td>Besetzungen</td>
-                            <td>{{myYear.hires.hire}}</td>
+                            <td>{{myYear.hires.hire}} <span class="badge badge-info" title="Convertion Rate Ansprache-Besetzung">{{myYear.hires.hire / myYear.request.request * 100 | number:2}} %</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -129,7 +123,7 @@
         </div>
 
 
-        <div class="card sourcing-w-30 card-float2 m-2">
+        <div class="card sourcing-w-25 card-float2 m-2">
             <img class="card-img-top" src="../../images/Johanna_LinkedIn.jpg" alt="Card image cap">
             <div class="card-block">
                 <table id="requests" class="table">
@@ -152,7 +146,7 @@
             </div>
         </div>
 
-        <div class="card sourcing-w-30 card-float2 m-2">
+        <div class="card sourcing-w-25 card-float2 m-2">
             <img class="card-img-top" src="../../images/Wolfgang_LinkedIn.jpg" alt="Card image cap">
             <div class="card-block">
                 <table id="requests" class="table">
