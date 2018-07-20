@@ -152,6 +152,29 @@
             </div>
         </div>
 
+        <div class="card sourcing-w-30 card-float2 m-2">
+            <img class="card-img-top" src="../../images/Wolfgang_LinkedIn.jpg" alt="Card image cap">
+            <div class="card-block">
+                <table id="requests" class="table">
+                    <thead>
+                        <tr>
+                            <th>Meine Telefonnotizen diese Woche</th>
+                            <th> </th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="c in candidateTelNotice">
+                            <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                            <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
+                            <td ng-if="c.eR == null"> </td>
+                            <td class="sorttable_numeric" sorttable_customkey="{{c.telnotice | date: 'yyyyMMddHHmmss'}}">{{c.telnotice | date: 'dd.MM.yyyy'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
     </div>
     <div class="birthdayParent">
         <div class="birthday" ng-repeat="b in birthdays">

@@ -85,6 +85,13 @@
         }
     });
 
+    $http.get('personalDashboard/telnoticeThisWeek').then(function (response) {
+        $scope.candidateTelNotice = response.data.data;
+        if (!response.data.success) {
+            alertify.error(response.data.message);
+        }
+    });
+
     $scope.update = function () {
         $scope.yearToFilter = $('#yearToFilter').val();
 

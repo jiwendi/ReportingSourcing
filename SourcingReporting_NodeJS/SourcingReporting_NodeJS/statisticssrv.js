@@ -552,5 +552,20 @@
             });
 
         });
+
+        /*Release 1.5 myDashboard myTelnotice-This-Week*/
+        app.get('/personalDashboard/telnoticeThisWeek', function (req, res) {
+            var query = "SELECT id, firstname, lastname, eR, telnotice FROM candidate " +
+                "WHERE sourcer = " + req.session.userid + " AND WEEK(telnotice) = WEEK(sysdate()) AND YEAR(telnotice) = YEAR(sysdate())";
+
+            db.query(query, function (err, rows, fields) {
+                if (err) {
+                    sendResponse(res, false, "Fehler beim Abfragen der Telefonnotizen dieser Woche" + err);
+                } else {
+                    sendResponse(res, true, "", rows);
+                }
+            });
+
+        });
     }
 }; 
