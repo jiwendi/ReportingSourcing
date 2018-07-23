@@ -3,7 +3,7 @@ Das ReportingSourcing ist ein Reporting Tool zum einfügen und verwalten gesourc
 
 
 # How to install
-
+``
 ## download the source code
 git clone https://github.com/vJechsmayr/ReportingSourcing
 
@@ -14,7 +14,7 @@ git clone https://github.com/vJechsmayr/ReportingSourcing
 * angular
 
 ## setup database
-
+``
 
 # Docs
 * https://symfony.com/doc/current/index.html
