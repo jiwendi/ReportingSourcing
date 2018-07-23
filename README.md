@@ -4,21 +4,14 @@ Das ReportingSourcing ist ein Reporting Tool zum einfügen und verwalten gesourc
 
 # How to install
 ```
-## download the source code
+# download the source code
 git clone https://github.com/vJechsmayr/ReportingSourcing
 
-## install dependencies
+# install dependencies
 * npm
 * nodejs
 * express
 * angular
 
-## setup database
+# setup database
 ```
-
-# Docs
-* https://symfony.com/doc/current/index.html
-* https://symfony.com/doc/master/bundles/DoctrineMigrationsBundle/index.html
-* https://www.doctrine-project.org/projects/migrations.html
-* https://semantic-ui.com/
-
