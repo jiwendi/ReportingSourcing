@@ -351,7 +351,7 @@ hr {
 
 /* Highlighting Inactive Users */
 .inactiveuser {
-    background-color: #b9e3e9;
+    background-color: #b9e3e9 !important;
     color: #000;
 }
 
@@ -361,7 +361,7 @@ hr {
 
 /* Highlighting Hired Candidated */
 .hiredCandidate {
-    background-color: #b9e3e9;
+    background-color: #b9e3e9 !important;
     color: #000;
 }
 
@@ -371,7 +371,7 @@ hr {
 
 /* Highlighting Inactive Sources */
 .inactivesource {
-    background-color: #b9e3e9;
+    background-color: #b9e3e9 !important;
     color: #000;
 }
 
@@ -380,7 +380,7 @@ hr {
     }
 
 .candidateNotOnScoreboard {
-    background-color: #b9e3e9;
+    background-color: #b9e3e9 !important;
     color: #000;
 }
 

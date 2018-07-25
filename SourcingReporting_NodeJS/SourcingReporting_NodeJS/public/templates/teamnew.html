@@ -1,4 +1,4 @@
-﻿<h1 class="page-header"><span class="oi oi-person"></span> {{team.teamname}}</h1>
+﻿<h1 class="page-header"><span class="fas fa-user-friends"></span> {{team.teamname}}</h1>
 <div class="useredit w-50">
     <h3>neues Team anlegen</h3>
         <div class="card-body mb-1">
@@ -12,6 +12,6 @@
                     <option ng-repeat="g in groups" value="{{g.id}}">{{g.city}}</option>
                 </select>
             </div>
-            <button type="button" class="btn btn-info mb-1" ng-click="save()"><span class="oi oi-check" aria-hidden="true"></span> Speichern</button>
+            <button type="button" class="btn btn-info mb-1" ng-click="save()"><span class="fas fa-check" aria-hidden="true"></span> Speichern</button>
         </div>
 </div>
