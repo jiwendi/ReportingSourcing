@@ -1,4 +1,4 @@
-﻿<h1 class="page-header"><span class="oi oi-person"></span>  {{candidate.firstname + ' ' + candidate.lastname}}</h1>
+﻿<h1 class="page-header"><span class="fas fa-user"></span>  {{candidate.firstname + ' ' + candidate.lastname}}</h1>
 
 <div class="candidateedit">
     <div class="card w-50 p-3 m-5 card-float">
@@ -10,7 +10,7 @@
             </div>
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Nachname</div>
-                <input type="text" class="form-control" id="candidateLastname" ng-model="candidate.lastname" placeholder="Nachname" tabindex="2"/>
+                <input type="text" class="form-control" id="candidateLastname" ng-model="candidate.lastname" placeholder="Nachname" tabindex="2" />
             </div>
 
             <!-- Kandidat Quelle -->
@@ -30,7 +30,7 @@
             <!-- eRecruiter Nr -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">eRecruiter Nr</div>
-                <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" placeholder="#123456 " tabindex="5"/>
+                <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" placeholder="#123456 " tabindex="5" />
             </div>
 
             <!-- Tabelle für Beobachten, Ansprache, Response-->
@@ -76,37 +76,37 @@
             <!-- Research -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Research</div>
-                <input type='date' class="form-control" id="research" name="research" ng-model="research" placeholder="dd.mm.yyyy"/>
+                <input type='date' class="form-control" id="research" name="research" ng-model="research" placeholder="dd.mm.yyyy" />
             </div>
 
             <!-- Telefonnotiz -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Telefon-Notiz</div>
-                <input type='date' class="form-control" id="telnotice" name="telnotice" ng-model="telnotice" placeholder="dd.mm.yyyy"/>
+                <input type='date' class="form-control" id="telnotice" name="telnotice" ng-model="telnotice" placeholder="dd.mm.yyyy" />
             </div>
 
             <!-- Intern -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Internes Gespräch</div>
-                <input type='date' class="form-control" id="intern" ng-model="intern" placeholder="dd.mm.yyyy"/>
+                <input type='date' class="form-control" id="intern" ng-model="intern" placeholder="dd.mm.yyyy" />
             </div>
 
             <!-- Extern -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Externes Gespräch</div>
-                <input type='date' class="form-control" id="extern" ng-model="extern" placeholder="dd.mm.yyyy"/>
+                <input type='date' class="form-control" id="extern" ng-model="extern" placeholder="dd.mm.yyyy" />
             </div>
 
             <!-- Besetzung -->
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">Besetzung</div>
-                <input type='date' class="form-control" id="hire" ng-model="hire" placeholder="dd.mm.yyyy"/>
+                <input type='date' class="form-control" id="hire" ng-model="hire" placeholder="dd.mm.yyyy" />
             </div>
 
             <div class="input-group mb-1" ng-if="hire != null">
                 <div class="input-group-addon alert-info sourcing-width-150">Team</div>
                 <select class="custom-select wdselect" id="team" ng-model="teamSelect" ng-change="showSelectValue(teamSelect)">
-                        <!--ng-options="t.id as t.name group by t.city for t in teams track by t.id">-->
+                    <!--ng-options="t.id as t.name group by t.city for t in teams track by t.id">-->
                     <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
                 </select>
             </div>
@@ -124,23 +124,9 @@
 
             </div>
 
-                <!-- Button -->
-                <button type="button" class="btn btn-info mb-1" ng-click="save()" accesskey="s"><span class="oi oi-check" aria-hidden="true"></span> Kandidat speichern </button>
+            <!-- Button -->
+            <button type="button" class="btn btn-info mb-1" ng-click="save()" accesskey="s"><span class="fas fa-user-check" aria-hidden="true"></span> Kandidat speichern </button>
 
-            </div>
+        </div>
     </div>
-    <!--<div class="card w-25 p-3 m-5 card-float">
-        <h3 class="page-header"><span class="oi oi-monitor"></span>  Kandidaten suchen</h3>
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info sourcing-width-150">Name</div>
-            <input type="text" class="form-control sourcing-width-full" value="{{candidate.timeToCall}}" />
-        </div>
-        <button type="button" class="btn btn-info mb-1" ng-click="searchCandidate()" accesskey="s"><span class="oi oi-magnifying-glass" aria-hidden="true"></span> Kandidat suchen </button>
-
-        <div class="candidateSearchResults">
-           <a href="#">Test Kandidat</a>
-        </div>
-
-    </div>-->
-
 </div>

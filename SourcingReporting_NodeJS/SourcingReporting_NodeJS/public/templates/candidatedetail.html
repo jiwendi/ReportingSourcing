@@ -1,4 +1,4 @@
-﻿<h1 class="page-header"><span class="oi oi-person"></span> {{candidate.firstname + ' ' + candidate.lastname}}</h1>
+﻿<h1 class="page-header"><span class="fas fa-user-edit"></span> {{candidate.firstname + ' ' + candidate.lastname}}</h1>
 
 <div class="candidateedit">
     <div class="card w-50 p-3 m-5 card-float">
@@ -15,14 +15,14 @@
 
             <!-- Kandidat Quelle -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Quelle</div> 
+                <div class="input-group-addon alert-info sourcing-width-150">Quelle</div>
                 <input type="text" class="form-control sourcing-width-150" id="source" ng-model="candidate.source" placeholder="Quelle" readonly />
                 <select class="custom-select wdselect" id="selectSource" ng-model="selectSource" ng-change="updateSource(selectSource)">
                     <option ng-repeat="s in sources" value="{{s.id}}">{{s.name}}</option>
                 </select>
-                
+
             </div>
-            
+
 
             <!-- Quelle Lang -->
             <div class="input-group mb-1">
@@ -67,51 +67,52 @@
                             </select>
                         </td>
                     </tr>
-                  
+
                 </tbody>
             </table>
 
             <!-- Research -->
-           <!-- <div class="input-group mb-1">
-                <div class="input-group-addon alert-info">Research</div>
-                <input type='date' class="form-control" id="research" name="research" ng-model="research" placeholder="dd.mm.yyyy" />
-            </div>
--->
+            <!-- <div class="input-group mb-1">
+                            <div class="input-group-addon alert-info">Research</div>
+                            <input type='date' class="form-control" id="research" name="research" ng-model="research" placeholder="dd.mm.yyyy" />
+                        </div>
+            -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Research</div>
-                <input id="research" type='date' ng-model="research" class="form-control" ng-blur="updateResearch()" required/>
+                <input id="research" type='date' ng-model="research" class="form-control" ng-blur="updateResearch()" required />
 
             </div>
 
             <!-- Telefonnotiz -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Telefon-Notiz</div>
-                <input id="telnotice" type='date' ng-model="telnotice" class="form-control" ng-blur="updateTelnotice()" required/>
-                <button class="btn btn-info" type="button" ng-click="deleteTelNotice()"><span class="oi oi-x"></span> entfernen</button>
+                <input id="telnotice" type='date' ng-model="telnotice" class="form-control" ng-blur="updateTelnotice()" required />
+                <button class="btn btn-info" type="button" ng-click="deleteTelNotice()"><span class="fas fa-times"></span> entfernen</button>
             </div>
 
             <!-- Intern -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Internes Gespräch</div>
-                <input id="intern" type='date' ng-model="intern" class="form-control" ng-blur="updateIntern()" required/>
-                <button class="btn btn-info" type="button" ng-click="deleteIntern()"><span class="oi oi-x"></span> entfernen</button>
+                <input id="intern" type='date' ng-model="intern" class="form-control" ng-blur="updateIntern()" required />
+                <button class="btn btn-info" type="button" ng-click="deleteIntern()"><span class="fas fa-times"></span> entfernen</button>
             </div>
 
             <!-- Extern -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Externes Gespräch</div>
-                <input id="extern" type='date' ng-model="extern" class="form-control" ng-blur="updateExtern()" required/>
-                <button class="btn btn-info" type="button" ng-click="deleteExtern()"><span class="oi oi-x"></span> entfernen</button>
+                <input id="extern" type='date' ng-model="extern" class="form-control" ng-blur="updateExtern()" required />
+                <button class="btn btn-info" type="button" ng-click="deleteExtern()"><span class="fas fa-times"></span> entfernen</button>
             </div>
 
             <!-- Besetzung -->
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Besetzung</div>
-                <input id="hire" type='date' ng-model="hire" class="form-control" ng-blur="updateHire()" required/>
-                <button class="btn btn-info" type="button" ng-click="deleteHire()" title="Löscht automatisch auch das Team!"><span class="oi oi-x"></span> entfernen</button>
+                <input id="hire" type='date' ng-model="hire" class="form-control" ng-blur="updateHire()" required />
+                <button class="btn btn-info" type="button" ng-click="deleteHire()" title="Löscht automatisch auch das Team!"><span class="fas fa-times"></span> entfernen</button>
             </div>
             <!-- Besetzung -->
-            <div class="input-group mb-1" ><!--ng-if="hire != null"-->
+            <div class="input-group mb-1">
+                <!--ng-if="hire != null"-->
                 <div class="input-group-addon alert-info sourcing-width-150">Team</div>
                 <input type="text" class="form-control sourcing-width-150" id="team" ng-model="candidate.teamname" readonly />
                 <select class="custom-select wdselect" id="selectTeam" ng-model="selectTeam" ng-change="updateTeam(selectTeam)">
@@ -123,7 +124,7 @@
             <div class="input-group mb-1 date">
                 <div class="input-group-addon alert-info sourcing-width-150">Remember Me</div>
                 <input id="hire" type='date' ng-model="rememberme" class="form-control" ng-blur="updateRememberMe()" required />
-                <button class="btn btn-info" type="button" ng-click="deleteRememberMe()"><span class="oi oi-x"></span> entfernen</button>
+                <button class="btn btn-info" type="button" ng-click="deleteRememberMe()"><span class="fas fa-times"></span> entfernen</button>
             </div>
 
             <div class="input-group mb-1">
@@ -148,28 +149,24 @@
             <div class="input-group mb-1">
                 <div class="input-group-addon alert-info sourcing-width-150">wichtige Infos</div>
                 <textarea rows="5" class="form-control" id="candidateInfo" ng-model="candidate.infos" ng-blur="updateCandidate()"></textarea>
-                
+
             </div>
 
-            <!-- Button -->
-           <!-- <button type="button" class="btn btn-info mb-1" ng-click="update()"><span class="oi oi-check" aria-hidden="true"></span> Kandidat speichern </button>-->
-
-             <button type="button" class="btn btn-danger mb-1" ng-click="delete()"><span class="oi oi-x" aria-hidden="true"></span> Kandidat löschen </button>
-
+            <button type="button" class="btn btn-danger mb-1" ng-click="delete()"><span class="fas fa-times" aria-hidden="true"></span> Kandidat löschen </button>
 
         </div>
     </div>
 
     <div class="card w-25 p-3 m-5 card-float">
-        <h3 class="page-header"><span class="oi oi-monitor"></span>  Time Info's</h3>
+        <h3 class="page-header"><span class="fas fa-chalkboard-teacher"></span>  Time Info's</h3>
         <div class="input-group mb-1">
             <div class="input-group-addon alert-info sourcing-width-150">Time-To-Call</div>
-            <input type="text" class="form-control sourcing-width-full" readonly value="{{candidate.timeToCall}}" /> 
+            <input type="text" class="form-control sourcing-width-full" readonly value="{{candidate.timeToCall}}" />
         </div>
 
         <div class="input-group mb-1">
             <div class="input-group-addon alert-info sourcing-width-150">Time-To-Interview</div>
-            <input type="text" class="form-control sourcing-width-full" readonly value="{{candidate.timeToInterview}}" /> 
+            <input type="text" class="form-control sourcing-width-full" readonly value="{{candidate.timeToInterview}}" />
         </div>
 
         <div class="input-group mb-1">
