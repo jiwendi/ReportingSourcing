@@ -1,4 +1,4 @@
-﻿<h1 class="page-header"><span class="oi oi-star"></span>  Besetzungen Übersicht</h1>
+﻿<h1 class="page-header"><span class="far fa-grin-stars"></span>  Besetzungen Übersicht</h1>
 
 <script src="js/sourcing/loadingScreen.js"></script>
 
@@ -18,8 +18,15 @@
                             <div class="input-group-addon alert-info sourcing-width-250">bis </div>
                             <input class="form-control sourcing-width-250" type="date" id="to" ng-model="to" />
                         </td>
+                        <!--<td>
+                            <div class="input-group-addon alert-info sourcing-width-150">Team</div>
+                            <select class="custom-select wdselect sourcing-width-150" id="selectTeab" ng-model="teamSelect">
+                                <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
+                            </select>
+                        </td>-->
                     </tr>
                     <tr>
+                        <!--<td> </td>-->
                         <td>
                             <div ng-click="resetFilter()" class="btn btn-danger">
                                 <span class="oi oi-x" aria-hidden="true"></span> Filter zurücksetzen
@@ -45,8 +52,8 @@
         <h6><span class="badge badge-info">{{anzahl.anzahl + anzahleR.anzahl}}</span> Kandidaten in der Datenbank</h6>
     </div>
     <div class="panel-body">
-        <table id="candidates" class="table">
-            <thead>
+        <table id="candidates" class="table table-striped">
+            <thead class="thead-sourcing">
                 <tr>
                     <th>Name</th>
                     <th>eRecruiterNr.</th>

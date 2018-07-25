@@ -18,7 +18,7 @@
                     "FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
                     "LEFT JOIN team ON team.id = candidate.team_id " +
                     "LEFT JOIN city_group ON team.city_group = city_group.id " +
-                    "LEFT JOIN users ON candidate.sourcer = users.id";
+                    "LEFT JOIN users ON candidate.sourcer = users.id ORDER BY candidate.research";
                 var countCandidateQuery = "SELECT COUNT(candidate.id) as countCandidate FROM candidate";
                 var parameter = [];
                 var moreParameter = false;

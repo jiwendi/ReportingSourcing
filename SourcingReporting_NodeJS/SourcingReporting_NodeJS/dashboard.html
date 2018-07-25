@@ -9,21 +9,24 @@
 
     <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/dashboard.css" rel="stylesheet" media="screen and (min-width: 1600px)">
-    <link href="font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link href="css/sourcing.css" rel="stylesheet" media="screen and (min-width: 1600px)">
     <link href="css/select2.min.css" rel="stylesheet" />
     <link href="css/tablesort.css" rel="stylesheet" />
     <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
 
+    <!-- Icon Fonts-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="font/css/open-iconic-bootstrap.css" rel="stylesheet">
+
     <!-- Responsive CSS -->
-    <link rel="stylesheet" media="screen and (max-width:1600px)" href="css/responsive/laptop.css"/>
+    <link rel="stylesheet" media="screen and (max-width:1600px)" href="css/responsive/laptop.css" />
     <link rel="stylesheet" media="screen and (max-width:900px)" href="css/responsive/mobile.css" />
     <link rel="stylesheet" media="print" href="css/responsive/print.css" />
 
     <link rel="stylesheet" href="css/alertify/alertify.core.css" />
     <link rel="stylesheet" href="css/alertify/alertify.default.css" id="toggleCSS" />
 
-    <!-- JS -->    
+    <!-- JS -->
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
@@ -59,10 +62,10 @@
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto"></ul>
 
-                
+
 
                 <form class="form-inline mt-2 mt-md-0">
-                    <a class="navbar-brand" href="#!userdetail">{{user.firstname + ' ' + user.lastname}} <span class="oi oi-cog" aria-hidden="true"></span></a>
+                    <a class="navbar-brand" href="#!userdetail">{{user.firstname + ' ' + user.lastname}} <span class="fas fa-user-shield" aria-hidden="true"></span></a>
                 </form>
 
                 <form class="form-inline mt-2 mt-md-0 mr-2">
@@ -71,9 +74,9 @@
                     <div id="livesearch"></div>
                 </form>
 
-           
+
                 <form class="form-inline mt-2 mt-md-0">
-                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit" ng-click="logout()"><span class="oi oi-account-logout" aria-hidden="true"></span> Logout</button>
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit" ng-click="logout()"><span class="fas fa-sign-out-alt" aria-hidden="true"></span> Logout</button>
                 </form>
 
             </div>
@@ -86,61 +89,41 @@
             <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar sourcing-sidebar" ng-controller="sideBarController">
                 <ul class="nav nav-pills flex-column sidebar-margin">
                     <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!candidates"><span class="oi oi-people" aria-hidden="true"></span> Kandidaten</a>
+                        <a class="nav-link nav-bg-info" href="#!candidates"><span class="fas fa-users" aria-hidden="true"></span> Kandidaten</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!candidates_eR"><span class="oi oi-fork" aria-hidden="true"></span> eR-Kandidaten</a>
+                        <a class="nav-link nav-bg-info" href="#!candidates_eR"><span class="fas fa-user-astronaut" aria-hidden="true"></span> eR-Kandidaten</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!statistics"><span class="oi oi-bar-chart" aria-hidden="true"></span> Statistiken</a>
+                        <a class="nav-link nav-bg-info" href="#!statistics"><span class="fas fa-chart-line" aria-hidden="true"></span> Statistiken</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!hires"><span class="oi oi-star" aria-hidden="true"></span> Besetzungsliste</a>
+                        <a class="nav-link nav-bg-info" href="#!hires"><span class="fas fa-star" aria-hidden="true"></span> Besetzungsliste</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!rememberMe"><span class="oi oi-clock" aria-hidden="true"></span> RememberMe-Liste</a>
-                    </li>
-                </ul>
-                <!-- ADMIN ONLY - START -->
-                <!--<ul class="nav nav-pills flex-column sidebar-margin">
-                    
-                    <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!wigs"><span class="oi oi-flag" aria-hidden="true"></span> Ziel</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!sources"><span class="oi oi-compass" aria-hidden="true"></span> Quellen</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!teams"><span class="oi oi-globe" aria-hidden="true"></span> Teams &amp; Gruppen</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!users"><span class="oi oi-person" aria-hidden="true"></span> Benutzer</a>
-                    </li>
-
-                </ul>-->
-
-                <!-- ADMIN ONLY - END -->
-
-                <ul class="nav nav-pills flex-column sidebar-margin">
-                    <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!settings"><span class="oi oi-cog" aria-hidden="true"></span> Einstellungen</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!dashboard"><span class="oi oi-bullhorn" aria-hidden="true"></span> Release Infos</a>
+                        <a class="nav-link nav-bg-info" href="#!rememberMe"><span class="fas fa-user-clock" aria-hidden="true"></span> RememberMe-Liste</a>
                     </li>
                 </ul>
 
                 <ul class="nav nav-pills flex-column sidebar-margin">
                     <li class="nav-item">
-                        <a class="nav-link nav-bg-info" href="#!sourcingHeroes"><span class="oi oi-location" aria-hidden="true"></span> Sourcing Helden</a>
+                        <a class="nav-link nav-bg-info" href="#!settings"><span class="fas fa-cog" aria-hidden="true"></span> Einstellungen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-bg-info" href="#!dashboard"><span class="fas fa-code" aria-hidden="true"></span> Release Infos</a>
+                    </li>
+                </ul>
+
+                <ul class="nav nav-pills flex-column sidebar-margin">
+                    <li class="nav-item">
+                        <a class="nav-link nav-bg-info" href="#!sourcingHeroes"><span class="fas fa-user-ninja" aria-hidden="true"></span> Sourcing Helden</a>
                     </li>
                 </ul>
 
                 <ul class="nav nav-pills flex-column sidebar-margin timeinfo">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="page-header"><span class="oi oi-monitor"></span> Time-Info's (6M)</h5>
+                            <h5 class="page-header"><span class="fas fa-desktop"></span> Time-Info's (6M)</h5>
                             <h6>Time-To-Call <span class="badge badge-info">{{timeinfo.timetocall | number: 2}} Tage</span></h6>
 
                             <h6>Time-To-Interview <span class="badge badge-info">{{timeinfo.timetointerview | number: 2}} Tage</span></h6>
@@ -153,17 +136,9 @@
                     </div>
                 </ul>
 
-                <!--<ul class="nav nav-pills flex-column sidebar-margin logoutdiv">
-                    <li class="nav-item">
-                        <button class="btn btn-outline-info my-2 my-sm-0" type="submit" ng-click="logout()"><span class="oi oi-account-logout" aria-hidden="true"></span> Logout</button>
-                    </li>
-                </ul>-->
-
-
-
             </nav>
             <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3 main-margin">
-                <div id="releaseInfo" class="releaseInfo"><h3>Neues Release kommt!</h3> Das Sourcing Tool ist außerplanmäßig bereits am Mo, 18.06.2018 von 8:00 - 12:00 offline. <br/>Danke für dein Verständnis!<br /><strong>Happy Sourcing :)</strong></div>
+                <div id="releaseInfo" class="releaseInfo"><h3>Neues Release kommt!</h3> Das Sourcing Tool ist außerplanmäßig bereits am Mo, 18.06.2018 von 8:00 - 12:00 offline. <br />Danke für dein Verständnis!<br /><strong>Happy Sourcing :)</strong></div>
                 <div class="main-view" ng-view></div>
 
             </main>
@@ -176,10 +151,6 @@
     <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
 
     <script src="js/vendor/holder.min.js"></script>
-
-    
-
-    <!--<script src="js/sourcing/dashboard.js"></script>-->
 
     <script src="js/sourcing/main.js"></script>
     <script src="js/sourcing/candidate.js"></script>

@@ -1,10 +1,10 @@
-/*
+﻿/*
  * Base structure
  */
 
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-  padding-top: 50px;
+    padding-top: 50px;
 }
 
 
@@ -13,51 +13,47 @@ body {
  */
 
 .sub-header {
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
 }
 
-.input-group{
-	margin-top: 5px;
-	margin-bottom: 5px;
+.input-group {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.useredit{
-	max-width: 500px;
-
+.useredit {
+    max-width: 500px;
 }
 
-.projectedit{
-	max-width: 500px;
-
+.projectedit {
+    max-width: 500px;
 }
 
-.align-r{
-	float:right;
+.align-r {
+    float: right;
 }
 
-a{
-	/*color: #278C27;*/
+a {
+    /*color: #278C27;*/
     color: #17A2B8;
 }
 
-a:hover{
-	color: #5CB85C;
+    a:hover {
+        color: #5CB85C;
+    }
+
+.commentheader {
+    display: inline;
 }
 
-
-
-.commentheader{
-	display: inline;
+.commentbtn {
+    margin-bottom: 10px;
 }
 
-.commentbtn{
-	margin-bottom: 10px;
-}
-
-.password-goup{
-	margin-top: 20px;
-	margin-bottom: 20px;
+.password-goup {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 
@@ -79,51 +75,52 @@ a:hover{
 
 /* Hide for mobile, show later */
 .sidebar {
-  display: none;
+    display: none;
 }
+
 @media (min-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 51px;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    display: block;
-    padding: 20px;
-    overflow-x: hidden;
-    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
-    border-right: 1px solid #eee;
-  }
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+    }
 }
 
 /* Sidebar navigation */
 .nav-sidebar {
-  margin-right: -21px; /* 20px padding + 1px border */
-  margin-bottom: 20px;
-  margin-left: -20px;
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
 }
-.nav-sidebar > li > a {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
-.nav-sidebar > .active > a:focus {
-  color: #fff;
-  background-color: #5cb85c;
-}
+
+    .nav-sidebar > li > a {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .nav-sidebar > .active > a,
+    .nav-sidebar > .active > a:hover,
+    .nav-sidebar > .active > a:focus {
+        color: #fff;
+        background-color: #5cb85c;
+    }
 
 .sidebar-margin {
     margin-top: 20px;
-
 }
 
 .wdselect {
     width: 100% !important;
     padding-bottom: 5px;
     padding-top: 5px;
-
 }
 
 /*
@@ -138,23 +135,23 @@ a:hover{
 }
 
 @media (min-width: 768px) {
-  .main {
-    padding-right: 40px;
-    padding-left: 40px;
-  }
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
 }
+
 .main .page-header {
-  margin-top: 0;
+    margin-top: 0;
 }
 
-.nav-bg-info-active{
-	background-color: #17a2b8;
-	color: #d1ecf1;
+.nav-bg-info-active {
+    background-color: #17a2b8;
+    color: #d1ecf1;
 }
 
-.nav-bg-info{
-	color:#17a2b8;
-	
+.nav-bg-info {
+    color: #17a2b8;
 }
 
 
@@ -162,26 +159,28 @@ a:hover{
  * Placeholder dashboard ideas
  */
 
-.placeholders {
-  margin-bottom: 30px;
-  text-align: center;
+/*.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
 }
-.placeholders h4 {
-  margin-bottom: 0;
-}
+
+    .placeholders h4 {
+        margin-bottom: 0;
+    }
+
 .placeholder {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
-.placeholder img {
-  display: inline-block;
-  border-radius: 50%;
-}
+
+    .placeholder img {
+        display: inline-block;
+        border-radius: 50%;
+    }*/
 
 
 .logoutdiv {
     position: absolute;
     bottom: 20px;
-
 }
 
 .groupdropdown {
@@ -189,13 +188,16 @@ a:hover{
     margin-right: 5px;
 }
 
-
 .sourcing-width-150 {
     width: 150px !important;
 }
 
 .sourcing-width-250 {
     width: 250px !important;
+}
+
+.sourcing-h-50 {
+    height: 50px !important;
 }
 
 .sourcing-width-full {
@@ -218,10 +220,6 @@ a:hover{
     width: 60% !important;
 }
 
-.sourcing-h-50 {
-    height: 50px !important;
-
-}
 
 .form-control-sourcing-w-20 {
     display: block;
@@ -266,6 +264,55 @@ a:hover{
     align-self: flex-start;
 }
 
+.filterDivs {
+    margin: 3px;
+    padding: 2px;
+    float: left;
+    width: 250px !important;
+}
+
+hr {
+    color: #17a2b8 !important;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #17a2b8;
+    margin: 1em;
+    padding: 0;
+}
+
+.filterTitle {
+    color: #14A0B4;
+}
+
+.thead-sourcing th {
+    color: #fff;
+    background-color: #14A0B4;
+    border-color: #17a2b8
+}
+
+.table th {
+    padding: .75em;
+}
+
+.table td{
+    padding: .5em;
+}
+
+.border-thin {
+   /* border: solid 1px #17a2b8; */
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.border-thick {
+    border: solid 3px #17a2b8;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px;
+}
+
 .float-overflow {
     display: flex;
     flex-direction: row;
@@ -290,13 +337,7 @@ a:hover{
     background-color: #b9e3e9;
 }
 
-.wdselect {
-    width: 100%;
-    padding-bottom: 6px;
-    padding-top: 6px;
-}
-
-.projectusers {
+/*.projectusers {
     margin-top: 50px;
 }
 
@@ -306,8 +347,9 @@ a:hover{
 
 .showuseractivities {
     margin-left: 20px;
-}
+}*/
 
+/* Highlighting Inactive Users */
 .inactiveuser {
     background-color: #b9e3e9;
     color: #000;
@@ -317,6 +359,7 @@ a:hover{
         color: #000 !important;
     }
 
+/* Highlighting Hired Candidated */
 .hiredCandidate {
     background-color: #b9e3e9;
     color: #000;
@@ -326,6 +369,7 @@ a:hover{
         color: #000 !important;
     }
 
+/* Highlighting Inactive Sources */
 .inactivesource {
     background-color: #b9e3e9;
     color: #000;
@@ -339,6 +383,7 @@ a:hover{
     background-color: #b9e3e9;
     color: #000;
 }
+
     .candidateNotOnScoreboard a {
         color: #000 !important;
     }
@@ -349,8 +394,7 @@ a:hover{
 }
 
 .sourcing-sidebar {
-max-width: 16% !important;
-
+    max-width: 16% !important;
 }
 
 .top-right {
@@ -364,7 +408,8 @@ max-width: 16% !important;
     padding: 5px;
 }
 
-.anonymise_input {
+/* Styling for Input at anonymizeCandidates.html */
+.anonymise-input {
     width: 25%;
     padding: .375rem .75rem;
     font-size: 1rem;
@@ -378,14 +423,18 @@ max-width: 16% !important;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
 }
 
+/* Tabelle ohne Rahmen */
 .table_blank {
-border: none;
+    border: none;
 }
 
-.card-size {
+/* scoureboardHeroes Card-Höhe */
+.heroes-cards {
     height: 215px !important;
 }
 
+/* Anzeige der Release Vorankündigung 
+    - dashboard.html */
 .releaseInfo {
     position: absolute;
     right: 20px;
@@ -405,6 +454,8 @@ border: none;
     margin: 5px;
 }
 
+/* Anzeige des aktuellen Filter- 
+    zeitraums bei den Statistiken*/
 #filterAnzeige {
     position: absolute;
     top: 50px;
@@ -420,7 +471,7 @@ table.sortable thead {
     cursor: default;
 }
 
-/* CSS Loader */
+/* CSS Loader Animation */
 .circle {
     background-color: rgba(0,0,0,0);
     border: 5px solid rgba(23,162,184,0.9);
@@ -510,3 +561,4 @@ table.sortable thead {
         -webkit-transform: rotate(360deg);
     }
 }
+/* End CSS Loader Animation */
