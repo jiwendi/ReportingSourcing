@@ -354,8 +354,8 @@ app.controller('navBarController', function ($scope, $http) {
     $scope.weeklyTelnoticeToDo = WEEKLY_GOAL_TELNOTICE * ACTIVE_SOURCER;
     $scope.weeklyRequestsToDo = WEEKLY_GOAL_REQUESTS * ACTIVE_SOURCER;
 
-    $scope.classTN = false;
-    $scope.classReq = false;
+    $scope.classTN = "false";
+    $scope.classReq = "false";
 
     $http.post('user/showUserDetails').then(function (response) {
         $scope.user = response.data.data;
@@ -367,11 +367,11 @@ app.controller('navBarController', function ($scope, $http) {
 
         if ($scope.weeklyTN >= $scope.weeklyTelnoticeToDo)
         {
-            $scope.classTN = true;
+            $scope.classTN = "true";
         }
 
         if ($scope.weeklyReq >= $scope.weeklyRequestsToDo) {
-            $scope.classReq = true;
+            $scope.classReq = "true";
         }
 
     });
