@@ -567,5 +567,23 @@
             });
 
         });
+
+        /* Release 1.6 Personal Overview Telnotice */
+        app.post('/statistics/telnoticeBySourcer', function (req, res) {
+            var query = "SELECT WEEK(telnotice)+1 as weeknr, COUNT(telnotice) as count_telnotice " +
+                        "FROM candidate " +
+                        "WHERE sourcer = " + req.session.userid + " AND YEAR(telnotice) = " + req.body.yearToFilter + " " +
+                "GROUP BY WEEK(telnotice) + 1";
+
+            db.query(query, function (err, rows, fields) {
+                if (err) {
+                    sendResponse(res, false, "Fehler beim Abfragen der Telefonnotizen-Jahresübersicht" + err);
+                } else {
+                    sendResponse(res, true, "", rows);
+                }
+            });
+
+        });
+        
     }
 }; 

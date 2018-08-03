@@ -5,6 +5,11 @@ const FILTER_FROM = new Date('2018-01-01');
 const FILTER_TO = new Date('2018-12-31');
 const FILTER_DAYS = new Number(365);
 
+const ACTIVE_SOURCER = new Number(9.5);
+
+const WEEKLY_GOAL_TELNOTICE = new Number(5);
+const WEEKLY_GOAL_REQUESTS = new Number(20); 
+
 app.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.when('/dashboard', {
@@ -134,6 +139,10 @@ app.config(['$routeProvider',
             when('/TelefonNotizenGraph', {
                 templateUrl: 'templates/statistics/telNoticeGraph.html',
                 controller: 'statisticsTelNoticeController'
+            }).
+            when('/telnoticeBySourcer', {
+                templateUrl: 'templates/statistics/telnoticeBySourcer.html',
+                controller: 'statisticsTelNoticeBySourcerController'
             }).
             when('/hires', {
                 templateUrl: 'templates/statistics/hireList.html',
@@ -341,8 +350,30 @@ app.controller('dashboardController', function ($scope, $http) {
 });
 
 app.controller('navBarController', function ($scope, $http) {
+
+    $scope.weeklyTelnoticeToDo = WEEKLY_GOAL_TELNOTICE * ACTIVE_SOURCER;
+    $scope.weeklyRequestsToDo = WEEKLY_GOAL_REQUESTS * ACTIVE_SOURCER;
+
+    $scope.classTN = false;
+    $scope.classReq = false;
+
     $http.post('user/showUserDetails').then(function (response) {
         $scope.user = response.data.data;
+    });
+
+    $http.get('wig/weeklyNumbersInHeader').then(function (response) {
+        $scope.weeklyTN = response.data.data.weekly_telnotice;
+        $scope.weeklyReq = response.data.data.weekly_requests;
+
+        if ($scope.weeklyTN >= $scope.weeklyTelnoticeToDo)
+        {
+            $scope.classTN = true;
+        }
+
+        if ($scope.weeklyReq >= $scope.weeklyRequestsToDo) {
+            $scope.classReq = true;
+        }
+
     });
 
     $http.get('wig/showWigInHeader').then(function (response) {

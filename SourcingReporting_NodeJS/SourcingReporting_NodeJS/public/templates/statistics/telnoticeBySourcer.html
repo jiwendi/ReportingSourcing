@@ -1,0 +1,27 @@
+﻿<h1 class="page-header"><span class="fas fa-chart-line"></span> Meine Telefonnotizen Übersicht</h1>
+
+<div class="panel panel-default">
+   
+    <div class="input-group sourcing-w-20 ml-2">
+        <div class="input-group-addon alert-info sourcing-width-150">Jahr </div>
+        <input class="form-control" type="number" id="yearToFilter" ng-model="yearToFilter" min="2017" value="2018" ng-change="update()" />
+    </div>
+
+    <div class="chart-container w-75" id="ChartDiv">
+        <canvas id="myChart"></canvas>
+    </div>
+   
+    <h5>Mein Durchschnitt: <span class="badge badge-info">{{ sumTelNotice/countNr | number: 2 }}</span></h5>
+    <br />
+    <table id="telNoticeTable" class="table w-50">
+        <tr>
+            <th>Kalenderwoche</th>
+            <th>Anzahl</th>
+
+        </tr>
+        <tr ng-repeat="t in telNotice | orderBy: 'weeknr'">
+            <td>{{t.weeknr}}</td>
+            <td>{{t.count_telnotice}}</td>
+        </tr>
+    </table>
+</div>

@@ -32,6 +32,30 @@
             });
         });
 
+        /* Release 1.6 Show Weekly Numbers in Header */
+        app.get('/wig/weeklyNumbersInHeader', function (req, res) {
+            var queryTelnotice = "SELECT COUNT(telnotice) as telnotice_week FROM candidate WHERE WEEK(telnotice) = WEEK(sysdate()) AND YEAR(telnotice) = YEAR(sysdate())";
+            var queryRequests = "SELECT COUNT(id) as requests_week FROM candidate WHERE WEEK(research) = WEEK(sysdate()) AND YEAR(research) = YEAR(sysdate()) AND request= 1";
+
+            db.query(queryTelnotice, function (errTN, rowsTN, fieldsTN) {
+                if (errTN) {
+                    sendResponse(res, false, "Fehler beim Abfragen der Weekly-Telefonnotizen aus der DB " + eRerr);
+                } else {
+                    db.query(queryRequests, function (errReq, rowsReq, fieldsReq) {
+                        if (errReq) {
+                            sendResponse(res, false, "Fehler beim Abfragen der Weekly-Ansprachen aus der DB " + eRerr);
+                        } else {
+                            var result = {
+                                weekly_telnotice: rowsTN[0],
+                                weekly_requests: rowsReq[0]
+                            };
+                            sendResponse(res, true, "", result);
+                        }
+                    });
+                }
+            });
+        });
+
         app.get('/wig/showWigOverview', function (req, res) {
             var query = "SELECT DISTINCT w.id, w.name, w.start, w.end, w.goal, w.active, (x.hireThisYear + er.hireThisYear) AS hireThisYear  " +
                 "FROM epunkt_sourcing.wig w LEFT JOIN (" +
