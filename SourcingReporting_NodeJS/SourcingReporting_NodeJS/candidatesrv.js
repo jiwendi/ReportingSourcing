@@ -653,7 +653,7 @@
             }
         });
 
-        app.post('/candidate/deleteExterb', function (req, res) {
+        app.post('/candidate/deleteExtern', function (req, res) {
             if (req.session.userid) {
                 var suc = false;
                 var message = "";
