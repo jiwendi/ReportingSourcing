@@ -21,6 +21,13 @@
     var from_hire = false;
     var to_hire = false;
 
+    var filterSourcer = false;
+    var filterSource = false;
+    var filterTracking = false;
+    var filterRequest = false;
+    var filterResponse = false;
+    var filterResponseValue = false;
+
     $scope.ishiredcandidate = function (candidate) {
         if (candidate.hire != null) {
             return "hiredCandidate";
@@ -34,18 +41,42 @@
     };
 
     $scope.filterCandidates = function () {
-        if ($scope.showusercandidates) {
-            showusercandidates = true;
+        if ($scope.filterSourcer != undefined) {
+            if ($scope.filterSourcer > 0) {
+                filterSourcer = $scope.filterSourcer;
+            }
         }
 
-        if ($scope.showTracking) {
-            showTracking = true;
+        if ($scope.filterSource != undefined) {
+            if ($scope.filterSource > 0){
+                filterSource = $scope.filterSource;
+            }
         }
 
-        if ($scope.showRequest) {
-            showRequest = true;
+        if ($scope.filterTracking != undefined) {
+            if ($scope.filterTracking >= 0) {
+                filterTracking = $scope.filterTracking;
+            }
         }
 
+        if ($scope.filterRequest != undefined) {
+            if ($scope.filterRequest >= 0) {
+                filterRequest = $scope.filterRequest;
+            }
+        }
+
+        if ($scope.filterResponse != undefined) {
+            if ($scope.filterResponse == 0) {
+                filterResponse = $scope.filterResponse;
+            } else if ($scope.filterResponse == 1) {
+                filterResponse = 1;
+                filterResponseValue = 1;
+            } else if ($scope.filterResponse == 2) {
+                filterResponse = 1;
+                filterResponseValue = 0;
+            }
+        }
+        
         if ($scope.from_telnotice != undefined) {
             from_telnotice = toLocalDate($scope.from_telnotice, 2);
         }
@@ -86,9 +117,19 @@
             to_hire = toLocalDate($scope.to_hire, 2);
         }
 
+        $http.get('candidates/getFilterData').then(function (response) {
+            $scope.sourcer = response.data.data.sourcer;
+            $scope.sources = response.data.data.sources;
+
+            if (!response.data.success) {
+                alertify.alert(response.data.message);
+            }
+        });
+
         $http.post('candidates/showCandidateOverview', {
-            showusercandidates: showusercandidates, showTracking: showTracking, from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
-            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire, showRequest: showRequest
+            from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
+            from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire,
+            filterSourcer: filterSourcer, filterSource: filterSource, filterTracking: filterTracking, filterRequest: filterRequest, filterResponse: filterResponse, filterResponseValue: filterResponseValue
         }).then(function (response) {
             $scope.candidates = response.data.data.candidate;
             $scope.countCandidate = response.data.data.countCandidate;
@@ -96,7 +137,7 @@
             if (!response.data.success) {
                 alertify.alert(response.data.message);
             }
-        });
+        });   
     };
 
     $scope.filterCandidates();

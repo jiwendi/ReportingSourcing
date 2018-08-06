@@ -36,51 +36,40 @@
                     <div class="col border-thick">
                         <h5 class="filterTitle"><span class="fas fa-filter"></span> Kandidaten filtern:</h5>
                         <div class="row filter-panel pt-2 filter-panel border-thin">
-                            <!--<div class="form-group filterDivs alert alert-info">
+                            <div class="form-group filterDivs alert alert-info">
                                 <label for="exampleFormControlSelect1">Sourcer</label>
-                                <select class="form-control" id="requestSelect">
-                                    <option>Alle</option>
-                                    <option>Daniela</option>
-                                    <option>Julia</option>
-                                    <option>Peter</option>
-                                    <option>Simon</option>
+                                <select class="form-control" id="filterSourcer" ng-model="filterSourcer">
+                                    <option ng-repeat="s in sourcer" value="{{ s.id }}">{{ s.firstname }}</option>
                                 </select>
                             </div>
                             <div class="form-group filterDivs alert alert-info">
                                 <label for="exampleFormControlSelect1">Quelle</label>
-                                <select class="form-control" id="requestSelect">
-                                    <option>Alle</option>
-                                    <option>LinkedIn</option>
-                                    <option>Karriere.at</option>
-                                    <option>AMS</option>
-                                    <option>StackOverflow</option>
+                                <select class="form-control" id="filterSource" ng-model="filterSource">
+                                    <option ng-repeat="s in sources" value="{{ s.id }}">{{ s.name }}</option>
                                 </select>
                             </div>
                             <div class="form-group filterDivs alert alert-info">
                                 <label for="exampleFormControlSelect1">Beobachten</label>
-                                <select class="form-control" id="trackingSelect">
-                                    <option>Alle</option>
-                                    <option>Ja</option>
-                                    <option>Nein</option>
+                                <select class="form-control" id="filterTracking" ng-model="filterTracking">
+                                    <option value="1">Ja</option>
+                                    <option value="0">Nein</option>
                                 </select>
                             </div>
                             <div class="form-group filterDivs alert alert-info">
                                 <label for="exampleFormControlSelect1">Ansprache</label>
-                                <select class="form-control" id="requestSelect">
-                                    <option>Alle</option>
-                                    <option>Ja</option>
-                                    <option>Nein</option>
+                                <select class="form-control" id="filterRequest" ng-model="filterRequest">
+                                    <option value="1">Ja</option>
+                                    <option value="0">Nein</option>
                                 </select>
                             </div>
                             <div class="form-group filterDivs alert alert-info">
                                 <label for="exampleFormControlSelect1">Response</label>
-                                <select class="form-control" id="requestSelect">
-                                    <option>Alle</option>
-                                    <option>Nein</option>
-                                    <option>Ja - Positiv</option>
-                                    <option>Ja - Negativ</option>
+                                <select class="form-control" id="filterResponse" ng-model="filterResponse">
+                                    <option value="0">Nein</option>
+                                    <option value="1">Ja - Positiv</option>
+                                    <option value="2">Ja - Negativ</option>
                                 </select>
-                            </div>-->
+                            </div>
 
                         </div>
                         <hr />

@@ -18,14 +18,18 @@
                     "FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
                     "LEFT JOIN team ON team.id = candidate.team_id " +
                     "LEFT JOIN city_group ON team.city_group = city_group.id " +
-                    "LEFT JOIN users ON candidate.sourcer = users.id ORDER BY candidate.research";
+                    "LEFT JOIN users ON candidate.sourcer = users.id";
                 var countCandidateQuery = "SELECT COUNT(candidate.id) as countCandidate FROM candidate";
                 var parameter = [];
                 var moreParameter = false;
 
-                var showusercandidates = req.body.showusercandidates;
-                var showTracking = req.body.showTracking;
-                var showRequest = req.body.showRequest;
+                var filterSourcer = req.body.filterSourcer;
+                var filterSource = req.body.filterSource;
+                var filterTracking = req.body.filterTracking;
+                var filterRequest = req.body.filterRequest;
+                var filterResponse = req.body.filterResponse;
+                var filterResponseValue = req.body.filterResponseValue;
+                
                 var from_telnotice = req.body.from_telnotice;
                 var to_telnotice = req.body.to_telnotice;
                 var from_intern = req.body.from_intern;
@@ -37,32 +41,64 @@
                 var from_hire = req.body.from_hire;
                 var to_hire = req.body.to_hire;
 
-                if (showusercandidates) {
-                    candidatequery = candidatequery + " WHERE candidate.sourcer= ?";
-                    countCandidateQuery = countCandidateQuery + " WHERE sourcer= ?";
-                    parameter = [req.session.userid];
+                if (filterSourcer != false) {
+                    candidatequery = candidatequery + " WHERE candidate.sourcer = " + filterSourcer;
+                    countCandidateQuery = countCandidateQuery + " WHERE sourcer = " + filterSourcer;
                     moreParameter = true;
                 }
 
-                if (showTracking) {
+                if (filterSource != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.tracking=1";
-                        countCandidateQuery = countCandidateQuery + " AND tracking=1";
+                        candidatequery = candidatequery + " AND candidate.source_id = " + filterSource;
+                        countCandidateQuery = countCandidateQuery + " AND source_id = " + filterSource;
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.tracking=1";
-                        countCandidateQuery = countCandidateQuery + " WHERE tracking=1";
+                        candidatequery = candidatequery + " WHERE candidate.source_id = " + filterSource;
+                        countCandidateQuery = countCandidateQuery + " WHERE source_id = " + filterSource;
                         moreParameter = true;
                     }
                 }
 
-                if (showRequest) {
+                if (filterTracking != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.request=0";
-                        countCandidateQuery = countCandidateQuery + " AND request=0";
+                        candidatequery = candidatequery + " AND candidate.tracking = " + filterTracking;
+                        countCandidateQuery = countCandidateQuery + " AND tracking = " + filterTracking;
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.request=0";
-                        countCandidateQuery = countCandidateQuery + " WHERE request=0";
+                        candidatequery = candidatequery + " WHERE candidate.tracking = " + filterTracking;
+                        countCandidateQuery = countCandidateQuery + " WHERE tracking = " + filterTracking;
                         moreParameter = true;
+                    }
+                }
+
+                if (filterRequest != false) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.request = " + filterTracking;
+                        countCandidateQuery = countCandidateQuery + " AND request = " + filterTracking;
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.request = " + filterTracking;
+                        countCandidateQuery = countCandidateQuery + " WHERE request = " + filterTracking;
+                        moreParameter = true;
+                    }
+                }
+
+                if (filterResponse != false) {
+                    if (moreParameter) {
+                        if (filterResponse > 0) {
+                            candidatequery = candidatequery + " AND candidate.response = 1 AND candidate.response_value = " + filterResponseValue;
+                            countCandidateQuery = countCandidateQuery + " AND response = 1 AND candidate.response_value = " + filterResponseValue;
+                        } else {
+                            candidatequery = candidatequery + " AND candidate.response = 0";
+                            countCandidateQuery = countCandidateQuery + " AND response = 0";
+                        }
+                    } else {
+                        if (filterResponse > 0) {
+                            candidatequery = candidatequery + " WHERE candidate.response = 1 AND candidate.response_value = " + filterResponseValue;
+                            countCandidateQuery = countCandidateQuery + " WHERE response = 1 AND candidate.response_value = " + filterResponseValue;
+                            moreParameter = true;
+                        } else {
+                            candidatequery = candidatequery + " WHERE candidate.response = 0";
+                            countCandidateQuery = countCandidateQuery + " WHERE response = 0";
+                            moreParameter = true;
+                        }
                     }
                 }
 
@@ -175,26 +211,53 @@
                         moreParameter = true;
                     }
                 }
-
+                
+                candidatequery = candidatequery + " ORDER BY candidate.research";
                 db.query(candidatequery, parameter, function (candErr, candResult, candFields) {
                     if (candErr) {
                         sendResponse(res, false, "Fehler beim Abfragen der Kandidaten aus der Datenbank! " + candErr);
+                    } else {
+                        db.query(countCandidateQuery, parameter, function (countErr, countResult, countFields) {
+                            if (countErr) {
+                                sendResponse(res, false, "Fehler beim Abfragen der Kandidatenanzahl aus der Datenbank! " + countErr);
+                            }
+                            var result = {
+                                candidate: candResult,
+                                countCandidate: countResult[0]
+                            };
+                            sendResponse(res, true, "", result);
+                        });
                     }
-
-                    db.query(countCandidateQuery, parameter, function (countErr, countResult, countFields) {
-                        if (countErr) {
-                            sendResponse(res, false, "Fehler beim Abfragen der Kandidatenanzahl aus der Datenbank! " + countErr);
-                        }
-
-                        var result = {
-                            candidate: candResult,
-                            countCandidate: countResult[0]
-                        };
-                        sendResponse(res, true, "", result);
-                    });
                 });
             } else {
                 sendResponse(res, false, "Kein Benutzer eingeloggt! ");
+            }
+        });
+
+        app.get('/candidates/getFilterData', function (req, res) {
+            if (req.session.userid) {
+                var sourcerQuery = "SELECT id, firstname FROM users ORDER BY firstname";
+                var sourcesQuery = "SELECT id, name FROM sources ORDER BY name";
+
+                db.query(sourcerQuery, function (sourcerErr, sourcerResults, sourcerFields) {
+                    if (sourcerErr) {
+                        sendResponse(sourcerErr, false, "Fehler beim Abfragen der User (Sourcer) aus der Datenbank! " + sourcerErr);
+                    } else {
+                        db.query(sourcesQuery, function (sourcesErr, sourcesResult, sourcesFields) {
+                            if (sourcesErr) {
+                                sendResponse(sourcerErr, false, "Fehler beim Abfragen der Quellen aus der Datenbank! " + sourcesErr);
+                            } else {
+                                var result = {
+                                    sourcer: sourcerResults,
+                                    sources: sourcesResult
+                                };
+                                sendResponse(res, true, "", result);
+                            }
+                        });
+                    }
+                });
+            } else {
+                sendResponse(res, false, "Kein Benutzer eingeloggt!");
             }
         });
 
