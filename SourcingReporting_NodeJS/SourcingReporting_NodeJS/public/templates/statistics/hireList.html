@@ -4,7 +4,7 @@
 
 <div id="candidatesContent" class="panel panel-default">
     
-    <div>
+    <div><br /><br />
         <div class="filter pt-2">
             <div class="header btn btn-info"> Filter einblenden</div>
             <div class="content">
@@ -18,15 +18,15 @@
                             <div class="input-group-addon alert-info sourcing-width-250">bis </div>
                             <input class="form-control sourcing-width-250" type="date" id="to" ng-model="to" />
                         </td>
-                        <!--<td>
+                        <td>
                             <div class="input-group-addon alert-info sourcing-width-150">Team</div>
-                            <select class="custom-select wdselect sourcing-width-150" id="selectTeab" ng-model="teamSelect">
+                            <select class="custom-select wdselect sourcing-width-150" id="selectTeab" ng-model="filterTeam">
                                 <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
                             </select>
-                        </td>-->
+                        </td>
                     </tr>
                     <tr>
-                        <!--<td> </td>-->
+                        <td> </td>
                         <td>
                             <div ng-click="resetFilter()" class="btn btn-danger">
                                 <span class="oi oi-x" aria-hidden="true"></span> Filter zurücksetzen
@@ -40,6 +40,15 @@
                     </tr>
                 </table>
             </div>
+        </div>
+
+        <br />
+        <div id="filterAnzeige">
+            <h4>aktuelle Darstellung: </h4>
+            <p>
+                Zeitraum: <b>{{filterFrom | date: 'dd.MM.yyyy'}} - {{filterTo | date: 'dd.MM.yyyy'}}</b><br />
+                Team: <b>{{ teamName.name }}</b>
+            </p>
         </div>
 
         <div class="panel-heading pb-2 pt-2">

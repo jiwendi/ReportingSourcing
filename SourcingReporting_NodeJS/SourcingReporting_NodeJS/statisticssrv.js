@@ -300,55 +300,134 @@
             });
         });
 
+        app.get('/statistics/getTeamsForFilter', function (req, res) {
+            var teamQuery = "SELECT id, name from team";
+
+            db.query(teamQuery, function (teamErr, teamRows, teamFields) {
+                if (teamErr) {
+                    sendResponse(res, false, "Fehler beim Abfragen der Teams zum Filtern! " + teamErr);
+                } else {
+                    sendResponse(res, true, "", teamRows);
+                }
+            });
+        });
+
         app.post('/statistics/hireList', function (req, res) {
+            var filterTeam = req.body.filterTeam;
+            var filterFrom = req.body.filterFrom;
+            var filterTo = req.body.filterTo
+
+            var moreParameter = false;
+            var onlyTeam = false;
+
             var query = "SELECT candidate.id, candidate.firstname, candidate.lastname, SUBSTRING(candidate.eR,2) as eR, " +
                 "CASE WHEN candidate.scoreboard = 0 THEN 'Nein' ELSE 'Ja' END AS scoreboard, " +
                 "candidate.hire, team.name " +
                 "FROM candidate " +
-                "LEFT OUTER JOIN team ON candidate.team_id = team.id " +
-                "WHERE candidate.hire >= ? AND candidate.hire <= ? " +
-                "ORDER BY candidate.hire desc";
+                "LEFT OUTER JOIN team ON candidate.team_id = team.id ";
             var eRquery = "SELECT candidate_eR.id, candidate_eR.firstname, candidate_eR.lastname, SUBSTRING(candidate_eR.eR,2) as eR, " +
                 "CASE WHEN candidate_eR.scoreboard = 0 THEN 'Nein' ELSE 'Ja' END AS scoreboard, " +
                 "candidate_eR.hire, team.name " +
                 "FROM candidate_eR " +
-                "LEFT OUTER JOIN team ON candidate_eR.team_id = team.id " +
-                "WHERE candidate_eR.hire >= ? AND candidate_eR.hire <= ? " +
-                "ORDER BY candidate_eR.hire desc";
+                "LEFT OUTER JOIN team ON candidate_eR.team_id = team.id ";
+
             var countHiresQuery = "SELECT COUNT(candidate.id) AS anzahl " +
-                "FROM candidate " +
-                "WHERE candidate.hire >= ? AND candidate.hire <= ?";
+                "FROM candidate ";
             var counteRHiresQuery = "SELECT COUNT(candidate_eR.id) AS anzahl " +
-                "FROM candidate_eR " +
-                "WHERE candidate_eR.hire >= ? AND candidate_eR.hire <= ?";
+                "FROM candidate_eR ";
 
-            var parameter = [req.body.filterFrom, req.body.filterTo, req.body.scoreboard];
-            var message = "";
+            var teamNameQuery = "SELECT name from team WHERE id = " + filterTeam;
 
-            db.query(query, parameter, function (err, rows, fields) {
+            if (filterFrom != false){
+                query = query + "WHERE candidate.hire >= '" + filterFrom + "'";
+                eRquery = eRquery + "WHERE candidate.hire >= '" + filterFrom + "'";
+                countHiresQuery = countHiresQuery + "WHERE candidate.hire >= '" + filterFrom + "'";
+                counteRHiresQuery = counteRHiresQuery + "WHERE candidate_eR.hire >= '" + filterFrom + "'";
+                moreParameter = true;
+                onlyTeam = false;
+            }
+
+            if (filterTo != false) {
+                if (moreParameter) {
+                    query = query + " AND candidate.hire <= '" + filterTo + "'";
+                    eRquery = eRquery + " AND candidate_eR.hire <= '" + filterTo + "'";
+                    countHiresQuery = countHiresQuery + " AND candidate.hire <= '" + filterTo + "'";
+                    counteRHiresQuery = counteRHiresQuery + " AND candidate_eR.hire <= '" + filterTo + "'";
+                } else {
+                    query = query + "WHERE candidate.hire <= '" + filterTo + "'";
+                    eRquery = eRquery + "WHERE candidate_eR.hire <= '" + filterTo + "'";
+                    countHiresQuery = countHiresQuery + "WHERE candidate.hire <= '" + filterTo + "'";
+                    counteRHiresQuery = counteRHiresQuery + "WHERE candidate_eR.hire <= '" + filterTo + "'";
+                    moreParameter = true;
+                    onlyTeam = false;
+                }
+            }
+            
+            if (filterTeam != false) {
+                if (moreParameter) {
+                    query = query + " AND candidate.team_id = " + filterTeam;
+                    eRquery = eRquery + " AND candidate.team_id = " + filterTeam;
+                    countHiresQuery = countHiresQuery + " AND team_id " + filterTeam;
+                    counteRHiresQuery = counteRHiresQuery + " AND team_id " + filterTeam;
+                } else {
+                    query = query + "WHERE candidate.team_id = " + filterTeam;
+                    eRquery = eRquery + "WHERE candidate_eR.team_id = " + filterTeam;
+                    countHiresQuery = countHiresQuery + "WHERE candidate.team_id =" + filterTeam;
+                    counteRHiresQuery = counteRHiresQuery + "WHERE candidate_eR.team_id =" + filterTeam;
+                    moreParameter = true;
+                    onlyTeam = true;
+                }
+            }
+
+            if (!moreParameter) {
+                query = query + "WHERE candidate.hire IS NOT NULL";
+                eRquery = eRquery + "WHERE candidate_eR.hire IS NOT NULL";
+                countHiresQuery = countHiresQuery + "WHERE candidate.hire IS NOT NULL";
+                counteRHiresQuery = counteRHiresQuery + "WHERE candidate_eR.hire IS NOT NULL";
+            } else {
+                if (onlyTeam) {
+                    query = query + " AND candidate.hire IS NOT NULL";
+                    eRquery = eRquery + " AND candidate_eR.hire IS NOT NULL";
+                    countHiresQuery = countHiresQuery + " AND candidate.hire IS NOT NULL";
+                    counteRHiresQuery = counteRHiresQuery + " AND candidate_eR.hire IS NOT NULL";
+                }
+            }
+            
+            query = query + " ORDER BY candidate.hire desc";
+            eRquery = eRquery + " ORDER BY candidate_eR.hire desc";
+            
+            db.query(query, function (err, rows, fields) {
                 if (err) {
                     sendResponse(res, false, "Fehler beim Abfragen der besetzten Kandidaten! " + err);
                 } else {
-                    db.query(eRquery, parameter, function (eRerr, eRrows, eRfields) {
+                    db.query(eRquery, function (eRerr, eRrows, eRfields) {
                         if (eRerr) {
                             sendResponse(res, false, "Fehler beim Abfragen der besetzten eR-Kandidaten! " + eRerr);
                         } else {
-                            db.query(countHiresQuery, parameter, function (hireErr, hireRows, hireFields) {
+                            db.query(countHiresQuery, function (hireErr, hireRows, hireFields) {
                                 if (hireErr) {
                                     sendResponse(res, false, "Fehler beim Abfragen der Anzahl der besetzten Kandidaten! " + hireErr);
 
                                 } else {
-                                    db.query(counteRHiresQuery, parameter, function (hireeRErr, hireeRRows, hireeRFields) {
+                                    db.query(counteRHiresQuery, function (hireeRErr, hireeRRows, hireeRFields) {
                                         if (hireeRErr) {
                                             sendResponse(res, false, "Fehler beim Abfragen der Anzahl der besetzten eR-Kandidaten!" + hireeRErr);
                                         } else {
-                                            var result = {
-                                                candidates: rows,
-                                                eRcandidates: eRrows,
-                                                anzahl: hireRows[0],
-                                                anzahleR: hireeRRows[0]
-                                            };
-                                            sendResponse(res, true, "", result);
+                                            db.query(teamNameQuery, function (teamNameErr, teamNameRows, teamNameFields) {
+                                                if (teamNameErr) {
+                                                    sendResponse(res, false, "Fehler beim Abfragen des Team-Namens! " + teamNameErr);
+                                                } else {
+                                                    var result = {
+                                                        candidates: rows,
+                                                        eRcandidates: eRrows,
+                                                        anzahl: hireRows[0],
+                                                        anzahleR: hireeRRows[0],
+                                                        teamName: teamNameRows[0]
+                                                    };
+                                                    sendResponse(res, true, "", result);
+                                                }
+                                            });
+                                            
                                         }
                                     });
                                 }

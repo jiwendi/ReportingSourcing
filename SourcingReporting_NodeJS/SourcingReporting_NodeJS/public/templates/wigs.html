@@ -13,6 +13,7 @@
                         <th>Zeitraum</th>
                         <th>Ziel</th>
                         <th>aktuell</th>
+                        <th> </th>
                         <th>im Header</th>
                     </tr>
                 </thead>
@@ -22,6 +23,8 @@
                         <td>{{w.start | date: 'dd.MM.yyyy'}} - {{w.end | date: 'dd.MM.yyyy'}}</td>
                         <td>{{w.goal}}</td>
                         <td>{{w.hireThisYear}}</td>
+                        <td ng-if="w.goal-w.hireThisYear >0" class="badge badge-danger mt-2">{{ (w.goal - w.hireThisYear)*-1 }}</td>
+                        <td ng-if="w.goal-w.hireThisYear <0" class="badge badge-success mt-2">+{{ (w.goal - w.hireThisYear)*-1 }}</td>
                         <td>{{w.active}}</td>
                     </tr>
                 </tbody>

@@ -611,33 +611,39 @@ app.controller('statisticsHireListController', function ($scope, $http) {
         location.reload();
     };
 
+    $http.get('statistics/getTeamsForFilter').then(function (response) {
+        $scope.teams = response.data.data;
+    });
+
     $scope.filterCandidates = function () {
 
-        if ($scope.showScoreboard) {
-            showScoreboard = 1;
-        } else {
-            showScoreboard = 0;
-        }
+        var filterTeam = false;
+        var from_hire = false;
+        var to_hire = false;
 
         if ($scope.from != undefined) {
             from_hire = toLocalDate($scope.from, 2);
-        } else {
-            from_hire = FILTER_FROM;
         }
 
         if ($scope.to != undefined) {
             to_hire = toLocalDate($scope.to, 2);
-        } else {
-            to_hire = FILTER_TO;
         }
-
+       
+        if ($scope.filterTeam != undefined) {
+            if ($scope.filterTeam > 0) {
+                filterTeam = $scope.filterTeam;
+            }
+        }
+        
         $http.post('statistics/hireList', {
-            filterFrom: from_hire, filterTo: to_hire, scoreboard: showScoreboard
+            filterFrom: from_hire, filterTo: to_hire, filterTeam: filterTeam
         }).then(function (response) {
             $scope.candidates = response.data.data.candidates;
             $scope.anzahl = response.data.data.anzahl;
             $scope.anzahleR = response.data.data.anzahleR;
             $scope.eRcandidates = response.data.data.eRcandidates;
+            $scope.teamName = response.data.data.teamName;
+
             if (!response.data.success) {
                 alertify.set({ delay: 10000 });
                 alertify.error(response.data.message);
