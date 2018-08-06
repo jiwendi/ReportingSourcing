@@ -5,7 +5,7 @@ const FILTER_FROM = new Date('2018-01-01');
 const FILTER_TO = new Date('2018-12-31');
 const FILTER_DAYS = new Number(365);
 
-const ACTIVE_SOURCER = new Number(9.5);
+const ACTIVE_SOURCER = new Number(10.5);
 
 const WEEKLY_GOAL_TELNOTICE = new Number(5);
 const WEEKLY_GOAL_REQUESTS = new Number(20); 
