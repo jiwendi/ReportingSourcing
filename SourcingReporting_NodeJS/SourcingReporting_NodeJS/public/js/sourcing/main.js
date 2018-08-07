@@ -365,15 +365,17 @@ app.controller('navBarController', function ($scope, $http) {
         $scope.weeklyTN = response.data.data.weekly_telnotice;
         $scope.weeklyReq = response.data.data.weekly_requests;
 
-        if ($scope.weeklyTN >= $scope.weeklyTelnoticeToDo)
-        {
+        if (($scope.weeklyTN >= $scope.weeklyTelnoticeToDo / 2) && ($scope.weeklyTN < $scope.weeklyTelnoticeToDo)) {
+            $scope.classTN = "false-50";
+        } else if ($scope.weeklyTN >= $scope.weeklyTelnoticeToDo) {
             $scope.classTN = "true";
         }
 
-        if ($scope.weeklyReq >= $scope.weeklyRequestsToDo) {
+        if (($scope.weeklyReq >= $scope.weeklyRequestsToDo / 2) && ($scope.weeklyReq < $scope.weeklyRequestsToDo)) {
+            $scope.classTN = "false-50";
+        } else if ($scope.weeklyReq >= $scope.weeklyRequestsToDo) {
             $scope.classReq = "true";
         }
-
     });
 
     $http.get('wig/showWigInHeader').then(function (response) {
