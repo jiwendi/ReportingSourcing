@@ -1091,7 +1091,7 @@
 
         app.post('/candidate/livesearch', function (req, res) {
             var searchString = req.body.searchString;
-            var query = "SELECT id, firstname, lastname FROM candidate WHERE firstname like '%" + searchString + "%' OR lastname like '%" + searchString + "%' OR eR like '%" + searchString + "%' OR source_text like '%" + searchString + "%'";
+            var query = "SELECT id, firstname, lastname FROM candidate WHERE eR like '%" + searchString + "%' OR source_text like '%" + searchString + "%' OR CONCAT(firstname,' ',lastname) LIKE '%" + searchString + "%'";
             if (req.session.userid) {
                 db.query(query, function (err, rows, fields) {
                     if (err) {
