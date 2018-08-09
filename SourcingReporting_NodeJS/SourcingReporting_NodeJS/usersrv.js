@@ -1,8 +1,12 @@
 ﻿module.exports = {
     setup: function (app, db, session, toDate, sendResponse) {
-
+       
         app.post('/user/login', function (req, res) {
-            db.query('SELECT id, active, admin from users where email=? AND password=?', [req.body.email, req.body.passwd], function (err, rows, fields) {
+            var loginQuery = "SELECT id, active, admin " +
+                "FROM users  " +
+                "WHERE email=? AND password=?";
+
+            db.query(loginQuery, [req.body.email, req.body.passwd], function (err, rows, fields) {
                 if (err) {
                     sendResponse(res, false, "Fehler beim Anmelden! " + err);
                 } else {
@@ -21,8 +25,12 @@
         });
 
         app.get('/users/showUserOverview', function (req, res) {
-            if (req.session.userid && req.session.admin) {
-                db.query('SELECT id, firstname, lastname, email, CASE WHEN active = 1 THEN "Ja" ELSE "Nein" END AS active, CASE WHEN admin = 1 THEN "Ja" ELSE "Nein" END AS admin from users', function (err, result, fields) {
+            if (req.session.userid) {
+                var userQuery = 'SELECT id, firstname, lastname, email, ' +
+                    'CASE WHEN active = 1 THEN "Ja" ELSE "Nein" END AS active, ' +
+                    'CASE WHEN admin = 1 THEN "Ja" ELSE "Nein" END AS admin ' +
+                    'FROM users ORDER BY firstname';
+                db.query(userQuery, function (err, result, fields) {
                     if (err) {
                         sendResponse(res, false, "Fehler beim Abfragen der Daten! " + err);
                     } else {
@@ -30,7 +38,7 @@
                     }
                 });
             } else {
-                sendResponse(res, false, "Keine Berechtigung!  (Bitte wende dich an einen Admin!)");
+                sendResponse(res, false, "Keine Berechtigung!");
             }
         });
 
@@ -52,7 +60,8 @@
                 }
 
                 if (suc) {
-                    db.query('SELECT id, firstname, lastname, email, active, admin from users where id=?', parameter, function (err, rows, fields) {
+                    var userDetailQuery = "SELECT id, firstname, lastname, email, active, admin FROM users WHERE id=?";
+                    db.query(userDetailQuery, parameter, function (err, rows, fields) {
                         if (err) {
                             sendResponse(res, false, "Fehler beim Abfragen der User-Details! " + err);
                         } else {
@@ -72,10 +81,10 @@
         });
 
         app.get('/user/getAllBirthdays', function (req, res) {
-            if (req.session.userid){
-                var query = "SELECT id, firstname, birthday from users WHERE active = 1 AND MONTH(birthday) = MONTH(sysdate()) AND DAY(birthday) = DAY(sysdate())";
+            if (req.session.userid) {
+                var birthdayQuery = "SELECT id, firstname, birthday from users WHERE active = 1 AND MONTH(birthday) = MONTH(sysdate()) AND DAY(birthday) = DAY(sysdate())";
 
-                db.query(query, function (err, result, fields) {
+                db.query(birthdayQuery, function (err, result, fields) {
                     if (err) {
                         message = "Fehler beim Abfragen der Geburtstags-Daten! " + err;
                         sendResponse(res, false, message);
@@ -139,7 +148,6 @@
         });
 
         app.post('/user/save', function (req, res) {
-
             if (req.session.admin) {
                 var suc = false;
                 var message = "";
@@ -157,17 +165,18 @@
                 }
 
                 if (suc) {
-                    db.query('SELECT email from users where email=?', [req.body.email], function (emerr, emrows, emfields) {
+                    var selectUserQuery = "SELECT email from users where email=?";
+                    db.query(selectUserQuery, [req.body.email], function (emerr, emrows, emfields) {
                         if (emerr) {
                             sendResponse(res, false, "Fehler beim Speichern in die Datenbank! " + emerr);
                         } else {
                             if (emrows.length > 0) {
                                 sendResponse(res, false, "Email schon vorhanden!");
                             } else {
-                                var query = "INSERT INTO users (firstname, lastname, email, password, admin, active) VALUES (?,?,?,?,?,?)";
-                                var parameters = [req.body.firstname, req.body.lastname, req.body.email, req.body.password, req.body.admin == 1, req.body.active == 1];
+                                var insertUserQuery = "INSERT INTO users (firstname, lastname, email, password, admin, active) VALUES (?,?,?,?,?,?)";
+                                var insertParameters = [req.body.firstname, req.body.lastname, req.body.email, req.body.password, req.body.admin == 1, req.body.active == 1];
 
-                                db.query(query, parameters, function (err, result, fields) {
+                                db.query(insertUserQuery, insertParameters, function (err, result, fields) {
                                     if (err) {
                                         message = "Fehler beim Speichern in die Datenbank! " + err;
                                         sendResponse(res, false, message);

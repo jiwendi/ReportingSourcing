@@ -8,40 +8,38 @@
     <title>Sourcing Reporting</title>
 
     <!-- CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/sourcing.css" rel="stylesheet" media="screen and (min-width: 1600px)">
-    <link href="css/select2.min.css" rel="stylesheet" />
-    <link href="css/tablesort.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="css/imports/bootstrap.min.css">
+    <link rel="stylesheet" href="css/imports/select2.min.css" />
+    <link rel="stylesheet" href="css/imports/tablesort.css" />
+    <link rel="stylesheet" href="css/sourcing.css" media="screen and (min-width: 1600px)">
+    <!--<link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />-->
+    <link rel="stylesheet" href="css/imports/alertify/alertify.core.css" />
+    <link rel="stylesheet" href="css/imports/alertify/alertify.default.css" id="toggleCSS" />
+
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive/laptop.css" media="screen and (max-width:1600px)" />
+    <link rel="stylesheet" href="css/responsive/mobile.css" media="screen and (max-width:900px)" />
+    <link rel="stylesheet" href="css/responsive/print.css" media="print" />
 
     <!-- Icon Fonts-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <!--<link href="font/css/open-iconic-bootstrap.css" rel="stylesheet">-->
-
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" media="screen and (max-width:1600px)" href="css/responsive/laptop.css" />
-    <link rel="stylesheet" media="screen and (max-width:900px)" href="css/responsive/mobile.css" />
-    <link rel="stylesheet" media="print" href="css/responsive/print.css" />
-
-    <link rel="stylesheet" href="css/alertify/alertify.core.css" />
-    <link rel="stylesheet" href="css/alertify/alertify.default.css" id="toggleCSS" />
 
     <!-- JS -->
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/imports/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="/bower_components/moment/locale/de.js"></script>
-    <script src="js/select2.full.min.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/angular-route.min.js"></script>
-    <script src="js/angular-filter.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/transition.js"></script>
-    <script src="js/collapse.js"></script>
-    <script src="js/Chart.js"></script>
-    <script src="js/Chart.bundle.js"></script>
-    <script src="js/sorttable_v2.js"></script>
-    <script src="js/alertify.js"></script>
+    <script type="text/javascript" src="js/imports/select2.full.min.js"></script>
+    <script type="text/javascript" src="js/imports/angular.min.js"></script>
+    <script type="text/javascript" src="js/imports/angular-route.min.js"></script>
+    <script type="text/javascript" src="js/imports/angular-filter.min.js"></script>
+    <!--<script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="js/transition.js"></script>
+    <script type="text/javascript" src="js/collapse.js"></script>-->
+    <script type="text/javascript" src="js/imports/Chart.js"></script>
+    <script type="text/javascript" src="js/imports/Chart.bundle.js"></script>
+    <script type="text/javascript" src="js/imports/sorttable_v2.js"></script>
+    <script type="text/javascript" src="js/imports/alertify.js"></script>
 
 </head>
 <body ng-app="sourcingApp">
@@ -60,14 +58,13 @@
                 <form class="form-inline mt-2 mt-md-0">
                     <!--<a class="navbar-brand" href="#" [ngClass]="{'badge badge-danger': classTN === 'false', 'badge badge-success': classTN === 'true'}"> TelefonnotizenToDo: {{ weeklyTN.telnotice_week }} / {{ weeklyTelnoticeToDo }}</a>
                     <a class="navbar-brand" href="#" [ngClass]="{'badge badge-danger': classTN === 'classReq', 'badge badge-success': classReq === 'true'}"> AnsprachenToDo: {{ weeklyReq.requests_week }} / {{ weeklyRequestsToDo }}</a>-->
-                    <a class="navbar-brand badge badge-danger" href="#" ng-if="classTN === 'false'">Telefonnotizen: {{ weeklyTN.telnotice_week }} / {{ weeklyTelnoticeToDo }}</a>
-                    <a class="navbar-brand badge badge-warning text-dark" href="#" ng-if="classTN === 'false-50'">Telefonnotizen: {{ weeklyTN.telnotice_week }} / {{ weeklyTelnoticeToDo }}</a>
-                    <a class="navbar-brand badge badge-success" href="#" ng-if="classTN === 'true'">Telefonnotizen: {{ weeklyTN.telnotice_week }} / {{ weeklyTelnoticeToDo }}</a>
+                    <a class="navbar-brand badge badge-danger" href="#" ng-if="classTN === 'false'">Telefonnotizen: {{ weeklyTN }} / {{ weeklyTelnoticeToDo }}</a>
+                    <a class="navbar-brand badge badge-warning text-dark" href="#" ng-if="classTN === 'false-50'">Telefonnotizen: {{ weeklyTN }} / {{ weeklyTelnoticeToDo }}</a>
+                    <a class="navbar-brand badge badge-success" href="#" ng-if="classTN === 'true'">Telefonnotizen: {{ weeklyTN }} / {{ weeklyTelnoticeToDo }}</a>
 
-                    <a class="navbar-brand badge badge-danger" href="#" ng-if="classReq === 'false'">Ansprachen: {{ weeklyReq.requests_week }} / {{ weeklyRequestsToDo }}</a>
-                    <a class="navbar-brand badge badge-warning text-dark" href="#" ng-if="classReq === 'false-50'">Ansprachen: {{ weeklyReq.requests_week }} / {{ weeklyRequestsToDo }}</a>
-                    <a class="navbar-brand badge badge-success" href="#" ng-if="classReq === 'true'">Ansprachen: {{ weeklyReq.requests_week }} / {{ weeklyRequestsToDo }}</a>
-                
+                    <a class="navbar-brand badge badge-danger" href="#" ng-if="classReq === 'false'">Ansprachen: {{ weeklyReq }} / {{ weeklyRequestsToDo }}</a>
+                    <a class="navbar-brand badge badge-warning text-dark" href="#" ng-if="classReq === 'false-50'">Ansprachen: {{ weeklyReq }} / {{ weeklyRequestsToDo }}</a>
+                    <a class="navbar-brand badge badge-success" href="#" ng-if="classReq === 'true'">Ansprachen: {{ weeklyReq }} / {{ weeklyRequestsToDo }}</a>
                 </form>
             </div>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -158,10 +155,9 @@
 
 
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-
-    <script src="js/vendor/holder.min.js"></script>
+    <!--<script src="js/bootstrap.min.js"></script>-->
+    <!--<script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>-->
+    <!--<script src="js/vendor/holder.min.js"></script>-->
 
     <script src="js/sourcing/main.js"></script>
     <script src="js/sourcing/candidate.js"></script>
