@@ -635,7 +635,7 @@
         /*Release 1.5 myDashboard myTelnotice-This-Week*/
         app.get('/personalDashboard/telnoticeThisWeek', function (req, res) {
             var query = "SELECT id, firstname, lastname, SUBSTRING(candidate.eR,2) as eR, telnotice FROM candidate " +
-                "WHERE sourcer = " + req.session.userid + " AND WEEK(telnotice) = WEEK(sysdate()) AND YEAR(telnotice) = YEAR(sysdate())";
+                "WHERE sourcer = " + req.session.userid + " AND WEEK(telnotice) = WEEK(sysdate()) AND YEAR(telnotice) = YEAR(sysdate()) ORDER BY telnotice";
 
             db.query(query, function (err, rows, fields) {
                 if (err) {
