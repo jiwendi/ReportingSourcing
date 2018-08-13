@@ -6,6 +6,7 @@ const FILTER_TO = new Date('2018-12-31');
 const FILTER_DAYS = new Number(365);
 
 const ACTIVE_SOURCER = new Number(10.5);
+
 const WEEKLY_GOAL_TELNOTICE = new Number(5);
 const WEEKLY_GOAL_REQUESTS = new Number(20); 
 
@@ -234,17 +235,6 @@ var toLocalDate = function (date, offset) {
     return moment(date).add(offset, 'hours').toDate();
 };
 
-/**
- * NOT IN USE
- */
-var getWeekNumber = function(){
-    var d = new Date();
-    var dayNum = d.getUTCDay() || 7;
-    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-    var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
-};
-
 var getColor = function (name) {
     var color = '';
 
@@ -375,18 +365,14 @@ app.controller('navBarController', function ($scope, $http) {
         $scope.weeklyTN = response.data.data.weekly_telnotice.telnotice_week;
         $scope.weeklyReq = response.data.data.weekly_requests.requests_week;
 
-        if (($scope.weeklyTN >= ($scope.weeklyTelnoticeToDo / 2)) && ($scope.weeklyTN < $scope.weeklyTelnoticeToDo)) {
-            $scope.classTN = "false-50";
-        } else if ($scope.weeklyTN >= $scope.weeklyTelnoticeToDo) {
+        if ($scope.weeklyTN >= $scope.weeklyTelnoticeToDo) {
             $scope.classTN = "true";
         }
 
-        if (($scope.weeklyReq >= ($scope.weeklyRequestsToDo / 2)) && ($scope.weeklyReq < $scope.weeklyRequestsToDo)) {
-            $scope.classReq = "false-50";
-        } else if ($scope.weeklyReq >= $scope.weeklyRequestsToDo) {
+        if ($scope.weeklyReq >= $scope.weeklyRequestsToDo) {
             $scope.classReq = "true";
         }
-        
+		
     });
 
     $http.get('wig/showWigInHeader').then(function (response) {
