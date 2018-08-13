@@ -29,6 +29,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="candidate_er_srv.js" />
+    <Compile Include="dashboardsrv.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="navigationsrv.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="public\bower_components\jquery\dist\core.js" />
     <Compile Include="public\bower_components\jquery\dist\jquery.js" />
     <Compile Include="public\bower_components\jquery\dist\jquery.min.js" />
@@ -592,12 +598,14 @@
     <Content Include="dashboard.html">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="epunkt_sourcing.sql" />
     <Content Include="package.json" />
     <Content Include="public\css\imports\alertify\alertify.bootstrap.css" />
     <Content Include="public\css\imports\alertify\alertify.core.css" />
     <Content Include="public\css\imports\alertify\alertify.default.css" />
-    <Content Include="public\css\imports\bootstrap.min.css" />
+    <Content Include="public\css\imports\bootstrap.css" />
+    <Content Include="public\css\notInUse\bootstrap.min.css" />
+    <Content Include="public\css\imports\select2-bootstrap.css" />
+    <Content Include="public\css\imports\select2.css" />
     <Content Include="public\css\login.css" />
     <Content Include="public\css\responsive\laptop.css">
       <SubType>Code</SubType>
@@ -611,7 +619,7 @@
     <Content Include="public\css\responsive\print.css">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="public\css\imports\select2.min.css" />
+    <Content Include="public\css\notInUse\select2.min.css" />
     <Content Include="public\css\sourcing.css">
       <SubType>Code</SubType>
     </Content>
@@ -672,26 +680,23 @@
     <Content Include="public\login.html">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="public\register.html">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="public\templates\candidatedetail.html" />
-    <Content Include="public\templates\candidatedetail_eR.html" />
-    <Content Include="public\templates\candidatenew_eR.html" />
-    <Content Include="public\templates\candidatenew.html" />
+    <Content Include="public\templates\candidate\candidatedetail.html" />
+    <Content Include="public\templates\candidate\candidatedetail_eR.html" />
+    <Content Include="public\templates\candidate\candidatenew_eR.html" />
+    <Content Include="public\templates\candidate\candidatenew.html" />
     <Content Include="public\templates\anonymizeCandidates.html" />
     <Content Include="public\templates\rememberMe_List.html" />
-    <Content Include="public\templates\candidates_eR.html" />
-    <Content Include="public\templates\candidates.html" />
+    <Content Include="public\templates\candidate\candidates_eR.html" />
+    <Content Include="public\templates\candidate\candidates.html" />
     <Content Include="public\templates\releaseInfo.html" />
     <Content Include="public\templates\groupnew.html" />
     <Content Include="public\templates\scoreboardHeroes.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="public\templates\settingsOverview.html" />
-    <Content Include="public\templates\sourcedetail.html" />
-    <Content Include="public\templates\sourcenew.html" />
-    <Content Include="public\templates\sources.html" />
+    <Content Include="public\templates\sources\sourcedetail.html" />
+    <Content Include="public\templates\sources\sourcenew.html" />
+    <Content Include="public\templates\sources\sources.html" />
     <Content Include="public\templates\personalDashboard.html" />
     <Content Include="public\templates\statistics\telnoticeBySourcer.html" />
     <Content Include="public\templates\statistics\timeToMax.html" />
@@ -709,15 +714,15 @@
     <Content Include="public\templates\statistics\reqToHirePlattform.html" />
     <Content Include="public\templates\statistics\reqToHire.html" />
     <Content Include="public\templates\statistics\statisticsOverview.html" />
-    <Content Include="public\templates\teamdetail.html" />
-    <Content Include="public\templates\teamnew.html" />
-    <Content Include="public\templates\teams.html" />
-    <Content Include="public\templates\userdetail.html" />
-    <Content Include="public\templates\usernew.html" />
-    <Content Include="public\templates\users.html" />
-    <Content Include="public\templates\wigdetail.html" />
-    <Content Include="public\templates\wignew.html" />
-    <Content Include="public\templates\wigs.html" />
+    <Content Include="public\templates\team\teamdetail.html" />
+    <Content Include="public\templates\team\teamnew.html" />
+    <Content Include="public\templates\team\teamOverview.html" />
+    <Content Include="public\templates\users\userdetail.html" />
+    <Content Include="public\templates\users\usernew.html" />
+    <Content Include="public\templates\users\users.html" />
+    <Content Include="public\templates\wig\wigdetail.html" />
+    <Content Include="public\templates\wig\wignew.html" />
+    <Content Include="public\templates\wig\wigs.html" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -766,6 +771,7 @@
     <Folder Include="public\css\" />
     <Folder Include="public\css\imports\alertify\" />
     <Folder Include="public\css\imports\" />
+    <Folder Include="public\css\notInUse\" />
     <Folder Include="public\css\responsive\" />
     <Folder Include="public\font\" />
     <Folder Include="public\font\css\" />
@@ -777,6 +783,11 @@
     <Folder Include="public\js\notInUse\" />
     <Folder Include="public\js\sourcing\" />
     <Folder Include="public\templates\" />
+    <Folder Include="public\templates\candidate\" />
+    <Folder Include="public\templates\wig\" />
+    <Folder Include="public\templates\sources\" />
+    <Folder Include="public\templates\team\" />
+    <Folder Include="public\templates\users\" />
     <Folder Include="public\templates\statistics\" />
   </ItemGroup>
   <ItemGroup>
