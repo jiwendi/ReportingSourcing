@@ -376,7 +376,7 @@ app.controller('navBarController', function ($scope, $http) {
     $http.get('navbar/weeklyNumbersBySourcer').then(function (response) {
         $scope.telNoticeBySourcer = response.data.data.telNotice;
         $scope.requestsBySourcer = response.data.data.requests;
-
+       
         if (!response.data.success) {
             alertify.error(response.data.message);
         }

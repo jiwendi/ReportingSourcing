@@ -12,16 +12,16 @@ var moment = require('moment');
 
 var tablesort = require('tablesort');
 
-var usersrv = require('./usersrv');
-var teamsrv = require('./teamsrv');
-var sourcesrv = require('./sourcesrv');
 var candidatesrv = require('./candidatesrv');
-var wigsrv = require('./wigsrv');
-var statisticssrv = require('./statisticssrv');
 var candidateersrv = require('./candidate_er_srv');
-var settingssrv = require('./settingssrv');
 var dashboardsrv = require('./dashboardsrv');
 var navigationsrv = require('./navigationsrv');
+var settingssrv = require('./settingssrv');
+var sourcesrv = require('./sourcesrv');
+var statisticssrv = require('./statisticssrv');
+var teamsrv = require('./teamsrv');
+var usersrv = require('./usersrv');
+var wigsrv = require('./wigsrv');
 
 var app = express();
 
