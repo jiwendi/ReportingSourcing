@@ -381,8 +381,6 @@ app.controller('statisticsResponseRateController', function ($scope, $http) {
         $http.post('statistics/responseRate', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.responseRates = response.data.data.responseRates;
             $scope.allResponseRate = response.data.data.allResponseRate;
-            //$scope.message = response.data.message;
-            //$scope.iserrmessage = !response.data.success;
 
             if (!response.data.success) {
                 alertify.set({ delay: 10000 });
@@ -933,8 +931,6 @@ app.controller('timeToInternScatteringController', function ($scope, $http) {
 
     $http.post('statistics/timeToInternScattering').then(function (response) {
         $scope.data = response.data.data;
-        //$scope.message = response.data.message;
-        //$scope.iserrmessage = !response.data.success;
         $scope.dataset = [];
         $scope.borderColorForChart = [];
         $scope.backgroundColorForChart = [];
@@ -1031,8 +1027,6 @@ app.controller('timeToExternScatteringController', function ($scope, $http) {
 
     $http.post('statistics/timeToExternScattering').then(function (response) {
         $scope.data = response.data.data;
-        //$scope.message = response.data.message;
-        //$scope.iserrmessage = !response.data.success;
         $scope.dataset = [];
         $scope.borderColorForChart = [];
         $scope.backgroundColorForChart = [];
@@ -1109,8 +1103,6 @@ app.controller('timeToHireScatteringController', function ($scope, $http) {
 
     $http.post('statistics/timeToHireScattering').then(function (response) {
         $scope.data = response.data.data;
-        //$scope.message = response.data.message;
-        //$scope.iserrmessage = !response.data.success;
         $scope.dataset = [];
         $scope.borderColorForChart = [];
         $scope.backgroundColorForChart = [];
@@ -1207,8 +1199,6 @@ app.controller('timeToMaxController', function ($scope, $http) {
         $scope.timeToExtern = response.data.data.timeToExtern;
         $scope.timeToHire = response.data.data.timeToHire;
 
-        //$scope.message = response.data.message;
-        //$scope.iserrmessage = !response.data.success;
         if (!response.data.success) {
             alertify.set({ delay: 10000 });
             alertify.error(response.data.message);
@@ -1218,126 +1208,3 @@ app.controller('timeToMaxController', function ($scope, $http) {
 
 });
 
-/* Release 1.6 TelnoticeBySourcer */
-app.controller('statisticsTelNoticeBySourcerController', function ($scope, $http) {
-    $scope.yearToFilter = THIS_YEAR;
-
-    $http.post('statistics/telnoticeBySourcer', { yearToFilter: $scope.yearToFilter }).then(function (response) {
-        $scope.telNotice = response.data.data;
-
-        if (!response.data.success) {
-            alertify.set({ delay: 10000 });
-            alertify.error(response.data.message);
-        }
-
-        $scope.labels = [];
-        $scope.telnoticeData = [];
-        $scope.backgroundColorForChart = [];
-        $scope.borderColorForChart = [];
-
-        $scope.sumTelNotice = 0;
-        $scope.countNr = 0;
-
-        for (var i = 0; i < $scope.telNotice.length; i++) {
-            $scope.labels.push('KW ' + $scope.telNotice[i].weeknr);
-            $scope.telnoticeData.push($scope.telNotice[i].count_telnotice);
-            $scope.backgroundColorForChart.push(getColor('red'));
-            $scope.borderColorForChart.push(getBorderColor('red'));
-            $scope.sumTelNotice = $scope.sumTelNotice + $scope.telNotice[i].count_telnotice;
-            $scope.countNr = $scope.countNr + 1;
-        }
-
-        $("#ChartDiv").empty();
-        $("#ChartDiv").append('<canvas id="myChart"></canvas>');
-        var ctx = $("#myChart");
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: $scope.labels,
-                datasets: [{
-                    label: 'Anzahl TelNotizen',
-                    data: $scope.telnoticeData,
-                    backgroundColor: $scope.backgroundColorForChart,
-                    borderColor: $scope.borderColorForChart,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                legend: {
-                    position: 'bottom'
-                },
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-
-        $scope.update = function () {
-            $scope.yearToFilter = $('#yearToFilter').val();
-
-            $http.post('statistics/telnoticeBySourcer', { yearToFilter: $scope.yearToFilter }).then(function (response) {
-                $scope.telNotice = response.data.data;
-
-                if (!response.data.success) {
-                    alertify.set({ delay: 10000 });
-                    alertify.error(response.data.message);
-                }
-
-                $scope.labels = [];
-                $scope.telnoticeData = [];
-                $scope.backgroundColorForChart = [];
-                $scope.borderColorForChart = [];
-
-                $scope.sumTelNotice = 0;
-                $scope.countNr = 0;
-
-                for (var i = 0; i < $scope.telNotice.length; i++) {
-                    $scope.labels.push('KW ' + $scope.telNotice[i].weeknr);
-                    $scope.telnoticeData.push($scope.telNotice[i].count_telnotice);
-                    $scope.backgroundColorForChart.push(getColor('red'));
-                    $scope.borderColorForChart.push(getBorderColor('red'));
-                    $scope.sumTelNotice = $scope.sumTelNotice + $scope.telNotice[i].count_telnotice;
-                    $scope.countNr = $scope.countNr + 1;
-                }
-                
-                if ($scope.telNotice.length == 0) {
-                    alertify.set({ delay: 10000 });
-                    alertify.error("keine Datensätze für " + $scope.yearToFilter + " vorhanden");
-                }
-
-                $("#ChartDiv").empty();
-                $("#ChartDiv").append('<canvas id="myChart"></canvas>');
-                var ctx = $("#myChart");
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: $scope.labels,
-                        datasets: [{
-                            label: 'Anzahl TelNotizen',
-                            data: $scope.telnoticeData,
-                            backgroundColor: $scope.backgroundColorForChart,
-                            borderColor: $scope.borderColorForChart,
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        legend: {
-                            position: 'bottom'
-                        },
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
-            });
-        };
-    });
-});

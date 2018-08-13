@@ -80,23 +80,6 @@
             }
         });
 
-        app.get('/user/getAllBirthdays', function (req, res) {
-            if (req.session.userid) {
-                var birthdayQuery = "SELECT id, firstname, birthday from users WHERE active = 1 AND MONTH(birthday) = MONTH(sysdate()) AND DAY(birthday) = DAY(sysdate())";
-
-                db.query(birthdayQuery, function (err, result, fields) {
-                    if (err) {
-                        message = "Fehler beim Abfragen der Geburtstags-Daten! " + err;
-                        sendResponse(res, false, message);
-                    } else {
-                        sendResponse(res, true, "", result);
-                    }
-                });
-            } else {
-                sendResponse(res, false, "Kein Benutzer eingeloggt!");
-            }
-        });
-
         app.post('/user/update', function (req, res) {
             if (req.session.userid && (!req.body.userid || req.body.userid == req.session.userid || req.session.admin)) {
                 var suc = false;

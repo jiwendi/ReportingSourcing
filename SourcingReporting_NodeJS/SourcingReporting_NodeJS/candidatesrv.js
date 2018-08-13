@@ -909,28 +909,6 @@
             }
         });
 
-        app.get('/candidate/showTimeInfosInSideBar', function (req, res) {
-            if (req.session.userid) {
-                var timequery = "SELECT AVG(ABS(DATEDIFF(research, telnotice))) AS timetocall, " +
-                    "AVG(ABS(DATEDIFF(research, intern))) AS timetointerview, " +
-                    "AVG(ABS(DATEDIFF(research, extern))) AS timetoextern, " +
-                    "AVG(ABS(DATEDIFF(research, hire))) AS timetohire " +
-                    "FROM candidate " +
-                    "WHERE DATE(research) > (NOW() - INTERVAL 6 MONTH)";
-
-                db.query(timequery, function (err, rows, fields) {
-                    if (err) {
-                        sendResponse(res, false, "Fehler beim Abfragen der Time-Infos für die Sidebar! " + err);
-                    } else {
-                        var timeinfo = rows[0];
-                        sendResponse(res, true, "", timeinfo);
-                    }
-                });
-            } else {
-                sendResponse(res, false, "Kein Benutzer eingeloggt!");
-            }
-        });
-
         app.post('/candidate/showDetailForSelectedCandidate', function (req, res) {
             if (req.session.userid) {
                 var parameter = [req.body.candidateid];
@@ -1059,55 +1037,8 @@
             }
         });
 
-        app.post('/personalDashboard/myRememberMeListThisMonth', function (req, res) {
-            if (req.session.userid) {
-                var regsuc = false;
-                var message = "";
 
-                var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberMe, " +
-                    "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
-                    "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR," +
-                    "CASE WHEN candidate.telnotice IS NULL THEN '-' ELSE candidate.telnotice END AS telnotice," +
-                    "CASE WHEN candidate.response_value = NULL THEN 'none' ELSE CASE WHEN candidate.response_value = 1 THEN 'pos.' ELSE CASE WHEN candidate.response_value = 0 THEN 'neg.' ELSE ' ' END END END AS response_value," +
-                    "CASE WHEN candidate.tracking = 1 THEN 'ja' ELSE 'nein' END AS tracking," +
-                    "CASE WHEN candidate.response = 1 THEN 'ja |' ELSE 'nein' END AS response," +
-                    "candidate.research, users.firstname as sourcerName, candidate.sourcer " +
-                    "FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
-                    "LEFT JOIN users ON candidate.sourcer = users.id " +
-                    "WHERE candidate.rememberMe IS NOT NULL AND candidate.sourcer = " + req.session.userid + " AND MONTH(candidate.rememberme) <= MONTH(sysdate()) AND YEAR(candidate.rememberme) <= YEAR(sysdate()) " +
-                    "ORDER BY candidate.rememberMe";
 
-                db.query(candidatequery, function (candErr, candResult, candFields) {
-                    if (candErr) {
-                        sendResponse(res, false, "Fehler beim Abfragen der Kandidaten aus der Datenbank! " + candErr);
-                    } else {
-                        sendResponse(res, true, "", candResult);
-                    }
-                });
-            } else {
-                sendResponse(res, false, "Kein Benutzer eingeloggt!");
-            }
-        });
-
-        app.post('/candidate/livesearch', function (req, res) {
-            var searchString = req.body.searchString;
-            var query = "SELECT id, firstname, lastname FROM candidate WHERE eR like '%" + searchString + "%' OR source_text like '%" + searchString + "%' OR CONCAT(firstname,' ',lastname) LIKE '%" + searchString + "%'";
-            if (req.session.userid) {
-                db.query(query, function (err, rows, fields) {
-                    if (err) {
-                        sendResponse(res, false, "Fehler beim Abfragen des LiveSearch-Anfrage! " + err);
-                    } else {
-                        var data = "";
-                        for (var i = 0; i < rows.length; i++)
-                        {
-                            data = data + '<a href="#!candidatedetail/'+ rows[i].id + '">' + rows[i].firstname + ' ' + rows[i].lastname + '</a><br />';
-                        }
-                        sendResponse(res, true, "", data);
-                    }
-                });
-            } else {
-                sendResponse(res, false, "Kein Benutzer eingeloggt!");
-            }
-        });
+       
     }
 };

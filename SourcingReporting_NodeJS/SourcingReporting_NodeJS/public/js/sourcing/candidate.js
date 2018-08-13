@@ -709,7 +709,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
                     if (response.data.success) {
                         alertify.success(response.data.message);
                         setTimeout(function () {
-                            window.location.href = "#!candidates";
+                            window.location.href = "#!myDashboard";
                         }, 1000);
                     } else {
                         alertify.error(response.data.message);

@@ -18,36 +18,36 @@ app.config(['$routeProvider',
         }).
             //User Verwaltung
             when('/users', {
-                templateUrl: 'templates/users.html',
+                templateUrl: 'templates/users/users.html',
                 controller: 'usersController'
             }).
             when('/userdetail', {
-                templateUrl: 'templates/userdetail.html',
+                templateUrl: 'templates/users/userdetail.html',
                 controller: 'userdetailController'
             }).
             when('/userdetail/:userid', {
-                templateUrl: 'templates/userdetail.html',
+                templateUrl: 'templates/users/userdetail.html',
                 controller: 'userdetailController'
             }).
             when('/users/new', {
-                templateUrl: 'templates/usernew.html',
+                templateUrl: 'templates/users/usernew.html',
                 controller: 'usernewController'
             }).
             //Team Verwaltung
             when('/teams', {
-                templateUrl: 'templates/teams.html',
+                templateUrl: 'templates/team/teamOverview.html',
                 controller: 'teamsController'
             }).
             when('/team/new', {
-                templateUrl: 'templates/teamnew.html',
+                templateUrl: 'templates/team/teamnew.html',
                 controller: 'teamnewController'
             }).
             when('/teamdetail', {
-                templateUrl: 'templates/teamdetail.html',
+                templateUrl: 'templates/team/teamdetail.html',
                 controller: 'teamdetailController'
             }).
             when('/teamdetail/:teamid', {
-                templateUrl: 'templates/teamdetail.html',
+                templateUrl: 'templates/team/teamdetail.html',
                 controller: 'teamdetailController'
             }).
             //Gruppen Verwaltung
@@ -57,36 +57,36 @@ app.config(['$routeProvider',
             }).
             //Quellen Verwaltung
             when('/sources', {
-                templateUrl: 'templates/sources.html',
+                templateUrl: 'templates/sources/sources.html',
                 controller: 'sourcesController'
             }).
             when('/source/new', {
-                templateUrl: 'templates/sourcenew.html',
+                templateUrl: 'templates/sources/sourcenew.html',
                 controller: 'sourcenewController'
             }).
             when('/sourcedetail', {
-                templateUrl: 'templates/sourcedetail.html',
+                templateUrl: 'templates/sources/sourcedetail.html',
                 controller: 'sourcedetailController'
             }).
             when('/sourcedetail/:sourceid', {
-                templateUrl: 'templates/sourcedetail.html',
+                templateUrl: 'templates/sources/sourcedetail.html',
                 controller: 'sourcedetailController'
             }).
             //Kandidaten Verwaltung
             when('/candidates', {
-                templateUrl: 'templates/candidates.html',
+                templateUrl: 'templates/candidate/candidates.html',
                 controller: 'candidatesController'
             }).
             when('/candidate/new', {
-                templateUrl: 'templates/candidatenew.html',
+                templateUrl: 'templatescandidate//candidatenew.html',
                 controller: 'candidatenewController'
             }).
             when('/candidatedetail', {
-                templateUrl: 'templates/candidatedetail.html',
+                templateUrl: 'templates/candidate/candidatedetail.html',
                 controller: 'candidatedetailController'
             }).
             when('/candidatedetail/:candidateid', {
-                templateUrl: 'templates/candidatedetail.html',
+                templateUrl: 'templates/candidate/candidatedetail.html',
                 controller: 'candidatedetailController'
             }).
             //RememberMe Liste
@@ -96,19 +96,19 @@ app.config(['$routeProvider',
             }).
             //eR Kandidaten
             when('/candidates_eR', {
-                templateUrl: 'templates/candidates_eR.html',
+                templateUrl: 'templates/candidate/candidates_eR.html',
                 controller: 'candidatesERController'
             }).
             when('/candidate/newER', {
-                templateUrl: 'templates/candidatenew_eR.html',
+                templateUrl: 'templates/candidate/candidatenew_eR.html',
                 controller: 'candidatenewERController'
             }).
             when('/candidatedetaileR', {
-                templateUrl: 'templates/candidatedetail_eR.html',
+                templateUrl: 'templates/candidate/candidatedetail_eR.html',
                 controller: 'candidatedetailERController'
             }).
             when('/candidatedetaileR/:candidateid', {
-                templateUrl: 'templates/candidatedetail_eR.html',
+                templateUrl: 'templates/candidate/candidatedetail_eR.html',
                 controller: 'candidatedetailERController'
             }).
             //Statistiken
@@ -142,7 +142,7 @@ app.config(['$routeProvider',
             }).
             when('/telnoticeBySourcer', {
                 templateUrl: 'templates/statistics/telnoticeBySourcer.html',
-                controller: 'statisticsTelNoticeBySourcerController'
+                controller: 'telNoticeBySourcerController'
             }).
             when('/hires', {
                 templateUrl: 'templates/statistics/hireList.html',
@@ -178,19 +178,19 @@ app.config(['$routeProvider',
             }).
             //WIG
             when('/wigs', {
-                templateUrl: 'templates/wigs.html',
+                templateUrl: 'templates/wig/wigs.html',
                 controller: 'wigController'
             }).
             when('/wig/new', {
-                templateUrl: 'templates/wignew.html',
+                templateUrl: 'templates/wig/wignew.html',
                 controller: 'wignewController'
             }).
             when('/wigdetail', {
-                templateUrl: 'templates/wigdetail.html',
+                templateUrl: 'templates/wig/wigdetail.html',
                 controller: 'wigdetailController'
             }).
             when('/wigdetail/:wigid', {
-                templateUrl: 'templates/wigdetail.html',
+                templateUrl: 'templates/wig/wigdetail.html',
                 controller: 'wigdetailController'
             }).
             //Sourcing Heroes
@@ -214,7 +214,6 @@ app.config(['$routeProvider',
             }).
             //Standard: Candidate List
             otherwise({ redirectTo: '/myDashboard' });
-        //otherwise({ redirectTo: '/candidates' });
     }]);
 
 /**
@@ -361,7 +360,7 @@ app.controller('navBarController', function ($scope, $http) {
         $scope.user = response.data.data;
     });
 
-    $http.get('wig/weeklyNumbersInHeader').then(function (response) {
+    $http.get('navbar/weeklyNumbersInHeader').then(function (response) {
         $scope.weeklyTN = response.data.data.weekly_telnotice.telnotice_week;
         $scope.weeklyReq = response.data.data.weekly_requests.requests_week;
 
@@ -372,10 +371,18 @@ app.controller('navBarController', function ($scope, $http) {
         if ($scope.weeklyReq >= $scope.weeklyRequestsToDo) {
             $scope.classReq = "true";
         }
-		
     });
 
-    $http.get('wig/showWigInHeader').then(function (response) {
+    $http.get('navbar/weeklyNumbersBySourcer').then(function (response) {
+        $scope.telNoticeBySourcer = response.data.data.telNotice;
+        $scope.requestsBySourcer = response.data.data.requests;
+
+        if (!response.data.success) {
+            alertify.error(response.data.message);
+        }
+    });
+
+    $http.get('navbar/showWigInHeader').then(function (response) {
         $scope.hireThisYear = response.data.data.hireThisYear;
         $scope.hireThisYeareR = response.data.data.hireThisYeareR;
         $scope.wig = response.data.data.wig;
@@ -389,7 +396,7 @@ app.controller('navBarController', function ($scope, $http) {
             document.getElementById("livesearch").style.padding = "0px";
             return;
         } else {
-            $http.post('candidate/livesearch', {
+            $http.post('navbar/searchCandidate', {
                 searchString: $scope.searchString
             }).then(function (response) {
                 document.getElementById("livesearch").innerHTML = response.data.data;
@@ -420,7 +427,7 @@ app.controller('navBarController', function ($scope, $http) {
 
 app.controller('sideBarController', function ($scope, $http) {
 
-    $http.get('candidate/showTimeInfosInSideBar').then(function (response) {
+    $http.get('sidebar/showTimeInfosInSideBar').then(function (response) {
         $scope.timeinfo = response.data.data;
     });
 });

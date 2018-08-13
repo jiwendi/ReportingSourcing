@@ -1,61 +1,6 @@
 ﻿module.exports = {
     setup: function (app, db, session, toDate, sendResponse) {
 
-        app.get('/wig/showWigInHeader', function (req, res) {
-            var query = "SELECT COUNT(candidate.id) AS hireThisYear FROM candidate, wig WHERE candidate.hire >= wig.start AND candidate.hire <= wig.end AND wig.active = 1";
-            var eRquery = "SELECT COUNT(candidate_eR.id) AS hireThisYear FROM candidate_eR, wig WHERE candidate_eR.hire >= wig.start AND candidate_eR.hire <= wig.end AND wig.active = 1";
-            var wigquery = "SELECT wig.start, wig.end, wig.goal FROM wig WHERE wig.active = 1";
-
-            db.query(query, function (err, rows, fields) {
-                if (err) {
-                    sendResponse(res, false, "Fehler beim Abfragen der WIGs aus der DB " + err);
-                } else {
-                    db.query(eRquery, function (eRerr, eRrows, eRfields) {
-                        if (eRerr) {
-                            sendResponse(res, false, "Fehler beim Abfragen der WIGs aus der DB " + eRerr);
-                        } else {
-                            db.query(wigquery, function (wigerr, wigrows, wigfields) {
-                                if (wigerr) {
-                                    sendResponse(res, false, "Fehler beim Abfragen der WIGs aus der DB " + wigerr);
-                                } else {
-                                    var result = {
-                                        hireThisYear: rows[0],
-                                        hireThisYeareR: eRrows[0],
-                                        wig: wigrows[0]
-                                    };
-                                    sendResponse(res, true, "", result);
-                                } 
-                            });
-                        }
-                    });
-                }
-            });
-        });
-
-        /* Release 1.6 Show Weekly Numbers in Header */
-        app.get('/wig/weeklyNumbersInHeader', function (req, res) {
-            var queryTelnotice = "SELECT COUNT(telnotice) as telnotice_week FROM candidate WHERE WEEK(telnotice) = WEEK(sysdate()) AND YEAR(telnotice) = YEAR(sysdate())";
-            var queryRequests = "SELECT COUNT(id) as requests_week FROM candidate WHERE WEEK(research) = WEEK(sysdate()) AND YEAR(research) = YEAR(sysdate()) AND request= 1";
-
-            db.query(queryTelnotice, function (errTN, rowsTN, fieldsTN) {
-                if (errTN) {
-                    sendResponse(res, false, "Fehler beim Abfragen der Weekly-Telefonnotizen aus der DB " + eRerr);
-                } else {
-                    db.query(queryRequests, function (errReq, rowsReq, fieldsReq) {
-                        if (errReq) {
-                            sendResponse(res, false, "Fehler beim Abfragen der Weekly-Ansprachen aus der DB " + eRerr);
-                        } else {
-                            var result = {
-                                weekly_telnotice: rowsTN[0],
-                                weekly_requests: rowsReq[0]
-                            };
-                            sendResponse(res, true, "", result);
-                        }
-                    });
-                }
-            });
-        });
-
         app.get('/wig/showWigOverview', function (req, res) {
             var query = "SELECT DISTINCT w.id, w.name, w.start, w.end, w.goal, w.active, (x.hireThisYear + er.hireThisYear) AS hireThisYear  " +
                 "FROM epunkt_sourcing.wig w LEFT JOIN (" +
