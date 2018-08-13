@@ -5,34 +5,45 @@
         <div class="card-body mb-1">
             <!-- Kandidat Name -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Vorname</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Vorname</span>
+                </div>
                 <input type="text" class="form-control" id="candidateFirstname" ng-model="candidate.firstname" placeholder="Vorname" ng-blur="updateCandidate()" />
             </div>
+
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Nachname</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Nachname</span>
+                </div>
                 <input type="text" class="form-control" id="candidateLastname" ng-model="candidate.lastname" placeholder="Nachname" ng-blur="updateCandidate()" />
             </div>
 
+
             <!-- Kandidat Quelle -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Quelle</div>
-                <input type="text" class="form-control sourcing-width-150" id="source" ng-model="candidate.source" placeholder="Quelle" readonly />
-                <select class="custom-select wdselect" id="selectSource" ng-model="selectSource" ng-change="updateSource(selectSource)">
+                <div class="input-group-prepend">
+                    <label class="input-group-text alert-info sourcing-width-150" for="inputGroupSelect01">Quelle</label>
+                </div>
+                <select class="custom-select" id="selectSource" ng-model="selectSource" ng-change="updateSource(selectSource)">
                     <option ng-repeat="s in sources" value="{{s.id}}">{{s.name}}</option>
                 </select>
-
             </div>
+
 
 
             <!-- Quelle Lang -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Quelle - Zusatz </div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Quelle - Zusatz</span>
+                </div>
                 <input type="text" class="form-control" id="source_text" ng-model="candidate.source_text" ng-blur="updateCandidate()" placeholder="Quelle Zusatz" />
             </div>
 
             <!-- eRecruiter Nr -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">eRecruiter Nr</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">eRecruiter Nr</span>
+                </div>
                 <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" ng-blur="updateCandidate()" placeholder="#123456" />
             </div>
 
@@ -42,7 +53,7 @@
                     <tr>
                         <th class="sourcing-width-150" scope="row">Beobachten</th>
                         <td>
-                            <select ng-model="candidate.tracking" class="sourcing-width-full" ng-blur="updateOptions()">
+                            <select ng-model="candidate.tracking" class="form-control sourcing-width-full" ng-blur="updateOptions()">
                                 <option ng-value="0">Nein</option>
                                 <option ng-value="1">Ja</option>
                             </select>
@@ -51,7 +62,7 @@
                     <tr>
                         <th scope="row">Ansprache</th>
                         <td>
-                            <select ng-model="candidate.request" class="sourcing-width-full" ng-blur="updateOptions()">
+                            <select ng-model="candidate.request" class="form-control sourcing-width-full" ng-blur="updateOptions()">
                                 <option ng-value="0">Nein</option>
                                 <option ng-value="1">Ja</option>
                             </select>
@@ -60,7 +71,7 @@
                     <tr>
                         <th scope="row">Response</th>
                         <td>
-                            <select ng-model="response" class="sourcing-width-full" ng-blur="updateOptions()">
+                            <select ng-model="response" class="form-control sourcing-width-full" ng-blur="updateOptions()">
                                 <option ng-value="0">Nein</option>
                                 <option ng-value="1">Ja - Positiv</option>
                                 <option ng-value="2">Ja - Negativ</option>
@@ -78,59 +89,74 @@
                         </div>
             -->
             <div class="input-group mb-1 date">
-                <div class="input-group-addon alert-info sourcing-width-150">Research</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Research</span>
+                </div>
                 <input id="research" type='date' ng-model="research" class="form-control" ng-blur="updateResearch()" required />
 
             </div>
 
             <!-- Telefonnotiz -->
             <div class="input-group mb-1 date">
-                <div class="input-group-addon alert-info sourcing-width-150">Telefon-Notiz</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Telefon-Notiz</span>
+                </div>
                 <input id="telnotice" type='date' ng-model="telnotice" class="form-control" ng-blur="updateTelnotice()" required />
                 <button class="btn btn-info" type="button" ng-click="deleteTelNotice()"><span class="fas fa-times"></span> entfernen</button>
             </div>
 
             <!-- Intern -->
             <div class="input-group mb-1 date">
-                <div class="input-group-addon alert-info sourcing-width-150">Internes Gespräch</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Internes Gespräch</span>
+                </div>
                 <input id="intern" type='date' ng-model="intern" class="form-control" ng-blur="updateIntern()" required />
                 <button class="btn btn-info" type="button" ng-click="deleteIntern()"><span class="fas fa-times"></span> entfernen</button>
             </div>
 
             <!-- Extern -->
             <div class="input-group mb-1 date">
-                <div class="input-group-addon alert-info sourcing-width-150">Externes Gespräch</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Externes Gespräch</span>
+                </div>
                 <input id="extern" type='date' ng-model="extern" class="form-control" ng-blur="updateExtern()" required />
                 <button class="btn btn-info" type="button" ng-click="deleteExtern()"><span class="fas fa-times"></span> entfernen</button>
             </div>
 
             <!-- Besetzung -->
             <div class="input-group mb-1 date">
-                <div class="input-group-addon alert-info sourcing-width-150">Besetzung</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Besetzung</span>
+                </div>
                 <input id="hire" type='date' ng-model="hire" class="form-control" ng-blur="updateHire()" required />
                 <button class="btn btn-info" type="button" ng-click="deleteHire()" title="Löscht automatisch auch das Team!"><span class="fas fa-times"></span> entfernen</button>
             </div>
             <!-- Besetzung -->
             <div class="input-group mb-1">
-                <!--ng-if="hire != null"-->
-                <div class="input-group-addon alert-info sourcing-width-150">Team</div>
-                <input type="text" class="form-control sourcing-width-150" id="team" ng-model="candidate.teamname" readonly />
-                <select class="custom-select wdselect" id="selectTeam" ng-model="selectTeam" ng-change="updateTeam(selectTeam)">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Team</span>
+                </div>
+                <input type="text" class="form-control" id="team" ng-model="candidate.teamname" readonly />
+                <select class="custom-select" id="selectTeam" ng-model="selectTeam" ng-change="updateTeam(selectTeam)">
                     <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
                 </select>
             </div>
 
             <!-- Remember Me -->
             <div class="input-group mb-1 date">
-                <div class="input-group-addon alert-info sourcing-width-150">Remember Me</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Remember Me</span>
+                </div>
                 <input id="hire" type='date' ng-model="rememberme" class="form-control" ng-blur="updateRememberMe()" required />
                 <button class="btn btn-info" type="button" ng-click="deleteRememberMe()"><span class="fas fa-times"></span> entfernen</button>
             </div>
 
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Scoreboard</div>
-                <input type="text" class="form-control sourcing-width-150" id="scoureboard" ng-model="candidate.scoreboard_text" readonly />
-                <select ng-model="scoreboard" class="custom-select wdselect sourcing-width-full" ng-change="updateScoreboard(scoreboard)">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Scoreboard</span>
+                </div>
+                <input type="text" class="form-control" ng-model="candidate.scoreboard_text" readonly />
+                <select ng-model="scoreboard" class="custom-select" ng-change="updateScoreboard(scoreboard)">
                     <option value="0">Nein</option>
                     <option value="1">Ja</option>
                 </select>
@@ -138,16 +164,20 @@
 
             <!-- Sourcer -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Sourcer</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Sourcer</span>
+                </div>
                 <input type="text" class="form-control sourcing-width-150" id="sourcerName" ng-model="candidate.sourcerName" readonly />
-                <select class="custom-select wdselect" ng-model="selectSourcer" ng-change="updateSourcer()">
+                <select class="custom-select" ng-model="selectSourcer" ng-change="updateSourcer()">
                     <option ng-repeat="s in sourcer" value="{{s.id}}">{{s.firstname + ' ' + s.lastname}}</option>
                 </select>
             </div>
 
             <!-- Infos -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">wichtige Infos</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">wichtige Infos</span>
+                </div>
                 <textarea rows="5" class="form-control" id="candidateInfo" ng-model="candidate.infos" ng-blur="updateCandidate()"></textarea>
 
             </div>

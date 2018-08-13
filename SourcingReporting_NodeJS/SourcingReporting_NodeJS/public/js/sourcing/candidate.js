@@ -360,13 +360,14 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
         var sourceData = $.map($scope.sources, function (sources) {
             sources.text = sources.name;
+            if (sources.id == $scope.candidate.source_id) {
+                sources.selected = true;
+            }
             return sources;
         });
 
         var selectSourcer = $('#selectSourcer');
         selectSourcer.select2({ data: sourcerData });
-        selectSourcer.val($scope.candidate.sourcer);
-        selectSourcer.trigger("change");
         selectSourcer.on("select2:select", function (e) {
             var id = selectSourcer.val();
             $scope.candidate.sourcer = id;
@@ -377,6 +378,10 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         selectTeam.on("select2:select", function (e) {
             var id = selectTeam.val();
             $scope.candidate.team_id = id;
+        });
+
+        $("#selectSource").select2({
+            theme: "bootstrap"
         });
 
         var selectSource = $('#selectSource');
