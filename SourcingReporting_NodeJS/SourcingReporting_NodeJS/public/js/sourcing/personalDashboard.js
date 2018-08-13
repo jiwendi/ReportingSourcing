@@ -114,7 +114,7 @@
 });
 
 
-/* Release 1.6 TelnoticeBySourcer */
+/* Release 1.5.2 TelnoticeBySourcer */
 app.controller('telNoticeBySourcerController', function ($scope, $http) {
     $scope.yearToFilter = THIS_YEAR;
 

@@ -57,7 +57,7 @@
             });
         });
         
-        /* Release 1.7 Show WeeklyNumbers By Sourcer */
+        /* Release 1.6 Show WeeklyNumbers By Sourcer */
         app.get('/navbar/weeklyNumbersBySourcer', function (req, res) {
             var telNoticeQuery = "SELECT COUNT(c1.telnotice) as telnotice, WEEK(c1.telnotice)+1 as weeknr, users.firstname, c1.sourcer " +
                 "FROM candidate as c1 " +

@@ -1,6 +1,6 @@
 {
   "name": "sourcing-reporting_node-js",
-  "version": "0.0.0",
+  "version": "1.5.2",
   "description": "SourcingReporting_NodeJS",
   "main": "server.js",
   "author": {
