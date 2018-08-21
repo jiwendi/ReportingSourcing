@@ -22,17 +22,6 @@
                 <br />
 
                 <div class="panel-heading pb-2 pt-2">
-                    <!--<span class="alert alert-info mr-2">
-                            <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" /> Zeige nur meine Kandidaten
-                        </span>
-                        <span class="alert alert-info mr-2">
-                            <input type="checkbox" ng-model="showTracking" id="showTracking" /> Beobachten
-                        </span>
-                        <span class="alert alert-info mr-2">
-                            <input type="checkbox" ng-model="showRequest" id="showRequest" /> nicht Angesprochen
-                        </span><br />
-                    </div>
-                    Neue Filter: <br />-->
                     <div class="col border-thick">
                         <h5 class="filterTitle"><span class="fas fa-filter"></span> Kandidaten filtern:</h5>
                         <div class="row filter-panel pt-2 filter-panel border-thin">
@@ -85,46 +74,86 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <div class="input-group-addon alert-info sourcing-width-250">von </div>
-                                            <input class="form-control sourcing-width-250" type="date" id="from_research" ng-model="from_research" />
+                                            <div class="input-group mb-1 sourcing-width-250">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text alert-info" id="inputGroup-sizing-default">von</span>
+                                                </div>
+                                                <input class="form-control" type="date" id="from_research" ng-model="from_research" />
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="input-group-addon alert-info sourcing-width-250">von </div>
-                                            <input class="form-control sourcing-width-250" type="date" id="from_telnotice" ng-model="from_telnotice">
+                                            <div class="input-group mb-1 sourcing-width-250">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text alert-info" id="inputGroup-sizing-default">von</span>
+                                                </div>
+                                                <input class="form-control" type="date" id="from_telnotice" ng-model="from_telnotice" />
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="input-group-addon alert-info sourcing-width-250">von </div>
-                                            <input class="form-control sourcing-width-250" type="date" id="from_intern" ng-model="from_intern" />
+                                            <div class="input-group mb-1 sourcing-width-250">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text alert-info" id="inputGroup-sizing-default">von</span>
+                                                </div>
+                                                <input class="form-control" type="date" id="from_intern" ng-model="from_intern" />
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="input-group-addon alert-info sourcing-width-250">von </div>
-                                            <input class="form-control sourcing-width-250" type="date" id="from_extern" ng-model="from_extern" />
+                                            <div class="input-group mb-1 sourcing-width-250">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text alert-info" id="inputGroup-sizing-default">von</span>
+                                                </div>
+                                                <input class="form-control" type="date" id="from_extern" ng-model="from_extern" />
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="input-group-addon alert-info sourcing-width-250">von </div>
-                                            <input class="form-control sourcing-width-250" type="date" id="from_hire" ng-model="from_hire" />
+                                            <div class="input-group mb-1 sourcing-width-250">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text alert-info" id="inputGroup-sizing-default">von</span>
+                                                </div>
+                                                <input class="form-control" type="date" id="from_hire" ng-model="from_hire" />
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <div class="input-group-addon alert-info sourcing-width-250">bis </div>
-                                            <input class="form-control sourcing-width-250" type="date" id="to_research" ng-model="to_research" />
+                                            <div class="input-group mb-1 sourcing-width-250">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text alert-info" id="inputGroup-sizing-default">bis</span>
+                                                </div>
+                                                <input class="form-control" type="date" id="to_research" ng-model="to_research" />
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="input-group-addon alert-info sourcing-width-250">bis </div>
-                                            <input class="form-control sourcing-width-250" type="date" id="to_telnotice" ng-model="to_telnotice" />
+                                            <div class="input-group mb-1 sourcing-width-250">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text alert-info" id="inputGroup-sizing-default">bis</span>
+                                                </div>
+                                                <input class="form-control" type="date" id="to_telnotice" ng-model="to_telnotice" />
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="input-group-addon alert-info sourcing-width-250">bis </div>
-                                            <input class="form-control sourcing-width-250" type="date" id="to_intern" ng-model="to_intern" />
+                                            <div class="input-group mb-1 sourcing-width-250">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text alert-info" id="inputGroup-sizing-default">bis</span>
+                                                </div>
+                                                <input class="form-control" type="date" id="to_intern" ng-model="to_intern" />
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="input-group-addon alert-info sourcing-width-250">bis </div>
-                                            <input class="form-control sourcing-width-250" type="date" id="to_extern" ng-model="to_extern" />
+                                            <div class="input-group mb-1 sourcing-width-250">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text alert-info" id="inputGroup-sizing-default">bis</span>
+                                                </div>
+                                                <input class="form-control" type="date" id="to_extern" ng-model="to_extern" />
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="input-group-addon alert-info sourcing-width-250">bis </div>
-                                            <input class="form-control sourcing-width-250" type="date" id="to_hire" ng-model="to_hire" />
+                                            <div class="input-group mb-1 sourcing-width-250">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text alert-info" id="inputGroup-sizing-default">bis</span>
+                                                </div>
+                                                <input class="form-control" type="date" id="to_hire" ng-model="to_hire" />
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>

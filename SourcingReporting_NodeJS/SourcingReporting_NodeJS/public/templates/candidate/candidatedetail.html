@@ -189,24 +189,32 @@
 
     <div class="card w-25 p-3 m-5 card-float">
         <h3 class="page-header"><span class="fas fa-chalkboard-teacher"></span>  Time Info's</h3>
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info sourcing-width-150">Time-To-Call</div>
-            <input type="text" class="form-control sourcing-width-full" readonly value="{{candidate.timeToCall}}" />
+        <div class="input-group mb-1 sourcing-width-full">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Time-To-Call</span>
+            </div>
+            <input type="text" class="form-control" readonly value="{{candidate.timeToCall}}" />
         </div>
 
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info sourcing-width-150">Time-To-Interview</div>
-            <input type="text" class="form-control sourcing-width-full" readonly value="{{candidate.timeToInterview}}" />
+        <div class="input-group mb-1 sourcing-width-full">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Time-To-Interview</span>
+            </div>
+            <input type="text" class="form-control" readonly value="{{candidate.timeToInterview}}" />
         </div>
 
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info sourcing-width-150">Time-To-Extern</div>
-            <input type="text" class="form-control sourcing-width-full" readonly value="{{candidate.timeToExtern}}" />
+        <div class="input-group mb-1 sourcing-width-full">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Time-To-Extern</span>
+            </div>
+            <input type="text" class="form-control" readonly value="{{candidate.timeToExtern}}" />
         </div>
 
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info sourcing-width-150">Time-To-Hire</div>
-            <input type="text" class="form-control sourcing-width-full" readonly value="{{candidate.timeToHire}}" />
+        <div class="input-group mb-1 sourcing-width-full">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Time-To-Hire</span>
+            </div>
+            <input type="text" class="form-control" readonly value="{{candidate.timeToHire}}" />
         </div>
 
     </div>

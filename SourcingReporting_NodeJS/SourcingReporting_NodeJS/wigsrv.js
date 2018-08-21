@@ -2,7 +2,8 @@
     setup: function (app, db, session, toDate, sendResponse) {
 
         app.get('/wig/showWigOverview', function (req, res) {
-            var query = "SELECT DISTINCT w.id, w.name, w.start, w.end, w.goal, w.active, (x.hireThisYear + er.hireThisYear) AS hireThisYear  " +
+            var query = "SELECT DISTINCT w.id, w.name, w.start, w.end, w.goal, " +
+                "CASE WHEN w.active = 1 THEN 'aktiv' ELSE '' END AS active, (x.hireThisYear + er.hireThisYear) AS hireThisYear  " +
                 "FROM epunkt_sourcing.wig w LEFT JOIN (" +
                 "SELECT wig.id, count(candidate.id) as hireThisYear  " +
                 "FROM epunkt_sourcing.candidate, epunkt_sourcing.wig " +
@@ -61,7 +62,7 @@
 
                 if (suc) {
                     var query = "INSERT INTO wig(name, start, end, goal) VALUES (?,?,?,?)";
-                    var parameters = [req.body.name, req.body.start, req.body.end, req.body.goal];
+                    var parameters = [req.body.name, new Date(req.body.start), new Date(req.body.end), req.body.goal];
 
                     db.query(query, parameters, function (err, result, fields) {
                         if (err) {
@@ -96,7 +97,7 @@
 
                 if (suc) {
                     var query = "UPDATE wig SET name = ?, start = ?, end = ?, goal = ?, active = ? WHERE id = ?";
-                    var parameters = [req.body.name, req.body.start, req.body.end, req.body.goal, req.body.active, req.body.id];
+                    var parameters = [req.body.name, new Date(req.body.start), new Date(req.body.end), req.body.goal, req.body.active, req.body.id];
 
                     db.query(query, parameters, function (err, result, fields) {
                         if (err) {

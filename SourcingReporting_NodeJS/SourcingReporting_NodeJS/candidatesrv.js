@@ -14,7 +14,7 @@
                     "CASE WHEN candidate.response_value = NULL THEN 'none' ELSE CASE WHEN candidate.response_value = 1 THEN 'pos.' ELSE CASE WHEN candidate.response_value = 0 THEN 'neg.' ELSE ' ' END END END AS response_value," +
                     "CASE WHEN candidate.tracking = 1 THEN 'ja' ELSE 'nein' END AS tracking," +
                     "CASE WHEN candidate.response = 1 THEN 'ja |' ELSE 'nein' END AS response," +
-                    "candidate.research, users.firstname as sourcerName, candidate.sourcer " +
+                    "candidate.research, users.firstname as sourcerName " +
                     "FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
                     "LEFT JOIN team ON team.id = candidate.team_id " +
                     "LEFT JOIN city_group ON team.city_group = city_group.id " +
@@ -1010,11 +1010,12 @@
                     "CASE WHEN candidate.response_value = NULL THEN 'none' ELSE CASE WHEN candidate.response_value = 1 THEN 'pos.' ELSE CASE WHEN candidate.response_value = 0 THEN 'neg.' ELSE ' ' END END END AS response_value," +
                     "CASE WHEN candidate.tracking = 1 THEN 'ja' ELSE 'nein' END AS tracking," +
                     "CASE WHEN candidate.response = 1 THEN 'ja |' ELSE 'nein' END AS response," +
-                    "candidate.research, users.firstname as sourcerName, candidate.sourcer " +
+                    "candidate.research, users.firstname as sourcerName " +
                     " FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
                     "LEFT JOIN users ON candidate.sourcer = users.id " +
                     filterquery;
 
+                candidatequery = candidatequery + " ORDER BY candidate.rememberMe";
                 db.query(candidatequery, function (candErr, candResult, candFields) {
                     if (candErr) {
                         sendResponse(res, false, "Fehler beim Abfragen der Kandidaten aus der Datenbank! " + candErr);
