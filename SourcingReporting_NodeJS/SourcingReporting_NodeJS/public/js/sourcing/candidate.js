@@ -336,7 +336,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.candidate = response.data.data.candidate;
         $scope.sources = response.data.data.sources;
         $scope.teams = response.data.data.teams;
-        $scope.citys = response.data.data.citys;
+        //$scope.citys = response.data.data.citys;
         $scope.sourcer = response.data.data.sourcer;
         $scope.iserrmessage = !response.data.sucess;
         $scope.message = response.data.message;
@@ -348,24 +348,21 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.hire = toLocalDate($scope.candidate.hire);
         $scope.rememberme = toLocalDate($scope.candidate.rememberme);
 
+        /**
+         * Sourcer
+         */
         var sourcerData = $.map($scope.sourcer, function (sourcer) {
-            sourcer.text = sourcer.firstname + ' ' + sourcer.lastname;
+            sourcer.text = sourcer.firstname;
+            if (sourcer.id == $scope.candidate.sourcer){
+                sourcer.selected = true;
+            }
             return sourcer;
         });
 
-        var teamData = $.map($scope.teams, function (teams) {
-            teams.text = teams.city + ' - ' + teams.name;
-            return teams;
+        $("#selectSourcer").select2({
+            theme: "bootstrap"
         });
-
-        var sourceData = $.map($scope.sources, function (sources) {
-            sources.text = sources.name;
-            if (sources.id == $scope.candidate.source_id) {
-                sources.selected = true;
-            }
-            return sources;
-        });
-
+        
         var selectSourcer = $('#selectSourcer');
         selectSourcer.select2({ data: sourcerData });
         selectSourcer.on("select2:select", function (e) {
@@ -373,11 +370,15 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.candidate.sourcer = id;
         });
 
-        var selectTeam = $('#selectTeam');
-        selectTeam.select2({ data: teamData });
-        selectTeam.on("select2:select", function (e) {
-            var id = selectTeam.val();
-            $scope.candidate.team_id = id;
+        /**
+         * Quelle
+         */
+        var sourceData = $.map($scope.sources, function (sources) {
+            sources.text = sources.name;
+            if (sources.id == $scope.candidate.source_id) {
+                sources.selected = true;
+            }
+            return sources;
         });
 
         $("#selectSource").select2({
@@ -391,6 +392,31 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             $scope.candidate.source_id = id;
         });
 
+        /**
+         * Team
+         */
+        var teamData = $.map($scope.teams, function (teams) {
+            teams.text = teams.name;
+            if (teams.id == $scope.candidate.team_id) {
+                teams.selected = true;
+            }
+            return teams;
+        });
+
+        $("#selectTeam").select2({
+            theme: "bootstrap"
+        });
+
+        var selectTeam = $('#selectTeam');
+        selectTeam.select2({ data: teamData });
+        selectTeam.on("select2:select", function (e) {
+            var id = selectTeam.val();
+            $scope.candidate.team_id = id;
+        });
+
+        /**
+         * Tracking
+         */
         var selectTracking = $('#selectTracking');
         selectTracking.select2();
         selectTracking.on("select2:select", function (e) {
@@ -430,6 +456,8 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             var id = scoreboard.val();
             $scope.scoreboard = id;
         });
+
+        
     });
 
 

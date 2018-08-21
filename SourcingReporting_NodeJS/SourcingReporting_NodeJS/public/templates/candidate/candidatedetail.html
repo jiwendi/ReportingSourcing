@@ -136,7 +136,6 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Team</span>
                 </div>
-                <input type="text" class="form-control" id="team" ng-model="candidate.teamname" readonly />
                 <select class="custom-select" id="selectTeam" ng-model="selectTeam" ng-change="updateTeam(selectTeam)">
                     <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
                 </select>
@@ -216,7 +215,6 @@
             </div>
             <input type="text" class="form-control" readonly value="{{candidate.timeToHire}}" />
         </div>
-
     </div>
 
 </div>
