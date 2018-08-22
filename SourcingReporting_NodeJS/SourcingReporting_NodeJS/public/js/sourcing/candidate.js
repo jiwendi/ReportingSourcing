@@ -324,8 +324,6 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
 });
 
 app.controller('candidatedetailController', function ($scope, $http, $routeParams) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
 
     $http.post('candidate/showDetailForSelectedCandidate', { candidateid: $routeParams.candidateid }).then(function (response) {
 
@@ -336,7 +334,6 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $scope.candidate = response.data.data.candidate;
         $scope.sources = response.data.data.sources;
         $scope.teams = response.data.data.teams;
-        //$scope.citys = response.data.data.citys;
         $scope.sourcer = response.data.data.sourcer;
         $scope.iserrmessage = !response.data.sucess;
         $scope.message = response.data.message;
@@ -352,8 +349,8 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
          * Sourcer
          */
         var sourcerData = $.map($scope.sourcer, function (sourcer) {
-            sourcer.text = sourcer.firstname;
-            if (sourcer.id == $scope.candidate.sourcer){
+            sourcer.text = sourcer.firstname + ' ' + sourcer.lastname;
+            if (sourcer.id == $scope.candidate.sourcer) {
                 sourcer.selected = true;
             }
             return sourcer;
@@ -362,7 +359,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         $("#selectSourcer").select2({
             theme: "bootstrap"
         });
-        
+
         var selectSourcer = $('#selectSourcer');
         selectSourcer.select2({ data: sourcerData });
         selectSourcer.on("select2:select", function (e) {
@@ -450,14 +447,13 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         var selectResponseVal = $('#selectResponseValue');
         selectResponseVal.select2();
 
+
         var scoreboard = $('#scoreboard');
         scoreboard.select2();
         scoreboard.on("select2:select", function (e) {
             var id = scoreboard.val();
             $scope.scoreboard = id;
-        });
-
-        
+        });  
     });
 
 
@@ -678,9 +674,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
     };
 
     $scope.updateScoreboard = function (scoreboard) {
-        $scope.message = "";
         $scope.scoreboard = scoreboard;
-
         $http.post('candidate/updateScoreboard', {
             id: $scope.candidate.id, scoreboard: $scope.scoreboard
         }).then(function (response) {
@@ -690,7 +684,7 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
                 alertify.error(response.data.message);
             }
         });
-        location.reload();
+        //location.reload();
     }
 
     $scope.updateSourcer = function () {

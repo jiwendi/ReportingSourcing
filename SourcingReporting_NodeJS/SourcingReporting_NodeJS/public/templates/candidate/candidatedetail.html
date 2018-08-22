@@ -155,7 +155,7 @@
                     <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Scoreboard</span>
                 </div>
                 <input type="text" class="form-control" ng-model="candidate.scoreboard_text" readonly />
-                <select ng-model="scoreboard" class="custom-select" ng-change="updateScoreboard(scoreboard)">
+                <select ng-model="scoreboard" id="scoreboard" class="custom-select" ng-change="updateScoreboard(scoreboard)">
                     <option value="0">Nein</option>
                     <option value="1">Ja</option>
                 </select>
@@ -166,8 +166,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Sourcer</span>
                 </div>
-                <input type="text" class="form-control sourcing-width-150" id="sourcerName" ng-model="candidate.sourcerName" readonly />
-                <select class="custom-select" ng-model="selectSourcer" ng-change="updateSourcer()">
+                <select class="custom-select" id="selectSourcer" ng-model="selectSourcer" ng-change="updateSourcer()">
                     <option ng-repeat="s in sourcer" value="{{s.id}}">{{s.firstname + ' ' + s.lastname}}</option>
                 </select>
             </div>

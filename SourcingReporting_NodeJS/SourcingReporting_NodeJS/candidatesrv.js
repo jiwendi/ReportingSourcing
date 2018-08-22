@@ -29,7 +29,7 @@
                 var filterRequest = req.body.filterRequest;
                 var filterResponse = req.body.filterResponse;
                 var filterResponseValue = req.body.filterResponseValue;
-                
+
                 var from_telnotice = req.body.from_telnotice;
                 var to_telnotice = req.body.to_telnotice;
                 var from_intern = req.body.from_intern;
@@ -211,7 +211,7 @@
                         moreParameter = true;
                     }
                 }
-                
+
                 candidatequery = candidatequery + " ORDER BY candidate.research";
                 db.query(candidatequery, parameter, function (candErr, candResult, candFields) {
                     if (candErr) {
@@ -912,30 +912,18 @@
         app.post('/candidate/showDetailForSelectedCandidate', function (req, res) {
             if (req.session.userid) {
                 var parameter = [req.body.candidateid];
-                var candidatequery = "SELECT candidate.id, candidate.firstname as firstname," +
-                    "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
-                    "sources.name as source, candidate.source_id as source_id, candidate.source_text, candidate.eR," +
-                    "candidate.intern, candidate.extern, candidate.hire, candidate.infos, " +
-                    "CASE WHEN candidate.telnotice IS NULL THEN null ELSE candidate.telnotice END AS telnotice," +
-                    "CASE WHEN candidate.response_value = null THEN null ELSE candidate.response_value END AS response_value," +
-                    "candidate.tracking, candidate.request, candidate.response, candidate.scoreboard," +
-                    "candidate.rememberme, " +
-                    "CASE WHEN candidate.scoreboard = 1 THEN 'Ja' ELSE 'Nein' END as scoreboard_text, " +
-                    "ABS(DATEDIFF(candidate.research, candidate.telnotice)) AS timeToCall, ABS(DATEDIFF(candidate.research, candidate.intern)) AS timeToInterview, " +
-                    "ABS(DATEDIFF(candidate.research, candidate.extern)) AS timeToExtern, ABS(DATEDIFF(candidate.research, candidate.hire)) AS timeToHire," +
-                    "city_group.city, team.name as teamname, candidate.team_id as team_id, candidate.research, candidate.date, users.firstname as sourcerName, candidate.sourcer " +
-                    "FROM candidate LEFT JOIN sources ON candidate.source_id = sources.id " +
-                    "LEFT JOIN team ON team.id = candidate.team_id " +
-                    "LEFT JOIN city_group ON team.city_group = city_group.id " +
-                    "LEFT JOIN users ON candidate.sourcer = users.id " +
-                    "WHERE candidate.id = ?";
+                var candidatequery = "SELECT id, firstname, " +
+                    "CASE WHEN lastname IS NULL THEN '' ELSE lastname END AS lastname, " +
+                    "source_id, source_text, eR, intern, extern, hire, infos, telnotice, response_value, " +
+                    "CASE WHEN candidate.scoreboard = 1 THEN 'Ja' ELSE 'Nein' END as scoreboard_text, " + 
+                    "tracking, request, response, scoreboard, rememberme, team_id, research, sourcer, " +
+                    "ABS(DATEDIFF(research, telnotice)) AS timeToCall, ABS(DATEDIFF(research, intern)) AS timeToInterview, " +
+                    "ABS(DATEDIFF(research, extern)) AS timeToExtern, ABS(DATEDIFF(research, hire)) AS timeToHire " +
+                    "FROM candidate WHERE id = ?";
                 var sourcequery = "SELECT id, name FROM sources WHERE active=1 ORDER BY name";
-                var teamquery = "SELECT team.id, team.name, team.city_group, city_group.city FROM team " +
-                    "LEFT JOIN city_group ON team.city_group = city_group.id " +
-                    " WHERE team.active=1";
-                var cityquery = "SELECT id, city FROM city_group";
+                var teamquery = "SELECT id, name FROM team WHERE active=1";
                 var userquery = "SELECT id, firstname, lastname FROM users WHERE active=1 ORDER BY firstname";
-
+ 
                 db.query(candidatequery, parameter, function (err, rows, fields) {
                     if (err) {
                         sendResponse(res, false, "Fehler beim Abfragen der Detail-Daten! " + err);
@@ -951,24 +939,17 @@
                                         if (teamerr) {
                                             sendResponse(res, false, "Fehler beim Abfragen der Teams aus der Datenbank! " + teamerr);
                                         } else {
-                                            db.query(cityquery, function (cityerr, cityrows, cityfields) {
-                                                if (cityerr) {
-                                                    sendResponse(res, false, "Fehler beim Abfragen der Standorte aus der Datenbank! " + cityerr);
+                                            db.query(userquery, function (usererr, userrows, userfields) {
+                                                if (usererr) {
+                                                    sendResponse(res, false, "Fehler beim Abfragen der Sourcer aus der Datenbank! " + usererr);
                                                 } else {
-                                                    db.query(userquery, function (usererr, userrows, userfields) {
-                                                        if (usererr) {
-                                                            sendResponse(res, false, "Fehler beim Abfragen der Sourcer aus der Datenbank! " + usererr);
-                                                        } else {
-                                                            var result = {
-                                                                candidate: rows[0],
-                                                                sources: sourcerows,
-                                                                teams: teamrows,
-                                                                citys: cityrows,
-                                                                sourcer: userrows
-                                                            };
-                                                            sendResponse(res, true, "", result);
-                                                        }
-                                                    });
+                                                    var result = {
+                                                        candidate: rows[0],
+                                                        sources: sourcerows,
+                                                        teams: teamrows,
+                                                        sourcer: userrows
+                                                    };
+                                                    sendResponse(res, true, "", result);
                                                 }
                                             });
                                         }
@@ -1040,6 +1021,6 @@
 
 
 
-       
+
     }
 };

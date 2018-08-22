@@ -62,35 +62,41 @@ app.controller('candidatenewERController', function ($scope, $http, $routeParams
 });
 
 app.controller('candidatedetailERController', function ($scope, $http, $routeParams) {
-    $scope.message = "";
-    $scope.iserrmessage = false;
 
     $http.post('candidateER/showDetailsForSelectedERCandidate', { candidateid: $routeParams.candidateid }).then(function (response) {
         $scope.candidate = response.data.data.candidate;
         $scope.teams = response.data.data.teams;
         $scope.hire = toLocalDate($scope.candidate.hire);
+        
+        if (!response.data.success) {
+            alertify.error(response.data.message);
+        }
 
-        $scope.iserrmessage = !response.data.sucess;
-        $scope.message = response.data.message;
-
-        var sourcerData = $.map($scope.sourcer, function (sourcer) {
-            sourcer.text = sourcer.firstname + ' ' + sourcer.lastname;
-            return sourcer;
-        });
-
+        /**
+         * Team
+         */
         var teamData = $.map($scope.teams, function (teams) {
-            teams.text = teams.city + ' - ' + teams.name;
+            teams.text = teams.name;
+            if (teams.id == $scope.candidate.team_id) {
+                teams.selected = true;
+            }
             return teams;
         });
-        var selectTeam = $('#selectTeam');
+
+        $("#teamSelect").select2({
+            theme: "bootstrap"
+        });
+
+        var selectTeam = $('#teamSelect');
         selectTeam.select2({ data: teamData });
-        //selectTeam.val($scope.candidate.team_id);
-        //selectTeam.trigger("change");
         selectTeam.on("select2:select", function (e) {
             var id = selectTeam.val();
             $scope.candidate.team_id = id;
         });
 
+        /**
+         * Scoreboard
+         */
         var scoreboard = $('#scoreboard');
         scoreboard.select2();
         //scoreboard.val($scope.candidate.scoreboard);
