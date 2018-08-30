@@ -54,27 +54,33 @@
                     <tbody>
                         <tr>
                             <td>Ansprachen</td>
-                            <td>{{myYear.request.request}} <span class="badge badge-info" title="Anteil an den gesamten Ansprachen">{{myYear.request.request / allRequests.requests * 100 | number:2}} %</span> </td>
+                            <td>{{myYear.request.request}} <span class="badge badge-info" title="Ich habe dieses Jahr bereits {{ myYear.request.request }} Kandidaten angeschrieben. Das sind {{myYear.request.request / allRequests.requests * 100 | number:2}} % des gesamten Sourcing-Teams!">{{myYear.request.request / allRequests.requests * 100 | number:2}} %</span> </td>
                         </tr>
                         <tr>
                             <td>Response</td>
-                            <td>{{myYear.requests.response}} <span class="badge badge-info" title="meine Response Rate">{{myYear.requests.response / myYear.request.request * 100 | number:2}} %</span></td>
+                            <td>{{myYear.requests.response}} <span class="badge badge-info" title="{{myYear.requests.response / myYear.request.request * 100 | number:2}} % haben sich auf meine Ansprache zurückgemeldet (meine Response-Rate)!">{{myYear.requests.response / myYear.request.request * 100 | number:2}} %</span></td>
                         </tr>
                         <tr>
                             <td>Response positiv</td>
-                            <td>{{myYear.requestsPositiv.response_positiv}} <span class="badge badge-success">{{myYear.requestsPositiv.response_positiv/myYear.requests.response * 100 | number:2}} %</span></td>
+                            <td>{{myYear.requestsPositiv.response_positiv}} <span class="badge badge-success" title="{{myYear.requestsPositiv.response_positiv/myYear.requests.response * 100 | number:2}} % der Responses waren positiv">{{myYear.requestsPositiv.response_positiv/myYear.requests.response * 100 | number:2}} %</span></td>
                         </tr>
                         <tr>
                             <td>Response negativ</td>
-                            <td>{{myYear.requestsNegativ.response_negativ}} <span class="badge badge-danger">{{myYear.requestsNegativ.response_negativ/myYear.requests.response * 100 | number:2}} %</span></td>
+                            <td>{{myYear.requestsNegativ.response_negativ}} <span class="badge badge-danger" title="{{myYear.requestsNegativ.response_negativ/myYear.requests.response * 100 | number:2}} % der Responses waren negativ">{{myYear.requestsNegativ.response_negativ/myYear.requests.response * 100 | number:2}} %</span></td>
                         </tr>
                         <tr>
                             <td><a href="#!telnoticeBySourcer">Telefon-Notizen</a></td>
-                            <td>{{myYear.telNotice.telnotice}} <span class="badge badge-info" title="Convertion Rate Ansprache-Telefonnotiz">{{myYear.telNotice.telnotice / myYear.request.request * 100 | number:2}} %</span></td>
+                            <td>{{myYear.telNotice.telnotice}} <span class="badge badge-info" title="Mit {{myYear.telNotice.telnotice / myYear.request.request * 100 | number:2}} % meiner Ansprachen habe ich eine Telefonnotiz gemacht!">{{myYear.telNotice.telnotice / myYear.request.request * 100 | number:2}} %</span> <span class="badge badge-warning" title="Von allen meinen positiven Responses habe ich mit {{myYear.telNotice.telnotice / myYear.requestsPositiv.response_positiv * 100 | number:2}} % eine Telefonnotiz gemacht!">{{myYear.telNotice.telnotice / myYear.requestsPositiv.response_positiv * 100 | number:2}} %</span></td>
+                        </tr>
+                        <tr>
+                            <td>Interne Gespräche</td>
+                            <td>
+                                {{myYear.intern.intern}} <span class="badge badge-info" title="Mit {{myYear.intern.intern / myYear.request.request * 100 | number:2}} % meiner Ansprachen wurde ein interes Gespräch geführt!">{{myYear.intern.intern / myYear.request.request * 100 | number:2}} %</span> <span class="badge badge-warning" title="Mit {{myYear.intern.intern / myYear.telNotice.telnotice * 100 | number:2}} % meiner Telefonnotizen wurde ein interes Gespräch geführt!">{{myYear.intern.intern / myYear.telNotice.telnotice * 100 | number:2}} %</span>
+                            </td>
                         </tr>
                         <tr>
                             <td>Besetzungen</td>
-                            <td>{{myYear.hires.hire}} <span class="badge badge-info" title="Convertion Rate Ansprache-Besetzung">{{myYear.hires.hire / myYear.request.request * 100 | number:2}} %</span> <span class="badge badge-warning" title="Convertion Rate Telefonnotiz-Besetzung">{{myYear.hires.hire / myYear.telNotice.telnotice * 100 | number:2}} %</span>
+                            <td>{{myYear.hires.hire}} <span class="badge badge-info" title="{{myYear.hires.hire / myYear.request.request * 100 | number:2}} % meiner Ansprachen wurden Besetzt!">{{myYear.hires.hire / myYear.request.request * 100 | number:2}} %</span> <span class="badge badge-warning" title="{{myYear.hires.hire / myYear.telNotice.telnotice * 100 | number:2}} % meiner Telefonnotizen wurden Besetzt!">{{myYear.hires.hire / myYear.telNotice.telnotice * 100 | number:2}} %</span>
 							</td>
                         </tr>
                     </tbody>
@@ -121,13 +127,16 @@
                 <table id="requests" class="table">
                     <thead>
                         <tr>
-                            <th><span class="fas fa-user-clock" aria-hidden="true"></span> Meine RememberMe-Liste</th>
+                            <th> </th>
+                            <th colspan="3"><span class="fas fa-user-clock" aria-hidden="true"></span> Meine RememberMe-Liste</th>
                             <th> </th>
                             <th> </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="c in candidate">
+                            <td ng-if="c.infos != null"><a class="fas fa-info-circle" title="{{c.infos}}"></a></td>
+                            <td ng-if="c.infos == null"> </td>
                             <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
                             <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
                             <td ng-if="c.eR == null"> </td>
@@ -144,13 +153,16 @@
                 <table id="requests" class="table">
                     <thead>
                         <tr>
-                            <th><span class="fas fa-phone" aria-hidden="true"></span> Meine Telefonnotizen diese Woche</th>
+                            <th> </th>
+                            <th colspan="3"><span class="fas fa-phone" aria-hidden="true"></span> Meine Telefonnotizen diese Woche</th>
                             <th> </th>
                             <th> </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="c in candidateTelNotice">
+                            <td ng-if="c.infos != null"><a class="fas fa-info-circle" title="{{c.infos}}"></a></td>
+                            <td ng-if="c.infos == null"> </td>
                             <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
                             <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
                             <td ng-if="c.eR == null"> </td>

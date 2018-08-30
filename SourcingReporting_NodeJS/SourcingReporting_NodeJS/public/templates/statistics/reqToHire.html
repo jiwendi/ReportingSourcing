@@ -10,12 +10,20 @@
             <table class="table w-50">
                 <tr>
                     <td>
-                        <div class="input-group-addon alert-info sourcing-width-250">von </div>
-                        <input class="form-control sourcing-width-250" type="date" id="from" ng-model="from" />
+                        <div class="input-group mb-1 sourcing-width-250">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text alert-info" id="inputGroup-sizing-default">von</span>
+                            </div>
+                            <input class="form-control" type="date" id="from" ng-model="from" />
+                        </div>
                     </td>
                     <td>
-                        <div class="input-group-addon alert-info sourcing-width-250">bis </div>
-                        <input class="form-control sourcing-width-250" type="date" id="to" ng-model="to" />
+                        <div class="input-group mb-1 sourcing-width-250">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text alert-info" id="inputGroup-sizing-default">bis</span>
+                            </div>
+                            <input class="form-control" type="date" id="to" ng-model="to" />
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -49,8 +57,8 @@
     
     <br />
     <br />
-    <table id="requests" class="table w-75">
-        <thead>
+    <table id="requests" class="table w-75 table-striped">
+        <thead class="thead-sourcing">
             <tr>
                 <th> </th>
                 <th>Ansprachen</th>

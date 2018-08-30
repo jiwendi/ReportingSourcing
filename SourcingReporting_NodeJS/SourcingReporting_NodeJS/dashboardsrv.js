@@ -26,7 +26,7 @@
                 var regsuc = false;
                 var message = "";
 
-                var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberMe, " +
+                var candidatequery = "SELECT candidate.id, candidate.firstname as firstname, candidate.rememberMe, candidate.infos, " +
                     "CASE WHEN candidate.lastname IS NULL THEN '' ELSE candidate.lastname END AS lastname," +
                     "sources.name as source, candidate.source_text, SUBSTRING(candidate.eR,2) as eR," +
                     "CASE WHEN candidate.telnotice IS NULL THEN '-' ELSE candidate.telnotice END AS telnotice," +
@@ -76,6 +76,7 @@
             var query = "SELECT COUNT(request) as request FROM candidate WHERE sourcer = ? AND YEAR(research) = ?";
             var telNoticeQuery = "SELECT COUNT(telnotice) as telnotice FROM candidate WHERE sourcer = ? AND YEAR(telnotice) = ?";
             var hireQuery = "SELECT COUNT(hire) as hire FROM candidate WHERE sourcer = ? AND YEAR(hire) = ?"
+            var internQuery = "SELECT COUNT(intern) as intern FROM candidate WHERE sourcer = ? AND YEAR(intern) = ?";
             var requests = "SELECT COUNT(id) as response FROM candidate WHERE sourcer = ? AND response = 1 AND YEAR(research) = ?";
             var requestPositiv = "SELECT COUNT(id) as response_positiv FROM candidate WHERE sourcer = ? AND response = 1 AND response_value = 1 AND YEAR(research) = ?";
             var requestNegativ = "SELECT COUNT(id) as response_negativ FROM candidate WHERE sourcer = ? AND response = 1 AND response_value = 0 AND YEAR(research) = ?";
@@ -105,15 +106,22 @@
                                                         if (negErr) {
                                                             sendResponse(res, false, "Fehler beim Abfragen der (mein Jahr) Response (negativ)! " + negErr);
                                                         } else {
-                                                            var result = {
-                                                                request: rows[0],
-                                                                telNotice: telRows[0],
-                                                                hires: hireRows[0],
-                                                                requests: reqRows[0],
-                                                                requestsPositiv: posRows[0],
-                                                                requestsNegativ: negRows[0]
-                                                            };
-                                                            sendResponse(res, true, "", result);
+                                                            db.query(internQuery, parameter, function (internErr, internRows, internFields) {
+                                                                if (internErr) {
+                                                                    sendResponse(res, false, "Fehler beim Abfragen der (mein Jahr) Internen Gespräche! " + internErr);
+                                                                } else {
+                                                                    var result = {
+                                                                        request: rows[0],
+                                                                        telNotice: telRows[0],
+                                                                        hires: hireRows[0],
+                                                                        requests: reqRows[0],
+                                                                        requestsPositiv: posRows[0],
+                                                                        requestsNegativ: negRows[0],
+                                                                        intern: internRows[0]
+                                                                    };
+                                                                    sendResponse(res, true, "", result);
+                                                                }
+                                                            });
                                                         }
                                                     });
                                                 }
@@ -175,7 +183,7 @@
 
         /*Release 1.5 myDashboard myTelnotice-This-Week*/
         app.get('/personalDashboard/telnoticeThisWeek', function (req, res) {
-            var query = "SELECT id, firstname, lastname, SUBSTRING(candidate.eR,2) as eR, telnotice FROM candidate " +
+            var query = "SELECT id, firstname, lastname, SUBSTRING(candidate.eR,2) as eR, telnotice, infos FROM candidate " +
                 "WHERE sourcer = " + req.session.userid + " AND WEEK(telnotice) = WEEK(sysdate()) AND YEAR(telnotice) = YEAR(sysdate()) ORDER BY telnotice";
 
             db.query(query, function (err, rows, fields) {

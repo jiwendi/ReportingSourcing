@@ -378,17 +378,14 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             return sources;
         });
 
-        $("#selectSource").select2({
-            theme: "bootstrap"
-        });
-
         var selectSource = $('#selectSource');
+        selectSource.select2({ theme: "bootstrap" });
         selectSource.select2({ data: sourceData });
         selectSource.on("select2:select", function (e) {
             var id = selectSource.val();
             $scope.candidate.source_id = id;
         });
-
+        
         /**
          * Team
          */
@@ -474,7 +471,6 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
 
     $scope.updateSource = function (selectSource) {
         $scope.source = selectSource;
-
         $http.post('candidate/updateSource', {
             id: $scope.candidate.id, source: $scope.source
         }).then(function (response) {

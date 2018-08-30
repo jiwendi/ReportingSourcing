@@ -7,17 +7,20 @@
     <a href="#!telnoticeBySourcer" class="btn btn-info">Zu meinen Telefonnotizen</a>
     <br />
     <br />
-    <div class="input-group sourcing-w-20 ml-2">
-        <div class="input-group-addon alert-info sourcing-width-150">Jahr </div>
+    <div class="input-group mb-1 sourcing-width-250">
+        <div class="input-group-prepend">
+            <span class="input-group-text alert-info" id="inputGroup-sizing-default">Jahr</span>
+        </div>
         <input class="form-control" type="number" id="yearToFilter" ng-model="yearToFilter" min="2017" value="2018" ng-change="update()" />
     </div>
-    <br />
-    <table id="telNoticeTable" class="table w-50" ng-repeat="counts in telNotice |  groupBy:'weeknr'">
-        <tr>
+    <br /> 
+    <table id="telNoticeTable" class="table w-50 table-striped" ng-repeat="counts in telNotice |  groupBy:'weeknr'">
+        <tr class="thead-sourcing">
             <th>Kalenderwoche {{counts[0].weeknr}}</th>
             <th>Sourcer</th>
             <th>Telefonnotizen</th>
         </tr>
+
         <tr ng-repeat="telNot in counts">
             <td> </td>
             <td>{{telNot.firstname}}</td>
