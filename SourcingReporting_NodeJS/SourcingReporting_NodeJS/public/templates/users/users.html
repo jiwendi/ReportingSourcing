@@ -13,15 +13,24 @@
         <table class="table mb-1 table-striped">
             <thead class="thead-sourcing">
                 <tr>
+                    <th scope="col"> </th>
                     <th scope="col">Name</th>
                     <th scope="col">eMail</th>
+                    <th scope="col">Geburtstag</th>
+                    <th scope="col">Hero</th>
+                    <th scope="col">bei epunkt seit</th>
                     <th scope="col">Aktiv</th>
                     <th scope="col">Admin</th>
                 </tr>
             </thead>
             <tr ng-repeat="u in users" ng-class="isuserinactive(u)">
+                <td ng-if="u.defaultPassword == true"><span title="Passwort noch default! Bitte ändern!" class="fas fa-lock-open"></span></td>
+                <td ng-if="u.defaultPassword == false"> </td>
                 <td><a class="text-info" href="#!userdetail/{{u.id}}" title="'{{u.firstname + ' ' + u.lastname}}' bearbeiten">{{u.firstname + ' ' + u.lastname}}</a></td>
                 <td>{{u.email}}</td>
+                <td>{{u.birthday | date: 'dd.MM'}}</td>
+                <td>{{u.hero}}</td>
+                <td>{{u.start}}</td>
                 <td>{{u.active}}</td>
                 <td>{{u.admin}}</td>
             </tr>

@@ -50,7 +50,7 @@ app.controller('userdetailController', function ($scope, $http, $routeParams) {
 
     $scope.update = function () {
         $http.post('user/update', {
-            userid: $scope.user.id, firstname: $scope.user.firstname, lastname: $scope.user.lastname, email: $scope.user.email, password: $scope.password, password2: $scope.password2, admin: $scope.user.admin, active: $scope.user.active
+            userid: $scope.user.id, firstname: $scope.user.firstname, lastname: $scope.user.lastname, email: $scope.user.email, password: $scope.password, password2: $scope.password2, admin: $scope.user.admin, active: $scope.user.active, start: $scope.user.start, birthday: $scope.user.birthday, hero: $scope.user.hero, heroDescr: $scope.user.heroDescr
         }).then(function (response) {
             if (response.data.success) {
                 alertify.success(response.data.message);
@@ -64,11 +64,12 @@ app.controller('userdetailController', function ($scope, $http, $routeParams) {
 app.controller('usernewController', function ($scope, $http, $routeParams) {
     $scope.password = "";
     $scope.password2 = "";
-    $scope.user = { firstname: "", lastname: "", email: "", admin: 0, active: 1 };
+    $scope.user = { firstname: "", lastname: "", email: "", admin: 0, active: 1, birthday: new Date(), start: "", hero:"", heroDescr: "" };
 
     $scope.save = function () {
         $http.post('user/save', {
-            firstname: $scope.user.firstname, lastname: $scope.user.lastname, email: $scope.user.email, password: $scope.password, password2: $scope.password2, admin: $scope.user.admin, active: $scope.user.active
+            firstname: $scope.user.firstname, lastname: $scope.user.lastname, email: $scope.user.email, password: $scope.password, password2: $scope.password2,
+            admin: $scope.user.admin, active: $scope.user.active, start: $scope.user.start, birthday: $scope.birthday, hero: $scope.hero, heroDescr: $scope.heroDescr
         }).then(function (response) {
             if (response.data.success) {
                 alertify.success(response.data.message);

@@ -3,70 +3,94 @@
 <div class="useredit">
     <h3>Benutzer bearbeiten</h3>
     <div class="card-body mb-1">
+
         <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Vorname</div>
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Vorname</span>
+            </div>
             <input type="text" class="form-control" id="firstname" placeholder="Vorname" ng-model="user.firstname">
         </div>
+
         <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Nachname</div>
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Nachname</span>
+            </div>
             <input type="text" class="form-control" id="lastname" placeholder="Nachname" ng-model="user.lastname">
         </div>
+
         <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">eMail</div>
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">eMail</span>
+            </div>
             <input type="email" class="form-control" id="email" placeholder="name@email.at" ng-model="user.email">
         </div>
+
         <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Passwort</div>
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Passwort</span>
+            </div>
             <input type="password" class="form-control" id="password" placeholder="*****" ng-model="password">
         </div>
+
         <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Passwort wiederholen</div>
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Passwort wiederholen</span>
+            </div>
             <input type="password" class="form-control" id="password2" placeholder="*****" ng-model="password2">
         </div>
-        <!--<div class="input-group mb-1">
-            <div class="input-group-addon alert-info">bei epunkt seit</div>
-            <input type="text" class="form-control" id="epunktsince" ng-model="epunktsince">
-        </div>-->
+
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">bei epunkt seit</span>
+            </div>
+            <input type="text" class="form-control" id="start" ng-model="user.start" placeholder="April 2017">
+        </div>
+
         <table class="table mb-1">
-            <thead>
-                <tr>
-                    <th scope="col"> </th>
-                    <th scope="col"> </th>
-                </tr>
-            </thead>
-            <tbody>
                 <tr ng-show="!user.isloggedinUser">
-                    <th scope="row">Admin</th>
-                    <td><select id="selectadmin" class="wdselect">
+                    <th scope="row" class="sourcing-width-250">Admin</th>
+                    <td><select id="selectadmin" class="sourcing-width-150">
                         <option value="0">Nein</option>
                         <option value="1">Ja</option>
                         </select></td>
                 </tr>
                 <tr ng-show="!user.isloggedinUser">
-                    <th scope="row">Aktiv</th>
-                    <td><select id="selectactive" class="wdselect">
+                    <th scope="row" class="sourcing-width-250">Aktiv</th>
+                    <td><select id="selectactive" class="sourcing-width-150">
                             <option value="0">Nein</option>
                             <option value="1">Ja</option>
                         </select></td>
                 </tr>
-            </tbody>
         </table>
+
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Geburtstag</span>
+            </div>
+            <input type="date" class="form-control" id="birthday" ng-model="user.birthday">
+        </div>
+
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Superheld</span>
+            </div>
+            <input type="text" class="form-control" id="hero" ng-model="user.hero" placeholder="Heldenname">
+        </div>
+
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Heldenbeschreibung</span>
+            </div>
+            <textarea rows="5" class="form-control" id="heroDescr" ng-model="user.heroDescr" placeholder="Ich habe <> ausgewählt weil.../ <> zeichnen folgende Eigenschaften aus..."></textarea>
+        </div>
+
         <!--<div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Geburtstag</div>
-            <input type="date" class="form-control" id="birthday" ng-model="birthday">
-        </div>
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Superheld</div>
-            <input type="text" class="form-control" id="hero" ng-model="hero">
-        </div>
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Heldenbeschreibung</div>
-            <textarea rows="5" class="form-control" id="heroDescr" ng-model="heroDescr"></textarea>
-        </div>
-        <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Superhelden-Bild</div>
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Superhelden-Bild</span>
+            </div>
             <input type="file" class="form-control" name="heroImg" accept="image/*">
         </div>-->
+
         <button type="button" class="btn btn-info mb-1" ng-click="update()"><span class="fas fa-user-check" aria-hidden="true"></span> Speichern</button>
     </div>
 </div>
