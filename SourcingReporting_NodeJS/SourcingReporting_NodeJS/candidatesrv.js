@@ -307,8 +307,8 @@
 
                 if (suc) {
                     var query = "INSERT INTO candidate (firstname, lastname, source_id, source_text, eR, tracking, request, response, " +
-                        "response_value, telnotice, intern, extern, hire, team_id, research, scoreboard, sourcer, infos, rememberme) " +
-                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,?,?,?)";
+                        "response_value, telnotice, intern, extern, hire, team_id, research, scoreboard, sourcer, infos, rememberme, recruiter, job) " +
+                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,?,?,?,?,?)";
 
                     var response_Value_afterCheck;
 
@@ -320,7 +320,7 @@
 
                     var parameters = [req.body.firstname, req.body.lastname, req.body.source, req.body.source_text, req.body.eR,
                     req.body.tracking, req.body.request, req.body.response, response_Value_afterCheck, req.body.telnotice, req.body.intern,
-                    req.body.extern, req.body.hire, req.body.team, req.body.research, req.session.userid, req.body.infos, req.body.rememberme];
+                    req.body.extern, req.body.hire, req.body.team, req.body.research, req.session.userid, req.body.infos, req.body.rememberme, req.body.recruiter, req.body.job];
 
                     db.query(query, parameters, function (err, result, fields) {
                         if (err) {
@@ -458,6 +458,72 @@
                                 sendResponse(res, false, message);
                             } else {
                                 sendResponse(res, true, "Team wurde gespeichert!");
+                            }
+                        });
+                } else {
+                    sendResponse(res, false, message);
+                }
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
+        app.post('/candidate/updateRecruiter', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else if (req.body.recruiter == null || req.body.recruiter == "") {
+                    message = "Bitte Recruiter auswählen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET recruiter = ? WHERE id = ?",
+                        [req.body.recruiter, req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim Aktualisieren des Recruiters! " + err;
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Recruiter wurde gespeichert!");
+                            }
+                        });
+                } else {
+                    sendResponse(res, false, message);
+                }
+            } else {
+                sendResponse(res, false, "Kein User eingeloggt!");
+            }
+        });
+
+        app.post('/candidate/updateJob', function (req, res) {
+            if (req.session.userid) {
+                var suc = false;
+                var message = "";
+                var update = "";
+
+                if (req.body.id == null) {
+                    message = "Keine KandidatenID übertragen!";
+                } else if (req.body.job == null || req.body.job == "") {
+                    message = "Bitte Job auswählen!";
+                } else {
+                    suc = true;
+                }
+
+                if (suc) {
+                    db.query("UPDATE candidate SET job = ? WHERE id = ?",
+                        [req.body.job, req.body.id],
+                        function (err, result, fields) {
+                            if (err) {
+                                message = "Fehler beim Aktualisieren des Jobs! " + err;
+                                sendResponse(res, false, message);
+                            } else {
+                                sendResponse(res, true, "Job wurde gespeichert!");
                             }
                         });
                 } else {
@@ -791,14 +857,14 @@
                 }
 
                 if (suc) {
-                    db.query("UPDATE candidate SET hire = NULL, team_id = NULL WHERE id = ?",
+                    db.query("UPDATE candidate SET hire = NULL, team_id = NULL, recruiter = NULL, job = NULL WHERE id = ?",
                         [req.body.id],
                         function (err, result, fields) {
                             if (err) {
-                                message = "Fehler beim Reset der Besetzung und des Teams! " + err;
+                                message = "Fehler beim Reset der Besetzung, Teams, Recruiters und Jobs! " + err;
                                 sendResponse(res, false, message);
                             } else {
-                                sendResponse(res, true, "Besetzung und Team wurde zurückgesetzt!");
+                                sendResponse(res, true, "Besetzung, Team, Recruiter und Job wurden zurückgesetzt!");
                             }
                         });
                 } else {
@@ -913,7 +979,7 @@
             if (req.session.userid) {
                 var parameter = [req.body.candidateid];
                 var candidatequery = "SELECT id, firstname, " +
-                    "CASE WHEN lastname IS NULL THEN '' ELSE lastname END AS lastname, " +
+                    "CASE WHEN lastname IS NULL THEN '' ELSE lastname END AS lastname, recruiter, job, " +
                     "source_id, source_text, eR, intern, extern, hire, infos, telnotice, response_value, " +
                     "CASE WHEN candidate.scoreboard = 1 THEN 'Ja' ELSE 'Nein' END as scoreboard_text, " + 
                     "tracking, request, response, scoreboard, rememberme, team_id, research, sourcer, " +

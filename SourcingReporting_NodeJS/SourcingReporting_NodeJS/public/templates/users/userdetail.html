@@ -1,4 +1,11 @@
-﻿<h1 class="page-header"><span class="fas fa-user-shield"></span> {{user.firstname + ' ' + user.lastname}}</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!settings">Einstellungen</a></li>
+        <li class="breadcrumb-item"><a href="#!users">Benutzerverwaltung</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Benutzer bearbeiten</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-user-shield"></span> {{user.firstname + ' ' + user.lastname}}</h1>
 
 <div class="useredit">
     <h3>Benutzer bearbeiten</h3>

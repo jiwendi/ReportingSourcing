@@ -1,10 +1,16 @@
-﻿<h1 class="page-header"><span class="fas fa-user-ninja"></span> Mitarbeiterverwaltung</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!settings">Einstellungen</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Benutzerverwaltung</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-user-ninja"></span> Benutzerverwaltung</h1>
 
 <div class="panel panel-default">
     <div class="panel-heading">
         <a href="#!users/new" class="btn btn-info">
             <span class="fas fa-user-plus" aria-hidden="true"></span>
-            Neuen Mitarbeiter anlegen
+            Neuen Benutzer anlegen
         </a>
     </div>
     <br />
@@ -24,11 +30,11 @@
                 </tr>
             </thead>
             <tr ng-repeat="u in users" ng-class="isuserinactive(u)">
-                <td ng-if="u.defaultPassword == true"><span title="Passwort noch default! Bitte ändern!" class="fas fa-lock-open"></span></td>
+                <td ng-if="u.defaultPassword == true"><span title="Standard-Passwort! Bitte ändern!" class="fas fa-lock-open"></span></td>
                 <td ng-if="u.defaultPassword == false"> </td>
                 <td><a class="text-info" href="#!userdetail/{{u.id}}" title="'{{u.firstname + ' ' + u.lastname}}' bearbeiten">{{u.firstname + ' ' + u.lastname}}</a></td>
                 <td>{{u.email}}</td>
-                <td>{{u.birthday | date: 'dd.MM'}}</td>
+                <td>{{u.birthday | date: 'dd.MM.yyyy'}}</td>
                 <td>{{u.hero}}</td>
                 <td>{{u.start}}</td>
                 <td>{{u.active}}</td>

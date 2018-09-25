@@ -1,0 +1,30 @@
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!settings">Einstellungen</a></li>
+        <li class="breadcrumb-item"><a href="#!jobprofiles">Profil- und Kategorieverwaltung</a></li>
+        <li class="breadcrumb-item active" aria-current="page">neues Jobprofil anlegen</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-address-card"></span> {{ jobprofile.jobtitle }}</h1>
+
+<div class="useredit">
+    <h3>neue Kategorie anlegen</h3>
+    <div class="card-body mb-1">
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Kategorie</span>
+            </div>
+            <select class="custom-select" id="selectCategory" ng-model="selectCategory" ng-change="showSelectValue(selectCategory)">
+                <option ng-repeat="c in categories" value="{{c.id}}">{{c.titel}}</option>
+            </select>
+        </div>
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Job-Titel</span>
+            </div>
+            <input type="text" class="form-control" id="jobtitle" placeholder="Job-Titel" ng-model="jobprofile.jobtitle">
+        </div>
+
+        <button type="button" class="btn btn-info mb-1" ng-click="save()"><span class="fas fa-user-plus" aria-hidden="true"></span> Speichern</button>
+    </div>
+</div>

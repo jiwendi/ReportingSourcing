@@ -1,0 +1,39 @@
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!settings">Einstellungen</a></li>
+        <li class="breadcrumb-item"><a href="#!recruiters">Recruiterverwaltung</a></li>
+        <li class="breadcrumb-item active" aria-current="page">neuen Recruiter anlegen</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-user-shield"></span> {{recruiter.firstname + ' ' + recruiter.lastname}}</h1>
+
+<div class="useredit">
+    <h3>neuen Recruiter anlegen</h3>
+    <div class="card-body mb-1">
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Vorname</span>
+            </div>
+            <input type="text" class="form-control" id="firstname" placeholder="Vorname" ng-model="recruiter.firstname">
+        </div>
+
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Nachname</span>
+            </div>
+            <input type="text" class="form-control" id="lastname" placeholder="Nachname" ng-model="recruiter.lastname">
+        </div>
+
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Team</span>
+            </div>
+            <select class="custom-select" id="team" ng-model="teamSelect" ng-change="showSelectValue(teamSelect)">
+                <!--ng-options="t.id as t.name group by t.city for t in teams track by t.id">-->
+                <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
+            </select>
+        </div>
+ 
+        <button type="button" class="btn btn-info mb-1" ng-click="save()"><span class="fas fa-user-plus" aria-hidden="true"></span> Speichern</button>
+    </div>
+</div>

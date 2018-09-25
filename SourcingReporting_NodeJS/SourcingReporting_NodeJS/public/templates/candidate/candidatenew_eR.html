@@ -1,34 +1,50 @@
-﻿<h1 class="page-header"><span class="fas fa-user-astronaut"></span> eR-Kandidat: {{candidate.firstname + ' ' + candidate.lastname}}</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!candidates_eR">eR-Kandidatenübersicht</a></li>
+        <li class="breadcrumb-item active" aria-current="page">neuen eR-Kandidaten anlegen</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-user-astronaut"></span> eR-Kandidat: {{candidate.firstname + ' ' + candidate.lastname}}</h1>
 
 <div class="candidateedit">
     <div class="card w-50 p-3 m-5">
         <div class="card-body mb-1">
             <!-- Kandidat Name -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Vorname</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Vorname</span>
+                </div>
                 <input type="text" class="form-control" id="candidateFirstname" ng-model="candidate.firstname" placeholder="Vorname" tabindex="1" />
             </div>
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Nachname</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Nachname</span>
+                </div>
                 <input type="text" class="form-control" id="candidateLastname" ng-model="candidate.lastname" placeholder="Nachname" tabindex="2"/>
             </div>
 
             <!-- eRecruiter Nr -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">eRecruiter Nr</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">eRecruiter Nr</span>
+                </div>
                 <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" placeholder="#123456 " tabindex="3"/>
             </div>
 
             
             <!-- Besetzung -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Besetzung</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Besetzung</span>
+                </div>
                 <input type='date' class="form-control" id="hire" ng-model="hire" placeholder="dd.mm.yyyy" tabindex="4"/>
             </div>
 
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Team</div>
-                <select class="custom-select wdselect" id="team" ng-model="teamSelect"  tabindex="5" ng-change="showSelectValue(teamSelect)">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Team</span>
+                </div>
+                <select class="custom-select" id="team" ng-model="teamSelect"  tabindex="5" ng-change="showSelectValue(teamSelect)">
                         <!--ng-options="t.id as t.name group by t.city for t in teams track by t.id">-->
                     <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
                 </select>
@@ -36,8 +52,10 @@
 
             <!-- Scoreboard -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Scoreboard</div>
-                <select ng-model="scoreboard" class="custom-select wdselect sourcing-width-full"  tabindex="6">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Scoreboard</span>
+                </div>
+                <select ng-model="scoreboard" class="custom-select"  tabindex="6">
                     <option ng-value="0">Nein</option>
                     <option ng-value="1">Ja</option>
                 </select>

@@ -1,0 +1,68 @@
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!statistics">Statistiken</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Numbers All Sourcer</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="far fa-grin-stars"></span>  Numbers All Sourcer</h1>
+
+
+<div id="candidatesContent" class="panel panel-default">
+    
+    <div class="input-group mb-1 sourcing-width-250">
+        <div class="input-group-prepend">
+            <span class="input-group-text alert-info" id="inputGroup-sizing-default">Jahr</span>
+        </div>
+        <input class="form-control" type="number" id="yearToFilter" ng-model="yearToFilter" min="2017" value="2018" ng-change="update()" />
+    </div>
+    <h4>Zahlen {{yearToFilter}}:</h4>
+    <div class="panel-body">
+        <table id="sourcer" class="table table-striped">
+            <thead class="thead-sourcing">
+                <tr>
+                    <th>Sourcer</th>
+                    <th>Ansprache</th>
+                    <th>Response</th>
+                    <th>Response positiv</th>
+                    <th>Response negativ</th>
+                    <th>Telefon-Notizen</th>
+                    <th>Interne Gespräche</th>
+                    <th>Besetzungen</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <tr ng-repeat="n in data">
+                    <td>{{n.firstname}}</td>
+                    <td>{{n.request}}</td>
+                    <td>{{n.response}} <span class="badge badge-info" title="{{n.firstname}}'s Response-Rate">{{n.response / n.request * 100 | number:2}} %</span></td>
+                    <td>{{n.response_positiv}} <span class="badge badge-success" title="{{n.response_positiv/n.response * 100 | number:2}} % der Responses waren positiv">{{n.response_positiv/n.response * 100 | number:2}} %</span></td>
+                    <td>{{n.response_negativ}} <span class="badge badge-danger" title="{{n.response_negativ/n.response * 100 | number:2}} % der Responses waren negativ">{{n.response_negativ/n.response * 100 | number:2}} %</span></td>
+                    <td>{{n.telnotice}} <span class="badge badge-info" title="Mit {{n.telnotice / n.request * 100 | number:2}} % meiner Ansprachen habe ich eine Telefonnotiz gemacht!">{{n.telnotice / n.request * 100 | number:2}} %</span> <span class="badge badge-warning" title="Von allen meinen positiven Responses habe ich mit {{myYear.telNotice.telnotice / myYear.requestsPositiv.response_positiv * 100 | number:2}} % eine Telefonnotiz gemacht!">{{n.telnotice / n.response_positiv * 100 | number:2}} %</span></td>
+                    <td>{{n.intern}} <span class="badge badge-info" title="Mit {{n.intern / n.request * 100 | number:2}} % meiner Ansprachen wurde ein interes Gespräch geführt!">{{n.intern / n.request * 100 | number:2}} %</span> <span class="badge badge-warning" title="Mit {{n.intern / n.telnotice * 100 | number:2}} % meiner Telefonnotizen wurde ein interes Gespräch geführt!">{{n.intern / n.telnotice * 100 | number:2}} %</span></td>
+                    <td>{{n.hire}} <span class="badge badge-info" title="{{n.hire / n * 100 | number:2}} % meiner Ansprachen wurden Besetzt!">{{n.hire / n.request * 100 | number:2}} %</span> <span class="badge badge-warning" title="{{n.hire / n.telnotice * 100 | number:2}} % meiner Telefonnotizen wurden Besetzt!">{{n.hire / n.telnotice * 100 | number:2}} %</span></td>
+                </tr>
+
+
+                <tr ng-repeat="c in candidates" ng-class="candidateNotOnScoreboard(c)">
+                    <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
+                    <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
+                    <td ng-if="c.eR == null"> </td>
+                    <td class="sorttable_numeric" sorttable_customkey="{{c.hire | date: 'yyyyMMddHHmmss'}}">{{c.hire | date: 'dd.MM.yyyy'}}</td>
+                    <td>{{c.name}}</td>
+                    <td>{{c.scoreboard}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src='js/imports/tablesort.min.js'></script>
+
+<!-- Include sort types you need -->
+<script src='js/imports/tablesort.number.min.js'></script>
+<script src='js/imports/tablesort.date.min.js'></script>
+
+<script>
+    var sortableTable = document.getElementById("sourcer");
+    sorttable.makeSortable(sortableTable);
+</script>

@@ -1,0 +1,29 @@
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!settings">Einstellungen</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Recruiterverwaltung</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-user-ninja"></span> Recruiterverwaltung</h1>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="#!recruiter/new" class="btn btn-info">
+            <span class="fas fa-user-plus" aria-hidden="true"></span>
+            Neuen Recruiter anlegen
+        </a>
+    </div>
+    <br />
+
+    <div class="panel-body">
+
+        <div class="card text-white bg-info mb-3" style="width: 20rem; float:left; margin-right:10px;" ng-repeat="(key, value) in recruiters | groupBy: 'name'">
+            <div class="card-header">
+                {{key}}
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" ng-repeat="t in value"><a class="text-info" href="#!recruiterdetail/{{t.id}}">{{t.firstname + ' ' + t.lastname}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

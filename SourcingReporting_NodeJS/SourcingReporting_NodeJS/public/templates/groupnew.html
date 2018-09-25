@@ -1,10 +1,19 @@
-﻿<h1 class="page-header"><span class="fas fa-user-friends"></span> {{group}}</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!settings">Einstellungen</a></li>
+        <li class="breadcrumb-item"><a href="#!teams">Teamübersicht</a></li>
+        <li class="breadcrumb-item active" aria-current="page">neuen Standort anlegen</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-user-friends"></span> {{group}}</h1>
 
 <div class="useredit w-50">
-    <h3>neue Gruppe anlegen</h3>
+    <h3>neuen Standort anlegen</h3>
         <div class="card-body mb-1">
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info">Name</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Name</span>
+                </div>
                 <input type="text" class="form-control" id="groupname" ng-model="group" placeholder="Gruppenname">
             </div>
             <button type="button" class="btn btn-info mb-1" ng-click="save()"><span class="fas fa-check" aria-hidden="true"></span> Speichern</button>

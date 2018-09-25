@@ -1,0 +1,44 @@
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!settings">Einstellungen</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Profil- und Kategorieverwaltung</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-user-tie"></span> Profil- und Kategorieverwaltung</h1>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="#!jobcategory/new" class="btn btn-info">
+            <span class="fas fa-plus" aria-hidden="true"></span>
+            Neue Kategorie anlegen
+        </a>
+        <a href="#!jobprofile/new" class="btn btn-info">
+            <span class="fas fa-plus" aria-hidden="true"></span>
+            Neues Jobprofil anlegen
+        </a>
+
+        <div class="input-group sourcing-w-30 card-float mr-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info" id="inputGroup-sizing-default">Kategorien</span>
+            </div>
+            <select class="custom-select sourcing-width-250" id="kategorien">
+                <option> </option>
+                <option ng-repeat="k in kategorien" value="{{k.id}}">{{k.titel}}</option>
+            </select>
+        </div>
+
+    </div>
+    <br />
+    
+    <div class="panel-body">
+
+        <div class="card text-white bg-info mb-3" style="width: 20rem; float:left; margin-right:10px;" ng-repeat="(key, value) in jobprofile | groupBy: 'titel'">
+            <div class="card-header">
+                {{key}}
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" ng-repeat="t in value"><a class="text-info" href="#!jobprofiles/{{t.id}}">{{t.jobtitle}}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -15,7 +15,9 @@ var tablesort = require('tablesort');
 var candidatesrv = require('./candidatesrv');
 var candidateersrv = require('./candidate_er_srv');
 var dashboardsrv = require('./dashboardsrv');
+var jobsrv = require('./jobsrv');
 var navigationsrv = require('./navigationsrv');
+var recruitersrv = require('./recruitersrv');
 var settingssrv = require('./settingssrv');
 var sourcesrv = require('./sourcesrv');
 var statisticssrv = require('./statisticssrv');
@@ -94,6 +96,10 @@ settingssrv.setup(app, db, session, toDate, sendResponse, getDateString);
 dashboardsrv.setup(app, db, session, toDate, sendResponse);
 
 navigationsrv.setup(app, db, session, toDate, sendResponse);
+
+recruitersrv.setup(app, db, session, toDate, sendResponse);
+
+jobsrv.setup(app, db, session, toDate, sendResponse);
 
 app.listen(8081, function () {
     console.log('Sourcing App listening on port 8081!');

@@ -210,6 +210,14 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
     $scope.message = "";
     $scope.iserrmessage = false;
 
+    $http.get('recruiter/getData').then(function (response) {
+        $scope.recruiter = response.data.data;
+    });
+
+    $http.get('jobprofiles/getData').then(function (response) {
+        $scope.jobs = response.data.data;
+    });
+
     $http.post('candidate/getSelectData').then(function (response) {
         $scope.sources = response.data.data.sources;
         $scope.teams = response.data.data.teams;
@@ -308,7 +316,8 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, source: $scope.source,
             source_text: $scope.candidate.source_text, eR: $scope.candidate.eR, tracking: $scope.tracking, request: $scope.request,
             response: $scope.response, responseVal: responseValue, telnotice: $scope.telnotice, intern: $scope.intern, infos: $scope.candidate.info,
-            extern: $scope.extern, hire: $scope.hire, team: $scope.team, rememberme: $scope.rememberme, research: $scope.research, scoreboard: $scope.candidate.scoreboard
+            extern: $scope.extern, hire: $scope.hire, team: $scope.team, rememberme: $scope.rememberme, research: $scope.research, scoreboard: $scope.candidate.scoreboard,
+            recruiter: $scope.recruiterSelect, job: $scope.jobSelect
         }).then(function (response) {
             if (response.data.success) {
                 alertify.success(response.data.message);
@@ -324,6 +333,15 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
 });
 
 app.controller('candidatedetailController', function ($scope, $http, $routeParams) {
+
+    $http.get('recruiter/getData').then(function (response) {
+        $scope.recruiter = response.data.data;
+    });
+
+    $http.get('jobprofiles/getData').then(function (response) {
+        $scope.jobs = response.data.data;
+    });
+
 
     $http.post('candidate/showDetailForSelectedCandidate', { candidateid: $routeParams.candidateid }).then(function (response) {
 
@@ -451,8 +469,51 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
             var id = scoreboard.val();
             $scope.scoreboard = id;
         });  
-    });
 
+        /**
+         * Recruiter
+         */
+        var recruiterData = $.map($scope.recruiter, function (recruiter) {
+            recruiter.text = recruiter.firstname + ' ' + recruiter.lastname;
+            if (recruiter.id == $scope.candidate.recruiter) {
+                recruiter.selected = true;
+            }
+            return recruiter;
+        });
+
+        $("#recruiterSelect").select2({
+            theme: "bootstrap"
+        });
+
+        var recruiterSelect = $('#recruiterSelect');
+        recruiterSelect.select2({ data: recruiterData });
+        recruiterSelect.on("select2:select", function (e) {
+            var id = recruiterSelect.val();
+            $scope.candidate.recruiter = id;
+        });
+
+        /**
+         * Job
+         */
+        var jobData = $.map($scope.jobs, function (job) {
+            job.text = job.firstname + ' ' + job.lastname;
+            if (job.id == $scope.candidate.job) {
+                job.selected = true;
+            }
+            return job;
+        });
+
+        $("#jobSelect").select2({
+            theme: "bootstrap"
+        });
+
+        var jobSelect = $('#jobSelect');
+        jobSelect.select2({ data: jobData });
+        jobSelect.on("select2:select", function (e) {
+            var id = jobSelect.val();
+            $scope.candidate.job = id;
+        });
+    });
 
     $scope.updateCandidate = function () {
         $scope.message = "";
@@ -724,7 +785,36 @@ app.controller('candidatedetailController', function ($scope, $http, $routeParam
         });
     }
 
+    $scope.updateRecruiter = function (recruiterSelect) {
+        $scope.recr = recruiterSelect;
 
+        $http.post('candidate/updateRecruiter', {
+            id: $scope.candidate.id, recruiter: $scope.recr
+        }).then(function (response) {
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
+        });
+        location.reload();
+    }
+
+    $scope.updateJob = function (jobSelect) {
+        $scope.job = jobSelect;
+
+        $http.post('candidate/updateJob', {
+            id: $scope.candidate.id, job: $scope.job
+        }).then(function (response) {
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
+        });
+        location.reload();
+    }
+    
     $scope.delete = function () {
         alertify.confirm("Kandidat wirklich löschen?", function (e) {
             if (e) {

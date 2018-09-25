@@ -1204,7 +1204,19 @@ app.controller('timeToMaxController', function ($scope, $http) {
             alertify.error(response.data.message);
         }
     });
+});
 
 
+app.controller('numbersAllSourcerController', function ($scope, $http) {
+    $scope.yearToFilter = THIS_YEAR;
+
+        $http.post('statistics/numbersAllSourcer', { yearToFilter: $scope.yearToFilter }).then(function (response) {
+        $scope.data = response.data.data;
+
+        if (!response.data.success) {
+            alertify.set({ delay: 10000 });
+            alertify.error(response.data.message);
+        }
+    });
 });
 

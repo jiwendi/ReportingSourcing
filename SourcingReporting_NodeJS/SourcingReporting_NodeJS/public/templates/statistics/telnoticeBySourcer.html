@@ -1,9 +1,18 @@
-﻿<h1 class="page-header"><span class="fas fa-chart-line"></span> Meine Telefonnotizen Übersicht</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!statistics">Statistiken</a></li>
+        <li class="breadcrumb-item"><a href="#!myDashboard">persönliches Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Meine Telefonnotizen Übersicht</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-chart-line"></span> Meine Telefonnotizen Übersicht</h1>
 
 <div class="panel panel-default">
    
     <div class="input-group sourcing-w-20 ml-2">
-        <div class="input-group-addon alert-info sourcing-width-150">Jahr </div>
+        <div class="input-group-prepend">
+            <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Jahr</span>
+        </div>
         <input class="form-control" type="number" id="yearToFilter" ng-model="yearToFilter" min="2017" value="2018" ng-change="update()" />
     </div>
 

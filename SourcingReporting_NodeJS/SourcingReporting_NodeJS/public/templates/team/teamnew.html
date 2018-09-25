@@ -1,14 +1,25 @@
-﻿<h1 class="page-header"><span class="fas fa-user-friends"></span> {{team.teamname}}</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!settings">Einstellungen</a></li>
+        <li class="breadcrumb-item"><a href="#!teams">Teamübersicht</a></li>
+        <li class="breadcrumb-item active" aria-current="page">neues Team anlegen</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-user-friends"></span> {{team.teamname}}</h1>
 <div class="useredit w-50">
     <h3>neues Team anlegen</h3>
         <div class="card-body mb-1">
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info">Name</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Name</span>
+                </div>
                 <input type="text" class="form-control" id="teamname" ng-model="team.teamname" placeholder="Teamname">
             </div>
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info">Gruppe</div>
-                <select class="custom-select wdselect" id="selectGruppe" ng-model="groupSelect" ng-change="showSelectValue(groupSelect)">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Gruppe</span>
+                </div>
+                <select class="custom-select" id="selectGruppe" ng-model="groupSelect" ng-change="showSelectValue(groupSelect)">
                     <option ng-repeat="g in groups" value="{{g.id}}">{{g.city}}</option>
                 </select>
             </div>

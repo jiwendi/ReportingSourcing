@@ -1,4 +1,9 @@
-﻿<h1 class="page-header"><span class="fas fa-users"></span>  Kandidatenübersicht</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Kandidatenübersicht</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-users"></span>  Kandidatenübersicht</h1>
 
 <script src="js/sourcing/loadingScreen.js"></script>
 
@@ -193,6 +198,7 @@
             <table id="candidates" class="table sortable table-striped">
                 <thead class="thead-sourcing">
                     <tr>
+                        <th> </th>
                         <th>#</th>
                         <th>User</th>
                         <th> </th>
@@ -209,6 +215,8 @@
                 </thead>
                 <tbody id="tableBody">
                     <tr ng-repeat="c in candidates" ng-class="ishiredcandidate(c)">
+                        <td ng-if="c.hire != null"><i class="fas fa-flag-checkered" title="Kandidat am {{c.hire | date: 'dd.MM.yyyy'}} besetzt!"></i></td>
+                        <td ng-if="c.hire == null"> </td>
                         <td>{{c.id}}</td>
                         <td><b>{{c.sourcerName}}</b></td>
                         <td ng-if="c.infos != null"><a class="fas fa-info-circle" title="{{c.infos}}"></a></td>

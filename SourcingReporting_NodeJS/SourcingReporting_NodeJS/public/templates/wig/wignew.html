@@ -1,22 +1,37 @@
-﻿<h1 class="page-header"><span class="fas fa-flag-checkered"></span> {{wig.name}}</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!settings">Einstellungen</a></li>
+        <li class="breadcrumb-item"><a href="#!wigs">WIG-Übersicht</a></li>
+        <li class="breadcrumb-item active" aria-current="page">neues Ziel anlegen</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-flag-checkered"></span> {{wig.name}}</h1>
 
 <div class="useredit w-50">
     <h3>neues Ziel anlegen</h3>
     <div class="card-body mb-1">
         <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Name</div>
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Name</span>
+            </div>
             <input type="text" class="form-control" id="name" ng-model="wig.name" placeholder="WIG - Name">
         </div>
         <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Start</div>
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Start</span>
+            </div>
             <input type="date" class="form-control" id="start" ng-model="wig.start">
         </div>
         <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Ende</div>
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Ende</span>
+            </div>
             <input type="date" class="form-control" id="end" ng-model="wig.end">
         </div>
         <div class="input-group mb-1">
-            <div class="input-group-addon alert-info">Anzahl d. Besetzungen</div>
+            <div class="input-group-prepend">
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Anzahl d. Besetzungen</span>
+            </div>
             <input type="number" class="form-control" id="goal" ng-model="wig.goal" min="1">
         </div>
         <button type="button" class="btn btn-info mb-1" ng-click="save()"><span class="fas fa-plus" aria-hidden="true"></span> Speichern</button>

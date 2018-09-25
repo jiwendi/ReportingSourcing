@@ -14,7 +14,9 @@
                     <input type="checkbox" ng-model="showusercandidates" id="showusercandidates" /> Zeige nur meine Kandidaten
                 </span>
                 <br />
-                <div class="input-group-addon alert-info sourcing-width-150 sourcing-h-50 ml-2 round_div">Monat</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150 sourcing-h-50 ml-2 round_div" id="inputGroup-sizing-default">Monat</span>
+                </div>
                 <input type="month" class="form-control-sourcing-w-20 sourcing-h-50" id="filter_month" ng-model="filter_month" />
             </div>
             <div ng-click="resetFilter()" class="btn btn-danger padding-buttons">

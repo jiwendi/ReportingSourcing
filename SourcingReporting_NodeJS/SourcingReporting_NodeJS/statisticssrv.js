@@ -455,25 +455,25 @@
             var telnoticeQuery = "SELECT ABS(DATEDIFF(c.research, c.telnotice)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.telnotice, s.firstname as sourcer " +
                 "FROM epunkt_sourcing.candidate c " +
                 "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
-                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.telnotice)) >20 AND (DATE(c.telnotice) > (NOW() - INTERVAL 6 MONTH) OR DATE(c.research) > (NOW() - INTERVAL 6 MONTH)) " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.telnotice)) >20) " +
                 "ORDER BY ABS(DATEDIFF(c.research, c.telnotice)) desc " +
                 "LIMIT 10";
             var internQuery = "SELECT ABS(DATEDIFF(c.research, c.intern)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.intern, s.firstname as sourcer " +
                 "FROM epunkt_sourcing.candidate c " +
                 "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
-                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.intern)) >50 AND (DATE(c.intern) > (NOW() - INTERVAL 6 MONTH) OR DATE(c.research) > (NOW() - INTERVAL 6 MONTH)) " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.intern)) >50) " +
                 "ORDER BY ABS(DATEDIFF(c.research, c.intern)) desc " +
                 "LIMIT 10";
             var externQuery = "SELECT ABS(DATEDIFF(c.research, c.extern)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.extern, s.firstname as sourcer " +
                 "FROM epunkt_sourcing.candidate c " +
                 "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
-                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.extern)) >70 AND (DATE(c.extern) > (NOW() - INTERVAL 6 MONTH) OR DATE(c.research) > (NOW() - INTERVAL 6 MONTH)) " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.extern)) >70) " +
                 "ORDER BY ABS(DATEDIFF(c.research, c.extern)) desc " +
                 "LIMIT 10";
             var hireQuery = "SELECT ABS(DATEDIFF(c.research, c.hire)) AS timeto, c.id, c.firstname, c.lastname, c.research, c.hire, s.firstname as sourcer " +
                 "FROM epunkt_sourcing.candidate c " +
                 "LEFT OUTER JOIN epunkt_sourcing.users s ON c.sourcer = s.id " +
-                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.hire)) >100 AND (DATE(c.hire) > (NOW() - INTERVAL 6 MONTH) OR DATE(c.research) > (NOW() - INTERVAL 6 MONTH)) " +
+                "WHERE c.extern IS NOT NULL AND ABS(DATEDIFF(c.research, c.hire)) >100) " +
                 "ORDER BY ABS(DATEDIFF(c.research, c.hire)) desc " +
                 "LIMIT 10";
 
@@ -511,6 +511,32 @@
 
         });
 
+        /* Release 1.6 Numbers All Sourcer*/
+        app.post('/statistics/numbersAllSourcer', function (req, res) {
+            var query = "SELECT users.id, users.firstname, count(request) AS request, count(response) AS response, count(response_value_positiv) AS response_positiv, " +
+                "count(response_value_negativ) AS response_negativ, count(telnotice) AS telnotice, count(intern) AS intern, count(hire) AS hire " +
+            "FROM(SELECT sourcer, " + 
+                "CASE WHEN request= 1 AND YEAR(research) = ? THEN 1 END request, " +
+                "CASE WHEN response= 1  AND YEAR(research) = ? THEN 1 END response, " +
+                "CASE WHEN response_value = 1  AND YEAR(research) = ? THEN 1 END response_value_positiv, " +
+                "CASE WHEN response_value = 0  AND YEAR(research) = ? THEN 1 END response_value_negativ, " +
+                "CASE WHEN YEAR(telnotice) = ? THEN 1 END telnotice, " +
+                "CASE WHEN YEAR(intern) = ? THEN 1 END intern, " +
+                "CASE WHEN YEAR(hire) = ? THEN 1 END hire " +
+                "FROM candidate " +
+            ") candidate RIGHT OUTER JOIN users ON users.id = candidate.sourcer " +
+            "GROUP BY candidate.sourcer " +
+                "ORDER BY users.firstname";
+            var parameter = [req.body.yearToFilter, req.body.yearToFilter, req.body.yearToFilter, req.body.yearToFilter, req.body.yearToFilter, req.body.yearToFilter, req.body.yearToFilter];
+
+            db.query(query, parameter, function (err, result, fields) {
+                if (err) {
+                    sendResponse(res, false, "Fehler beim Abfragen der Daten! " + err);
+                } else {
+                    sendResponse(res, true, "", result);
+                }
+            });
+        });
 
 
 

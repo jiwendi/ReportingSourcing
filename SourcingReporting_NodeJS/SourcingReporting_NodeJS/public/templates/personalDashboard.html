@@ -1,4 +1,9 @@
-﻿<h1 class="page-header"><span class="fab fa-fort-awesome"></span>  MyDashboard</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">persönliches Dashboard</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fab fa-fort-awesome"></span>  MyDashboard</h1>
 
 <div class="panel panel-default">
     <br />
@@ -15,7 +20,9 @@
             </td>
             <td>
                 <div class="input-group w-20">
-                    <div class="input-group-addon alert-info w-50">Jahr </div>
+                    <div class="input-group-prepend">
+                        <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Jahr</span>
+                    </div>
                     <input class="form-control w-50" type="number" id="yearToFilter" ng-model="yearToFilter" min="2017" value="2018" ng-change="update()" />
                 </div>
             </td>

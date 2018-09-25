@@ -1,20 +1,34 @@
-﻿<h1 class="page-header"><span class="fas fa-user-friends"></span> {{team.name}}</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!settings">Einstellungen</a></li>
+        <li class="breadcrumb-item"><a href="#!teams">Teamübersicht</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Team bearbeiten</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-user-friends"></span> {{team.name}}</h1>
 <div class="useredit">
     <h3>Team bearbeiten</h3>
         <div class="card-body mb-1">
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info w-25">Name</div>
-                <input type="text" class="form-control wdselect" ng-model="team.name" placeholder="Teamname">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Name</span>
+                </div>
+                <input type="text" class="form-control" ng-model="team.name" placeholder="Teamname">
             </div>
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info w-25">Gruppe</div><input type="text" ng-model="team.gruppe" />
-                <select class="form-control wdselect" id="selectgroup">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Gruppe</span>
+                </div>
+                <input type="text" readonly class="form-control" ng-model="team.gruppe" />
+                <select class="form-control" id="selectgroup">
                     <option ng-repeat="g in gruppe" value="{{g.id}}">{{g.city}}</option>
                 </select>
             </div>
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info w-25">Aktiv</div>
-                <select class="form-control wdselect" id="selectactive">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Aktiv</span>
+                </div>
+                <select class="form-control" id="selectactive">
                     <option value="0">Nein</option>
                     <option value="1">Ja</option>
                 </select>

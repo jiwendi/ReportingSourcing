@@ -322,7 +322,7 @@ a {
     }
 
 .hiredCandidate {
-    background-color: #b9e3e9;
+    background-color: #b9e3e9 !important;
     color: #000;
 }
 

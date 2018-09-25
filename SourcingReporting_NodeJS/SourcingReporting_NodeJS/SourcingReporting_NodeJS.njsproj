@@ -32,6 +32,9 @@
     <Compile Include="dashboardsrv.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="jobsrv.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="navigationsrv.js">
       <SubType>Code</SubType>
     </Compile>
@@ -529,6 +532,9 @@
     <Compile Include="public\js\sourcing\candidate_eR.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="public\js\sourcing\jobprofiles.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="public\js\sourcing\loadingScreen.js">
       <SubType>Code</SubType>
     </Compile>
@@ -537,6 +543,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="public\js\sourcing\personalDashboard.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="public\js\sourcing\recruiter.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="public\js\sourcing\settings.js">
@@ -561,6 +570,12 @@
     <Compile Include="public\js\imports\tablesort.min.js" />
     <Compile Include="public\js\imports\tablesort.number.min.js" />
     <Compile Include="public\js\notInUse\transition.js" />
+    <Compile Include="public\templates\jobprofiles\jobcategorynew.html">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="recruitersrv.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="server.js" />
     <Compile Include="settingssrv.js">
       <SubType>Code</SubType>
@@ -685,6 +700,13 @@
     <Content Include="public\templates\candidate\candidatenew_eR.html" />
     <Content Include="public\templates\candidate\candidatenew.html" />
     <Content Include="public\templates\anonymizeCandidates.html" />
+    <Content Include="public\templates\jobprofiles\jobprofiles.html" />
+    <Content Include="public\templates\jobprofiles\jobprofilesnew.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="public\templates\recruiter\recruiterdetail.html" />
+    <Content Include="public\templates\recruiter\recruiternew.html" />
+    <Content Include="public\templates\recruiter\recruiters.html" />
     <Content Include="public\templates\rememberMe_List.html" />
     <Content Include="public\templates\candidate\candidates_eR.html" />
     <Content Include="public\templates\candidate\candidates.html" />
@@ -698,6 +720,7 @@
     <Content Include="public\templates\sources\sourcenew.html" />
     <Content Include="public\templates\sources\sources.html" />
     <Content Include="public\templates\personalDashboard.html" />
+    <Content Include="public\templates\statistics\numbersAllSourcer.html" />
     <Content Include="public\templates\statistics\telnoticeBySourcer.html" />
     <Content Include="public\templates\statistics\timeToMax.html" />
     <Content Include="public\templates\statistics\hireList.html" />
@@ -784,6 +807,8 @@
     <Folder Include="public\js\sourcing\" />
     <Folder Include="public\templates\" />
     <Folder Include="public\templates\candidate\" />
+    <Folder Include="public\templates\jobprofiles\" />
+    <Folder Include="public\templates\recruiter\" />
     <Folder Include="public\templates\wig\" />
     <Folder Include="public\templates\sources\" />
     <Folder Include="public\templates\team\" />

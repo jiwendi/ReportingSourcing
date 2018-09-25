@@ -1,4 +1,9 @@
-﻿<h1 class="page-header"><span class="fas fa-cogs"></span>  Einstellungen</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Einstellungen</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-cogs"></span>  Einstellungen</h1>
 
 <div class="panel panel-default float-overflow">
    
@@ -10,7 +15,9 @@
                 <p class="card-text">Ziele Übersicht, hinzufügen neuer Ziele und aktivieren/deaktivieren des Header-Ziels
                 </p>
                 <a href="#!wigs" class="btn btn-info">Ziele anzeigen</a>
-
+                <a href="#!wig/new" class="btn btn-info mt-2">
+                    <span class="fas fa-plus" aria-hidden="true"></span> neues Ziel anlegen
+                </a>
             </div>
             
         </div>
@@ -25,7 +32,9 @@
                     Quellen-Verwaltung (aktivieren/deaktivieren, hinzufügen)
                 </p>
                 <a href="#!sources" class="btn btn-info">Quellen anzeigen</a>
-
+                <a href="#!source/new" class="btn btn-info mt-2">
+                    <span class="fas fa-plus" aria-hidden="true"></span> neue Quellen anlegen
+                </a>
             </div>
 
         </div>
@@ -40,7 +49,10 @@
                     Team-Verwaltung
                 </p>
                 <a href="#!teams" class="btn btn-info">Teams anzeigen</a>
-
+                <a href="#!team/new" class="btn btn-info mt-2">
+                    <span class="fas fa-plus" aria-hidden="true"></span>
+                    Neues Team anlegen
+                </a>
             </div>
 
         </div>
@@ -55,6 +67,9 @@
                     Sourcing-User Verwaltung
                 </p>
                 <a href="#!users" class="btn btn-info">Benutzer anzeigen</a>
+                <a href="#!users/new" class="btn btn-info mt-2">
+                    <span class="fas fa-plus" aria-hidden="true"></span> neuen Benutzer anlegen
+                </a>
 
             </div>
 
@@ -75,22 +90,36 @@
         </div>
     </div>
 
-    <!--
     <div class="card sourcing-w-20 card-float m-2">
         <img class="card-img-top" src="../../images/Johanna_LinkedIn.jpg" alt="Card image cap">
         <div class="card-block">
             <div class="card-body">
-                <h5 class="card-title">Response Values</h5>
+                <h5 class="card-title">Recruiter</h5>
                 <p class="card-text">
-                    Response-Values positiv/negativ
+                    Recruiterübersicht &amp; neuen Recruiter anlegen
                 </p>
-                <a href="#!responseValues" class="btn btn-info">Statistik anzeigen</a>
-
+                <a href="#!recruiters" class="btn btn-info">Recruiterübersicht</a>
+                <a href="#!recruiter/new" class="btn btn-info mt-2"><span class="fas fa-plus" aria-hidden="true"></span> neuen Recruiter anlegen</a>
             </div>
-
         </div>
     </div>
 
+    <div class="card sourcing-w-20 card-float m-2">
+        <img class="card-img-top" src="../../images/LinkedIn_Esther_2.jpg" alt="Card image cap">
+        <div class="card-block">
+            <div class="card-body">
+                <h5 class="card-title">Jobkategorie &amp;-profile</h5>
+                <p class="card-text">
+                    Jobkategorien &amp;-profile
+                </p>
+                <a href="#!jobprofiles" class="btn btn-info"> Profilübersicht</a>
+                <a href="#!jobcategory/new" class="btn btn-info mt-2"><span class="fas fa-plus" aria-hidden="true"></span> neue Kategorie anlegen</a>
+                <a href="#!jobprofile/new" class="btn btn-info mt-2"><span class="fas fa-plus" aria-hidden="true"></span> neues Profil anlegen</a>
+            </div>
+        </div>
+    </div>
+
+    <!--
     <div class="card sourcing-w-20 card-float m-2">
         <img class="card-img-top" src="../../images/LinkedIn_Esther_2.jpg" alt="Card image cap">
         <div class="card-block">

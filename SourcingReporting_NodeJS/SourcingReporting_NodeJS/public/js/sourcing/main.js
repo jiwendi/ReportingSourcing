@@ -78,7 +78,7 @@ app.config(['$routeProvider',
                 controller: 'candidatesController'
             }).
             when('/candidate/new', {
-                templateUrl: 'templatescandidate//candidatenew.html',
+                templateUrl: 'templates/candidate/candidatenew.html',
                 controller: 'candidatenewController'
             }).
             when('/candidatedetail', {
@@ -176,6 +176,10 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/statistics/timeToMax.html',
                 controller: 'timeToMaxController'
             }).
+            when('/numbersAllSourcer', {
+                templateUrl: 'templates/statistics/numbersAllSourcer.html',
+                controller: 'numbersAllSourcerController'
+            }).
             //WIG
             when('/wigs', {
                 templateUrl: 'templates/wig/wigs.html',
@@ -212,6 +216,52 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/anonymizeCandidates.html',
                 controller: 'anonymizeCandidateController'
             }).
+            //Recruiter
+            when('/recruiters', {
+                templateUrl: 'templates/recruiter/recruiters.html',
+                controller: 'recruiterController'
+            }).
+            when('/recruiter/new', {
+                templateUrl: 'templates/recruiter/recruiternew.html',
+                controller: 'recruiterNewController'
+            }).
+            when('/recruiterdetail', {
+                templateUrl: 'templates/recruiter/recruiterdetail.html',
+                controller: 'recruiterDetailController'
+            }).
+            when('/recruiterdetail/:recruiterid', {
+                templateUrl: 'templates/recruiter/recruiterdetail.html',
+                controller: 'recruiterDetailController'
+            }).
+            //Jobs
+            when('/jobcategory/new', {
+                templateUrl: 'templates/jobprofiles/jobcategorynew.html',
+                controller: 'jobcategoryNewController'
+            }).
+            //when('/jobcategorydetail', {
+            //    templateUrl: 'templates/jobprofiles/jobcategoriesdetail.html',
+            //    controller: 'jobcategoriesDetailController'
+            //}).
+            //when('/jobcategorydetail/:jobcategoryid', {
+            //    templateUrl: 'templates/jobprofiles/jobcategoriesdetail.html',
+            //    controller: 'jobcategoriesDetailController'
+            //}).
+            when('/jobprofiles', {
+                templateUrl: 'templates/jobprofiles/jobprofiles.html',
+                controller: 'jobprofilesController'
+            }).
+            when('/jobprofile/new', {
+                templateUrl: 'templates/jobprofiles/jobprofilesnew.html',
+                controller: 'jobprofileNewController'
+            }).
+            //when('/jobprofiledetail', {
+            //    templateUrl: 'templates/jobprofiles/jobprofilesdetail.html',
+            //    controller: 'jobprofilesDetailController'
+            //}).
+            //when('/jobprofiledetail/:jobprofileid', {
+            //    templateUrl: 'templates/jobprofiles/jobprofilesdetail.html',
+            //    controller: 'jobprofilesDetailController'
+            //}).
             //Standard: Candidate List
             otherwise({ redirectTo: '/myDashboard' });
     }]);

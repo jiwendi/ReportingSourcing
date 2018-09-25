@@ -1,51 +1,61 @@
-﻿<h1 class="page-header"><span class="fas fa-user"></span>  {{candidate.firstname + ' ' + candidate.lastname}}</h1>
+﻿<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#!candidates">Kandidatenübersicht</a></li>
+        <li class="breadcrumb-item active" aria-current="page">neuen Kandidaten anlegen</li>
+    </ol>
+</nav>
+<h1 class="page-header"><span class="fas fa-user"></span>  {{candidate.firstname + ' ' + candidate.lastname}}</h1>
 
 <div class="candidateedit">
     <div class="card w-50 p-3 m-5 card-float">
         <div class="card-body mb-1">
             <!-- Kandidat Name -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Vorname</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Vorname</span>
+                </div>
                 <input type="text" class="form-control" id="candidateFirstname" ng-model="candidate.firstname" placeholder="Vorname" tabindex="1" />
             </div>
+
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Nachname</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Nachname</span>
+                </div>
                 <input type="text" class="form-control" id="candidateLastname" ng-model="candidate.lastname" placeholder="Nachname" tabindex="2" />
             </div>
 
             <!-- Kandidat Quelle -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Quelle</div>
-                <select class="custom-select wdselect" id="selectSource" ng-model="sourceSelect" ng-change="showSourceValue(sourceSelect)" tabindex="3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Quelle</span>
+                </div>
+                <select class="custom-select" id="selectSource" ng-model="sourceSelect" ng-change="showSourceValue(sourceSelect)" tabindex="3">
                     <option ng-repeat="s in sources" value="{{s.id}}">{{s.name}}</option>
                 </select>
             </div>
 
             <!-- Quelle Lang -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Quelle - Zusatz </div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Quelle - Zusatz</span>
+                </div>
                 <input type="text" class="form-control" id="source_text" ng-model="candidate.source_text" placeholder="Quelle Zusatz" tabindex="4" />
             </div>
 
             <!-- eRecruiter Nr -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">eRecruiter Nr</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">eRecruiter Nr </span>
+                </div>
                 <input type="text" class="form-control" id="eRNr" ng-model="candidate.eR" placeholder="#123456 " tabindex="5" />
             </div>
 
             <!-- Tabelle für Beobachten, Ansprache, Response-->
             <table class="table mb-1">
-                <thead>
-                    <tr>
-                        <th scope="col"> </th>
-                        <th scope="col"> </th>
-                    </tr>
-                </thead>
-                <tbody>
                     <tr>
                         <th scope="row">Beobachten</th>
                         <td>
-                            <select id="selectTracking" ng-model="tracking" class="wdselect" ng-init="tracking=0">
+                            <select id="selectTracking" ng-model="tracking" class="form-control sourcing-width-full" ng-init="tracking=0">
                                 <option ng-value="0">Nein</option>
                                 <option ng-value="1">Ja</option>
                             </select>
@@ -54,7 +64,7 @@
                     <tr>
                         <th scope="row">Ansprache</th>
                         <td>
-                            <select id="selectRequest" ng-model="request" class="wdselect" ng-init="request=1">
+                            <select id="selectRequest" ng-model="request" class="form-control sourcing-width-full" ng-init="request=1">
                                 <option ng-value="0">Nein</option>
                                 <option ng-value="1">Ja</option>
                             </select>
@@ -63,63 +73,97 @@
                     <tr>
                         <th scope="row">Response</th>
                         <td>
-                            <select id="selectResponse" ng-model="response" class="wdselect" ng-init="response=0">
+                            <select id="selectResponse" ng-model="response" class="form-control sourcing-width-full" ng-init="response=0">
                                 <option ng-value="0">Nein</option>
                                 <option ng-value="1">Ja - Positiv</option>
                                 <option ng-value="2">Ja - Negativ</option>
                             </select>
                         </td>
                     </tr>
-                </tbody>
             </table>
 
             <!-- Research -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Research</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Research</span>
+                </div>
                 <input type='date' class="form-control" id="research" name="research" ng-model="research" placeholder="dd.mm.yyyy" />
             </div>
 
             <!-- Telefonnotiz -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Telefon-Notiz</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Telefon-Notiz</span>
+                </div>
                 <input type='date' class="form-control" id="telnotice" name="telnotice" ng-model="telnotice" placeholder="dd.mm.yyyy" />
             </div>
 
             <!-- Intern -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Internes Gespräch</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Internes Gespräch</span>
+                </div>
                 <input type='date' class="form-control" id="intern" ng-model="intern" placeholder="dd.mm.yyyy" />
             </div>
 
             <!-- Extern -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Externes Gespräch</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Externes Gespräch</span>
+                </div>
                 <input type='date' class="form-control" id="extern" ng-model="extern" placeholder="dd.mm.yyyy" />
             </div>
 
             <!-- Besetzung -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Besetzung</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Besetzung</span>
+                </div>
                 <input type='date' class="form-control" id="hire" ng-model="hire" placeholder="dd.mm.yyyy" />
             </div>
 
-            <div class="input-group mb-1" ng-if="hire != null">
-                <div class="input-group-addon alert-info sourcing-width-150">Team</div>
-                <select class="custom-select wdselect" id="team" ng-model="teamSelect" ng-change="showSelectValue(teamSelect)">
+            <div class="input-group mb-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Team</span>
+                </div>
+                <select class="custom-select" id="team" ng-model="teamSelect" ng-change="showSelectValue(teamSelect)">
                     <!--ng-options="t.id as t.name group by t.city for t in teams track by t.id">-->
                     <option ng-repeat="t in teams" value="{{t.id}}">{{t.name}}</option>
                 </select>
             </div>
 
+            <div class="input-group mb-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Recruiter</span>
+                </div>
+                <select class="custom-select" id="recruiter" ng-model="recruiterSelect" ng-change="showSelectValue(recruiterSelect)">
+                    <option ng-repeat="r in recruiter" value="{{r.id}}">{{r.firstname + ' ' + r.lastname}}</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Job</span>
+                </div>
+                <select class="custom-select" id="job" ng-model="jobSelect" ng-change="showSelectValue(jobSelect)">
+                    <option ng-repeat="j in jobs" value="{{j.id}}">{{j.jobtitle}}</option>
+                </select>
+            </div>
+
+
             <!-- Remember Me -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">Remember Me</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Remember Me</span>
+                </div>
                 <input type='date' class="form-control" id="rememberme" ng-model="rememberme" placeholder="dd.mm.yyyy" />
             </div>
 
             <!-- Infos -->
             <div class="input-group mb-1">
-                <div class="input-group-addon alert-info sourcing-width-150">wichtige Infos</div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">wichtige Infos</span>
+                </div>
                 <textarea rows="5" class="form-control" id="candidateInfo" ng-model="candidate.info" placeholer="wichtige Infos"></textarea>
 
             </div>
