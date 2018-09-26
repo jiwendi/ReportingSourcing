@@ -13,8 +13,10 @@
         $scope.greetings = "Du solltest besser schlafen, ";
     } else if (currentTime > 4 && currentTime <= 6) {
         $scope.greetings = "Der frühe Vogel fängt den Wurm, ";
-    } else if (currentTime > 6 && currentTime < 11) {
+    } else if (currentTime > 6 && currentTime < 10) {
         $scope.greetings = "Guten Morgen ";
+    } else if (currentTime >= 10 && currentTime < 11) {
+        $scope.greetings = "Zeit um das Mittagessen zu organisieren, ";
     } else if (currentTime >= 11 && currentTime <= 13) {
         $scope.greetings = "Mahlzeit ";
     } else if (currentTime > 13 && currentTime <= 17) {

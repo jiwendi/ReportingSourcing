@@ -41,6 +41,8 @@
                 var from_hire = req.body.from_hire;
                 var to_hire = req.body.to_hire;
 
+                var showallcandidates = req.body.showAllCandidates;
+
                 if (filterSourcer != false) {
                     candidatequery = candidatequery + " WHERE candidate.sourcer = " + filterSourcer;
                     countCandidateQuery = countCandidateQuery + " WHERE sourcer = " + filterSourcer;
@@ -211,6 +213,18 @@
                         moreParameter = true;
                     }
                 }
+
+                if (showallcandidates != true) {
+                    if (moreParameter) {
+                        candidatequery = candidatequery + " AND candidate.sourcer = " + req.session.userid;
+                        countCandidateQuery = countCandidateQuery + " AND sourcer = " + req.session.userid;
+                    } else {
+                        candidatequery = candidatequery + " WHERE candidate.sourcer = " + req.session.userid;
+                        countCandidateQuery = countCandidateQuery + " WHERE sourcer = " + req.session.userid;
+                        moreParameter = true;
+                    }
+                } 
+                
 
                 candidatequery = candidatequery + " ORDER BY candidate.research";
                 db.query(candidatequery, parameter, function (candErr, candResult, candFields) {

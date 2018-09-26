@@ -2,9 +2,7 @@
     $scope.message = "";
     $scope.iserrmessage = false;
 
-    var showusercandidates = false;
-    var showTracking = false;
-    var showRequest = false;
+    var showallcandidates = false;
 
     var from_telnotice = false;
     var to_telnotice = false;
@@ -39,7 +37,7 @@
     $scope.resetFilter = function () {
         location.reload();
     };
-
+    
     $scope.filterCandidates = function () {
         if ($scope.filterSourcer != undefined) {
             if ($scope.filterSourcer > 0) {
@@ -117,6 +115,12 @@
             to_hire = toLocalDate($scope.to_hire, 2);
         }
 
+        if ($scope.showAllCandidates == undefined) {
+            showallcandidates = false;
+        }
+
+        showallcandidates = $scope.showAllCandidates;
+
         $http.get('candidates/getFilterData').then(function (response) {
             $scope.sourcer = response.data.data.sourcer;
             $scope.sources = response.data.data.sources;
@@ -129,7 +133,8 @@
         $http.post('candidates/showCandidateOverview', {
             from_telnotice: from_telnotice, to_telnotice: to_telnotice, from_intern: from_intern, to_intern: to_intern,
             from_extern: from_extern, to_extern: to_extern, from_research: from_research, to_research: to_research, from_hire: from_hire, to_hire: to_hire,
-            filterSourcer: filterSourcer, filterSource: filterSource, filterTracking: filterTracking, filterRequest: filterRequest, filterResponse: filterResponse, filterResponseValue: filterResponseValue
+            filterSourcer: filterSourcer, filterSource: filterSource, filterTracking: filterTracking, filterRequest: filterRequest, filterResponse: filterResponse,
+            filterResponseValue: filterResponseValue, showAllCandidates: showallcandidates
         }).then(function (response) {
             $scope.candidates = response.data.data.candidate;
             $scope.countCandidate = response.data.data.countCandidate;
@@ -137,7 +142,7 @@
             if (!response.data.success) {
                 alertify.alert(response.data.message);
             }
-        });   
+            }); 
     };
 
     $scope.filterCandidates();

@@ -25,10 +25,13 @@
             <div class="header btn btn-info"> Filter einblenden</div>
             <div class="content">
                 <br />
-
                 <div class="panel-heading pb-2 pt-2">
                     <div class="col border-thick">
                         <h5 class="filterTitle"><span class="fas fa-filter"></span> Kandidaten filtern:</h5>
+                        <div class="form-group alert alert-info w-25 ml-3">
+                            <input type="checkbox" id="showAllCandidates" ng-model="showAllCandidates" />
+                            <label for="exampleFormControlSelect1">alle Kandidaten anzeigen</label>
+                        </div>
                         <div class="row filter-panel pt-2 filter-panel border-thin">
                             <div class="form-group filterDivs alert alert-info">
                                 <label for="exampleFormControlSelect1">Sourcer</label>
