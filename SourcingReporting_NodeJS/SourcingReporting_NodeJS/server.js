@@ -9,6 +9,7 @@ var bp = require('body-parser');
 var session = require('express-session');
 var uuid = require('node-uuid');
 var moment = require('moment');
+var multer = require('multer');
 
 var tablesort = require('tablesort');
 
@@ -49,6 +50,33 @@ app.use(session({
     saveUninitialized: false,
     secret: '3009'
 }));
+
+//--------------------
+var Storage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, "./public/images/SourcingHelden");
+    },
+    filename: function (req, file, callback) {
+        callback(null, file.originalname);
+    }
+});
+
+var upload = multer({
+    storage: Storage
+}).single("photo");
+
+app.post('/uploadUserImg', function (req, res) {
+    upload(req, res, function (err) {
+        if (err) {
+            sendResponse(res, false, "Upload fehlgeschlagen");
+        } else {
+            sendResponse(res, true, "Upload okay");
+        }
+    });
+});
+
+
+//--------------------
 
 var sendResponse = function (res, suc, mes, data) {
     res.json({ success: suc, message: mes, data: data });

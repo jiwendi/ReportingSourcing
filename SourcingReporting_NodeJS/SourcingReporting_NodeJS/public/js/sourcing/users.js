@@ -53,7 +53,14 @@ app.controller('userdetailController', function ($scope, $http, $routeParams) {
     });
 
     $scope.update = function () {
-        alert(document.getElementById("heroImg").value);
+        $http.post('uploadUserImg').then(function (response) {
+            if (response.data.success) {
+                alertify.success(response.data.message);
+            } else {
+                alertify.error(response.data.message);
+            }
+        });
+
         $http.post('user/update', {
             userid: $scope.user.id, firstname: $scope.user.firstname, lastname: $scope.user.lastname, email: $scope.user.email, password: $scope.password, password2: $scope.password2, admin: $scope.user.admin, active: $scope.user.active, start: $scope.user.start, birthday: $scope.birthday, hero: $scope.user.hero, heroDescr: $scope.user.heroDescr
         }).then(function (response) {
