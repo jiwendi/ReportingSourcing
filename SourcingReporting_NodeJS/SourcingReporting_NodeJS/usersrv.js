@@ -24,6 +24,14 @@
             sendResponse(res, true);
         });
 
+        app.get('/users/getData', function (req, res) {
+            if (req.session.userid) {
+                var query = "SELECT id, firstname, lastname FROM users ORDER BY firstname";
+            } else {
+                sendResponse(res, false, "Keine Berechtigung");
+            }
+        });
+
         app.get('/users/showUserOverview', function (req, res) {
             if (req.session.userid) {
                 var userQuery = 'SELECT id, firstname, lastname, email, birthday, hero, start, ' +

@@ -398,8 +398,8 @@
                 }
 
                 if (suc) {
-                    db.query("UPDATE candidate SET firstname = ?, lastname = ?, source_text = ?, eR = ?, infos = ? WHERE id = ?",
-                        [req.body.firstname, req.body.lastname, req.body.source_text, req.body.eR, req.body.infos, req.body.id],
+                    db.query("UPDATE candidate SET firstname = ?, lastname = ?, source_text = ?, eR = ?, infos = ?, recruiter = ?, job = ? WHERE id = ?",
+                        [req.body.firstname, req.body.lastname, req.body.source_text, req.body.eR, req.body.infos, req.body.recruiter, req.body.job, req.body.id],
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim Aktualisieren des Kandidaten! \n" + err + "\n" + err.message;

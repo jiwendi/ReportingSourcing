@@ -25,6 +25,14 @@ app.controller('candidatenewERController', function ($scope, $http, $routeParams
         $scope.teams = response.data.data.teams;
     });
 
+    $http.get('recruiter/getData').then(function (response) {
+        $scope.recruiter = response.data.data;
+    });
+
+    $http.get('jobprofiles/getData').then(function (response) {
+        $scope.jobs = response.data.data;
+    });
+
     $scope.save = function () {
         $scope.message = "";
         $scope.hire = $('#hire').val();
@@ -46,7 +54,8 @@ app.controller('candidatenewERController', function ($scope, $http, $routeParams
 
         $http.post('candidateER/save', {
             firstname: $scope.candidate.firstname, lastname: $scope.candidate.lastname, eR: $scope.candidate.eR,
-            hire: $scope.hire, team: $('#team').val(), scoreboard: $scope.scoreboard
+            hire: $scope.hire, team: $('#team').val(), scoreboard: $scope.scoreboard,
+            recruiter: $scope.recruiterSelect, job: $scope.jobSelect
         }).then(function (response) {
             if (response.data.success) {
                 alertify.success(response.data.message);
@@ -62,6 +71,14 @@ app.controller('candidatenewERController', function ($scope, $http, $routeParams
 });
 
 app.controller('candidatedetailERController', function ($scope, $http, $routeParams) {
+
+    $http.get('recruiter/getData').then(function (response) {
+        $scope.recruiter = response.data.data;
+    });
+
+    $http.get('jobprofiles/getData').then(function (response) {
+        $scope.jobs = response.data.data;
+    });
 
     $http.post('candidateER/showDetailsForSelectedERCandidate', { candidateid: $routeParams.candidateid }).then(function (response) {
         $scope.candidate = response.data.data.candidate;
@@ -105,6 +122,51 @@ app.controller('candidatedetailERController', function ($scope, $http, $routePar
             var id = scoreboard.val();
             $scope.scoreboard = id;
         });
+
+        /**
+         * Recruiter
+         */
+        var recruiterData = $.map($scope.recruiter, function (recruiter) {
+            recruiter.text = recruiter.firstname + ' ' + recruiter.lastname;
+            if (recruiter.id == $scope.candidate.recruiter) {
+                recruiter.selected = true;
+            }
+            return recruiter;
+        });
+
+        $("#recruiterSelect").select2({
+            theme: "bootstrap"
+        });
+
+        var recruiterSelect = $('#recruiterSelect');
+        recruiterSelect.select2({ data: recruiterData });
+        recruiterSelect.on("select2:select", function (e) {
+            var id = recruiterSelect.val();
+            $scope.candidate.recruiter = id;
+        });
+
+        /**
+         * Job
+         */
+        var jobData = $.map($scope.jobs, function (job) {
+            job.text = job.firstname + ' ' + job.lastname;
+            if (job.id == $scope.candidate.job) {
+                job.selected = true;
+            }
+            return job;
+        });
+
+        $("#jobSelect").select2({
+            theme: "bootstrap"
+        });
+
+        var jobSelect = $('#jobSelect');
+        jobSelect.select2({ data: jobData });
+        jobSelect.on("select2:select", function (e) {
+            var id = jobSelect.val();
+            $scope.candidate.job = id;
+        });
+
     });
 
     $scope.update = function () {

@@ -83,9 +83,9 @@
                 }
 
                 if (suc) {
-                    var query = "INSERT INTO candidate_eR (firstname, lastname, eR, hire, team_id, scoreboard) " +
-                        "VALUES (?,?,?,?,?,?)";
-                    var parameters = [req.body.firstname, req.body.lastname, req.body.eR, req.body.hire, req.body.team, req.body.scoreboard];
+                    var query = "INSERT INTO candidate_eR (firstname, lastname, eR, hire, team_id, scoreboard, recruiter, job) " +
+                        "VALUES (?,?,?,?,?,?,?,?)";
+                    var parameters = [req.body.firstname, req.body.lastname, req.body.eR, req.body.hire, req.body.team, req.body.scoreboard, req.body.recruiter, req.body.job];
 
                     db.query(query, parameters, function (err, result, fields) {
                         if (err) {

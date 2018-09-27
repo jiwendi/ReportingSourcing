@@ -51,6 +51,24 @@
                 </select>
             </div>
 
+            <div class="input-group mb-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Recruiter</span>
+                </div>
+                <select class="custom-select" id="recruiter" ng-model="recruiterSelect" ng-change="updateRecruiter(recruiterSelect)">
+                    <option ng-repeat="r in recruiter" value="{{r.id}}">{{r.firstname + ' ' + r.lastname}}</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-1">
+                <div class="input-group-prepend">
+                    <span class="input-group-text alert-info sourcing-width-150" id="inputGroup-sizing-default">Job</span>
+                </div>
+                <select class="custom-select" id="job" ng-model="jobSelect" ng-change="updateJob(jobSelect)">
+                    <option ng-repeat="j in jobs" value="{{j.id}}">{{j.jobtitle}}</option>
+                </select>
+            </div>
+
             <!-- Scoreboard -->
             <div class="input-group mb-1">
                 <div class="input-group-prepend">
