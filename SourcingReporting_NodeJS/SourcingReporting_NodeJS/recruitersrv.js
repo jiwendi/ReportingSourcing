@@ -3,7 +3,7 @@
 
         app.get('/recruiter/getData', function (req, res) {
             if (req.session.userid) {
-                var query = "SELECT recruiter.id, recruiter.firstname, recruiter.lastname, recruiter.teamid, team.name FROM recruiter LEFT OUTER JOIN team ON team.id = recruiter.teamid ORDER BY team.id";
+                var query = "SELECT recruiter.id, recruiter.firstname, recruiter.lastname, recruiter.teamid, team.name FROM recruiter LEFT OUTER JOIN team ON team.id = recruiter.teamid ORDER BY team.name";
                 db.query(query, function (err, result, fields) {
                     if (err) {
                         sendResponse(res, false, "Fehler beim Abfragen der Recruiter-Daten! " + err);
@@ -19,7 +19,7 @@
         app.get('/recruiter/showRecruiterOverview', function (req, res) {
             if (req.session.userid) {
                 var userQuery = 'SELECT recruiter.id, recruiter.firstname, recruiter.lastname, recruiter.teamid, team.name ' +
-                    'FROM recruiter LEFT JOIN team ON team.id = recruiter.teamid ORDER BY recruiter.lastname';
+                    'FROM recruiter LEFT JOIN team ON team.id = recruiter.teamid ORDER BY recruiter.firstname';
                 db.query(userQuery, function (err, result, fields) {
                     if (err) {
                         sendResponse(res, false, "Fehler beim Abfragen der Daten! " + err);

@@ -119,22 +119,31 @@
         </div>
     </div>
 
-    <!--
     <div class="card sourcing-w-20 card-float m-2">
-        <img class="card-img-top" src="../../images/LinkedIn_Esther_2.jpg" alt="Card image cap">
+        <img class="card-img-top" src="../../images/LinkedIn_Kathi-Roman.jpg" alt="Card image cap">
         <div class="card-block">
             <div class="card-body">
-                <h5 class="card-title">Weekly Numbers</h5>
+                <h5 class="card-title">Heldenbild hochladen</h5>
                 <p class="card-text">
-                    Ansprachen und Telefonnotizen nach KW
+                    <form method="post" enctype="multipart/form-data" action="/uploadUserImg">
+                        <div class="input-group mb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Superhelden-Bild</span>
+                            </div>
+                            <input type="file" class="form-control sourcing-width-full" id="photo" name="photo" ng-model="photo"> 
+                            
+                        </div>
+                        <br />
+                        <input class="btn btn-info ml-2" type="submit" value="Bild hochladen!">
+                    </form>
                 </p>
-                <a href="#!weeklyNumbers" class="btn btn-info">Statistik anzeigen</a>
-
             </div>
 
         </div>
     </div>
 
+    <!--
+   
     <div class="card sourcing-w-20 card-float m-2">
         <img class="card-img-top" src="../../images/LinkedIn_Kathi-Roman.jpg" alt="Card image cap">
         <div class="card-block">

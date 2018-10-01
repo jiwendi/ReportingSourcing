@@ -69,7 +69,7 @@
                 }
 
                 if (suc) {
-                    var userDetailQuery = "SELECT id, firstname, lastname, email, active, admin, birthday, hero, start, heroDescr FROM users WHERE id=?";
+                    var userDetailQuery = "SELECT id, firstname, lastname, email, active, admin, birthday, hero, start, heroDescr, imageName FROM users WHERE id=?";
                     db.query(userDetailQuery, parameter, function (err, rows, fields) {
                         if (err) {
                             sendResponse(res, false, "Fehler beim Abfragen der User-Details! " + err);
@@ -84,6 +84,21 @@
                         }
                     });
                 }
+            } else {
+                sendResponse(res, false, "Kein Benutzer eingeloggt!");
+            }
+        });
+
+        app.get('/user/showAllUsers', function (req, res) {
+            if (req.session.userid) {
+                    var userDetailQuery = "SELECT id, firstname, lastname, hero, start, heroDescr, imageName FROM users WHERE active = 1 ORDER BY firstname";
+                    db.query(userDetailQuery, function (err, rows, fields) {
+                        if (err) {
+                            sendResponse(res, false, "Fehler beim Abfragen der Helden! " + err);
+                        } else {
+                                sendResponse(res, true, "", rows);
+                        }
+                    });
             } else {
                 sendResponse(res, false, "Kein Benutzer eingeloggt!");
             }
@@ -113,15 +128,15 @@
                     if (req.body.password == req.body.password2) {
                         suc = true;
 
-                        updateQuery = "UPDATE users SET firstname=?, lastname=?, email=?, password=?, admin=?, active=?, start=?, birthday=?, hero=?, heroDescr=? WHERE id=?";
-                        parameters = [req.body.firstname, req.body.lastname, req.body.email, req.body.password, req.body.admin, req.body.active, req.body.start, new Date(req.body.birthday), req.body.hero, req.body.heroDescr, userid];
+                        updateQuery = "UPDATE users SET firstname=?, lastname=?, email=?, password=?, admin=?, active=?, start=?, birthday=?, hero=?, heroDescr=?, imageName=? WHERE id=?";
+                        parameters = [req.body.firstname, req.body.lastname, req.body.email, req.body.password, req.body.admin, req.body.active, req.body.start, new Date(req.body.birthday), req.body.hero, req.body.heroDescr, req.body.imageName, userid];
                     } else {
                         message = "Passwörter müssen übereinstimmen";
                     }
                 } else {
                     suc = true;
-                    updateQuery = "UPDATE users SET firstname=?, lastname=?, email=?, admin=?, active=?, start=?, birthday=?, hero=?, heroDescr=? WHERE id=?";
-                    parameters = [req.body.firstname, req.body.lastname, req.body.email, req.body.admin, req.body.active, req.body.start, new Date(req.body.birthday), req.body.hero, req.body.heroDescr, userid];
+                    updateQuery = "UPDATE users SET firstname=?, lastname=?, email=?, admin=?, active=?, start=?, birthday=?, hero=?, heroDescr=?, imageName=? WHERE id=?";
+                    parameters = [req.body.firstname, req.body.lastname, req.body.email, req.body.admin, req.body.active, req.body.start, new Date(req.body.birthday), req.body.hero, req.body.heroDescr, req.body.imageName, userid];
                 }
 
                 if (suc) {
@@ -171,8 +186,8 @@
                             if (emrows.length > 0) {
                                 sendResponse(res, false, "Email schon vorhanden!");
                             } else {
-                                var insertUserQuery = "INSERT INTO users (firstname, lastname, email, password, admin, active, start, birthday, hero, heroDescr) VALUES (?,?,?,?,?,?,?,?,?,?)";
-                                var insertParameters = [req.body.firstname, req.body.lastname, req.body.email, req.body.password, req.body.admin == 1, req.body.active == 1, req.body.start, new Date(req.body.birthday), req.body.hero, req.body.heroDescr];
+                                var insertUserQuery = "INSERT INTO users (firstname, lastname, email, password, admin, active, start, birthday, hero, heroDescr, imageName) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                                var insertParameters = [req.body.firstname, req.body.lastname, req.body.email, req.body.password, req.body.admin == 1, req.body.active == 1, req.body.start, new Date(req.body.birthday), req.body.hero, req.body.heroDescr, req.body.imageName];
 
                                 db.query(insertUserQuery, insertParameters, function (err, result, fields) {
                                     if (err) {

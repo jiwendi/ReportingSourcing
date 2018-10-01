@@ -65,21 +65,25 @@
     
     <br />
     <br />
-    <table id="requests" class="table w-50 table-striped">
-        <thead class="thead-sourcing">
+    <h4>Besetzungen externer Kandidaten</h4>
+    <table id="requests" class="table w-75">
             <tr>
-                <th>Team</th>
-                <th>Besetzungen</th>
+                <td ng-repeat="t in teamHires"><b>{{t.name}}</b><br /><br />{{t.anzahl}}</td>
             </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="t in teamHires">
-                <td>{{t.name}}</td>
-                <td>{{t.anzahl}}</td>
-            </tr>
-        </tbody>
     </table>
-    
+    <h4>Besetzungen eR-Kandidaten</h4>
+    <table id="requests" class="table w-75">
+            <tr>
+                <td ng-repeat="t in teamHiresER"><b>{{t.name}}</b><br /><br />{{t.anzahl}}</td>
+            </tr>
+    </table>
+
+    <h4>Gesamt</h4>
+    <table id="requests" class="table w-75">
+        <tr>
+            <td ng-repeat="x in teamHires"><b>{{x.name}}</b><br /><br /><p ng-repeat="y in teamHiresER" ng-show="x.name == y.name">{{x.anzahl + y.anzahl}}</p></td>
+        </tr>
+    </table>
 </div>
 
 <script>

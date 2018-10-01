@@ -41,16 +41,6 @@
                     <td>{{n.intern}} <span class="badge badge-info" title="Mit {{n.intern / n.request * 100 | number:2}} % meiner Ansprachen wurde ein interes Gespräch geführt!">{{n.intern / n.request * 100 | number:2}} %</span> <span class="badge badge-warning" title="Mit {{n.intern / n.telnotice * 100 | number:2}} % meiner Telefonnotizen wurde ein interes Gespräch geführt!">{{n.intern / n.telnotice * 100 | number:2}} %</span></td>
                     <td>{{n.hire}} <span class="badge badge-info" title="{{n.hire / n * 100 | number:2}} % meiner Ansprachen wurden Besetzt!">{{n.hire / n.request * 100 | number:2}} %</span> <span class="badge badge-warning" title="{{n.hire / n.telnotice * 100 | number:2}} % meiner Telefonnotizen wurden Besetzt!">{{n.hire / n.telnotice * 100 | number:2}} %</span></td>
                 </tr>
-
-
-                <tr ng-repeat="c in candidates" ng-class="candidateNotOnScoreboard(c)">
-                    <td><a href="#!candidatedetail/{{c.id}}">{{c.firstname + ' ' + c.lastname}}</a></td>
-                    <td ng-if="c.eR != null"><a href="https://epunkt.erecruiter.net/Core/Applicant/Applicant.aspx?Id={{c.eR}}" target="_blank">#{{c.eR}}</a></td>
-                    <td ng-if="c.eR == null"> </td>
-                    <td class="sorttable_numeric" sorttable_customkey="{{c.hire | date: 'yyyyMMddHHmmss'}}">{{c.hire | date: 'dd.MM.yyyy'}}</td>
-                    <td>{{c.name}}</td>
-                    <td>{{c.scoreboard}}</td>
-                </tr>
             </tbody>
         </table>
     </div>

@@ -51,18 +51,19 @@ app.controller('userdetailController', function ($scope, $http, $routeParams) {
             
         }
     });
+    /*
+    $http.post('uploadUserImg').then(function (response) {
+        if (response.data.success) {
+            alertify.success(response.data.message);
+        } else {
+            alertify.error(response.data.message);
+        }
+    });
+    */
 
     $scope.update = function () {
-        $http.post('uploadUserImg').then(function (response) {
-            if (response.data.success) {
-                alertify.success(response.data.message);
-            } else {
-                alertify.error(response.data.message);
-            }
-        });
-
         $http.post('user/update', {
-            userid: $scope.user.id, firstname: $scope.user.firstname, lastname: $scope.user.lastname, email: $scope.user.email, password: $scope.password, password2: $scope.password2, admin: $scope.user.admin, active: $scope.user.active, start: $scope.user.start, birthday: $scope.birthday, hero: $scope.user.hero, heroDescr: $scope.user.heroDescr
+            userid: $scope.user.id, firstname: $scope.user.firstname, lastname: $scope.user.lastname, email: $scope.user.email, password: $scope.password, password2: $scope.password2, admin: $scope.user.admin, active: $scope.user.active, start: $scope.user.start, birthday: $scope.birthday, hero: $scope.user.hero, heroDescr: $scope.user.heroDescr, imageName: $scope.user.imageName
         }).then(function (response) {
             if (response.data.success) {
                 alertify.success(response.data.message);
@@ -76,12 +77,13 @@ app.controller('userdetailController', function ($scope, $http, $routeParams) {
 app.controller('usernewController', function ($scope, $http, $routeParams) {
     $scope.password = "";
     $scope.password2 = "";
-    $scope.user = { firstname: "", lastname: "", email: "", admin: 0, active: 1, birthday: new Date(), start: "", hero:"", heroDescr: "" };
+    $scope.user = { firstname: "", lastname: "", email: "", admin: 0, active: 1, birthday: new Date(), start: "", hero:"", heroDescr: "", imageName: "noImage.png" };
 
     $scope.save = function () {
         $http.post('user/save', {
             firstname: $scope.user.firstname, lastname: $scope.user.lastname, email: $scope.user.email, password: $scope.password, password2: $scope.password2,
-            admin: $scope.user.admin, active: $scope.user.active, start: $scope.user.start, birthday: $scope.user.birthday, hero: $scope.user.hero, heroDescr: $scope.user.heroDescr
+            admin: $scope.user.admin, active: $scope.user.active, start: $scope.user.start, birthday: $scope.user.birthday, hero: $scope.user.hero,
+            heroDescr: $scope.user.heroDescr, imageName: $scope.user.imageName
         }).then(function (response) {
             if (response.data.success) {
                 alertify.success(response.data.message);

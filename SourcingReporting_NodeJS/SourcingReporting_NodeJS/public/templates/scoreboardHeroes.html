@@ -1,13 +1,28 @@
 ﻿<h1 class="page-header"><span class="fas fa-user-ninja"></span> Scoreboard - Unsere Sourcer und ihre Helden</h1>
 
 <div class="panel panel-default float-overflow">
-    <div class="card card-float m-2" style="width: 18rem;">
+
+    <div class="card card-float m-2" style="width: 18rem;" ng-repeat="h in helden">
+        <div class="card-header alert-info">
+            <h5>{{h.hero}}</h5>
+        </div>
+        <img class="card-img-top heroes-cards" src="../images/SourcingHelden/{{h.imageName}}" alt="Card image cap">
+        <div class="card-body">
+            <p class="card-text"><h5>{{h.firstname}}</h5> <b>{{h.start}}</b><br>{{h.heroDescr}}</p>
+        </div>
+    </div>
+
+
+
+
+
+    <!--<div class="card card-float m-2" style="width: 18rem;">
         <div class="card-header alert-info">
             <h5>Wickie</h5>
         </div>
         <img class="card-img-top heroes-cards" src="../images/SourcingHelden/Wickie.png" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text"><h5>Michaela</h5> <b>Head of Sourcing seit Anbeginn der Sourcing-Zeit</b><br>Hey Hey Wickie – hey Wickie hey :) <br>Mein Superheld ist ein Kind – Wicki, der mit seinen genialen Ideen immer in letzter Minute die gesamte Mannschaft an Wikingern (Erwachsene) rettet. <br /><br/><i>Mich motiviert: das innere Kind, das kreativ und innovativ auch schwierigste Situationen löst.</i></p>
+            <p class="card-text"><h5>Michaela</h5> <b>Head of Sourcing seit Anbeginn der Sourcing-Zeit</b><br>Hey Hey Wickie – hey Wickie hey :) <br>Mein Superheld ist ein Kind – Wicki, der mit seinen genialen Ideen immer in letzter Minute die gesamte Mannschaft an Wikingern (Erwachsene) rettet. <br /><br /><i>Mich motiviert: das innere Kind, das kreativ und innovativ auch schwierigste Situationen löst.</i></p>
         </div>
     </div>
 
@@ -47,8 +62,9 @@
         </div>
         <img class="card-img-top heroes-cards" src="../images/SourcingHelden/Elsa.jpg" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text"><h5>Vanessa</h5> <b>Start: Juni 2017</b><br />Elsa ist die Eiskönigin und hat als solche die vollständige Kontrolle über kalte Temperaturen und Eis und Schnee. Mit ihren Fähigkeiten, kann Elsa zaubern und verschiedene Dinge aus Eis formen wie z. B. Schneestürme. Die meisten ihrer Kräfte werden über ihre Hände entfesselt und von ihren Gefühlen gesteuert. Sie lässt die Sicherheit des Schlosses hinter sich. Sie gibt ihren Status als Königin von Arendel auf, um sie selber zu werden und zeigt Mut. <i>Genau das ist es, was Elsa für mich zur Superheldin macht.</i>
-</p>
+            <p class="card-text">
+                <h5>Vanessa</h5> <b>Start: Juni 2017</b><br />Elsa ist die Eiskönigin und hat als solche die vollständige Kontrolle über kalte Temperaturen und Eis und Schnee. Mit ihren Fähigkeiten, kann Elsa zaubern und verschiedene Dinge aus Eis formen wie z. B. Schneestürme. Die meisten ihrer Kräfte werden über ihre Hände entfesselt und von ihren Gefühlen gesteuert. Sie lässt die Sicherheit des Schlosses hinter sich. Sie gibt ihren Status als Königin von Arendel auf, um sie selber zu werden und zeigt Mut. <i>Genau das ist es, was Elsa für mich zur Superheldin macht.</i>
+            </p>
         </div>
     </div>
 
@@ -88,8 +104,9 @@
         </div>
         <img class="card-img-top heroes-cards" src="../images/SourcingHelden/flash.jpg" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text"><h5>Christopher</h5> <b>Start: Jänner 2018</b><br />Flash alias Barry Allen erlangte seine übermenschliche Schnelligkeit durch einen Blitzschlag. Er kann sich nicht nur superschnell bewegen, sondern sich auch durch feste Gegenstände vibrieren und in der Zeit reisen. Sein blitzschnelles Denken macht ihn immun gegen telepathische Beeinflussung. Weiters besitzt er beschleunigte Selbstheilungskräfte, verschärfte Sinne und Reflexe sowie eine enorme Ausdauer und einen hohen Intellekt.<br /><i>Ich habe Flash gewählt, weil wir eine ähnliche Persönlichkeit haben: stets freundlich und hilfsbereit, haben einen eigenen Humor, kämpfen für das Gute, zeigen offen unsere Emotionen und handeln nach unserem Herzen.</i>
-</p>
+            <p class="card-text">
+                <h5>Christopher</h5> <b>Start: Jänner 2018</b><br />Flash alias Barry Allen erlangte seine übermenschliche Schnelligkeit durch einen Blitzschlag. Er kann sich nicht nur superschnell bewegen, sondern sich auch durch feste Gegenstände vibrieren und in der Zeit reisen. Sein blitzschnelles Denken macht ihn immun gegen telepathische Beeinflussung. Weiters besitzt er beschleunigte Selbstheilungskräfte, verschärfte Sinne und Reflexe sowie eine enorme Ausdauer und einen hohen Intellekt.<br /><i>Ich habe Flash gewählt, weil wir eine ähnliche Persönlichkeit haben: stets freundlich und hilfsbereit, haben einen eigenen Humor, kämpfen für das Gute, zeigen offen unsere Emotionen und handeln nach unserem Herzen.</i>
+            </p>
         </div>
     </div>
 
@@ -119,8 +136,9 @@
         </div>
         <img class="card-img-top heroes-cards" src="../images/SourcingHelden/SuperMario.jpg" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text"><h5>Simon</h5> <b>Start: Mai 2018</b><br /><i>It's-a me, Mario!</i><br />Mario ist eine- wenn nicht die- bekannteste Figur aus dem Nintendo-Universum und Namensgeber zahlreicher Videospiele. Als italienischer Klempner mit blauer Latzhose, rotem Hemd und roter Mütze hat es sich Mario zur Aufgabe gemacht seine Prinzessin Peach immer wieder auf's Neue aus den Fängen seines bösen Counterparts "Bowser" zu befreien. Ob unter Wasser oder an Land, Mario gibt niemals auf! <i>Aus diesem Grund, und weil er mich meine ganze Jugend begleitet hat, habe ich ihn gewählt. :)</i>
-</p>
+            <p class="card-text">
+                <h5>Simon</h5> <b>Start: Mai 2018</b><br /><i>It's-a me, Mario!</i><br />Mario ist eine- wenn nicht die- bekannteste Figur aus dem Nintendo-Universum und Namensgeber zahlreicher Videospiele. Als italienischer Klempner mit blauer Latzhose, rotem Hemd und roter Mütze hat es sich Mario zur Aufgabe gemacht seine Prinzessin Peach immer wieder auf's Neue aus den Fängen seines bösen Counterparts "Bowser" zu befreien. Ob unter Wasser oder an Land, Mario gibt niemals auf! <i>Aus diesem Grund, und weil er mich meine ganze Jugend begleitet hat, habe ich ihn gewählt. :)</i>
+            </p>
         </div>
     </div>
 
@@ -150,19 +168,21 @@
         </div>
         <img class="card-img-top heroes-cards" src="../images/SourcingHelden/pippi.png" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text"><h5>Lisa</h5> <b>Start: September 2018</b><br /><i>aka Pippilotta Viktualia Rollgardina Pfefferminz Efraimstochter Langstrumpf</i><br />Pippi ist das stärkste Mädchen der Welt und lebt in ihrer Villa Kunterbunt ein abenteuerliches, selbstbestimmtes Leben. Ihre WG besteht aus einen Äffchen (Herr Nilsson), einem Pferd (Kleiner Onkel) und ihren Teilzeit-Mitbewohnern Annika und Tommy. Rechnen ist zwar nicht ihre Stärke, dafür hat sie eine blühende Fantasie und begibt sich gerne auf Abenteuerjagd. Sie ist übrigens auch finanziell völlig unabhängig (und das mit 9 Jahren!), da sie ihren eigenen Koffer mit Goldmünzen besitzt.
-</p>
+            <p class="card-text">
+                <h5>Lisa</h5> <b>Start: September 2018</b><br /><i>aka Pippilotta Viktualia Rollgardina Pfefferminz Efraimstochter Langstrumpf</i><br />Pippi ist das stärkste Mädchen der Welt und lebt in ihrer Villa Kunterbunt ein abenteuerliches, selbstbestimmtes Leben. Ihre WG besteht aus einen Äffchen (Herr Nilsson), einem Pferd (Kleiner Onkel) und ihren Teilzeit-Mitbewohnern Annika und Tommy. Rechnen ist zwar nicht ihre Stärke, dafür hat sie eine blühende Fantasie und begibt sich gerne auf Abenteuerjagd. Sie ist übrigens auch finanziell völlig unabhängig (und das mit 9 Jahren!), da sie ihren eigenen Koffer mit Goldmünzen besitzt.
+            </p>
         </div>
     </div>
-        
-        <div class="card card-float m-2" style="width: 18rem;">
-            <div class="card-header alert-info">
-                <h5>Kim Possible</h5>
-            </div>
+
+    <div class="card card-float m-2" style="width: 18rem;">
+        <div class="card-header alert-info">
+            <h5>Kim Possible</h5>
+        </div>
         <img class="card-img-top heroes-cards" src="../images/SourcingHelden/kim-possible.jpg" alt="Card image cap">
         <div class="card-body">
-            <p class="card-text"><h5>Jana</h5> <b>Start: September 2018</b><br />Hey, ich bin‘s Kim Possible! Was steht an?<br />Mit meinen Freunden Ron und Wade rette ich die Welt vor Schurken aller Art. Denn für mich ist alles möglich! Wenn ich gegen meine Feinde Dr. Drakken, seine Komplizin Shego oder Monkey Fist kämpfe, ist das keine große Sache für mich! Denn das hätte doch jeder an meiner Stelle so gemacht und war gar nicht so schwer. <i>Bei Freunden ist meine „Geheimwaffe“ mein Schmollmund.</i>
-</p>
+            <p class="card-text">
+                <h5>Jana</h5> <b>Start: September 2018</b><br />Hey, ich bin‘s Kim Possible! Was steht an?<br />Mit meinen Freunden Ron und Wade rette ich die Welt vor Schurken aller Art. Denn für mich ist alles möglich! Wenn ich gegen meine Feinde Dr. Drakken, seine Komplizin Shego oder Monkey Fist kämpfe, ist das keine große Sache für mich! Denn das hätte doch jeder an meiner Stelle so gemacht und war gar nicht so schwer. <i>Bei Freunden ist meine „Geheimwaffe“ mein Schmollmund.</i>
+            </p>
         </div>
     </div>
 
@@ -183,7 +203,7 @@
         <div class="card-body">
             <p class="card-text"><h5>unbekannt</h5> <b>Start: 2018??</b><br /></p>
         </div>
-    </div>
+    </div>-->
 
     <!--
         <div class="card card-float m-2" style="width: 18rem;">

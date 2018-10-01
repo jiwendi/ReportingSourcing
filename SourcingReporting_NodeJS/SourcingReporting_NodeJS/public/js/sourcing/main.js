@@ -483,7 +483,10 @@ app.controller('sideBarController', function ($scope, $http) {
 });
 
 app.controller('sourcingHeroesController', function ($scope, $http) {
-    //leer
+
+    $http.get('user/showAllUsers').then(function (response) {
+        $scope.helden = response.data.data;
+    });
 });
 
 app.controller('settingsController', function ($scope, $http) {

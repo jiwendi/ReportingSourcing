@@ -91,22 +91,12 @@
             <textarea rows="5" class="form-control" id="heroDescr" ng-model="user.heroDescr" placeholder="Ich habe <> ausgewählt weil.../ <> zeichnen folgende Eigenschaften aus..."></textarea>
         </div>
 
-        <!--<div class="input-group mb-1">
+        <div class="input-group mb-1">
             <div class="input-group-prepend">
-                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Superhelden-Bild</span>
+                <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Superhelden-Bildname</span>
             </div>
-            <input type="file" class="form-control" id="photo" name="photo" ng-model="photo">
-        </div>-->
-
-        <form method="post" enctype="multipart/form-data" action="/uploadUserImg">
-            <div class="input-group mb-1">
-                <div class="input-group-prepend">
-                    <span class="input-group-text alert-info sourcing-width-250" id="inputGroup-sizing-default">Superhelden-Bild</span>
-                </div>
-                <input type="file" class="form-control" id="photo" name="photo" ng-model="photo"> <input class="btn btn-info ml-2" type="submit" value="Bild hochladen!">
-            </div>
-            
-        </form>
+            <input type="text" class="form-control" id="imageName" ng-model="user.imageName" placeholder="Bildname inkl. Dateiendung">
+        </div>
 
         <button type="button" class="btn btn-info mb-1" ng-click="update()"><span class="fas fa-user-check" aria-hidden="true"></span> Speichern</button>
     </div>

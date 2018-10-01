@@ -77,24 +77,48 @@
 
         app.post('/statistics/hiresByTeams', function (req, res) {
             var message = "";
-            var query = "SELECT COUNT(candidate.id) AS anzahl, candidate.team_id, team.name " +
-                "FROM candidate " +
-                "LEFT OUTER JOIN team ON team.id = candidate.team_id " +
-                "WHERE candidate.hire >= ? AND candidate.hire <= ? GROUP BY candidate.team_id";
-            var countQuery = "SELECT COUNT(candidate.id) AS anzahl FROM candidate WHERE candidate.hire >= ? AND candidate.hire <= ?";
+            //var query = "SELECT COUNT(candidate.id) AS anzahl, candidate.team_id, team.name " +
+            //    "FROM candidate " +
+            //    "JOIN team ON team.id = candidate.team_id " +
+            //    "WHERE candidate.hire >= ? AND candidate.hire <= ? GROUP BY candidate.team_id";
+            //var queryER = "SELECT COUNT(candidate_er.id) AS anzahl, candidate_er.team_id, team.name " +
+            //    "FROM candidate_er " +
+            //    "JOIN team ON team.id = candidate_er.team_id " +
+            //    "WHERE candidate_er.hire >= ? AND candidate_er.hire <= ? GROUP BY candidate_er.team_id";
+
+            var query = "SELECT team.id, team.name, count(hired) as anzahl " +
+                "FROM(SELECT team_id, " +
+                "CASE WHEN hire >= ? AND hire <= ? THEN 1 END hired  " +               
+                "FROM epunkt_sourcing.candidate " +
+                ") candidate RIGHT OUTER JOIN epunkt_sourcing.team ON team.id = candidate.team_id " +
+                "WHERE team.active = 1 " +
+                "GROUP BY team.id " +
+                "ORDER BY team.name";
+
+            var queryER = "SELECT team.id, team.name, count(hired) as anzahl " +
+                "FROM(SELECT team_id, " +
+                "CASE WHEN hire >= ? AND hire <= ? THEN 1 END hired  " +
+                "FROM epunkt_sourcing.candidate_er " +
+                ") candidate_er RIGHT OUTER JOIN epunkt_sourcing.team ON team.id = candidate_er.team_id " +
+                "WHERE team.active = 1 " +
+                "GROUP BY team.id " +
+                "ORDER BY team.name";
+
+
+            
             var parameter = [req.body.filterFrom, req.body.filterTo];
 
             db.query(query, parameter, function (err, rows, fields) {
                 if (err) {
                     sendResponse(res, false, "Fehler beim Abfragen der Besetzungsdaten aus der Datenbank! " + err);
                 } else {
-                    db.query(countQuery, parameter, function (countErr, countRows, countFields) {
-                        if (countErr) {
-                            sendResponse(res, false, "Fehler beim Abfragen der Besetzungsanzahl! " + countErr);
+                    db.query(queryER, parameter, function (erErr, erRows, erFields) {
+                        if (erErr) {
+                            sendResponse(res, false, "Fehler beim Abfragen der eR-Besetzungsdaten aus der Datenbank! " + erErr);
                         } else {
                             var result = {
                                 hiresInTeams: rows,
-                                countHires: countRows[0]
+                                hiresInTeamsER: erRows
                             };
                             sendResponse(res, true, "", result);
                         }

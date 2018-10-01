@@ -281,9 +281,6 @@ app.controller('statisticsOverallAnalysisByPlattformController', function ($scop
 });
 
 app.controller('statisticsHiresByTeamController', function ($scope, $http) {
-    //$scope.message = "";
-    //$scope.iserrmessage = false;
-
     $scope.filterFrom = FILTER_FROM;
     $scope.filterTo = FILTER_TO;
 
@@ -300,12 +297,13 @@ app.controller('statisticsHiresByTeamController', function ($scope, $http) {
             $scope.filterTo = toLocalDate($scope.to, 2);
         }
 
+        $http.get('teams/showTeamOverview').then(function (response) {
+            $scope.teams = response.data.data.teams;
+        });
+
         $http.post('statistics/hiresByTeams', { filterFrom: $scope.filterFrom, filterTo: $scope.filterTo }).then(function (response) {
             $scope.teamHires = response.data.data.hiresInTeams;
-            $scope.teamHiresER = response.data.data.eRHiresInTeams;
-            $scope.countHires = response.data.data.countHires;
-            //$scope.message = response.data.message;
-            //$scope.iserrmessage = !response.data.success;
+            $scope.teamHiresER = response.data.data.hiresInTeamsER;
 
             if (!response.data.success) {
                 alertify.set({ delay: 10000 });
@@ -313,30 +311,48 @@ app.controller('statisticsHiresByTeamController', function ($scope, $http) {
             }
 
             $scope.labels = [];
-            $scope.anzahl = [];
-            $scope.backgroundColorForChart = [];
-            $scope.borderColorForChart = [];
+            $scope.anzahl_extern = [];
+            $scope.anzahl_er = [];
 
-            for (var i = 0; i < $scope.teamHires.length; i++) {
+            $scope.backgroundColorForChart_extern = [];
+            $scope.borderColorForChart_extern = [];
+
+            $scope.backgroundColorForChart_er = [];
+            $scope.borderColorForChart_er = [];
+
+
+            for (var i = 0; i < $scope.teamHires.length; i++){
+
                 $scope.labels.push($scope.teamHires[i].name);
-                $scope.anzahl.push($scope.teamHires[i].anzahl);
+                $scope.backgroundColorForChart_er.push(getColor('red'));
+                $scope.borderColorForChart_er.push(getBorderColor('red'));
 
-                $scope.backgroundColorForChart.push(getColor('gray-dark'));
-                $scope.borderColorForChart.push(getBorderColor('gray-dark'));
+                $scope.backgroundColorForChart_extern.push(getColor('gray-dark'));
+                $scope.borderColorForChart_extern.push(getBorderColor('gray-dark'));
+
+                $scope.anzahl_extern.push($scope.teamHires[i].anzahl);  
+                $scope.anzahl_er.push($scope.teamHiresER[i].anzahl); 
             }
-
+            
             $("#ChartDiv").empty();
             $("#ChartDiv").append('<canvas id="myChart"></canvas>');
             var ctx = $("#myChart");
             var myChart = new Chart(ctx, {
                 type: 'bar',
+                yAxisID: 'y-axis-1',
                 data: {
                     labels: $scope.labels,
                     datasets: [{
-                        label: 'Anzahl',
-                        data: $scope.anzahl,
-                        backgroundColor: $scope.backgroundColorForChart,
-                        borderColor: $scope.borderColorForChart,
+                        label: 'externe Kandidaten',
+                        data: $scope.anzahl_extern,
+                        backgroundColor: $scope.backgroundColorForChart_extern,
+                        borderColor: $scope.borderColorForChart_extern,
+                        borderWidth: 1
+                    },{
+                        label: 'eR Kandidaten',
+                        data: $scope.anzahl_er,
+                        backgroundColor: $scope.backgroundColorForChart_er,
+                        borderColor: $scope.borderColorForChart_er,
                         borderWidth: 1
                     }]
                 },
@@ -344,13 +360,14 @@ app.controller('statisticsHiresByTeamController', function ($scope, $http) {
                     legend: {
                         position: 'bottom'
                     },
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
-                            }
-                        }]
-                    }
+                scales: {
+                    yAxes: [{
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        id: 'y-axis-1',
+                    }]
+                }
                 }
             });
         });
