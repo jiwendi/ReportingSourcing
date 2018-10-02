@@ -1217,7 +1217,7 @@ app.controller('timeToMaxController', function ($scope, $http) {
         $scope.timeToHire = response.data.data.timeToHire;
 
         if (!response.data.success) {
-            alertify.set({ delay: 10000 });
+            //alertify.set({ delay: 10000 });
             alertify.error(response.data.message);
         }
     });

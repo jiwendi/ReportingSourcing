@@ -520,7 +520,7 @@
     <Compile Include="public\js\imports\angular.min.js" />
     <Compile Include="public\js\imports\Chart.bundle.js" />
     <Compile Include="public\js\imports\Chart.js" />
-    <Compile Include="public\js\notInUse\collapse.js" />
+    <Compile Include="public\js\imports\collapse.js" />
     <Compile Include="public\js\imports\jquery-ui.min.js" />
     <Compile Include="public\js\notInUse\popper.min.js" />
     <Compile Include="public\js\imports\select2.full.min.js" />

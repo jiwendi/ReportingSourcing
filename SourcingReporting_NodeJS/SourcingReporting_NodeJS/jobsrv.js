@@ -3,7 +3,11 @@
 
         app.get('/jobprofiles/getData', function (req, res) {
             if (req.session.userid) {
-                var query = "SELECT jobprofiles.id, jobprofiles.jobtitle, jobprofiles.kategorie, jobkategorien.titel FROM jobprofiles LEFT OUTER JOIN jobkategorien ON jobprofiles.kategorie = jobkategorien.id";
+                var query = "SELECT jobprofiles.id, jobprofiles.jobtitle, jobprofiles.kategorie, jobkategorien.titel " +
+                    "FROM jobprofiles " +
+                    "LEFT OUTER JOIN jobkategorien ON jobprofiles.kategorie = jobkategorien.id " +
+                    "ORDER BY jobprofiles.jobtitle";
+
                 db.query(query, function (err, result, fields) {
                     if (err) {
                         sendResponse(res, false, "Fehler beim Abfragen der Recruiter-Daten! " + err);
@@ -19,7 +23,7 @@
         app.get('/jobprofiles/showJobOverview', function (req, res) {
             if (req.session.userid) {
                 var jobprofileQuery = 'SELECT jobprofiles.id, jobprofiles.jobtitle, jobprofiles.kategorie, jobkategorien.titel ' +
-                    'FROM jobprofiles LEFT OUTER JOIN jobkategorien ON jobprofiles.kategorie = jobkategorien.id ORDER BY jobprofiles.kategorie';
+                    'FROM jobprofiles LEFT OUTER JOIN jobkategorien ON jobprofiles.kategorie = jobkategorien.id ORDER BY jobprofiles.jobtitle';
                 var jobkategoryQuery = 'SELECT id, titel FROM jobkategorien ORDER BY titel';
                 db.query(jobprofileQuery, function (errP, resultP, fieldsP) {
                     if (errP) {
