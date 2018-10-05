@@ -320,9 +320,18 @@
                 }
 
                 if (suc) {
-                    var query = "INSERT INTO candidate (firstname, lastname, source_id, source_text, eR, tracking, request, response, " +
-                        "response_value, telnotice, intern, extern, hire, team_id, research, scoreboard, sourcer, infos, rememberme, recruiter, job) " +
-                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0,?,?,?,?,?)";
+                    var query = "INSERT INTO candidate (firstname, lastname, source_id, source_text, " +
+                        "eR, tracking, request, response, " +
+                        "response_value, telnotice, intern, extern, " +
+                        "hire, team_id, research, scoreboard, " +
+                        "sourcer, infos, rememberme, recruiter, " +
+                        "job) " +
+                        "VALUES (?,?,?,?," +
+                        "?,?,?,?," +
+                        "?,?,?,?," +
+                        "?,?,?,0," +
+                        "?,?,?,?," +
+                        "?)";
 
                     var response_Value_afterCheck;
 
@@ -332,9 +341,12 @@
                         response_Value_afterCheck = req.body.responseVal;
                     }
 
-                    var parameters = [req.body.firstname, req.body.lastname, req.body.source, req.body.source_text, req.body.eR,
-                    req.body.tracking, req.body.request, req.body.response, response_Value_afterCheck, req.body.telnotice, req.body.intern,
-                    req.body.extern, req.body.hire, req.body.team, req.body.research, req.session.userid, req.body.infos, req.body.rememberme, req.body.recruiter, req.body.job];
+                    var parameters = [req.body.firstname, req.body.lastname, req.body.source, req.body.source_text,
+                        req.body.eR, req.body.tracking, req.body.request, req.body.response,
+                        response_Value_afterCheck, req.body.telnotice, req.body.intern, req.body.extern,
+                        req.body.hire, req.body.team, req.body.research,
+                        req.session.userid, req.body.infos, req.body.rememberme, req.body.recruiter,
+                        req.body.job];
 
                     db.query(query, parameters, function (err, result, fields) {
                         if (err) {
@@ -909,6 +921,7 @@
                 }
 
                 if (suc) {
+
                     db.query("UPDATE candidate SET tracking = ?, request = ?, response = ?, response_value = ? WHERE id = ?",
                         parameter,
                         function (err, result, fields) {

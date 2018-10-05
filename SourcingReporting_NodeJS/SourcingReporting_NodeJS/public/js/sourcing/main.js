@@ -400,7 +400,8 @@ app.controller('dashboardController', function ($scope, $http) {
 
 app.controller('navBarController', function ($scope, $http) {
 
-    $scope.weeklyTelnoticeToDo = WEEKLY_GOAL_TELNOTICE * ACTIVE_SOURCER;
+    //$scope.weeklyTelnoticeToDo = WEEKLY_GOAL_TELNOTICE * ACTIVE_SOURCER;
+    $scope.weeklyTelnoticeToDo = 70;
     $scope.weeklyRequestsToDo = WEEKLY_GOAL_REQUESTS * ACTIVE_SOURCER;
 
     $scope.classTN = "false";

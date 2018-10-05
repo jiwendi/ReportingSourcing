@@ -310,7 +310,13 @@ app.controller('candidatenewController', function ($scope, $http, $routeParams) 
         } else {
             $scope.team = $('#team').val();
         }
-
+        //Workaround - why does this doesn't work on the server?
+        if ($scope.team >= 1 && $scope.team <= 10000) {
+            //nix
+        } else {
+            $scope.team = null;
+        }
+        
         if ($('#rememberme').val() == '') {
             $scope.rememberme = null;
         } else {
