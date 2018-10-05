@@ -3,7 +3,7 @@
 
         app.get('/recruiter/getData', function (req, res) {
             if (req.session.userid) {
-                var query = "SELECT recruiter.id, recruiter.firstname, recruiter.lastname, recruiter.teamid, team.name FROM recruiter LEFT OUTER JOIN team ON team.id = recruiter.teamid ORDER BY team.name";
+                var query = "SELECT recruiter.id, recruiter.firstname, recruiter.lastname, recruiter.teamid, team.name FROM recruiter LEFT OUTER JOIN team ON team.id = recruiter.teamid ORDER BY recruiter.firstname";
                 db.query(query, function (err, result, fields) {
                     if (err) {
                         sendResponse(res, false, "Fehler beim Abfragen der Recruiter-Daten! " + err);

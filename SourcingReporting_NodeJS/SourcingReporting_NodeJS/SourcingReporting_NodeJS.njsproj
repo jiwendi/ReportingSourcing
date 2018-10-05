@@ -521,8 +521,9 @@
     <Compile Include="public\js\imports\Chart.bundle.js" />
     <Compile Include="public\js\imports\Chart.js" />
     <Compile Include="public\js\imports\collapse.js" />
+    <Compile Include="public\js\imports\holder.min.js" />
     <Compile Include="public\js\imports\jquery-ui.min.js" />
-    <Compile Include="public\js\notInUse\popper.min.js" />
+    <Compile Include="public\js\imports\popper.min.js" />
     <Compile Include="public\js\imports\select2.full.min.js" />
     <Compile Include="public\js\notInUse\sorttable_v1.js" />
     <Compile Include="public\js\imports\sorttable_v2.js" />
@@ -569,7 +570,7 @@
     <Compile Include="public\js\imports\tablesort.date.min.js" />
     <Compile Include="public\js\imports\tablesort.min.js" />
     <Compile Include="public\js\imports\tablesort.number.min.js" />
-    <Compile Include="public\js\notInUse\transition.js" />
+    <Compile Include="public\js\imports\transition.js" />
     <Compile Include="public\templates\jobprofiles\jobcategorynew.html">
       <SubType>Code</SubType>
     </Compile>

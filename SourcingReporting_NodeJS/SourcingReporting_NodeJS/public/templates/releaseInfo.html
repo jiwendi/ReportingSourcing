@@ -8,46 +8,53 @@ Diese Webanwendung soll das Einpflegen, Verwalten und Analysieren der Sourcing-K
         <div class="card" style="width: 40rem;">
             <img class="card-img-top" src="../images/LinkedIn_Kathi-Roman.jpg" alt="Card image cap">
             <div class="card-body">
-                <h4 class="card-title">Release 1.5 - 20.07.2018</h4>
-                <p class="card-text">Neues in Version 1.5:</p>
+                <h4 class="card-title">Release 1.6 - 05.10.2018</h4>
+                <p class="card-text">Neues in Version 1.6:</p>
                 <ul>
-                    <li><strong>Kandidatensuche</strong> in der Nav-Bar rechts oben hinzugefügt</li>
+                    <li><strong>Kandidatensuche</strong> in der Nav-Bar rechts oben</li>
                     <ul>
-                        <li>Suche nach Vorname ODER Nachname</li>
-                        <li>Suche nach eR-Nummer</li>
-                        <li>Suche nach Quelle-Zusatz (Link)</li>
+                        <li>Suche nach Vorname UND Nachname</li>
+                        <li>Suche nach eR-Nummer (war bereits in v1.5 verfügbar)</li>
+                        <li>Suche nach Quelle-Zusatz (Link) (war bereits in v1.5 verfügbar)</li>
                     </ul>
-                    <li><strong>Alertify</strong> als Framework für die Alerts (Benachrichtigungen) eingefügt</li>
+                    <li><strong>Kandidatenübersicht</strong> </li>
+                        <ul>
+                            <li>zeigt nun standardmäßig nur die eigenen Kandidaten (wird somit schneller geladen)</li>
+                            <li>es kann nach allen Kandidaten gefiltert werden</li>
+                            <li><i>BUGFIX</i> "Ansprache"-Filter ja/nein Fehler im Backend behoben</li>
+                        </ul>
+                    <li><strong>Besetzungsliste</strong> kann nun nach Team gefiltert werden</li>
+                    <li>Infos von Kandidaten werden auf der Kandidatenübersicht, der RememberMe-Liste und im persönlichen Dashboard direkt angezeigt</li>
+                    <li>Kandidatendetails: Vorauswahl ohne "hilfsfeld" möglich - jedoch <strong>noch inkl. BUG</strong>: Dropdown beinhaltet alles 2x (Sourcer, Teams, Quellen) -> ich arbeite am BUGFIX</li>
+                    <li>weitere Zahlen am <strong>persönlichen Dashboard</strong>, inkl. Beschreibung bei Mouse-Over</li>
+                    <li>Benutzer</li>
                     <ul>
-                        <li>Benachrichtigungen werden nun rechts unten übereinander gestaffelt angezeigt, statt rechts oben (übereinander)</li>
-                        <li>Benachrichtigungen werden nun nach einer gewissen Zeit automatisch ausgeblendet (und bleiben nicht ewig stehen)</li>
+                        <li>neue Eingabefelder: Hero, Geburtstag, bei epunkt seit, Herobeschreibung</li>
+                        <li>Sourcing-Hero Übersicht wird nun direkt aus der Datenbank geladen und nicht "hardcoded"</li>
                     </ul>
-                    <li><strong>Einstellungen</strong> wurden ins Menü übernommen</li>
+                    <li><strong>Recruiter</strong> hinzugefügt</li>
                     <ul>
-                        <li>Menü wird dadurch übersichtlicher</li>
-                        <li>Teams, Quellen, Benutzer in Einstellungen verschoben</li>
-                        <li>Kandidaten anonymisieren (DSGVO) in Einstellungen hinzugefügt - jedoch noch ohne Backend-Funktionalität</li>
+                        <li>Übersichtsseite</li>
+                        <li>neuen Recruiter hinzufügen</li>
+                        <li>Recruiter zu Kandidaten zuweisen (wer hat diesen Kandidaten vermittelt)</li>
+                        <li>BUG: Anzeige in Dropdown --> <strong>BUGFIX</strong> ist in arbeit</li>
                     </ul>
-                    <li><strong>Responsive Design</strong> begonnen - Darstellung auf hp epunkt Laptops angepasst</li>
-                    <li><strong>Time-To-Max Listen</strong> hinzugefügt (für Fehlersuche bei Time-To (6M) Anzeige)</li>
-                    <li><strong>BUGFIX: RememberMe-Liste</strong> kann nun nach Datum sortiert werden</li>
-                    <li><strong>BUGFIX: Besetzungs-Liste</strong> kann nun nach Datum sortiert werden</li>
-                    <li><strong>myDashboard</strong></li>
+                    <li><strong>Jobs (Kategorien und Profile)</strong> hinzugefügt</li>
                     <ul>
-                        <li>myRememberMe-Liste: Anzeige aller Kandidaten <strong>bis zum aktuellen Monat</strong>, bisher wurde nur das aktuelle Monat angezeigt; nun werden auch die "älteren" RememberMe angezeigt</li>
-                        <li>Übersicht meiner Telefonnotizen dieser Woche</li>
-                        <li>Anzeige von Ansprache/nicht angesprochen (meine Woche)</li>
-                        <li>Anzeige von Response (inkl. persönlicher Response Rate), Aufteilung auf positive und negative Response (inkl. %-Angabe)</li>
+                        <li>Übersichtsseite</li>
+                        <li>neue Kategorie/Profil hinzufügen</li>
+                        <li>Job zu Kandidaten zuweisen (als was wurde dieser Kandidaten vermittelt)</li>
+                        <li>BUG: Anzeige in Dropdown --> <strong>BUGFIX</strong> ist in arbeit</li>
                     </ul>
-                    <li><strong>Sourcing-Heros</strong> Übersicht hinzugefügt</li>
-                    <li><strong>Enter bei Login</strong> funktioniert nun</li>
+                    <li><strong>Breadcrumbs</strong> hinzugefügt - zur besseren Navigation</li>
+                    <li><strong>Statistik</strong></li>
+                    <ul>
+                        <li>numbersAllSourcer - Statistiken von der persönlichen Startseite zu den Convertion Rates je Sourcer für alle sichtbar</li>
+                        <li>Besetzungen je Team - auch eR-Kandidaten werden nun in der Statistik als 2.Dataset dargestellt</li>
+                        <li>Time-To-Max Listen - Fehler behoben dass nur Kandidaten der letzten 6 Monate kontrolliert wurden - nun werden alle 1970er Kandidaten (falls vorhanden) angezeigt</li>
+                    </ul>
+                    <li><strong>Bootstrap CSS Update</strong> von Version 3 auf Version 4 -> es sah seeeehr schlecht aus zu beginn, wollte schon wieder downgraden, hab' mich aber durchgebissen</li>
                 </ul>
-
-                <h5>Easter Egg 1</h5>
-                <p>Aufgedeckt von <strong>Julia</strong>: Ansprache auf myDashboard ändert sich je Tageszeit</p>
-
-                <h5>Easter Egg 2</h5>
-                <p>Noch nicht aufgedeckt...</p>
             </div>
         </div>
     </div>

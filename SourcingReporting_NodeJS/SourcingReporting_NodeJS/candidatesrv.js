@@ -73,11 +73,11 @@
 
                 if (filterRequest != false) {
                     if (moreParameter) {
-                        candidatequery = candidatequery + " AND candidate.request = " + filterTracking;
-                        countCandidateQuery = countCandidateQuery + " AND request = " + filterTracking;
+                        candidatequery = candidatequery + " AND candidate.request = " + filterRequest;
+                        countCandidateQuery = countCandidateQuery + " AND request = " + filterRequest;
                     } else {
-                        candidatequery = candidatequery + " WHERE candidate.request = " + filterTracking;
-                        countCandidateQuery = countCandidateQuery + " WHERE request = " + filterTracking;
+                        candidatequery = candidatequery + " WHERE candidate.request = " + filterRequest;
+                        countCandidateQuery = countCandidateQuery + " WHERE request = " + filterRequest;
                         moreParameter = true;
                     }
                 }

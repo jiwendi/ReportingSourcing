@@ -78,6 +78,10 @@
                     message = "Bitte Besetzungs-Datum eingeben! - " + req.body.hire;
                 } else if (req.body.team == null || req.body.team == "") {
                     message = "Bitte Team auswählen! - " + req.body.team;
+                } else if (req.body.recruiter == null || req.body.recruiter == "") {
+                    message = "Bitte Recruiter auswählen! - " + req.body.recruiter;
+                } else if (req.body.job == null || req.body.job == "") {
+                    message = "Bitte Job auswählen! - " + req.body.job;
                 } else {
                     suc = true;
                 }
@@ -149,8 +153,9 @@
                 }
 
                 if (suc) {
-                    db.query("UPDATE candidate_eR SET firstname = ?, lastname = ?, eR = ?, team_id = ?, hire = ?, scoreboard = ? WHERE id = ?",
-                        [req.body.firstname, req.body.lastname, req.body.eR, req.body.team, new Date(req.body.hire), req.body.scoreboard, req.body.id],
+                    console.log(req.body.scoreboard);
+                    db.query("UPDATE candidate_eR SET firstname = ?, lastname = ?, eR = ?, team_id = ?, hire = ?, scoreboard = ?, recruiter=?, job=? WHERE id = ?",
+                        [req.body.firstname, req.body.lastname, req.body.eR, req.body.team, new Date(req.body.hire), req.body.scoreboard, req.body.recruiter, req.body.job, req.body.id],
                         function (err, result, fields) {
                             if (err) {
                                 message = "Fehler beim Aktualisieren des eR-Kandidaten! " + err;
@@ -172,7 +177,8 @@
                 var parameter = [req.body.candidateid];
                 var candidatequery = "SELECT candidate_er.id, candidate_er.firstname, candidate_er.lastname, candidate_er.eR, team.name as teamname, candidate_er.scoreboard, " +
                     "CASE WHEN candidate_er.scoreboard = 1 THEN 'Ja' ELSE 'Nein' END AS scoreboardText, " +
-                    "CASE WHEN candidate_er.hire = '0000-00-00' THEN null ELSE candidate_er.hire END AS hire " +
+                    "CASE WHEN candidate_er.hire = '0000-00-00' THEN null ELSE candidate_er.hire END AS hire, " +
+                    "candidate_er.recruiter, candidate_er.job "+
                     "FROM candidate_er " +
                     "LEFT JOIN team ON team.id = candidate_er.team_id " +
                     "WHERE candidate_eR.id = ?";
